@@ -1,0 +1,795 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1CA3DDF647D77A8DAD829BC7 /* Pods_ClickMe_ClickMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DECAF67D3A100A044C1CE85A /* Pods_ClickMe_ClickMeUITests.framework */; };
+		667EBEC37EF047021F3C64C1 /* Pods_ClickMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B096689CA93AFFDF059A141E /* Pods_ClickMe.framework */; };
+		6BAC22E226CD876E4A70AC4C /* Pods_ClickMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 953EFE63C1B45C26F2F6A760 /* Pods_ClickMeTests.framework */; };
+		7237A5882B42E4F800ABF10F /* GetStartedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A5872B42E4F800ABF10F /* GetStartedView.swift */; };
+		7237A58A2B42E53900ABF10F /* GetStartedSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A5892B42E53900ABF10F /* GetStartedSteps.swift */; };
+		7237A58C2B42E5AD00ABF10F /* Mood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A58B2B42E5AD00ABF10F /* Mood.swift */; };
+		7237A58E2B43016100ABF10F /* CMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A58D2B43016100ABF10F /* CMButton.swift */; };
+		7237A5902B437BFA00ABF10F /* GetStartedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A58F2B437BFA00ABF10F /* GetStartedViewModel.swift */; };
+		7237A5932B437E6300ABF10F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A5922B437E6300ABF10F /* SplashView.swift */; };
+		725B99EC2B4169220066D240 /* ClickMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B99EB2B4169220066D240 /* ClickMeApp.swift */; };
+		725B99F02B4169250066D240 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 725B99EF2B4169250066D240 /* Assets.xcassets */; };
+		725B99F32B4169250066D240 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 725B99F22B4169250066D240 /* Preview Assets.xcassets */; };
+		725B99FD2B4169250066D240 /* ClickMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B99FC2B4169250066D240 /* ClickMeTests.swift */; };
+		725B9A072B4169250066D240 /* ClickMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B9A062B4169250066D240 /* ClickMeUITests.swift */; };
+		725B9A092B4169250066D240 /* ClickMeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B9A082B4169250066D240 /* ClickMeUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		725B99F92B4169250066D240 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 725B99E02B4169220066D240 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 725B99E72B4169220066D240;
+			remoteInfo = ClickMe;
+		};
+		725B9A032B4169250066D240 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 725B99E02B4169220066D240 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 725B99E72B4169220066D240;
+			remoteInfo = ClickMe;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		101820DC3C471C3A464C6BF8 /* Pods-ClickMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMeTests.release.xcconfig"; path = "Target Support Files/Pods-ClickMeTests/Pods-ClickMeTests.release.xcconfig"; sourceTree = "<group>"; };
+		2C53F0EEE1B86E33E645A4EC /* Pods-ClickMe-ClickMeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMe-ClickMeUITests.release.xcconfig"; path = "Target Support Files/Pods-ClickMe-ClickMeUITests/Pods-ClickMe-ClickMeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		46AC286571B3594AE493BED8 /* Pods-ClickMe-ClickMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMe-ClickMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-ClickMe-ClickMeUITests/Pods-ClickMe-ClickMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4D9ED630657C498C5DEC4B3B /* Pods-ClickMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMe.release.xcconfig"; path = "Target Support Files/Pods-ClickMe/Pods-ClickMe.release.xcconfig"; sourceTree = "<group>"; };
+		7237A5872B42E4F800ABF10F /* GetStartedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedView.swift; sourceTree = "<group>"; };
+		7237A5892B42E53900ABF10F /* GetStartedSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedSteps.swift; sourceTree = "<group>"; };
+		7237A58B2B42E5AD00ABF10F /* Mood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mood.swift; sourceTree = "<group>"; };
+		7237A58D2B43016100ABF10F /* CMButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CMButton.swift; sourceTree = "<group>"; };
+		7237A58F2B437BFA00ABF10F /* GetStartedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedViewModel.swift; sourceTree = "<group>"; };
+		7237A5922B437E6300ABF10F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		725B99E82B4169220066D240 /* ClickMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClickMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		725B99EB2B4169220066D240 /* ClickMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMeApp.swift; sourceTree = "<group>"; };
+		725B99EF2B4169250066D240 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		725B99F22B4169250066D240 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		725B99F82B4169250066D240 /* ClickMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClickMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		725B99FC2B4169250066D240 /* ClickMeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMeTests.swift; sourceTree = "<group>"; };
+		725B9A022B4169250066D240 /* ClickMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClickMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		725B9A062B4169250066D240 /* ClickMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMeUITests.swift; sourceTree = "<group>"; };
+		725B9A082B4169250066D240 /* ClickMeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		7C52A32A88EB630420360EC8 /* Pods-ClickMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMeTests.debug.xcconfig"; path = "Target Support Files/Pods-ClickMeTests/Pods-ClickMeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		953EFE63C1B45C26F2F6A760 /* Pods_ClickMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClickMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B096689CA93AFFDF059A141E /* Pods_ClickMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClickMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DECAF67D3A100A044C1CE85A /* Pods_ClickMe_ClickMeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClickMe_ClickMeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F334BA7C04E62B2FA7ABF7D5 /* Pods-ClickMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMe.debug.xcconfig"; path = "Target Support Files/Pods-ClickMe/Pods-ClickMe.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		725B99E52B4169220066D240 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				667EBEC37EF047021F3C64C1 /* Pods_ClickMe.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		725B99F52B4169250066D240 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BAC22E226CD876E4A70AC4C /* Pods_ClickMeTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		725B99FF2B4169250066D240 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CA3DDF647D77A8DAD829BC7 /* Pods_ClickMe_ClickMeUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		41226BDC7D7EC3B884EF3429 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B096689CA93AFFDF059A141E /* Pods_ClickMe.framework */,
+				DECAF67D3A100A044C1CE85A /* Pods_ClickMe_ClickMeUITests.framework */,
+				953EFE63C1B45C26F2F6A760 /* Pods_ClickMeTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7237A5812B42E47B00ABF10F /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				7237A5912B437E5400ABF10F /* Splash */,
+				7237A5862B42E4D600ABF10F /* GetStarted */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		7237A5822B42E49300ABF10F /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		7237A5832B42E4A000ABF10F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7237A58D2B43016100ABF10F /* CMButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7237A5842B42E4AE00ABF10F /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		7237A5852B42E4B800ABF10F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7237A5892B42E53900ABF10F /* GetStartedSteps.swift */,
+				7237A58B2B42E5AD00ABF10F /* Mood.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7237A5862B42E4D600ABF10F /* GetStarted */ = {
+			isa = PBXGroup;
+			children = (
+				7237A5872B42E4F800ABF10F /* GetStartedView.swift */,
+				7237A58F2B437BFA00ABF10F /* GetStartedViewModel.swift */,
+			);
+			path = GetStarted;
+			sourceTree = "<group>";
+		};
+		7237A5912B437E5400ABF10F /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				7237A5922B437E6300ABF10F /* SplashView.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		725B99DF2B4169220066D240 = {
+			isa = PBXGroup;
+			children = (
+				725B99EA2B4169220066D240 /* ClickMe */,
+				725B99FB2B4169250066D240 /* ClickMeTests */,
+				725B9A052B4169250066D240 /* ClickMeUITests */,
+				725B99E92B4169220066D240 /* Products */,
+				9BC2AD1CDE0BB1459C84106B /* Pods */,
+				41226BDC7D7EC3B884EF3429 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		725B99E92B4169220066D240 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				725B99E82B4169220066D240 /* ClickMe.app */,
+				725B99F82B4169250066D240 /* ClickMeTests.xctest */,
+				725B9A022B4169250066D240 /* ClickMeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		725B99EA2B4169220066D240 /* ClickMe */ = {
+			isa = PBXGroup;
+			children = (
+				725B99EB2B4169220066D240 /* ClickMeApp.swift */,
+				7237A5822B42E49300ABF10F /* Manager */,
+				7237A5812B42E47B00ABF10F /* Screens */,
+				7237A5832B42E4A000ABF10F /* View */,
+				7237A5842B42E4AE00ABF10F /* Extension */,
+				7237A5852B42E4B800ABF10F /* Model */,
+				725B99EF2B4169250066D240 /* Assets.xcassets */,
+				725B99F12B4169250066D240 /* Preview Content */,
+			);
+			path = ClickMe;
+			sourceTree = "<group>";
+		};
+		725B99F12B4169250066D240 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				725B99F22B4169250066D240 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		725B99FB2B4169250066D240 /* ClickMeTests */ = {
+			isa = PBXGroup;
+			children = (
+				725B99FC2B4169250066D240 /* ClickMeTests.swift */,
+			);
+			path = ClickMeTests;
+			sourceTree = "<group>";
+		};
+		725B9A052B4169250066D240 /* ClickMeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				725B9A062B4169250066D240 /* ClickMeUITests.swift */,
+				725B9A082B4169250066D240 /* ClickMeUITestsLaunchTests.swift */,
+			);
+			path = ClickMeUITests;
+			sourceTree = "<group>";
+		};
+		9BC2AD1CDE0BB1459C84106B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F334BA7C04E62B2FA7ABF7D5 /* Pods-ClickMe.debug.xcconfig */,
+				4D9ED630657C498C5DEC4B3B /* Pods-ClickMe.release.xcconfig */,
+				46AC286571B3594AE493BED8 /* Pods-ClickMe-ClickMeUITests.debug.xcconfig */,
+				2C53F0EEE1B86E33E645A4EC /* Pods-ClickMe-ClickMeUITests.release.xcconfig */,
+				7C52A32A88EB630420360EC8 /* Pods-ClickMeTests.debug.xcconfig */,
+				101820DC3C471C3A464C6BF8 /* Pods-ClickMeTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		725B99E72B4169220066D240 /* ClickMe */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 725B9A0C2B4169250066D240 /* Build configuration list for PBXNativeTarget "ClickMe" */;
+			buildPhases = (
+				DC25F9039E09CBA58CB3D7B3 /* [CP] Check Pods Manifest.lock */,
+				725B99E42B4169220066D240 /* Sources */,
+				725B99E52B4169220066D240 /* Frameworks */,
+				725B99E62B4169220066D240 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ClickMe;
+			productName = ClickMe;
+			productReference = 725B99E82B4169220066D240 /* ClickMe.app */;
+			productType = "com.apple.product-type.application";
+		};
+		725B99F72B4169250066D240 /* ClickMeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 725B9A0F2B4169250066D240 /* Build configuration list for PBXNativeTarget "ClickMeTests" */;
+			buildPhases = (
+				1EA654974EAD3A9B346AEC3A /* [CP] Check Pods Manifest.lock */,
+				725B99F42B4169250066D240 /* Sources */,
+				725B99F52B4169250066D240 /* Frameworks */,
+				725B99F62B4169250066D240 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				725B99FA2B4169250066D240 /* PBXTargetDependency */,
+			);
+			name = ClickMeTests;
+			productName = ClickMeTests;
+			productReference = 725B99F82B4169250066D240 /* ClickMeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		725B9A012B4169250066D240 /* ClickMeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 725B9A122B4169250066D240 /* Build configuration list for PBXNativeTarget "ClickMeUITests" */;
+			buildPhases = (
+				BA300CB6BDFFE9666AB92BB0 /* [CP] Check Pods Manifest.lock */,
+				725B99FE2B4169250066D240 /* Sources */,
+				725B99FF2B4169250066D240 /* Frameworks */,
+				725B9A002B4169250066D240 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				725B9A042B4169250066D240 /* PBXTargetDependency */,
+			);
+			name = ClickMeUITests;
+			productName = ClickMeUITests;
+			productReference = 725B9A022B4169250066D240 /* ClickMeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		725B99E02B4169220066D240 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					725B99E72B4169220066D240 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					725B99F72B4169250066D240 = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 725B99E72B4169220066D240;
+					};
+					725B9A012B4169250066D240 = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 725B99E72B4169220066D240;
+					};
+				};
+			};
+			buildConfigurationList = 725B99E32B4169220066D240 /* Build configuration list for PBXProject "ClickMe" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 725B99DF2B4169220066D240;
+			productRefGroup = 725B99E92B4169220066D240 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				725B99E72B4169220066D240 /* ClickMe */,
+				725B99F72B4169250066D240 /* ClickMeTests */,
+				725B9A012B4169250066D240 /* ClickMeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		725B99E62B4169220066D240 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				725B99F32B4169250066D240 /* Preview Assets.xcassets in Resources */,
+				725B99F02B4169250066D240 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		725B99F62B4169250066D240 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		725B9A002B4169250066D240 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1EA654974EAD3A9B346AEC3A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ClickMeTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BA300CB6BDFFE9666AB92BB0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ClickMe-ClickMeUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC25F9039E09CBA58CB3D7B3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ClickMe-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		725B99E42B4169220066D240 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7237A58E2B43016100ABF10F /* CMButton.swift in Sources */,
+				7237A5932B437E6300ABF10F /* SplashView.swift in Sources */,
+				7237A58C2B42E5AD00ABF10F /* Mood.swift in Sources */,
+				7237A5882B42E4F800ABF10F /* GetStartedView.swift in Sources */,
+				7237A5902B437BFA00ABF10F /* GetStartedViewModel.swift in Sources */,
+				7237A58A2B42E53900ABF10F /* GetStartedSteps.swift in Sources */,
+				725B99EC2B4169220066D240 /* ClickMeApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		725B99F42B4169250066D240 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				725B99FD2B4169250066D240 /* ClickMeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		725B99FE2B4169250066D240 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				725B9A072B4169250066D240 /* ClickMeUITests.swift in Sources */,
+				725B9A092B4169250066D240 /* ClickMeUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		725B99FA2B4169250066D240 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 725B99E72B4169220066D240 /* ClickMe */;
+			targetProxy = 725B99F92B4169250066D240 /* PBXContainerItemProxy */;
+		};
+		725B9A042B4169250066D240 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 725B99E72B4169220066D240 /* ClickMe */;
+			targetProxy = 725B9A032B4169250066D240 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		725B9A0A2B4169250066D240 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		725B9A0B2B4169250066D240 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		725B9A0D2B4169250066D240 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F334BA7C04E62B2FA7ABF7D5 /* Pods-ClickMe.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ClickMe/Preview Content\"";
+				DEVELOPMENT_TEAM = JT5853THPU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ByteraInc.ClickMe;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		725B9A0E2B4169250066D240 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D9ED630657C498C5DEC4B3B /* Pods-ClickMe.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ClickMe/Preview Content\"";
+				DEVELOPMENT_TEAM = JT5853THPU;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ByteraInc.ClickMe;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		725B9A102B4169250066D240 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C52A32A88EB630420360EC8 /* Pods-ClickMeTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JT5853THPU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ByteraInc.ClickMeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClickMe.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ClickMe";
+			};
+			name = Debug;
+		};
+		725B9A112B4169250066D240 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 101820DC3C471C3A464C6BF8 /* Pods-ClickMeTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JT5853THPU;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ByteraInc.ClickMeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ClickMe.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ClickMe";
+			};
+			name = Release;
+		};
+		725B9A132B4169250066D240 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46AC286571B3594AE493BED8 /* Pods-ClickMe-ClickMeUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JT5853THPU;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ByteraInc.ClickMeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ClickMe;
+			};
+			name = Debug;
+		};
+		725B9A142B4169250066D240 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C53F0EEE1B86E33E645A4EC /* Pods-ClickMe-ClickMeUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = JT5853THPU;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ByteraInc.ClickMeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ClickMe;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		725B99E32B4169220066D240 /* Build configuration list for PBXProject "ClickMe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				725B9A0A2B4169250066D240 /* Debug */,
+				725B9A0B2B4169250066D240 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		725B9A0C2B4169250066D240 /* Build configuration list for PBXNativeTarget "ClickMe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				725B9A0D2B4169250066D240 /* Debug */,
+				725B9A0E2B4169250066D240 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		725B9A0F2B4169250066D240 /* Build configuration list for PBXNativeTarget "ClickMeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				725B9A102B4169250066D240 /* Debug */,
+				725B9A112B4169250066D240 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		725B9A122B4169250066D240 /* Build configuration list for PBXNativeTarget "ClickMeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				725B9A132B4169250066D240 /* Debug */,
+				725B9A142B4169250066D240 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 725B99E02B4169220066D240 /* Project object */;
+}
