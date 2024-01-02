@@ -6,6 +6,7 @@ target 'ClickMe' do
   use_frameworks!
 
   # Pods for ClickMe
+  pod 'Alamofire'
 
   target 'ClickMeTests' do
     inherit! :search_paths
