@@ -35,7 +35,7 @@ struct LoginInitialView: View {
                 }
             })
             .navigationDestination(isPresented: $viewModel.shouldGoToSignUpScreen) {
-                SignUpView()
+                SignUpView(shouldGoToSignUpScreen: $viewModel.shouldGoToSignUpScreen)
             }
             .fullScreenCover(isPresented: $viewModel.isPresentingTermsOfUse) {
                 SafariView(url: URL(string: "https://www.google.com")!)

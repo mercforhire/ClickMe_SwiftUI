@@ -8,6 +8,6 @@
 import Foundation
 
 struct DefaultResponse: Codable {
-    var success: Bool
-    var message: String
+    let success: Bool
+    let message: String
 }

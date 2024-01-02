@@ -14,4 +14,7 @@ enum CMError: Error {
     case unableToComplete
     case sendCodeToEmailCalledTooFrequently
     case emailAlreadyTaken
+    case verifyCodeInvalid
+    case userDeletedAccount
+    case userDoesntExist
 }

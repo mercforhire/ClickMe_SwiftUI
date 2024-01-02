@@ -1,28 +1,30 @@
 //
-//  SignUpViewModel.swift
+//  LoginViewModel.swift
 //  ClickMe
 //
-//  Created by Leon Chen on 2024-01-01.
+//  Created by Leon Chen on 2024-01-02.
 //
 
+import Foundation
 import SwiftUI
 
-final class SignUpViewModel: ObservableObject {
+final class LoginViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var emailAddress = ""
     @Published var emailAddressError: String?
     @Published var code = ""
     @Published var codeError: String?
-    @Published var agreeToTermsOfUse = false
     @Published var secondsUntilAllowedSendAgain = 0
-    @Published var isPresentingTermsOfUse = false
-    @Published var isPresentingPrivacy = false
-    @Published var registerComplete = false
+    @Published var loginComplete = false
     
     var getCodeButtonTitle: LocalizedStringKey {
         return secondsUntilAllowedSendAgain == 0 ? "Get Code" : "\(secondsUntilAllowedSendAgain) seconds"
     }
     var timer: Timer?
+    
+    var loginButtonEnabled: Bool {
+        return !emailAddress.isEmpty && emailAddress.isValidEmail && !code.isEmpty
+    }
     
     func verifyEmailAddress() {
         guard !emailAddress.isEmpty, emailAddress.isValidEmail else {
@@ -31,13 +33,13 @@ final class SignUpViewModel: ObservableObject {
         isLoading = true
         Task {
             do {
-                let response = try await ClickAPI.shared.checkRegisterEmail(email: emailAddress)
+                let response = try await ClickAPI.shared.checkLoginEmail(email: emailAddress)
                 print(response)
                 emailAddressError = nil
             } catch {
                 switch error {
-                case CMError.emailAlreadyTaken:
-                    emailAddressError = "Email is already taken by another user"
+                case CMError.userDoesntExist:
+                    emailAddressError = "User doesn't exist"
                 default:
                     print(error)
                     emailAddressError = "Unknown error"
@@ -81,8 +83,8 @@ final class SignUpViewModel: ObservableObject {
         startCountdown()
     }
     
-    func register() async {
-        guard !emailAddress.isEmpty, emailAddress.isValidEmail, agreeToTermsOfUse else {
+    func login() async {
+        guard !emailAddress.isEmpty, emailAddress.isValidEmail else {
             return
         }
         
@@ -94,13 +96,13 @@ final class SignUpViewModel: ObservableObject {
         
         isLoading = true
         do {
-            let response = try await ClickAPI.shared.registerNewUser(email: emailAddress, code: code)
+            let response = try await ClickAPI.shared.login(email: emailAddress, code: code)
             print(response)
-            registerComplete = true
+            loginComplete = true
         } catch {
             switch error {
-            case CMError.emailAlreadyTaken:
-                emailAddressError = "Email is already taken by another user"
+            case CMError.userDoesntExist:
+                emailAddressError = "User doesn't exist"
             case CMError.verifyCodeInvalid:
                 codeError = "Verification code is invalid"
             case CMError.userDeletedAccount:

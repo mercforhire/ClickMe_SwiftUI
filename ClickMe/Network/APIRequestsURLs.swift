@@ -12,16 +12,16 @@ enum APIRequestURLs: String {
     case getEmailCode = "/api/users/authentication/sendCodeToEmail"
     case checkLoginEmail = "/api/users/authentication/checkLoginEmail"
     case checkRegisterEmail = "/api/users/authentication/checkRegisterEmail"
-    case signInWithEmail = "/api/users/authentication/signInWithEmail"
-    case signUpWithEmail = "/api/users/authentication/signUpWithEmail"
+    case login = "/api/users/authentication/login"
+    case registerNewUser = "/api/users/authentication/registerNewUser"
     
     func getHTTPMethod() -> HTTPMethod {
         switch self {
         case .getEmailCode:
             return .post
-        case .signInWithEmail:
+        case .login:
             return .post
-        case .signUpWithEmail:
+        case .registerNewUser:
             return .post
         case .checkLoginEmail:
             return .post
@@ -34,8 +34,8 @@ enum APIRequestURLs: String {
         if url.contains(APIRequestURLs.getEmailCode.rawValue) ||
             url.contains(APIRequestURLs.checkLoginEmail.rawValue) ||
             url.contains(APIRequestURLs.checkRegisterEmail.rawValue) ||
-            url.contains(APIRequestURLs.signUpWithEmail.rawValue) ||
-            url.contains(APIRequestURLs.signUpWithEmail.rawValue) {
+            url.contains(APIRequestURLs.login.rawValue) ||
+            url.contains(APIRequestURLs.registerNewUser.rawValue) {
             return false
         }
         return true

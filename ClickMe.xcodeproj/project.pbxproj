@@ -30,6 +30,10 @@
 		7237A59A2B438E1C00ABF10F /* GetStartedStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A5992B438E1C00ABF10F /* GetStartedStepView.swift */; };
 		7237A59C2B439BD800ABF10F /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A59B2B439BD800ABF10F /* SafariView.swift */; };
 		7237A59F2B43A62100ABF10F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A59E2B43A62100ABF10F /* SignUpView.swift */; };
+		7255860E2B44197E005A37B9 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7255860D2B44197E005A37B9 /* LoginResponse.swift */; };
+		725586102B4419AF005A37B9 /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7255860F2B4419AF005A37B9 /* LoginData.swift */; };
+		725586132B442625005A37B9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725586122B442625005A37B9 /* LoginView.swift */; };
+		725586152B442634005A37B9 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725586142B442634005A37B9 /* LoginViewModel.swift */; };
 		725B99EC2B4169220066D240 /* ClickMeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B99EB2B4169220066D240 /* ClickMeApp.swift */; };
 		725B99F02B4169250066D240 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 725B99EF2B4169250066D240 /* Assets.xcassets */; };
 		725B99F32B4169250066D240 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 725B99F22B4169250066D240 /* Preview Assets.xcassets */; };
@@ -80,6 +84,10 @@
 		7237A5992B438E1C00ABF10F /* GetStartedStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedStepView.swift; sourceTree = "<group>"; };
 		7237A59B2B439BD800ABF10F /* SafariView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		7237A59E2B43A62100ABF10F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		7255860D2B44197E005A37B9 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		7255860F2B4419AF005A37B9 /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
+		725586122B442625005A37B9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		725586142B442634005A37B9 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		725B99E82B4169220066D240 /* ClickMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ClickMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		725B99EB2B4169220066D240 /* ClickMeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMeApp.swift; sourceTree = "<group>"; };
 		725B99EF2B4169250066D240 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -148,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				722C59DF2B43FA7600EBA081 /* DefaultResponse.swift */,
+				7255860D2B44197E005A37B9 /* LoginResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -159,6 +168,7 @@
 				7237A5862B42E4D600ABF10F /* GetStarted */,
 				7237A5942B43827400ABF10F /* LoginInitial */,
 				7237A59D2B43A60900ABF10F /* Sign Up */,
+				725586112B442604005A37B9 /* Login */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -197,6 +207,7 @@
 				722C59DA2B43F74D00EBA081 /* CMError.swift */,
 				7237A5892B42E53900ABF10F /* GetStartedSteps.swift */,
 				7237A58B2B42E5AD00ABF10F /* Mood.swift */,
+				7255860F2B4419AF005A37B9 /* LoginData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -234,6 +245,15 @@
 				722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */,
 			);
 			path = "Sign Up";
+			sourceTree = "<group>";
+		};
+		725586112B442604005A37B9 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				725586122B442625005A37B9 /* LoginView.swift */,
+				725586142B442634005A37B9 /* LoginViewModel.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		725B99DF2B4169220066D240 = {
@@ -556,20 +576,24 @@
 				722C59DD2B43F8F900EBA081 /* ClickAPI.swift in Sources */,
 				7237A5932B437E6300ABF10F /* SplashView.swift in Sources */,
 				722C59E42B44009B00EBA081 /* LoadingView.swift in Sources */,
+				725586132B442625005A37B9 /* LoginView.swift in Sources */,
 				722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */,
 				7237A58C2B42E5AD00ABF10F /* Mood.swift in Sources */,
 				722C59D72B43F0A100EBA081 /* APIRequestsURLs.swift in Sources */,
 				7237A59F2B43A62100ABF10F /* SignUpView.swift in Sources */,
 				722C59DB2B43F74D00EBA081 /* CMError.swift in Sources */,
 				7237A5982B438C3D00ABF10F /* LoginInitialViewModel.swift in Sources */,
+				725586152B442634005A37B9 /* LoginViewModel.swift in Sources */,
 				7237A5882B42E4F800ABF10F /* GetStartedView.swift in Sources */,
 				722C59E02B43FA7600EBA081 /* DefaultResponse.swift in Sources */,
+				725586102B4419AF005A37B9 /* LoginData.swift in Sources */,
 				722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */,
 				7237A59A2B438E1C00ABF10F /* GetStartedStepView.swift in Sources */,
 				7237A5902B437BFA00ABF10F /* GetStartedViewModel.swift in Sources */,
 				7237A58A2B42E53900ABF10F /* GetStartedSteps.swift in Sources */,
 				725B99EC2B4169220066D240 /* ClickMeApp.swift in Sources */,
 				722C59E22B43FE6400EBA081 /* String+Ext.swift in Sources */,
+				7255860E2B44197E005A37B9 /* LoginResponse.swift in Sources */,
 				7237A5962B43829500ABF10F /* LoginInitialView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
