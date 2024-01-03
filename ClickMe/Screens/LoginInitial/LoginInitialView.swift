@@ -10,40 +10,56 @@ import SwiftUI
 struct LoginInitialView: View {
     @StateObject var viewModel = LoginInitialViewModel()
     
+    @State private var navigationPath: [ScreenNames] = []
+    
     var body: some View {
-        NavigationStack {
-            ZStack(content: {
-                Image("background", bundle: nil)
-                    .resizable()
-                    .ignoresSafeArea()
-                VStack(spacing: 10) {
-                    Spacer()
-                    ImageLogosView()
-                    ButtonsSectionView(loginHandler: {
-                        viewModel.shouldGoToLoginScreen = true
-                    }, signUpHandler: {
-                        viewModel.shouldGoToSignUpScreen = true
-                    })
-                    Spacer()
-                    FooterView(termsOfUseHandler: {
-                        viewModel.isPresentingTermsOfUse = true
-                    }, privacyHandler: {
-                        viewModel.isPresentingPrivacy = true
-                    })
-                    .padding(.bottom, 10)
+        if viewModel.loggedIn {
+            HomeView()
+        } else {
+            NavigationStack(path: $navigationPath) {
+                ZStack(content: {
+                    Image("background", bundle: nil)
+                        .resizable()
+                        .ignoresSafeArea()
+                    VStack(spacing: 10) {
+                        Spacer()
+                        ImageLogosView()
+                        ButtonsSectionView(loginHandler: {
+                            navigationPath.append(ScreenNames.login)
+                        }, signUpHandler: {
+                            navigationPath.append(ScreenNames.register)
+                        })
+                        Spacer()
+                        FooterView(termsOfUseHandler: {
+                            viewModel.isPresentingTermsOfUse = true
+                        }, privacyHandler: {
+                            viewModel.isPresentingPrivacy = true
+                        })
+                        .padding(.bottom, 10)
 
+                    }
+                })
+                .navigationDestination(for: ScreenNames.self) { screenName in
+                    switch screenName {
+                    case ScreenNames.login:
+                        LoginView(navigationPath: $navigationPath)
+                    case ScreenNames.register:
+                        SignUpView(navigationPath: $navigationPath)
+                    default:
+                        fatalError()
+                    }
                 }
-            })
-            .navigationDestination(isPresented: $viewModel.shouldGoToSignUpScreen) {
-                SignUpView(shouldGoToSignUpScreen: $viewModel.shouldGoToSignUpScreen)
-            }
-            .fullScreenCover(isPresented: $viewModel.isPresentingTermsOfUse) {
-                SafariView(url: URL(string: "https://www.google.com")!)
-                    .ignoresSafeArea()
-            }
-            .fullScreenCover(isPresented: $viewModel.isPresentingPrivacy) {
-                SafariView(url: URL(string: "https://www.yahoo.com")!)
-                    .ignoresSafeArea()
+                .fullScreenCover(isPresented: $viewModel.isPresentingTermsOfUse) {
+                    SafariView(url: URL(string: "https://www.google.com")!)
+                        .ignoresSafeArea()
+                }
+                .fullScreenCover(isPresented: $viewModel.isPresentingPrivacy) {
+                    SafariView(url: URL(string: "https://www.yahoo.com")!)
+                        .ignoresSafeArea()
+                }
+                .onAppear {
+                    viewModel.checkIfAppIsLoggedIn()
+                }
             }
         }
     }
@@ -79,7 +95,7 @@ struct ButtonsSectionView: View {
     var signUpHandler: () -> Void
     
     var body: some View {
-        VStack {
+        VStack(spacing: 10) {
             Text("Welcome")
                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 .fontWeight(.bold)

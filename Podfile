@@ -7,7 +7,10 @@ target 'ClickMe' do
 
   # Pods for ClickMe
   pod 'Alamofire'
-
+  pod 'AWSS3'
+  pod 'AWSCore'
+  pod 'Valet'
+  
   target 'ClickMeTests' do
     inherit! :search_paths
     # Pods for testing

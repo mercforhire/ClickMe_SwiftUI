@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @Binding var shouldGoToSignUpScreen: Bool
+    @Binding var navigationPath: [ScreenNames]
     @StateObject var viewModel = SignUpViewModel()
+    
     @FocusState private var focusedTextField: FormTextField?
     
     private let screenWidth = UIScreen.main.bounds.size.width
     private let padding: CGFloat = 40
     
-    enum FormTextField {
+    private enum FormTextField {
         case email, code
     }
     
@@ -29,22 +30,13 @@ struct SignUpView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
                             .padding(.top, 20)
-                        TextField("Email", text: $viewModel.emailAddress)
-                            .keyboardType(.emailAddress)
-                            .autocapitalization(.none)
-                            .disableAutocorrection(true)
+                        CMEmailTextField(text: $viewModel.emailAddress)
                             .focused($focusedTextField, equals: .email)
                             .onSubmit {
                                 viewModel.verifyEmailAddress()
                             }
-                            .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
-                            .frame(height: 50)
-                            .border(.secondary)
                         if let emailAddressError = viewModel.emailAddressError, !emailAddressError.isEmpty {
-                            Text("* \(emailAddressError)")
-                                .font(.footnote)
-                                .fontWeight(.light)
-                                .foregroundColor(.red)
+                            CMErrorLabel("\(emailAddressError)")
                         }
                         HStack {
                             Image(systemName: "lock.fill")
@@ -68,10 +60,7 @@ struct SignUpView: View {
                             .disabled(viewModel.secondsUntilAllowedSendAgain > 0)
                         }
                         if let codeError = viewModel.codeError, !codeError.isEmpty {
-                            Text("* \(codeError)")
-                                .font(.footnote)
-                                .fontWeight(.light)
-                                .foregroundColor(.red)
+                            CMErrorLabel("\(codeError)")
                         }
                         CheckboxView(checked: $viewModel.agreeToTermsOfUse, termsOfUseHandler: {
                             viewModel.isPresentingTermsOfUse = true
@@ -84,7 +73,7 @@ struct SignUpView: View {
                         Task {
                             await viewModel.register()
                             if viewModel.registerComplete {
-                                shouldGoToSignUpScreen = false
+                                navigationPath.removeLast()
                             }
                         }
                     } label: {
@@ -94,6 +83,13 @@ struct SignUpView: View {
                     .padding(.bottom, 20)
                 }
                 .navigationTitle("Sign Up")
+                .toolbar() {
+                    ToolbarItem(placement: .keyboard) {
+                        Button("Done") {
+                            focusedTextField = nil
+                        }
+                    }
+                }
                 .padding(.horizontal, 20)
             }
             .fullScreenCover(isPresented: $viewModel.isPresentingTermsOfUse) {
@@ -114,7 +110,7 @@ struct SignUpView: View {
 #Preview {
     var viewModel = SignUpViewModel()
     viewModel.emailAddress = "feiyangca@yahoo.ca"
-    return SignUpView(shouldGoToSignUpScreen: .constant(true), viewModel: viewModel)
+    return SignUpView(navigationPath: .constant([ScreenNames.register]), viewModel: viewModel)
 }
 
 struct CheckboxView: View {

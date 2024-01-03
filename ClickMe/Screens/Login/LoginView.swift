@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct LoginView: View {
+    @Binding var navigationPath: [ScreenNames]
     @StateObject var viewModel = LoginViewModel()
+    
     @FocusState private var focusedTextField: FormTextField?
     
     private let screenWidth = UIScreen.main.bounds.size.width
     private let padding: CGFloat = 40
     
-    enum FormTextField {
+    private enum FormTextField {
         case email, code
     }
     
@@ -28,22 +30,13 @@ struct LoginView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
                             .padding(.top, 20)
-                        TextField("Email", text: $viewModel.emailAddress)
-                            .keyboardType(.emailAddress)
-                            .autocapitalization(.none)
-                            .disableAutocorrection(true)
+                        CMEmailTextField(text: $viewModel.emailAddress)
                             .focused($focusedTextField, equals: .email)
                             .onSubmit {
                                 viewModel.verifyEmailAddress()
                             }
-                            .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
-                            .frame(height: 50)
-                            .border(.secondary)
                         if let emailAddressError = viewModel.emailAddressError, !emailAddressError.isEmpty {
-                            Text("* \(emailAddressError)")
-                                .font(.footnote)
-                                .fontWeight(.light)
-                                .foregroundColor(.red)
+                            CMErrorLabel("\(emailAddressError)")
                         }
                         HStack {
                             TextField("Verification code", text: $viewModel.code)
@@ -60,24 +53,32 @@ struct LoginView: View {
                             .disabled(viewModel.secondsUntilAllowedSendAgain > 0)
                         }
                         if let codeError = viewModel.codeError, !codeError.isEmpty {
-                            Text("* \(codeError)")
-                                .font(.footnote)
-                                .fontWeight(.light)
-                                .foregroundColor(.red)
+                            CMErrorLabel("\(codeError)")
                         }
                     }
                     Button {
                         Task {
                             await viewModel.login()
+                            if viewModel.loginComplete {
+                                navigationPath.removeLast()
+                            }
                         }
                     } label: {
                         CMButton(title: "Login", width: screenWidth - padding * 2)
                     }
                     .disabled(!viewModel.loginButtonEnabled)
                     .padding(.vertical, 40)
+                    
                     Spacer()
                 }
                 .navigationTitle("Login")
+                .toolbar() {
+                    ToolbarItem(placement: .keyboard) {
+                        Button("Done") {
+                            focusedTextField = nil
+                        }
+                    }
+                }
                 .padding(.horizontal, 20)
             }
             if viewModel.isLoading {
@@ -90,6 +91,6 @@ struct LoginView: View {
 #Preview {
     var viewModel = LoginViewModel()
     viewModel.emailAddress = "feiyangca@yahoo.ca"
-    viewModel.code = "1234"
-    return LoginView(viewModel: viewModel)
+    viewModel.code = "6174"
+    return LoginView(navigationPath: .constant([ScreenNames.login]), viewModel: viewModel)
 }

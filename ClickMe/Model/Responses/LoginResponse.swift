@@ -12,3 +12,8 @@ struct LoginResponse: Codable {
     let message: String
     let data: LoginData?
 }
+
+struct LoginData: Codable {
+    let user: User?
+    let profile: UserProfile?
+}

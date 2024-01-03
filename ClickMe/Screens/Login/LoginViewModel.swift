@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 final class LoginViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var emailAddress = ""
@@ -30,7 +31,6 @@ final class LoginViewModel: ObservableObject {
         guard !emailAddress.isEmpty, emailAddress.isValidEmail else {
             return
         }
-        isLoading = true
         Task {
             do {
                 let response = try await ClickAPI.shared.checkLoginEmail(email: emailAddress)
@@ -45,7 +45,6 @@ final class LoginViewModel: ObservableObject {
                     emailAddressError = "Unknown error"
                 }
             }
-            isLoading = false
         }
     }
     
@@ -96,9 +95,11 @@ final class LoginViewModel: ObservableObject {
         
         isLoading = true
         do {
-            let response = try await ClickAPI.shared.login(email: emailAddress, code: code)
-            print(response)
-            loginComplete = true
+            let loginResponse = try await ClickAPI.shared.login(email: emailAddress, code: code)
+            if let user = loginResponse.data?.user, let profile = loginResponse.data?.profile {
+                UserManager.shared.set(user: user, profile: profile)
+                loginComplete = true
+            }
         } catch {
             switch error {
             case CMError.userDoesntExist:

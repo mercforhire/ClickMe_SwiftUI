@@ -9,8 +9,14 @@ import Foundation
 import SwiftUI
 
 final class LoginInitialViewModel: ObservableObject {
-    @Published var shouldGoToLoginScreen = false
-    @Published var shouldGoToSignUpScreen = false
     @Published var isPresentingTermsOfUse = false
     @Published var isPresentingPrivacy = false
+    
+    @Published var loggedIn = false
+    
+    func checkIfAppIsLoggedIn() {
+        if UserManager.shared.isLoggedIn() {
+            loggedIn = true
+        }
+    }
 }

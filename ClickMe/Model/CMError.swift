@@ -17,4 +17,5 @@ enum CMError: Error {
     case verifyCodeInvalid
     case userDeletedAccount
     case userDoesntExist
+    case invalidApiKey
 }

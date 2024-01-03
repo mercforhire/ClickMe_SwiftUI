@@ -28,7 +28,6 @@ final class SignUpViewModel: ObservableObject {
         guard !emailAddress.isEmpty, emailAddress.isValidEmail else {
             return
         }
-        isLoading = true
         Task {
             do {
                 let response = try await ClickAPI.shared.checkRegisterEmail(email: emailAddress)
@@ -43,7 +42,6 @@ final class SignUpViewModel: ObservableObject {
                     emailAddressError = "Unknown error"
                 }
             }
-            isLoading = false
         }
     }
     
@@ -94,9 +92,11 @@ final class SignUpViewModel: ObservableObject {
         
         isLoading = true
         do {
-            let response = try await ClickAPI.shared.registerNewUser(email: emailAddress, code: code)
-            print(response)
-            registerComplete = true
+            let loginResponse = try await ClickAPI.shared.registerNewUser(email: emailAddress, code: code)
+            if let user = loginResponse.data?.user, let profile = loginResponse.data?.profile {
+                UserManager.shared.set(user: user, profile: profile)
+                registerComplete = true
+            }
         } catch {
             switch error {
             case CMError.emailAlreadyTaken:

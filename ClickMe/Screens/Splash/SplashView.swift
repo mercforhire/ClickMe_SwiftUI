@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct SplashView: View {
-    @State var isActive = false
+    @StateObject var viewModel = SplashViewModel()
     
     var body: some View {
         ZStack {
-            if isActive {
-                GetStartedView()
+            if viewModel.appIsActive && !viewModel.loginInProgress {
+                if viewModel.loggedIn {
+                    HomeView()
+                } else {
+                    GetStartedView()
+                }
             } else {
                 Image("background", bundle: nil)
                     .resizable()
@@ -26,11 +30,8 @@ struct SplashView: View {
             }
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                withAnimation {
-                    self.isActive = true
-                }
-            }
+            viewModel.prepareToLogin()
+            viewModel.startSplashCountdown()
         }
     }
 }
