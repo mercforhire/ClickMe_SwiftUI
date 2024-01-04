@@ -24,6 +24,7 @@ final class SetupDetailInfoViewModel: ObservableObject {
     @Published var pickerItem: PhotosPickerItem?
     @Published var s3UploadError = false
     @Published var updateProfileError = false
+    @Published var updateProfileFinished = false
     
     var isValidForm: Bool {
         guard !aboutMe.isEmpty, aboutMe.count > 10 else {
@@ -116,6 +117,7 @@ final class SetupDetailInfoViewModel: ObservableObject {
                 let response = try await ClickAPI.shared.updateUserProfile(updateProfileParams: updateProfileParams)
                 if let profile = response.data?.profile {
                     UserManager.shared.set(profile: profile)
+                    updateProfileFinished = true
                 }
             } catch {
                 updateProfileError = true

@@ -100,7 +100,7 @@ struct SetupBasicInfoView: View {
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
                 case ScreenNames.setupDetailInfo:
-                    SetupDetailInfoView(basicInfo: viewModel, navigationPath: $navigationPath)
+                    SetupDetailInfoView(basicInfo: viewModel, shouldPresentSetupProfileFlow: $shouldPresentSetupProfileFlow, navigationPath: $navigationPath)
                 default:
                     fatalError()
                 }

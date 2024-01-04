@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SetupDetailInfoView: View {
     let basicInfo: SetupBasicInfoViewModel
+    @Binding var shouldPresentSetupProfileFlow: Bool
     @Binding var navigationPath: [ScreenNames]
     @StateObject var viewModel: SetupDetailInfoViewModel = SetupDetailInfoViewModel()
     
@@ -78,10 +79,15 @@ struct SetupDetailInfoView: View {
                   message: Text("Something went wrong while updating profile"),
                   dismissButton: .default(Text("Ok")))
         }
+        .onChange(of: viewModel.updateProfileFinished) { updateProfileFinished in
+            if updateProfileFinished {
+                shouldPresentSetupProfileFlow = false
+            }
+        }
     }
 }
 
 #Preview {
     var vm = SetupDetailInfoViewModel()
-    return SetupDetailInfoView(basicInfo: SetupBasicInfoViewModel(), navigationPath: .constant([.setupDetailInfo]), viewModel: vm)
+    return SetupDetailInfoView(basicInfo: SetupBasicInfoViewModel(), shouldPresentSetupProfileFlow: .constant(true), navigationPath: .constant([.setupDetailInfo]), viewModel: vm)
 }
