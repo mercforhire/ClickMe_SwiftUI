@@ -64,6 +64,11 @@
 		728499ED2B45867300C2826B /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499EC2B45867300C2826B /* SplashViewModel.swift */; };
 		728499EF2B4587EE00C2826B /* ProfilePhotosGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499EE2B4587EE00C2826B /* ProfilePhotosGridView.swift */; };
 		728499F22B45A56200C2826B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499F12B45A56200C2826B /* HomeView.swift */; };
+		728499F42B463CB500C2826B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499F32B463CB500C2826B /* HomeViewModel.swift */; };
+		728499F62B4657E900C2826B /* CMPhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499F52B4657E900C2826B /* CMPhotoPicker.swift */; };
+		728499F92B466B0400C2826B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499F82B466B0400C2826B /* Utils.swift */; };
+		728499FC2B46C06D00C2826B /* UpdateUserParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499FB2B46C06C00C2826B /* UpdateUserParams.swift */; };
+		728499FE2B46C2AE00C2826B /* UpdateUserProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +150,11 @@
 		728499EC2B45867300C2826B /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		728499EE2B4587EE00C2826B /* ProfilePhotosGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotosGridView.swift; sourceTree = "<group>"; };
 		728499F12B45A56200C2826B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		728499F32B463CB500C2826B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		728499F52B4657E900C2826B /* CMPhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMPhotoPicker.swift; sourceTree = "<group>"; };
+		728499F82B466B0400C2826B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		728499FB2B46C06C00C2826B /* UpdateUserParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateUserParams.swift; sourceTree = "<group>"; };
+		728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileResponse.swift; sourceTree = "<group>"; };
 		7C52A32A88EB630420360EC8 /* Pods-ClickMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMeTests.debug.xcconfig"; path = "Target Support Files/Pods-ClickMeTests/Pods-ClickMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		953EFE63C1B45C26F2F6A760 /* Pods_ClickMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClickMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B096689CA93AFFDF059A141E /* Pods_ClickMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClickMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,6 +217,7 @@
 				7255860D2B44197E005A37B9 /* LoginResponse.swift */,
 				725586252B44F201005A37B9 /* S3KeysResponse.swift */,
 				725586292B44F80D005A37B9 /* GetUserProfileResponse.swift */,
+				728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -250,6 +261,7 @@
 				728499E82B45650300C2826B /* CMMinusButton.swift */,
 				727BD74F2B45519600D4279D /* CMPhotoCellView.swift */,
 				728499EE2B4587EE00C2826B /* ProfilePhotosGridView.swift */,
+				728499F52B4657E900C2826B /* CMPhotoPicker.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -266,6 +278,7 @@
 		7237A5852B42E4B800ABF10F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				728499FA2B46C06600C2826B /* Params */,
 				722C59DE2B43FA6500EBA081 /* Responses */,
 				722C59DA2B43F74D00EBA081 /* CMError.swift */,
 				7237A5892B42E53900ABF10F /* GetStartedSteps.swift */,
@@ -369,6 +382,7 @@
 		725B99EA2B4169220066D240 /* ClickMe */ = {
 			isa = PBXGroup;
 			children = (
+				728499F72B466AF600C2826B /* Utils */,
 				725B99EB2B4169220066D240 /* ClickMeApp.swift */,
 				722C59D12B43EDE900EBA081 /* Network */,
 				7237A5822B42E49300ABF10F /* Manager */,
@@ -411,8 +425,25 @@
 			isa = PBXGroup;
 			children = (
 				728499F12B45A56200C2826B /* HomeView.swift */,
+				728499F32B463CB500C2826B /* HomeViewModel.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		728499F72B466AF600C2826B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				728499F82B466B0400C2826B /* Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		728499FA2B46C06600C2826B /* Params */ = {
+			isa = PBXGroup;
+			children = (
+				728499FB2B46C06C00C2826B /* UpdateUserParams.swift */,
+			);
+			path = Params;
 			sourceTree = "<group>";
 		};
 		9BC2AD1CDE0BB1459C84106B /* Pods */ = {
@@ -669,6 +700,8 @@
 				727BD74B2B453A6400D4279D /* Photo.swift in Sources */,
 				725586202B44D68A005A37B9 /* SetupBasicInfoViewModel.swift in Sources */,
 				7255862E2B45261D005A37B9 /* Country.swift in Sources */,
+				728499F42B463CB500C2826B /* HomeViewModel.swift in Sources */,
+				728499F62B4657E900C2826B /* CMPhotoPicker.swift in Sources */,
 				7255861E2B44CECC005A37B9 /* SetupBasicInfoView.swift in Sources */,
 				7237A58E2B43016100ABF10F /* CMButton.swift in Sources */,
 				722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */,
@@ -694,7 +727,9 @@
 				722C59DB2B43F74D00EBA081 /* CMError.swift in Sources */,
 				725586332B4529B4005A37B9 /* Language.swift in Sources */,
 				7237A5982B438C3D00ABF10F /* LoginInitialViewModel.swift in Sources */,
+				728499FE2B46C2AE00C2826B /* UpdateUserProfileResponse.swift in Sources */,
 				725586152B442634005A37B9 /* LoginViewModel.swift in Sources */,
+				728499F92B466B0400C2826B /* Utils.swift in Sources */,
 				728499F22B45A56200C2826B /* HomeView.swift in Sources */,
 				7237A5882B42E4F800ABF10F /* GetStartedView.swift in Sources */,
 				722C59E02B43FA7600EBA081 /* DefaultResponse.swift in Sources */,
@@ -712,6 +747,7 @@
 				725586192B44CC1B005A37B9 /* CMErrorLabel.swift in Sources */,
 				725586262B44F201005A37B9 /* S3KeysResponse.swift in Sources */,
 				725586222B44D846005A37B9 /* UIImage+Ext.swift in Sources */,
+				728499FC2B46C06D00C2826B /* UpdateUserParams.swift in Sources */,
 				7255860E2B44197E005A37B9 /* LoginResponse.swift in Sources */,
 				7237A5962B43829500ABF10F /* LoginInitialView.swift in Sources */,
 				722DD67F2B45578400AD8401 /* CMPlusButton.swift in Sources */,

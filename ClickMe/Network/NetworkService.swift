@@ -40,14 +40,14 @@ class NetworkService {
         sessionManager = Session(interceptor: interceptor)
     }
     
-    func httpRequest<T>(url: String, method: HTTPMethod, parameters: [String : String]?) async throws -> T where T : Decodable {
+    func httpRequest<T>(url: String, method: HTTPMethod, parameters: Parameters?) async throws -> T where T : Decodable {
         let request = sessionManager.request(url,
                                              method: method,
                                              parameters: parameters,
-                                             encoder: JSONParameterEncoder.default,
-                                             interceptor: interceptor).serializingDecodable(T.self)
+                                             encoding: JSONEncoding.default,
+                                             interceptor: interceptor)
         do {
-            let resultObject = try await request.value
+            let resultObject = try await request.serializingDecodable(T.self).value
             return resultObject
         } catch {
             throw CMError.invalidData

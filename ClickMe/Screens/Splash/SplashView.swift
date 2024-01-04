@@ -30,6 +30,7 @@ struct SplashView: View {
             }
         }
         .onAppear {
+//            UserManager.shared.logout()
             viewModel.prepareToLogin()
             viewModel.startSplashCountdown()
         }

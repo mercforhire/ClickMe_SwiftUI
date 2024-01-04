@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject var viewModel = HomeViewModel()
+    
     var body: some View {
-        Text("Home screen")
-            .onAppear {
-                UserManager.shared.logout()
-            }
+        if viewModel.shouldReturnToLogin {
+            LoginInitialView()
+        } else {
+            Text("Home screen")
+                .onAppear {
+                    viewModel.checkProfileCompletion()
+                }
+                .fullScreenCover(isPresented: $viewModel.shouldPresentSetupProfileFlow) {
+                    SetupBasicInfoView(shouldReturnToLogin: $viewModel.shouldReturnToLogin,
+                                       shouldPresentSetupProfileFlow: $viewModel.shouldPresentSetupProfileFlow)
+                }
+        }
     }
 }
 

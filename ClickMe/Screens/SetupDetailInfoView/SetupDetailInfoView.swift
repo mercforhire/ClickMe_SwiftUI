@@ -6,79 +6,82 @@
 //
 
 import SwiftUI
-import PhotosUI
 
 struct SetupDetailInfoView: View {
+    let basicInfo: SetupBasicInfoViewModel
+    @Binding var navigationPath: [ScreenNames]
     @StateObject var viewModel: SetupDetailInfoViewModel = SetupDetailInfoViewModel()
-    @FocusState private var focusedTextField: FormTextField?
     
     private let screenWidth = UIScreen.main.bounds.size.width
     private let padding: CGFloat = 25
-    
-    
-    private enum FormTextField {
-        case aboutMe
+    private var photoCellWidth: CGFloat {
+        return screenWidth / 2 - padding * 2
     }
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Upload photos")) {
-                    ProfilePhotosGridView(photos: $viewModel.userPhotos,
-                                          width: screenWidth / 2 - padding * 2)
-                    { index in
-                        viewModel.handleDeletePhoto(index: index)
-                    } handlePhotoPicker: {
-                        viewModel.handlePhotoPicker()
-                    }
+        Form {
+            Section(header: Text("Upload photos")) {
+                ProfilePhotosGridView(photos: $viewModel.userPhotos,
+                                      width: photoCellWidth)
+                { index in
+                    viewModel.handleDeletePhoto(index: index)
+                } handlePhotoPicker: {
+                    viewModel.handlePhotoPicker()
                 }
-                
-                Section(header: Text("About me")) {
-                    TextEditor(text: $viewModel.aboutMe)
-                        .foregroundStyle(.primary)
-                        .focused($focusedTextField, equals: .aboutMe)
-                        .frame(height: 200)
-                        .keyboardType(.alphabet)
-                }
-                
-                Section(header: Text("I speak")) {
-                    MultiSelector(
-                        label: Text("Languages"),
-                        options: Language.list(),
-                        optionToString: { $0.text() },
-                        selected: $viewModel.languages
-                    )
-                }
-                
-                Spacer(minLength: 100)
-            }
-            .navigationTitle("Setup profile")
-            .toolbar() {
-                ToolbarItem(placement: .keyboard) {
-                    Button("Done") {
-                        focusedTextField = nil
-                    }
+                if let photosError = viewModel.photosError, !photosError.isEmpty {
+                    CMErrorLabel(photosError)
                 }
             }
-            .toolbar() {
-                Button("Done") {
-                    
+            
+            Section(header: Text("About me")) {
+                TextEditor(text: $viewModel.aboutMe)
+                    .foregroundStyle(.primary)
+                    .frame(height: 200)
+                    .keyboardType(.alphabet)
+                if let aboutMeError = viewModel.aboutMeError, !aboutMeError.isEmpty {
+                    CMErrorLabel(aboutMeError)
+                }
+            }
+            
+            Section(header: Text("I speak")) {
+                MultiSelector(
+                    label: Text("Languages"),
+                    options: Language.list(),
+                    optionToString: { $0.text() },
+                    selected: $viewModel.languages
+                )
+                if let languagesError = viewModel.languagesError, !languagesError.isEmpty {
+                    CMErrorLabel(languagesError)
                 }
             }
         }
-//        .fullScreenCover(isPresented: $viewModel.isPresentingPhotoPicker) {
-//            PhotosPicker(selection: $viewModel.avatarItem, matching: .images)
-//        }
-//        .onChange(of: viewModel.avatarItem) {
-//            viewModel.handleReceivedAvatarItem()
-//        }
+        .navigationTitle("Setup profile")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar() {
+            Button("Done") {
+                viewModel.updateProfile(basicInfo: basicInfo)
+            }
+        }
+        .popover(isPresented: $viewModel.isPresentingPhotoPicker) {
+            CMPhotoPicker(avatarItem: $viewModel.pickerItem)
+        }
+        .task(id: viewModel.pickerItem) {
+            viewModel.handleReceivedPickerItem()
+        }
+        .alert(isPresented: $viewModel.s3UploadError) {
+            Alert(title: Text("Upload error"),
+                  message: Text("Something went wrong while uploading to S3"),
+                  dismissButton: .default(Text("Ok")))
+        }
+        .alert(isPresented: $viewModel.updateProfileError) {
+            Alert(title: Text("Server error"),
+                  message: Text("Something went wrong while updating profile"),
+                  dismissButton: .default(Text("Ok")))
+        }
     }
 }
 
 #Preview {
-    let url = "https://media.licdn.com/dms/image/C5603AQFAiZ5E98oI1w/profile-displayphoto-shrink_200_200/0/1564032471373?e=1709769600&v=beta&t=xuD6QC1lVyhH5CVpT6GIdK_CZnm317WMp5xTnD-Du40"
-    let photo = Photo(thumbnail: url, url: url)
     var vm = SetupDetailInfoViewModel()
-    vm.userPhotos.append(photo)
-    return SetupDetailInfoView(viewModel: vm)
+    return SetupDetailInfoView(basicInfo: SetupBasicInfoViewModel(), navigationPath: .constant([.setupDetailInfo]), viewModel: vm)
 }

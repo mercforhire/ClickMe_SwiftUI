@@ -37,36 +37,31 @@ class ClickAPI {
     func initializeS3(bucketName: String, s3Key: String, accessKey: String) {
         self.bucketName = bucketName
         let credentialsProvider = AWSStaticCredentialsProvider(accessKey: s3Key, secretKey: accessKey)
-        let configuration = AWSServiceConfiguration(region: .USEast1, credentialsProvider: credentialsProvider)
+        let configuration = AWSServiceConfiguration(region: .CACentral1, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
     }
     
-    func uploadS3file(fileUrl: URL, fileName: String, progress: progressBlock?, completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?) {
+    func uploadS3file(fileUrl: URL, fileName: String) async throws -> Void {
         guard let bucketName else { return }
         
-        let expression  = AWSS3TransferUtilityUploadExpression()
-        expression.progressBlock = { (task: AWSS3TransferUtilityTask, progress: Progress) -> Void in
-            print("Uploading: \(progress.fractionCompleted)")
-            if progress.isFinished {
-                print("Upload Finished...")
-            }
+        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) -> Void in
+            AWSS3TransferUtility.default().uploadFile(fileUrl,
+                                                      bucket: bucketName,
+                                                      key: fileName,
+                                                      contentType: "image/jpg",
+                                                      expression: nil,
+                                                      completionHandler: { task, error in
+                if let error = task.error {
+                    print("CMError.s3UploadFailed: ", error)
+                    continuation.resume(throwing: CMError.s3UploadFailed)
+                } else {
+                    continuation.resume()
+                }
+            })
         }
-        
-        expression.setValue("public-read-write", forRequestHeader: "x-amz-acl")
-        expression.setValue("public-read-write", forRequestParameter: "x-amz-acl")
-        
-        AWSS3TransferUtility.default().uploadFile(fileUrl, bucket: bucketName, key: fileName, contentType: "image/jpg", expression: expression, completionHandler: completionHandler).continueWith(block: { task in
-            if task.error != nil {
-                print("Error uploading file: \(String(describing: task.error?.localizedDescription))")
-            }
-            if task.result != nil {
-                print("Starting upload...")
-            }
-            return nil
-        })
     }
     
-    func deleteS3file(fileURL: String, progress: progressBlock?, completion: completionBlock?) {
+    func deleteS3file(fileURL: String) async throws -> Void {
         guard let bucketName else { return }
         
         let fileName = fileURL.components(separatedBy: s3RootURL).last
@@ -74,16 +69,17 @@ class ClickAPI {
         request.bucket = bucketName
         request.key = fileName
         
-        let s3Service = AWSS3.default()
-        s3Service.deleteObject(request).continueWith { task in
-            if let error = task.error {
-                print("Error occurred: \(error)")
-                completion?(task.result, error)
-                return nil
+        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) -> Void in
+            AWSS3.default().deleteObject(request).continueWith { task in
+                if let error = task.error {
+                    print("Error occurred: \(error)")
+                    continuation.resume(throwing: CMError.s3DeleteFailed)
+                } else {
+                    print("Bucket deleted successfully.")
+                    continuation.resume()
+                }
+                return
             }
-            print("Bucket deleted successfully.")
-            completion?(task.result, nil)
-            return nil
         }
     }
     
@@ -174,5 +170,40 @@ class ClickAPI {
             throw CMError.invalidApiKey
         }
         return response
+    }
+    
+    func updateUserProfile(updateProfileParams: UpdateProfileParams) async throws -> UpdateUserProfileResponse {
+        let parameters = updateProfileParams.params()
+        let url = baseURL + APIRequestURLs.updateUserProfile.rawValue
+        let response: UpdateUserProfileResponse = try await service.httpRequest(url: url, method: APIRequestURLs.updateUserProfile.getHTTPMethod(), parameters: parameters)
+        if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
+        let filename = String.randomString(length: 5)
+        let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"
+        let fullsizeFileName = "\(userId)-\(filename)-full.jpg"
+        let thumbnailImage = photo.resize(640, 480)
+        let fullSizeImage = photo.resize(1920, 1080)
+        
+        guard let thumbnailImageData = thumbnailImage.jpeg,
+              let fullSizeImageData = fullSizeImage.jpeg,
+              let thumbnailDataUrl = Utils.saveImageToDocumentDirectory(filename: thumbnailFileName, jpegData: thumbnailImageData),
+              let fullSizeDataUrl = Utils.saveImageToDocumentDirectory(filename: fullsizeFileName, jpegData: fullSizeImageData)
+        else { return nil }
+        
+        do {
+            try await uploadS3file(fileUrl: thumbnailDataUrl, fileName: thumbnailFileName)
+            try await uploadS3file(fileUrl: fullSizeDataUrl, fileName: fullsizeFileName)
+        } catch {
+            throw error
+        }
+        
+        let finalThumbnailURL = "\(s3RootURL)\(thumbnailFileName)"
+        let finalFullURL = "\(s3RootURL)\(fullsizeFileName)"
+        return Photo(thumbnail: finalThumbnailURL, url: finalFullURL)
     }
 }

@@ -12,5 +12,7 @@ enum ScreenNames: String {
          getStarted,
          loginInitial,
          login,
-         register
+         register,
+         setupBasicInfo,
+         setupDetailInfo
 }

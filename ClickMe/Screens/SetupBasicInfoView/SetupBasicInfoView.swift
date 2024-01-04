@@ -8,15 +8,20 @@
 import SwiftUI
 
 struct SetupBasicInfoView: View {
+    @Binding var shouldReturnToLogin: Bool
+    @Binding var shouldPresentSetupProfileFlow: Bool
+    
     @StateObject var viewModel = SetupBasicInfoViewModel()
     @FocusState private var focusedTextField: FormTextField?
+    
+    @State private var navigationPath: [ScreenNames] = []
     
     private enum FormTextField {
         case firstName, lastName, city, state, jobTitle, company, degree
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationPath) {
             Form {
                 Section(header: Text("Personal info")) {
                     VStack(alignment: .leading) {
@@ -92,17 +97,37 @@ struct SetupBasicInfoView: View {
                         }
                 }
             }
+            .navigationDestination(for: ScreenNames.self) { screenName in
+                switch screenName {
+                case ScreenNames.setupDetailInfo:
+                    SetupDetailInfoView(basicInfo: viewModel, navigationPath: $navigationPath)
+                default:
+                    fatalError()
+                }
+            }
             .navigationTitle("Setup profile")
             .toolbar() {
                 ToolbarItem(placement: .keyboard) {
+                    Spacer()
                     Button("Done") {
                         focusedTextField = nil
                     }
                 }
             }
             .toolbar() {
-                Button("Next") {
-                    
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Log out") {
+                        viewModel.logoutAndQuit()
+                        shouldPresentSetupProfileFlow = false
+                        shouldReturnToLogin = true
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Next") {
+                        if viewModel.isValidForm {
+                            navigationPath.append(ScreenNames.setupDetailInfo)
+                        }
+                    }
                 }
             }
         }
@@ -110,5 +135,5 @@ struct SetupBasicInfoView: View {
 }
 
 #Preview {
-    SetupBasicInfoView()
+    SetupBasicInfoView(shouldReturnToLogin: .constant(false), shouldPresentSetupProfileFlow: .constant(true))
 }

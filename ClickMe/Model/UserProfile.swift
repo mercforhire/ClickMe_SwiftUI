@@ -21,5 +21,5 @@ struct UserProfile: Codable {
     let degree: String?
     let aboutMe: String?
     let userPhotos: [Photo]?
-    let languages: [String]?
+    let languages: [Language]?
 }

@@ -18,4 +18,6 @@ enum CMError: Error {
     case userDeletedAccount
     case userDoesntExist
     case invalidApiKey
+    case s3UploadFailed
+    case s3DeleteFailed
 }

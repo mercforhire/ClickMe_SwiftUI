@@ -9,6 +9,9 @@ import UIKit
 import AVFoundation
 
 extension UIImage {
+    var jpeg: Data? { jpegData(compressionQuality: 0.9) }  // QUALITY min = 0 / max = 1
+    var png: Data? { pngData() }
+    
     /// Resize image while keeping the aspect ratio. Original image is not modified.
     /// - Parameters:
     ///   - width: A new width in pixels.

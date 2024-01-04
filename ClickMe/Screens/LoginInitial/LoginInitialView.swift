@@ -17,7 +17,7 @@ struct LoginInitialView: View {
             HomeView()
         } else {
             NavigationStack(path: $navigationPath) {
-                ZStack(content: {
+                ZStack {
                     Image("background", bundle: nil)
                         .resizable()
                         .ignoresSafeArea()
@@ -38,7 +38,7 @@ struct LoginInitialView: View {
                         .padding(.bottom, 10)
 
                     }
-                })
+                }
                 .navigationDestination(for: ScreenNames.self) { screenName in
                     switch screenName {
                     case ScreenNames.login:

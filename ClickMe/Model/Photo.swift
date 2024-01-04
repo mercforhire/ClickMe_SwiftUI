@@ -10,7 +10,6 @@ import Alamofire
 
 struct Photo: Codable, Identifiable {
     var id: String { return thumbnail }
-    
     var thumbnail: String
     var url: String
     

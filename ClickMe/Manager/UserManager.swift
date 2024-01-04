@@ -37,6 +37,24 @@ class UserManager {
         self.profile = profile
         api.apiKey = user.apiKey
         saveAPIKey()
+        fetchS3Keys()
+    }
+    
+    func set(profile: UserProfile) {
+        self.profile = profile
+    }
+    
+    func fetchS3Keys() {
+        Task {
+            do {
+                let response = try await api.getS3Keys()
+                if let s3Keys = response.data {
+                    api.initializeS3(bucketName: s3Keys.buckName!, s3Key: s3Keys.s3Key!, accessKey: s3Keys.s3AccessKey!)
+                }
+            } catch {
+                print("getS3Keys error:", error)
+            }
+        }
     }
     
     func logout() {
