@@ -22,6 +22,8 @@ final class SplashViewModel: ObservableObject {
                 if let user = loginResponse?.data?.user, let profile = loginResponse?.data?.profile {
                     UserManager.shared.set(user: user, profile: profile)
                     loggedIn = true
+                } else {
+                    logOut()
                 }
                 loginInProgress = false
             }

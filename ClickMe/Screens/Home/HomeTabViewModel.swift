@@ -14,7 +14,7 @@ final class HomeTabViewModel: ObservableObject {
     @Published var shouldPresentSetupProfileFlow = false
     
     func checkProfileCompletion() {
-        if UserManager.shared.profile?.firstName.isEmpty ?? true {
+        if UserManager.shared.profile?.firstName?.isEmpty ?? true {
             shouldPresentSetupProfileFlow = true
         }
     }

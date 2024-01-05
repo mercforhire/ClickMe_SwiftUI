@@ -15,7 +15,7 @@ struct ExploreCell: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
-                if let urlString = profile.userPhotos.first?.url {
+                if let urlString = profile.userPhotos?.first?.url {
                     AsyncImage(url: URL(string: urlString)) { image in
                         image
                             .resizable()
@@ -37,16 +37,16 @@ struct ExploreCell: View {
                         .clipped()
                 }
                 VStack(alignment: .leading) {
-                    Text("\(profile.firstName) \(profile.lastName)")
+                    Text("\(profile.firstName ?? "") \(profile.lastName ?? "")")
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
                     HStack {
-                        Image(profile.field.imageName(), bundle: nil)
+                        Image(profile.field?.imageName() ?? Field.other.imageName(), bundle: nil)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 30, height: 30)
-                        Text("\(profile.jobTitle))")
+                        Text("\(profile.jobTitle ?? "")")
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundColor(.primary)

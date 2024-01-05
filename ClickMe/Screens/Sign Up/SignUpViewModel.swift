@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 final class SignUpViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var emailAddress = ""

@@ -89,6 +89,8 @@ class ClickAPI {
         let response: DefaultResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getEmailCode.getHTTPMethod(), parameters: parameters)
         if !response.success, response.message == "FUNCTION_CALLED_TOO_FREQUENTLY" {
             throw CMError.sendCodeToEmailCalledTooFrequently
+        } else if !response.success {
+            throw CMError.unableToComplete
         }
         return response
     }
@@ -99,6 +101,8 @@ class ClickAPI {
         let response: DefaultResponse = try await service.httpRequest(url: url, method: APIRequestURLs.checkRegisterEmail.getHTTPMethod(), parameters: parameters)
         if !response.success, response.message == "EMAIL_ALREADY_USED" {
             throw CMError.emailAlreadyTaken
+        } else if !response.success {
+            throw CMError.unableToComplete
         }
         return response
     }
@@ -109,6 +113,8 @@ class ClickAPI {
         let response: DefaultResponse = try await service.httpRequest(url: url, method: APIRequestURLs.checkLoginEmail.getHTTPMethod(), parameters: parameters)
         if !response.success, response.message == "USER_OF_EMAIL_DOESNT_EXIST" {
             throw CMError.userDoesntExist
+        } else if !response.success {
+            throw CMError.unableToComplete
         }
         return response
     }
@@ -121,6 +127,8 @@ class ClickAPI {
             throw CMError.emailAlreadyTaken
         } else if !response.success, response.message == "VALIDATION_CODE_INVALID" {
             throw CMError.verifyCodeInvalid
+        } else if !response.success {
+            throw CMError.unableToComplete
         }
         return response
     }
@@ -135,6 +143,8 @@ class ClickAPI {
             throw CMError.verifyCodeInvalid
         } else if !response.success, response.message == "USER_ALREADY_DELETED_ACCOUNT" {
             throw CMError.userDeletedAccount
+        } else if !response.success {
+            throw CMError.unableToComplete
         }
         return response
     }
@@ -149,6 +159,8 @@ class ClickAPI {
             throw CMError.userDeletedAccount
         } else if !response.success, response.message == "USER_NOT_FOUND" {
             throw CMError.userDoesntExist
+        } else if !response.success {
+            throw CMError.unableToComplete
         }
         return response
     }
@@ -158,6 +170,8 @@ class ClickAPI {
         let response: S3KeysResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getS3Keys.getHTTPMethod(), parameters: nil)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
         }
         return response
     }
@@ -168,6 +182,8 @@ class ClickAPI {
         let response: S3KeysResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getUserProfile.getHTTPMethod(), parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
         }
         return response
     }
@@ -187,6 +203,28 @@ class ClickAPI {
         let url = baseURL + APIRequestURLs.exploreUsers.rawValue
         let response: ExploreUsersResponse = try await service.httpRequest(url: url, method: APIRequestURLs.exploreUsers.getHTTPMethod(), parameters: parameters)
         if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func searchUsers(params: SearchUsersParams) async throws -> SearchUsersResponse {
+        let parameters = params.params()
+        let url = baseURL + APIRequestURLs.searchUser.rawValue
+        let response: SearchUsersResponse = try await service.httpRequest(url: url, method: APIRequestURLs.searchUser.getHTTPMethod(), parameters: parameters)
+        if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func getUserTopics(userId: String) async throws -> TopicsResponse {
+        let parameters = ["userId": userId]
+        let url = baseURL + APIRequestURLs.getUserTopics.rawValue
+        let response: TopicsResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getUserTopics.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "USER_DOES_NOT_EXIST" {
+            throw CMError.userDoesntExist
+        } else if !response.success {
             throw CMError.unableToComplete
         }
         return response

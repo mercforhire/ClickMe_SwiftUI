@@ -5,7 +5,7 @@
 //  Created by Leon Chen on 2024-01-01.
 //
 
-import UIKit
+import Foundation
 
 enum Mood: String, Codable, Identifiable {
     case startup
@@ -43,26 +43,26 @@ enum Mood: String, Codable, Identifiable {
         }
     }
     
-    func icon() -> UIImage {
+    func imageName() -> String {
         switch self {
         case .startup:
-            return UIImage(named: "mood_startup")!
+            return "mood_startup"
         case .career:
-            return UIImage(named: "mood_career")!
+            return "mood_career"
         case .advance:
-            return UIImage(named: "mood_advance")!
+            return "mood_advance"
         case .welfare:
-            return UIImage(named: "mood_welfare")!
+            return "mood_welfare"
         case .pressure:
-            return UIImage(named: "mood_pressure")!
+            return "mood_pressure"
         case .advice:
-            return UIImage(named: "mood_advice")!
+            return "mood_advice"
         case .lifestyle:
-            return UIImage(named: "mood_lifestyle")!
+            return "mood_lifestyle"
         case .society:
-            return UIImage(named: "mood_social")!
+            return "mood_social"
         case .other:
-            return UIImage(named: "field_other")!
+            return "field_other"
         }
     }
     

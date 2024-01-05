@@ -18,10 +18,15 @@ struct ExploreView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.profiles, id: \.id) { profile in
+            List(viewModel.searchIsActive ? viewModel.searchResults : viewModel.profiles, id: \.id) { profile in
                 ExploreCell(profile: profile, imageWidth: cellWidth, imageHeight: 200)
+                    .onTapGesture {
+                        print("\(profile.firstName) clicked")
+                        viewModel.selectedProfile = profile
+                        viewModel.isShowingProfile = true
+                    }
             }
-            .navigationTitle("Explore users")
+            .navigationTitle("Explore")
             .listStyle(.plain)
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
@@ -37,9 +42,18 @@ struct ExploreView: View {
         .if(viewModel.searchIsActive) { navigationView in
             navigationView.searchable(text: $viewModel.searchText)
         }
+        .onChange(of: viewModel.searchText) { searchText in
+            viewModel.searchUsers()
+        }
         .popover(isPresented: $viewModel.isPresentingFilter) {
             ExploreFilterView(isPresentingFilter: $viewModel.isPresentingFilter,
                               viewModel: $viewModel.filterViewModel)
+        }
+        .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
+            if let selectedProfile = viewModel.selectedProfile {
+                UserDetailsView(profile: selectedProfile,
+                                isShowingProfile: $viewModel.isShowingProfile)
+            }
         }
         .task(id: viewModel.filterViewModel) {
             viewModel.fetchUsers()
