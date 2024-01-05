@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExploreFilterView: View {
     @Binding var isPresentingFilter: Bool
-    @Binding var viewModel: ExploreFilterViewModel
+    @EnvironmentObject var viewModel: ExploreFilterViewModel
     
     var body: some View {
         NavigationView {
@@ -51,6 +51,7 @@ struct ExploreFilterView: View {
 }
 
 #Preview {
-    ExploreFilterView(isPresentingFilter: .constant(true), 
-                      viewModel: .constant(ExploreFilterViewModel()))
+    ExploreFilterView(isPresentingFilter: .constant(true)).environmentObject({() -> ExploreFilterViewModel in
+        return ExploreFilterViewModel()
+    }())
 }

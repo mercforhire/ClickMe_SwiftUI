@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ExploreView: View {
     @StateObject var viewModel = ExploreViewModel()
+    @StateObject var filterViewModel = ExploreFilterViewModel()
     
     private let screenWidth = UIScreen.main.bounds.size.width
     private let padding: CGFloat = 40
@@ -18,24 +19,37 @@ struct ExploreView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.searchIsActive ? viewModel.searchResults : viewModel.profiles, id: \.id) { profile in
-                ExploreCell(profile: profile, imageWidth: cellWidth, imageHeight: 200)
-                    .onTapGesture {
-                        print("\(profile.firstName) clicked")
-                        viewModel.selectedProfile = profile
-                        viewModel.isShowingProfile = true
+            ZStack {
+                List(viewModel.searchIsActive ? viewModel.searchResults : viewModel.profiles, id: \.id) { profile in
+                    ExploreCell(profile: profile, imageWidth: cellWidth, imageHeight: 200)
+                        .onTapGesture {
+                            viewModel.selectedProfile = profile
+                            viewModel.isShowingProfile = true
+                        }
+                }
+                .navigationTitle("Explore")
+                .listStyle(.plain)
+                .toolbar {
+                    ToolbarItemGroup(placement: .topBarTrailing) {
+                        Button("", systemImage: "gearshape") {
+                            viewModel.isPresentingFilter = true
+                        }
+                        Button("", systemImage: "magnifyingglass") {
+                            viewModel.toggleSearchIsActive()
+                        }
                     }
+                }
+                if viewModel.searchIsActive, viewModel.searchResults.isEmpty {
+                    CMEmptyView()
+                }
             }
-            .navigationTitle("Explore")
-            .listStyle(.plain)
             .toolbar {
-                ToolbarItemGroup(placement: .topBarTrailing) {
-                    Button("", systemImage: "gearshape") {
-                        viewModel.isPresentingFilter = true
-                    }
-                    Button("", systemImage: "magnifyingglass") {
-                        viewModel.toggleSearchIsActive()
-                    }
+                ToolbarItem(placement: .principal) {
+                    Image("navLogo", bundle: nil)
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundStyle(Color.accentColor)
+                        .padding(.leading, -100)
                 }
             }
         }
@@ -46,8 +60,8 @@ struct ExploreView: View {
             viewModel.searchUsers()
         }
         .popover(isPresented: $viewModel.isPresentingFilter) {
-            ExploreFilterView(isPresentingFilter: $viewModel.isPresentingFilter,
-                              viewModel: $viewModel.filterViewModel)
+            ExploreFilterView(isPresentingFilter: $viewModel.isPresentingFilter)
+                .environmentObject(filterViewModel)
         }
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
             if let selectedProfile = viewModel.selectedProfile {
@@ -55,8 +69,14 @@ struct ExploreView: View {
                                 isShowingProfile: $viewModel.isShowingProfile)
             }
         }
-        .task(id: viewModel.filterViewModel) {
-            viewModel.fetchUsers()
+        .onAppear() {
+            viewModel.fetchUsers(filter: filterViewModel.toExploreUsersParams())
+        }
+        .onChange(of: filterViewModel.fields) { _ in
+            viewModel.fetchUsers(filter: filterViewModel.toExploreUsersParams())
+        }
+        .onChange(of: filterViewModel.languages) { _ in
+            viewModel.fetchUsers(filter: filterViewModel.toExploreUsersParams())
         }
     }
 }

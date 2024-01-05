@@ -37,8 +37,16 @@ struct UserDetailsView: View {
                     .animation(.easeOut(duration: 0.2), value: viewModel.tabSelection)
                     .overlay(alignment: .bottomTrailing) {
                         VStack {
-                            CMFollowButton(following: viewModel.following)
-                            CMChatButton()
+                            Button {
+                                viewModel.handleFollowButton()
+                            } label: {
+                                CMFollowButton(following: viewModel.following)
+                            }
+                            Button {
+                                
+                            } label: {
+                                CMChatButton()
+                            }
                         }
                         .padding([.bottom, .trailing], screenWidth / 25)
                     }
@@ -103,7 +111,7 @@ struct UserDetailsView: View {
                         .padding(.vertical, 10)
                     
                     Text("\(profile.city ?? ""), \(profile.state ?? ""), \(profile.country?.text() ?? "")")
-                        .font(.body)
+                        .font(.subheadline)
                         .fontWeight(.regular)
                         .foregroundColor(.primary)
                         .padding(.horizontal, 20)
@@ -150,6 +158,7 @@ struct UserDetailsView: View {
         .onAppear() {
             viewModel.profile = profile
             viewModel.getUserTopics()
+            viewModel.getFollowStatus()
         }
         .overlay(alignment: .topTrailing) {
             Button(action: {

@@ -44,7 +44,7 @@ class NetworkService {
         let request = sessionManager.request(url,
                                              method: method,
                                              parameters: parameters,
-                                             encoding: JSONEncoding.default,
+                                             encoding: method == .get ? URLEncoding.default : JSONEncoding.default,
                                              interceptor: interceptor)
         do {
             let resultObject = try await request.serializingDecodable(T.self).value

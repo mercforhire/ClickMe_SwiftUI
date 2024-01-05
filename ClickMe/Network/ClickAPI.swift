@@ -176,10 +176,10 @@ class ClickAPI {
         return response
     }
     
-    func getUserProfile(userId: String) async throws -> S3KeysResponse {
+    func getUserProfile(userId: String) async throws -> UpdateUserProfileResponse {
         let parameters = ["userId": userId]
         let url = baseURL + APIRequestURLs.getUserProfile.rawValue
-        let response: S3KeysResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getUserProfile.getHTTPMethod(), parameters: parameters)
+        let response: UpdateUserProfileResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getUserProfile.getHTTPMethod(), parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
         } else if !response.success {
@@ -192,7 +192,9 @@ class ClickAPI {
         let parameters = params.params()
         let url = baseURL + APIRequestURLs.updateUserProfile.rawValue
         let response: UpdateUserProfileResponse = try await service.httpRequest(url: url, method: APIRequestURLs.updateUserProfile.getHTTPMethod(), parameters: parameters)
-        if !response.success {
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
             throw CMError.unableToComplete
         }
         return response
@@ -202,7 +204,9 @@ class ClickAPI {
         let parameters = params.params()
         let url = baseURL + APIRequestURLs.exploreUsers.rawValue
         let response: ExploreUsersResponse = try await service.httpRequest(url: url, method: APIRequestURLs.exploreUsers.getHTTPMethod(), parameters: parameters)
-        if !response.success {
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
             throw CMError.unableToComplete
         }
         return response
@@ -212,7 +216,9 @@ class ClickAPI {
         let parameters = params.params()
         let url = baseURL + APIRequestURLs.searchUser.rawValue
         let response: SearchUsersResponse = try await service.httpRequest(url: url, method: APIRequestURLs.searchUser.getHTTPMethod(), parameters: parameters)
-        if !response.success {
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
             throw CMError.unableToComplete
         }
         return response
@@ -222,8 +228,58 @@ class ClickAPI {
         let parameters = ["userId": userId]
         let url = baseURL + APIRequestURLs.getUserTopics.rawValue
         let response: TopicsResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getUserTopics.getHTTPMethod(), parameters: parameters)
-        if !response.success, response.message == "USER_DOES_NOT_EXIST" {
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "USER_DOES_NOT_EXIST" {
             throw CMError.userDoesntExist
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func getFollowStatus(followerUserId: String, followingUserId: String) async throws -> DefaultResponse {
+        let parameters = ["followerUserId": followerUserId, "followingUserId": followingUserId]
+        let url = baseURL + APIRequestURLs.getFollowStatus.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getFollowStatus.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func follow(followingUserId: String) async throws -> DefaultResponse {
+        let parameters = ["followingUserId": followingUserId]
+        let url = baseURL + APIRequestURLs.followUser.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url, method: APIRequestURLs.followUser.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func unfollow(followingUserId: String) async throws -> DefaultResponse {
+        let parameters = ["followingUserId": followingUserId]
+        let url = baseURL + APIRequestURLs.unfollowUser.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url, method: APIRequestURLs.unfollowUser.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func getFollowingUsers(userId: String) async throws -> FollowingUsersResponse {
+        let parameters = ["userId": userId]
+        let url = baseURL + APIRequestURLs.getFollowingUsers.rawValue
+        let response: FollowingUsersResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getFollowingUsers.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
         } else if !response.success {
             throw CMError.unableToComplete
         }

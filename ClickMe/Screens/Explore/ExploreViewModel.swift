@@ -12,7 +12,6 @@ import SwiftUI
 final class ExploreViewModel: ObservableObject {
     @Published var profiles: [UserProfile] = []
     @Published var searchResults: [UserProfile] = []
-    @Published var filterViewModel = ExploreFilterViewModel()
     @Published var isPresentingFilter = false
     @Published var searchText = ""
     @Published var searchIsActive = false
@@ -20,9 +19,9 @@ final class ExploreViewModel: ObservableObject {
     @Published var isShowingProfile = false
     @Published var selectedProfile: UserProfile?
     
-    func fetchUsers() {
+    func fetchUsers(filter: ExploreUsersParams) {
         Task {
-            let response = try? await ClickAPI.shared.explore(params: filterViewModel.toExploreUsersParams())
+            let response = try? await ClickAPI.shared.explore(params: filter)
             if let profiles = response?.data {
                 self.profiles = profiles
             }
@@ -42,5 +41,9 @@ final class ExploreViewModel: ObservableObject {
     
     func toggleSearchIsActive() {
         searchIsActive.toggle()
+        if !searchIsActive {
+            searchText = ""
+            searchResults = []
+        }
     }
 }
