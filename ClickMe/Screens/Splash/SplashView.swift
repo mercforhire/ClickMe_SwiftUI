@@ -14,7 +14,7 @@ struct SplashView: View {
         ZStack {
             if viewModel.appIsActive && !viewModel.loginInProgress {
                 if viewModel.loggedIn {
-                    HomeView()
+                    HomeTabView()
                 } else {
                     GetStartedView()
                 }

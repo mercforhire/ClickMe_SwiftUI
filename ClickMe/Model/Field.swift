@@ -40,24 +40,24 @@ enum Field: String, Codable, Identifiable {
         }
     }
     
-    func icon() -> UIImage {
+    func imageName() -> String {
         switch self {
         case .business:
-            return UIImage(named: "field_business")!
+            return "field_business"
         case .social:
-            return UIImage(named: "field_social")!
+            return "field_social"
         case .tech:
-            return UIImage(named: "field_tech")!
+            return "field_tech"
         case .entertainment:
-            return UIImage(named: "field_entertainment")!
+            return "field_entertainment"
         case .education:
-            return UIImage(named: "field_education")!
+            return "field_education"
         case .media:
-            return UIImage(named: "field_media")!
+            return "field_media"
         case .science:
-            return UIImage(named: "field_science")!
+            return "field_science"
         case .other:
-            return UIImage(named: "field_other")!
+            return "field_other"
         }
     }
     

@@ -14,7 +14,7 @@ struct LoginInitialView: View {
     
     var body: some View {
         if viewModel.loggedIn {
-            HomeView()
+            HomeTabView()
         } else {
             NavigationStack(path: $navigationPath) {
                 ZStack {

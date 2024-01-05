@@ -11,14 +11,14 @@ import PhotosUI
 
 @MainActor
 final class SetupDetailInfoViewModel: ObservableObject {
-    @Published var aboutMe = "I am an app maker."
-    @Published var aboutMeError: String? = "test error"
+    @Published var aboutMe = ""
+    @Published var aboutMeError: String?
     
-    @Published var userPhotos: [Photo] = [Photo(thumbnail: "https://media.licdn.com/dms/image/C5603AQFAiZ5E98oI1w/profile-displayphoto-shrink_200_200/0/1564032471373?e=1709769600&v=beta&t=xuD6QC1lVyhH5CVpT6GIdK_CZnm317WMp5xTnD-Du40", url: "https://media.licdn.com/dms/image/C5603AQFAiZ5E98oI1w/profile-displayphoto-shrink_200_200/0/1564032471373?e=1709769600&v=beta&t=xuD6QC1lVyhH5CVpT6GIdK_CZnm317WMp5xTnD-Du40"), Photo(thumbnail: "https://s.yimg.com/ny/api/res/1.2/A4PCoWHj5cw7tn8oVqUoyg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTU0MDtjZj13ZWJw/https://media.zenfs.com/en/bbc_us_articles_995/272abd221b73b25585194ec81b38e6ac", url: "https://s.yimg.com/ny/api/res/1.2/A4PCoWHj5cw7tn8oVqUoyg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTU0MDtjZj13ZWJw/https://media.zenfs.com/en/bbc_us_articles_995/272abd221b73b25585194ec81b38e6ac")]
-    @Published var photosError: String? = "test error"
+    @Published var userPhotos: [Photo] = []
+    @Published var photosError: String?
     
-    @Published var languages: Set<Language> = [.english, .chinese]
-    @Published var languagesError: String? = "test error"
+    @Published var languages: Set<Language> = []
+    @Published var languagesError: String?
     
     @Published var isPresentingPhotoPicker = false
     @Published var pickerItem: PhotosPickerItem?
@@ -27,17 +27,17 @@ final class SetupDetailInfoViewModel: ObservableObject {
     @Published var updateProfileFinished = false
     
     var isValidForm: Bool {
-        guard !aboutMe.isEmpty, aboutMe.count > 10 else {
-            aboutMeError = "Write something about yourself(at least one sentence)"
-            return false
-        }
-        aboutMeError = nil
-        
         guard !userPhotos.isEmpty else {
             photosError = "Upload at least 1 photo"
             return false
         }
         photosError = nil
+        
+        guard !aboutMe.isEmpty, aboutMe.count > 10 else {
+            aboutMeError = "Write something about yourself(at least one sentence)"
+            return false
+        }
+        aboutMeError = nil
         
         guard !languages.isEmpty else {
             languagesError = "Pick at least 1 language"
@@ -114,7 +114,7 @@ final class SetupDetailInfoViewModel: ObservableObject {
                                                           userPhotos: userPhotos,
                                                           languages: Array(languages))
             do {
-                let response = try await ClickAPI.shared.updateUserProfile(updateProfileParams: updateProfileParams)
+                let response = try await ClickAPI.shared.updateUserProfile(params: updateProfileParams)
                 if let profile = response.data?.profile {
                     UserManager.shared.set(profile: profile)
                     updateProfileFinished = true

@@ -172,10 +172,20 @@ class ClickAPI {
         return response
     }
     
-    func updateUserProfile(updateProfileParams: UpdateProfileParams) async throws -> UpdateUserProfileResponse {
-        let parameters = updateProfileParams.params()
+    func updateUserProfile(params: UpdateProfileParams) async throws -> UpdateUserProfileResponse {
+        let parameters = params.params()
         let url = baseURL + APIRequestURLs.updateUserProfile.rawValue
         let response: UpdateUserProfileResponse = try await service.httpRequest(url: url, method: APIRequestURLs.updateUserProfile.getHTTPMethod(), parameters: parameters)
+        if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func explore(params: ExploreUsersParams) async throws -> ExploreUsersResponse {
+        let parameters = params.params()
+        let url = baseURL + APIRequestURLs.exploreUsers.rawValue
+        let response: ExploreUsersResponse = try await service.httpRequest(url: url, method: APIRequestURLs.exploreUsers.getHTTPMethod(), parameters: parameters)
         if !response.success {
             throw CMError.unableToComplete
         }
