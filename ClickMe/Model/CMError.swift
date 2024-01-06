@@ -20,4 +20,5 @@ enum CMError: Error {
     case invalidApiKey
     case s3UploadFailed
     case s3DeleteFailed
+    case topicDoesntExist
 }

@@ -145,7 +145,7 @@ struct UserDetailsView: View {
                         ScrollView(.horizontal) {
                             HStack {
                                 ForEach(viewModel.topics) { topic in
-                                    TopicView(topic: topic, width: screenWidth * 0.6, height: 170)
+                                    TopicSimpleView(topic: topic, width: screenWidth * 0.6, height: 170)
                                         .padding(.leading, 20)
                                 }
                             }

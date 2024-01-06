@@ -12,12 +12,21 @@ import SwiftUI
 final class ExploreViewModel: ObservableObject {
     @Published var profiles: [UserProfile] = []
     @Published var searchResults: [UserProfile] = []
+    @Published var followingUsers: [UserProfile] = []
     @Published var isPresentingFilter = false
+    @Published var isShowingFollowing = false
     @Published var searchText = ""
     @Published var searchIsActive = false
     
     @Published var isShowingProfile = false
     @Published var selectedProfile: UserProfile?
+    
+    var showUsers: [UserProfile] {
+        if isShowingFollowing {
+            return followingUsers
+        }
+        return searchIsActive ? searchResults : profiles
+    }
     
     func fetchUsers(filter: ExploreUsersParams) {
         Task {
@@ -35,6 +44,19 @@ final class ExploreViewModel: ObservableObject {
             let response = try? await ClickAPI.shared.searchUsers(params: SearchUsersParams(keyword: searchText))
             if let searchResults = response?.data?.results {
                 self.searchResults = searchResults
+            }
+        }
+    }
+    
+    func fetchFollowingUsers() {
+        guard let myUserId = UserManager.shared.user?._id else {
+            return
+        }
+        
+        Task {
+            let response = try? await ClickAPI.shared.getFollowingUsers(userId: myUserId)
+            if let profiles = response?.data?.profiles {
+                self.followingUsers = profiles
             }
         }
     }

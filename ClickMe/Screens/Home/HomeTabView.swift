@@ -19,13 +19,17 @@ struct HomeTabView: View {
                     .tabItem {
                         Label("Explore", systemImage: "globe")
                     }
-                FollowingsView()
+                ExploreTopicsView()
                     .tabItem {
-                        Label("Following", systemImage: "person.line.dotted.person")
+                        Label("Topics", systemImage: "lightbulb")
                     }
                 MyBookingsView()
                     .tabItem {
                         Label("Bookings", systemImage: "calendar.badge.clock")
+                    }
+                InboxView()
+                    .tabItem {
+                        Label("Inbox", systemImage: "bubble.left.and.text.bubble.right")
                     }
                 AccountView()
                     .tabItem {

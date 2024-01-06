@@ -20,26 +20,39 @@ struct ExploreView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                List(viewModel.searchIsActive ? viewModel.searchResults : viewModel.profiles, id: \.id) { profile in
+                List(viewModel.showUsers, id: \.id) { profile in
                     ExploreCell(profile: profile, imageWidth: cellWidth, imageHeight: 200)
                         .onTapGesture {
                             viewModel.selectedProfile = profile
                             viewModel.isShowingProfile = true
                         }
                 }
-                .navigationTitle("Explore")
+                .navigationTitle(viewModel.isShowingFollowing ? "Following" : "Explore")
                 .listStyle(.plain)
                 .toolbar {
                     ToolbarItemGroup(placement: .topBarTrailing) {
-                        Button("", systemImage: "gearshape") {
+                        Button("", systemImage: viewModel.isShowingFollowing ? "person.fill" : "person") {
+                            viewModel.isShowingFollowing.toggle()
+                        }
+                        .tint(viewModel.isShowingFollowing ? Color.red : Color.accentColor)
+                        
+                        Button("", systemImage: filterViewModel.hasFilters ? "gearshape.fill" : "gearshape") {
                             viewModel.isPresentingFilter = true
                         }
+                        .tint(filterViewModel.hasFilters ? Color.red : Color.accentColor)
+                        
                         Button("", systemImage: "magnifyingglass") {
                             viewModel.toggleSearchIsActive()
                         }
+                        .tint(viewModel.searchIsActive ? Color.red : Color.accentColor)
                     }
                 }
-                if viewModel.searchIsActive, viewModel.searchResults.isEmpty {
+                .refreshable {
+                    if !viewModel.searchIsActive {
+                        viewModel.fetchUsers(filter: filterViewModel.toExploreUsersParams())
+                    }
+                }
+                if viewModel.searchIsActive, viewModel.showUsers.isEmpty {
                     CMEmptyView()
                 }
             }
@@ -49,7 +62,7 @@ struct ExploreView: View {
                         .resizable()
                         .scaledToFit()
                         .foregroundStyle(Color.accentColor)
-                        .padding(.leading, -100)
+                        .padding(.leading, -50)
                 }
             }
         }

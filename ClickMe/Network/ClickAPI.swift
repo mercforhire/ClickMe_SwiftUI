@@ -286,6 +286,20 @@ class ClickAPI {
         return response
     }
     
+    func getTopic(topicId: String) async throws -> TopicResponse {
+        let parameters = ["topicId": topicId]
+        let url = baseURL + APIRequestURLs.getTopic.rawValue
+        let response: TopicResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getTopic.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "TOPIC_NOT_FOUND" {
+            throw CMError.topicDoesntExist
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
         let filename = String.randomString(length: 5)
         let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"

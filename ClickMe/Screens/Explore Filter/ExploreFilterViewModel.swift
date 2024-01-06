@@ -15,6 +15,10 @@ final class ExploreFilterViewModel: ObservableObject, Equatable {
         return lhs.fields == rhs.fields && lhs.languages == rhs.languages
     }
     
+    var hasFilters: Bool {
+        return !fields.isEmpty || !languages.isEmpty
+    }
+    
     func resetFields() {
         fields.removeAll()
     }
