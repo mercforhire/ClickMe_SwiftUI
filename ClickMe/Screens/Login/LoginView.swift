@@ -48,7 +48,7 @@ struct LoginView: View {
                             Button {
                                 viewModel.sendCode()
                             } label: {
-                                CMButton(title: viewModel.getCodeButtonTitle, width: 120)
+                                CMButton(title: viewModel.getCodeButtonTitle)
                             }
                             .disabled(viewModel.secondsUntilAllowedSendAgain > 0)
                         }
@@ -64,7 +64,7 @@ struct LoginView: View {
                             }
                         }
                     } label: {
-                        CMButton(title: "Login", width: screenWidth - padding * 2)
+                        CMButton(title: "Login")
                     }
                     .disabled(!viewModel.loginButtonEnabled)
                     .padding(.vertical, 40)

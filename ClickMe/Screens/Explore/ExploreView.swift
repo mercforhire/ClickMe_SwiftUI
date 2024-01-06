@@ -30,12 +30,12 @@ struct ExploreView: View {
                 .listStyle(.plain)
                 .toolbar {
                     ToolbarItemGroup(placement: .topBarTrailing) {
-                        Button("", systemImage: viewModel.isShowingFollowing ? "person.fill" : "person") {
+                        Button("", systemImage: viewModel.followingButtonImageName) {
                             viewModel.isShowingFollowing.toggle()
                         }
                         .tint(viewModel.isShowingFollowing ? Color.red : Color.accentColor)
                         
-                        Button("", systemImage: filterViewModel.hasFilters ? "gearshape.fill" : "gearshape") {
+                        Button("", systemImage: filterViewModel.filterButtonImageName) {
                             viewModel.isPresentingFilter = true
                         }
                         .tint(filterViewModel.hasFilters ? Color.red : Color.accentColor)
@@ -56,21 +56,9 @@ struct ExploreView: View {
                 }
             }
             .navigationTitle(viewModel.isShowingFollowing ? "Following" : "Explore")
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Image("navLogo", bundle: nil)
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundStyle(Color.accentColor)
-                        .padding(.leading, -50)
-                }
-            }
         }
         .if(viewModel.searchIsActive) { navigationView in
             navigationView.searchable(text: $viewModel.searchText)
-        }
-        .onChange(of: viewModel.searchText) { searchText in
-            viewModel.searchUsers()
         }
         .popover(isPresented: $viewModel.isPresentingFilter) {
             ExploreFilterView(isPresentingFilter: $viewModel.isPresentingFilter)
@@ -78,19 +66,27 @@ struct ExploreView: View {
         }
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
             if let selectedProfile = viewModel.selectedProfile {
-                UserDetailsView(profile: selectedProfile,
-                                isShowingProfile: $viewModel.isShowingProfile)
+                UserDetailsView(profile: selectedProfile, 
+                                isShowingProfile: $viewModel.isShowingProfile,
+                                loadTopics: true)
             }
         }
         .onAppear() {
-            viewModel.fetchUsers(filter: filterViewModel.toExploreUsersParams())
+            fetchUsers()
+        }
+        .onChange(of: viewModel.searchText) { searchText in
+            viewModel.searchUsers()
         }
         .onChange(of: filterViewModel.fields) { _ in
-            viewModel.fetchUsers(filter: filterViewModel.toExploreUsersParams())
+            fetchUsers()
         }
         .onChange(of: filterViewModel.languages) { _ in
-            viewModel.fetchUsers(filter: filterViewModel.toExploreUsersParams())
+            fetchUsers()
         }
+    }
+    
+    func fetchUsers() {
+        viewModel.fetchUsers(filter: filterViewModel.toExploreUsersParams())
     }
 }
 

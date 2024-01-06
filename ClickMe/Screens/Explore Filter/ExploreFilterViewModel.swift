@@ -19,6 +19,10 @@ final class ExploreFilterViewModel: ObservableObject, Equatable {
         return !fields.isEmpty || !languages.isEmpty
     }
     
+    var filterButtonImageName: String {
+        return hasFilters ? "gearshape.fill" : "gearshape"
+    }
+    
     func resetFields() {
         fields.removeAll()
     }

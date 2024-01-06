@@ -108,7 +108,7 @@ struct ButtonsSectionView: View {
             Button {
                 loginHandler()
             } label: {
-                CMButton(title: "Login", width: 260)
+                CMButton(title: "Login")
             }
             .padding(.vertical, 10)
             HStack {

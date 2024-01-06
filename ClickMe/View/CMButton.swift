@@ -9,16 +9,18 @@ import SwiftUI
 
 struct CMButton: View {
     var title: LocalizedStringKey
-    var width: CGFloat = 260
     
     var body: some View {
-        Text(title)
-            .font(.title3)
-            .fontWeight(.semibold)
-            .frame(width: width, height: 50)
-            .foregroundStyle(.white)
-            .background(Color.accentColor)
-            .cornerRadius(10)
+        ZStack {
+            Text(title)
+                .font(.title3)
+                .fontWeight(.semibold)
+                .frame(height: 50)
+                .foregroundStyle(.white)
+                .padding(.horizontal, 20)
+        }
+        .background(Color.accentColor)
+        .cornerRadius(10)
     }
 }
 

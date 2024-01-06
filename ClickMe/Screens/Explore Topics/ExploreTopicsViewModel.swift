@@ -12,6 +12,8 @@ import SwiftUI
 final class ExploreTopicsViewModel: ObservableObject {
     @Published var topics: [Topic] = []
     @Published var mood: Mood?
+    @Published var isShowingTopic: Bool = false
+    @Published var selectedTopic: Topic?
     
     func fetchTopics() {
         Task {

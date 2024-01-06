@@ -45,6 +45,10 @@ struct ExploreTopicsView: View {
                     } else {
                         List(viewModel.topics, id: \.id) { topic in
                             TopicView(topic: topic, width: cellWidth, height: 250)
+                                .onTapGesture {
+                                    viewModel.selectedTopic = topic
+                                    viewModel.isShowingTopic = true
+                                }
                         }
                         .listStyle(.plain)
                         .refreshable {
@@ -52,21 +56,16 @@ struct ExploreTopicsView: View {
                         }
                     }
                 }
-                
             }
             .navigationTitle("Topics")
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Image("navLogo", bundle: nil)
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundStyle(Color.accentColor)
-                        .padding(.leading, -100)
-                }
-            }
         }
         .onAppear() {
             viewModel.fetchTopics()
+        }
+        .fullScreenCover(isPresented: $viewModel.isShowingTopic) {
+            if let topic = viewModel.selectedTopic {
+                TopicDetailsView(topic: topic, isShowingTopic: $viewModel.isShowingTopic)
+            }
         }
     }
 }

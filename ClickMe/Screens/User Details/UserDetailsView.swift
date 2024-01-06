@@ -10,9 +10,9 @@ import SwiftUI
 struct UserDetailsView: View {
     let profile: UserProfile
     @Binding var isShowingProfile: Bool
+    let loadTopics: Bool
     
-    @StateObject var viewModel = UserDetailsViewModel()
-    
+    @StateObject private var viewModel = UserDetailsViewModel()
     private let screenWidth = UIScreen.main.bounds.size.width
     
     var body: some View {
@@ -157,7 +157,11 @@ struct UserDetailsView: View {
         .background(Color(.systemGray6))
         .onAppear() {
             viewModel.profile = profile
-            viewModel.getUserTopics()
+            
+            if loadTopics {
+                viewModel.getUserTopics()
+            }
+            
             viewModel.getFollowStatus()
         }
         .overlay(alignment: .topTrailing) {
@@ -172,5 +176,5 @@ struct UserDetailsView: View {
 }
 
 #Preview {
-    UserDetailsView(profile: UserProfile.mockProfile(), isShowingProfile: .constant(true))
+    UserDetailsView(profile: UserProfile.mockProfile(), isShowingProfile: .constant(true), loadTopics: true)
 }

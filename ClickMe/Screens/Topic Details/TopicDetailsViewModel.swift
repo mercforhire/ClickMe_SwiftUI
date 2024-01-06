@@ -11,6 +11,7 @@ import SwiftUI
 @MainActor
 final class TopicDetailsViewModel: ObservableObject {
     @Published var topic: Topic?
+    @Published var isShowingProfile = false
     
     func refreshTopic() {
         guard let topic else { return }

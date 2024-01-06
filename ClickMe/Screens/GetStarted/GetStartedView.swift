@@ -37,7 +37,7 @@ struct GetStartedView: View {
                     Button {
                         viewModel.goToNextSlide()
                     } label: {
-                        CMButton(title: "Next", width: screenWidth - padding * 2)
+                        CMButton(title: "Next")
                     }
                     .padding(.bottom, 20)
                 }

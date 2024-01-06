@@ -16,6 +16,9 @@
 		72064F362B470B7200BB9ECC /* ExploreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72064F352B470B7200BB9ECC /* ExploreViewModel.swift */; };
 		72064F382B471C6500BB9ECC /* ExploreUsersParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72064F372B471C6500BB9ECC /* ExploreUsersParams.swift */; };
 		72064F3A2B471ED900BB9ECC /* ExploreUsersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72064F392B471ED900BB9ECC /* ExploreUsersResponse.swift */; };
+		720B60422B49D42A00CF716E /* ChatConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B60412B49D42A00CF716E /* ChatConversationView.swift */; };
+		720B60442B49DF1900CF716E /* GetConversationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B60432B49DF1900CF716E /* GetConversationsResponse.swift */; };
+		720B60462B49DF3400CF716E /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B60452B49DF3400CF716E /* Conversation.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -130,6 +133,9 @@
 		72064F352B470B7200BB9ECC /* ExploreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewModel.swift; sourceTree = "<group>"; };
 		72064F372B471C6500BB9ECC /* ExploreUsersParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreUsersParams.swift; sourceTree = "<group>"; };
 		72064F392B471ED900BB9ECC /* ExploreUsersResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreUsersResponse.swift; sourceTree = "<group>"; };
+		720B60412B49D42A00CF716E /* ChatConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatConversationView.swift; sourceTree = "<group>"; };
+		720B60432B49DF1900CF716E /* GetConversationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetConversationsResponse.swift; sourceTree = "<group>"; };
+		720B60452B49DF3400CF716E /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -310,6 +316,7 @@
 				72774C3E2B4828F500C5A248 /* TopicsResponse.swift */,
 				724C95472B4902A000AD2CFC /* TopicResponse.swift */,
 				72774C482B48812700C5A248 /* FollowingUsersResponse.swift */,
+				720B60432B49DF1900CF716E /* GetConversationsResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -317,22 +324,22 @@
 		7237A5812B42E47B00ABF10F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				724C95422B48FFB300AD2CFC /* Topic Details */,
-				72774C4C2B48F6E400C5A248 /* Inbox */,
-				72774C332B47F66200C5A248 /* User Details */,
 				72064F322B47078F00BB9ECC /* Account */,
-				72064F2F2B46ECAC00BB9ECC /* My Bookings */,
 				72064F292B46EC1100BB9ECC /* Explore */,
 				72774C282B47B23300C5A248 /* Explore Filter */,
 				724C954B2B4946CC00AD2CFC /* Explore Topics */,
-				728499F02B45A54500C2826B /* Home */,
-				7237A5912B437E5400ABF10F /* Splash */,
 				7237A5862B42E4D600ABF10F /* GetStarted */,
-				7237A5942B43827400ABF10F /* LoginInitial */,
-				7237A59D2B43A60900ABF10F /* Sign Up */,
+				728499F02B45A54500C2826B /* Home */,
+				72774C4C2B48F6E400C5A248 /* Inbox */,
 				725586112B442604005A37B9 /* Login */,
+				7237A5942B43827400ABF10F /* LoginInitial */,
+				72064F2F2B46ECAC00BB9ECC /* My Bookings */,
 				7255861C2B44CEC0005A37B9 /* SetupBasicInfoView */,
 				7255862F2B4528ED005A37B9 /* SetupDetailInfoView */,
+				7237A59D2B43A60900ABF10F /* Sign Up */,
+				7237A5912B437E5400ABF10F /* Splash */,
+				724C95422B48FFB300AD2CFC /* Topic Details */,
+				72774C332B47F66200C5A248 /* User Details */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -370,6 +377,7 @@
 				72774C442B48351900C5A248 /* CMXButton.swift */,
 				72774C462B48432A00C5A248 /* CMEmptyView.swift */,
 				724C95502B49508200AD2CFC /* MoodView.swift */,
+				720B60412B49D42A00CF716E /* ChatConversationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -401,6 +409,7 @@
 				725586322B4529B4005A37B9 /* Language.swift */,
 				72774C402B482BFB00C5A248 /* Topic.swift */,
 				72774C422B482C7100C5A248 /* Currency.swift */,
+				720B60452B49DF3400CF716E /* Conversation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -865,10 +874,12 @@
 				7255861E2B44CECC005A37B9 /* SetupBasicInfoView.swift in Sources */,
 				724C95512B49508200AD2CFC /* MoodView.swift in Sources */,
 				724C95482B4902A000AD2CFC /* TopicResponse.swift in Sources */,
+				720B60422B49D42A00CF716E /* ChatConversationView.swift in Sources */,
 				72064F342B4707A200BB9ECC /* AccountView.swift in Sources */,
 				7237A58E2B43016100ABF10F /* CMButton.swift in Sources */,
 				724C95462B48FFEE00AD2CFC /* TopicDetailsViewModel.swift in Sources */,
 				72774C2C2B47C43C00C5A248 /* ExploreFilterViewModel.swift in Sources */,
+				720B60462B49DF3400CF716E /* Conversation.swift in Sources */,
 				72064F382B471C6500BB9ECC /* ExploreUsersParams.swift in Sources */,
 				72774C4E2B48F6F800C5A248 /* InboxView.swift in Sources */,
 				72774C492B48812700C5A248 /* FollowingUsersResponse.swift in Sources */,
@@ -896,6 +907,7 @@
 				72774C322B47D70000C5A248 /* SearchUsersResponse.swift in Sources */,
 				7237A59F2B43A62100ABF10F /* SignUpView.swift in Sources */,
 				722C59DB2B43F74D00EBA081 /* CMError.swift in Sources */,
+				720B60442B49DF1900CF716E /* GetConversationsResponse.swift in Sources */,
 				725586332B4529B4005A37B9 /* Language.swift in Sources */,
 				7237A5982B438C3D00ABF10F /* LoginInitialViewModel.swift in Sources */,
 				72774C2A2B47B24A00C5A248 /* ExploreFilterView.swift in Sources */,

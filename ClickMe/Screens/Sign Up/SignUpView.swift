@@ -55,7 +55,7 @@ struct SignUpView: View {
                             Button {
                                 viewModel.sendCode()
                             } label: {
-                                CMButton(title: viewModel.getCodeButtonTitle, width: 120)
+                                CMButton(title: viewModel.getCodeButtonTitle)
                             }
                             .disabled(viewModel.secondsUntilAllowedSendAgain > 0)
                         }
@@ -77,7 +77,7 @@ struct SignUpView: View {
                             }
                         }
                     } label: {
-                        CMButton(title: "Register", width: screenWidth - padding * 2)
+                        CMButton(title: "Register")
                     }
                     .disabled(!viewModel.agreeToTermsOfUse)
                     .padding(.bottom, 20)

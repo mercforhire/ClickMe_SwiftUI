@@ -27,6 +27,7 @@ enum APIRequestURLs: String {
     case unfollowUser = "/api/users/unfollowUser"
     case getFollowingUsers = "/api/users/getFollowingUsers"
     case getTopic = "/api/topics/getTopic"
+    case getConversations = "/api/chat/getConversations"
     
     func getHTTPMethod() -> HTTPMethod {
         switch self {
@@ -65,6 +66,8 @@ enum APIRequestURLs: String {
         case .getFollowingUsers:
             return .get
         case .getTopic:
+            return .get
+        case .getConversations:
             return .get
         }
     }

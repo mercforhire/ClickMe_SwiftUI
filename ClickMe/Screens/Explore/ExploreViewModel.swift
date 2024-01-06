@@ -17,9 +17,12 @@ final class ExploreViewModel: ObservableObject {
     @Published var isShowingFollowing = false
     @Published var searchText = ""
     @Published var searchIsActive = false
-    
     @Published var isShowingProfile = false
     @Published var selectedProfile: UserProfile?
+    
+    var followingButtonImageName: String {
+        return isShowingFollowing ? "person.fill" : "person"
+    }
     
     var showUsers: [UserProfile] {
         if isShowingFollowing {
