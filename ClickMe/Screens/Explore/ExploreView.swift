@@ -27,7 +27,6 @@ struct ExploreView: View {
                             viewModel.isShowingProfile = true
                         }
                 }
-                .navigationTitle(viewModel.isShowingFollowing ? "Following" : "Explore")
                 .listStyle(.plain)
                 .toolbar {
                     ToolbarItemGroup(placement: .topBarTrailing) {
@@ -56,6 +55,7 @@ struct ExploreView: View {
                     CMEmptyView()
                 }
             }
+            .navigationTitle(viewModel.isShowingFollowing ? "Following" : "Explore")
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Image("navLogo", bundle: nil)

@@ -11,14 +11,24 @@ import SwiftUI
 @MainActor
 final class ExploreTopicsViewModel: ObservableObject {
     @Published var topics: [Topic] = []
-    @Published var moodFilter: Mood?
+    @Published var mood: Mood?
     
-    func fetchTOpics(moodFilter: Mood?) {
+    func fetchTopics() {
         Task {
-            let response = try? await ClickAPI.shared.explore(params: filter)
-            if let profiles = response?.data {
-                self.profiles = profiles
+            let response = try? await ClickAPI.shared.exploreTopics(mood: mood)
+            if let topics = response?.data?.topics {
+                self.topics = topics
             }
         }
+    }
+    
+    func handleMoodClicked(mood: Mood) {
+        if self.mood == mood {
+            self.mood = nil
+        } else {
+            self.mood = mood
+        }
+        
+        fetchTopics()
     }
 }

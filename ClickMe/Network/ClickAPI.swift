@@ -212,6 +212,21 @@ class ClickAPI {
         return response
     }
     
+    func exploreTopics(mood: Mood?) async throws -> TopicsResponse {
+        var parameters: Parameters = [:]
+        if let mood {
+            parameters["mood"] = mood.rawValue
+        }
+        let url = baseURL + APIRequestURLs.exploreTopics.rawValue
+        let response: TopicsResponse = try await service.httpRequest(url: url, method: APIRequestURLs.exploreTopics.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func searchUsers(params: SearchUsersParams) async throws -> SearchUsersResponse {
         let parameters = params.params()
         let url = baseURL + APIRequestURLs.searchUser.rawValue

@@ -31,7 +31,7 @@ final class ExploreViewModel: ObservableObject {
     func fetchUsers(filter: ExploreUsersParams) {
         Task {
             let response = try? await ClickAPI.shared.explore(params: filter)
-            if let profiles = response?.data {
+            if let profiles = response?.data?.users {
                 self.profiles = profiles
             }
         }

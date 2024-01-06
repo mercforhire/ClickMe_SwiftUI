@@ -10,5 +10,9 @@ import Foundation
 struct ExploreUsersResponse: Codable {
     let success: Bool
     let message: String
-    var data: [UserProfile]?
+    var data: ExploreUsersData?
+}
+
+struct ExploreUsersData: Codable {
+    var users: [UserProfile]
 }
