@@ -29,6 +29,7 @@ enum APIRequestURLs: String {
     case getTopic = "/api/topics/getTopic"
     case getConversations = "/api/chat/getConversations"
     case getChatMessages = "/api/chat/getChatMessages"
+    case sendChatMessage = "/api/chat/sendChatMessage"
     
     func getHTTPMethod() -> HTTPMethod {
         switch self {
@@ -72,6 +73,8 @@ enum APIRequestURLs: String {
             return .get
         case .getChatMessages:
             return .get
+        case .sendChatMessage:
+            return .post
         }
     }
     

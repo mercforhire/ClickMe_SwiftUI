@@ -338,6 +338,20 @@ class ClickAPI {
         return response
     }
     
+    func sendChatMessage(toUserId: String, message: String) async throws -> SendChatMessageResponse {
+        let parameters = ["toUserId": toUserId, "message": message]
+        let url = baseURL + APIRequestURLs.sendChatMessage.rawValue
+        let response: SendChatMessageResponse = try await service.httpRequest(url: url, method: APIRequestURLs.sendChatMessage.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "RECEIVER_BLOCKED_SENDER" {
+            throw CMError.chatBlocked
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
         let filename = String.randomString(length: 5)
         let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"

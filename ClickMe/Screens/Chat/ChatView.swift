@@ -20,11 +20,15 @@ struct ChatView: View {
                 ScrollViewReader { (proxy: ScrollViewProxy) in
                     List(viewModel.messages, id: \.id) { message in
                         if message.fromUserId == viewModel.myProfile.userId {
-                            ChatMessageRightView(message: message, userProfile: viewModel.myProfile)
-                                .listRowSeparator(.hidden)
+                            ChatMessageRightView(message: message,
+                                                 userProfile: viewModel.myProfile,
+                                                 showTimeStamp: message == viewModel.messages.last)
+                            .listRowSeparator(.hidden)
                         } else {
-                            ChatMessageLeftView(message: message, userProfile: viewModel.talkingTo)
-                                .listRowSeparator(.hidden)
+                            ChatMessageLeftView(message: message,
+                                                userProfile: viewModel.talkingTo,
+                                                showTimeStamp: message == viewModel.messages.last)
+                            .listRowSeparator(.hidden)
                         }
                     }
                     .listStyle(PlainListStyle())
@@ -47,11 +51,13 @@ struct ChatView: View {
                         .frame(minHeight: CGFloat(30))
                     
                     Button {
-                        
+                        viewModel.sendChatMessage()
                     } label: {
-                        Text("Send")
+                        Text(viewModel.isSending ? "Sending" : "Send")
                             .foregroundStyle(.accent)
                     }
+                    .disabled(viewModel.typingMessage.isEmpty || viewModel.isSending)
+                    .opacity((viewModel.typingMessage.isEmpty || viewModel.isSending) ? 0.5 : 1)
                 }.frame(minHeight: CGFloat(50)).padding()
             }
             

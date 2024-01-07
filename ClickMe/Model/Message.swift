@@ -7,9 +7,8 @@
 
 import Foundation
 
-struct Message: Codable, Identifiable {
+struct Message: Codable, Identifiable, Equatable {
     var id: String { return _id }
-    
     let _id: String
     let createdDate: Date
     let fromUserId: String
@@ -22,6 +21,10 @@ struct Message: Codable, Identifiable {
             return message ?? ""
         }
         return "This message contains a special action."
+    }
+    
+    static func == (lhs: Message, rhs: Message) -> Bool {
+        lhs._id == rhs._id
     }
     
     static func mockShortMessage() -> Message {

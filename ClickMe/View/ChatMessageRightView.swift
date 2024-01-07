@@ -10,6 +10,7 @@ import SwiftUI
 struct ChatMessageRightView: View {
     var message: Message
     var userProfile: UserProfile
+    var showTimeStamp: Bool
     
     var body: some View {
         HStack(alignment: .bottom) {
@@ -18,16 +19,17 @@ struct ChatMessageRightView: View {
                     .font(.body)
                     .fontWeight(.regular)
                     .padding(.all, 10)
-                    .frame(minHeight: 80)
-                    .foregroundColor(.primary)
-                    .background(Color(.systemGray6))
+                    .foregroundColor(.white)
+                    .background(.accent)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 
-                Text(Utils.timeAgoSince(message.createdDate))
-                    .font(.footnote)
-                    .fontWeight(.light)
-                    .foregroundColor(Color(.systemGray))
-                    .frame(height: 10, alignment: .trailing)
+                if showTimeStamp {
+                    Text(Utils.timeAgoSince(message.createdDate))
+                        .font(.footnote)
+                        .fontWeight(.light)
+                        .foregroundColor(Color(.systemGray))
+                        .frame(height: 10, alignment: .trailing)
+                }
             }
             
             if let urlString = userProfile.userPhotos?.first?.thumbnail  {
@@ -43,7 +45,6 @@ struct ChatMessageRightView: View {
                 }
                 .frame(width: 80, height: 80)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding(.bottom, 18)
             } else {
                 Image("male-l", bundle: nil)
                     .resizable()
@@ -58,7 +59,7 @@ struct ChatMessageRightView: View {
 
 #Preview {
     VStack {
-        ChatMessageRightView(message: Message.mockShortMessage(), userProfile: UserProfile.mockProfile())
-        ChatMessageRightView(message: Message.mockLongMessage(), userProfile: UserProfile.mockProfile())
+        ChatMessageRightView(message: Message.mockShortMessage(), userProfile: UserProfile.mockProfile(), showTimeStamp: true)
+        ChatMessageRightView(message: Message.mockLongMessage(), userProfile: UserProfile.mockProfile(), showTimeStamp: true)
     }
 }

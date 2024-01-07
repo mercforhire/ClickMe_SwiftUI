@@ -21,4 +21,5 @@ enum CMError: Error {
     case s3UploadFailed
     case s3DeleteFailed
     case topicDoesntExist
+    case chatBlocked
 }

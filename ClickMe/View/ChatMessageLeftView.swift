@@ -11,6 +11,7 @@ import SwiftUI
 struct ChatMessageLeftView: View {
     var message: Message
     var userProfile: UserProfile
+    var showTimeStamp: Bool
     
     var body: some View {
         HStack(alignment: .top) {
@@ -40,16 +41,17 @@ struct ChatMessageLeftView: View {
                     .font(.body)
                     .fontWeight(.regular)
                     .padding(.all, 10)
-                    .frame(minHeight: 80)
                     .foregroundColor(.primary)
                     .background(Color(.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 
-                Text(Utils.timeAgoSince(message.createdDate))
-                    .font(.footnote)
-                    .fontWeight(.light)
-                    .foregroundColor(Color(.systemGray))
-                    .frame(height: 10, alignment: .leading)
+                if showTimeStamp {
+                    Text(Utils.timeAgoSince(message.createdDate))
+                        .font(.footnote)
+                        .fontWeight(.light)
+                        .foregroundColor(Color(.systemGray))
+                        .frame(height: 10, alignment: .leading)
+                }
             }
             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
         }
@@ -58,7 +60,7 @@ struct ChatMessageLeftView: View {
 
 #Preview {
     VStack {
-        ChatMessageLeftView(message: Message.mockShortMessage(), userProfile: UserProfile.mockProfile())
-        ChatMessageLeftView(message: Message.mockLongMessage(), userProfile: UserProfile.mockProfile())
+        ChatMessageLeftView(message: Message.mockShortMessage(), userProfile: UserProfile.mockProfile(), showTimeStamp: true)
+        ChatMessageLeftView(message: Message.mockLongMessage(), userProfile: UserProfile.mockProfile(), showTimeStamp: true)
     }
 }
