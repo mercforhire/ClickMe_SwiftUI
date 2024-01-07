@@ -17,6 +17,8 @@ final class ChatViewModel: ObservableObject {
     @Published var messages: [Message] = []
     @Published var scrollToBottom: Bool = true // anytime this changes, trigger scroll to bottom
     @Published var typingMessage: String = ""
+    @Published var blocked = false
+    @Published var otherPersonBlockedMe = false
     
     init(myProfile: UserProfile, talkingTo: UserProfile) {
         self.myProfile = myProfile
@@ -46,6 +48,56 @@ final class ChatViewModel: ObservableObject {
                 scrollToBottom.toggle()
             }
             isSending = false
+        }
+    }
+    
+    func getBlockStatus() {
+        Task {
+            let response = try? await ClickAPI.shared.getBlockStatus(userId: myProfile.userId, blockUserId: talkingTo.userId)
+            if let message = response?.message, message == "NO_BLOCK_RECORD" {
+                blocked = false
+            } else if let message = response?.message, message == "BLOCK_RECORD_EXIST" {
+                blocked = true
+            } else {
+                blocked = false
+            }
+        }
+        
+        Task {
+            let response = try? await ClickAPI.shared.getBlockStatus(userId: talkingTo.userId, blockUserId: myProfile.userId)
+            if let message = response?.message, message == "NO_BLOCK_RECORD" {
+                otherPersonBlockedMe = false
+            } else if let message = response?.message, message == "BLOCK_RECORD_EXIST" {
+                otherPersonBlockedMe = true
+            } else {
+                otherPersonBlockedMe = false
+            }
+        }
+    }
+    
+    func handleBlockButton() {
+        if blocked {
+            unblockUser()
+        } else {
+            blockUser()
+        }
+    }
+    
+    func blockUser() {
+        Task {
+            let response = try? await ClickAPI.shared.block(blockUserId: talkingTo.userId)
+            if response?.success ?? false {
+                blocked = true
+            }
+        }
+    }
+    
+    func unblockUser() {
+        Task {
+            let response = try? await ClickAPI.shared.unblock(blockUserId: talkingTo.userId)
+            if response?.success ?? false {
+                blocked = false
+            }
         }
     }
 }

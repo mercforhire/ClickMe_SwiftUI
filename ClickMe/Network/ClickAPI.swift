@@ -352,6 +352,42 @@ class ClickAPI {
         return response
     }
     
+    func getBlockStatus(userId: String, blockUserId: String) async throws -> DefaultResponse {
+        let parameters = ["userId": userId, "blockUserId": blockUserId]
+        let url = baseURL + APIRequestURLs.getBlockStatus.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getBlockStatus.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func block(blockUserId: String) async throws -> DefaultResponse {
+        let parameters = ["blockUserId": blockUserId]
+        let url = baseURL + APIRequestURLs.blockUser.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url, method: APIRequestURLs.blockUser.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func unblock(blockUserId: String) async throws -> DefaultResponse {
+        let parameters = ["blockUserId": blockUserId]
+        let url = baseURL + APIRequestURLs.unblockUser.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url, method: APIRequestURLs.unblockUser.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
         let filename = String.randomString(length: 5)
         let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"

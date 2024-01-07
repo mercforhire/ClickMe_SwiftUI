@@ -43,12 +43,15 @@ struct ChatView: View {
                 }
                 
                 HStack {
-                    TextField("Message...", text: $viewModel.typingMessage, axis: .vertical)
+                    TextField(viewModel.otherPersonBlockedMe ? "Other person blocked you" : "Message...",
+                              text: $viewModel.typingMessage,
+                              axis: .vertical)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .textInputAutocapitalization(.sentences)
                         .lineLimit(4)
                         .keyboardType(.default)
                         .frame(minHeight: CGFloat(30))
+                        .disabled(viewModel.otherPersonBlockedMe)
                     
                     Button {
                         viewModel.sendChatMessage()
@@ -56,7 +59,7 @@ struct ChatView: View {
                         Text(viewModel.isSending ? "Sending" : "Send")
                             .foregroundStyle(.accent)
                     }
-                    .disabled(viewModel.typingMessage.isEmpty || viewModel.isSending)
+                    .disabled(viewModel.typingMessage.isEmpty || viewModel.isSending || viewModel.otherPersonBlockedMe)
                     .opacity((viewModel.typingMessage.isEmpty || viewModel.isSending) ? 0.5 : 1)
                 }.frame(minHeight: CGFloat(50)).padding()
             }
@@ -68,9 +71,18 @@ struct ChatView: View {
                 LoadingView()
             }
         }
-        .navigationTitle(viewModel.talkingTo.firstName ?? "Chat")
+        .navigationTitle("\(viewModel.talkingTo.firstName ?? "Chat")" + (viewModel.blocked ? "-(Blocked)" : ""))
         .onAppear {
             viewModel.fetchMessages()
+            viewModel.getBlockStatus()
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Button("", systemImage: viewModel.blocked ? "person.fill.checkmark" : "person.slash.fill") {
+                    viewModel.handleBlockButton()
+                }
+                .tint(viewModel.blocked ? Color.green : Color.red)
+            }
         }
     }
 }
