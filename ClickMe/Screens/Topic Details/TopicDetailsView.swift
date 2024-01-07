@@ -35,7 +35,6 @@ struct TopicDetailsView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                         .clipped()
                         .onTapGesture {
-                            print("avatar pressed")
                             viewModel.isShowingProfile = true
                         }
                     }

@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-@MainActor
 final class LoginViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var emailAddress = ""
@@ -18,10 +17,11 @@ final class LoginViewModel: ObservableObject {
     @Published var secondsUntilAllowedSendAgain = 0
     @Published var loginComplete = false
     
+    var timer: Timer?
+    
     var getCodeButtonTitle: LocalizedStringKey {
         return secondsUntilAllowedSendAgain == 0 ? "Get Code" : "\(secondsUntilAllowedSendAgain) seconds"
     }
-    var timer: Timer?
     
     var loginButtonEnabled: Bool {
         return !emailAddress.isEmpty && emailAddress.isValidEmail && !code.isEmpty
@@ -31,17 +31,15 @@ final class LoginViewModel: ObservableObject {
         guard !emailAddress.isEmpty, emailAddress.isValidEmail else {
             return
         }
-        Task {
+        Task { @MainActor in
             do {
                 let response = try await ClickAPI.shared.checkLoginEmail(email: emailAddress)
-                print(response)
                 emailAddressError = nil
             } catch {
                 switch error {
                 case CMError.userDoesntExist:
                     emailAddressError = "User doesn't exist"
                 default:
-                    print(error)
                     emailAddressError = "Unknown error"
                 }
             }
@@ -62,17 +60,15 @@ final class LoginViewModel: ObservableObject {
         }
         emailAddressError = nil
         
-        isLoading = true
-        Task {
+        Task { @MainActor in
+            isLoading = true
             do {
                 let response = try await ClickAPI.shared.sendCodeToEmail(email: emailAddress)
-                print(response)
             } catch {
                 switch error {
                 case CMError.sendCodeToEmailCalledTooFrequently:
                     codeError = "Please wait before sending another code"
                 default:
-                    print(error)
                     codeError = "Unknown error"
                 }
             }
@@ -82,7 +78,7 @@ final class LoginViewModel: ObservableObject {
         startCountdown()
     }
     
-    func login() async {
+    func login() {
         guard !emailAddress.isEmpty, emailAddress.isValidEmail else {
             return
         }
@@ -93,27 +89,28 @@ final class LoginViewModel: ObservableObject {
         }
         codeError = nil
         
-        isLoading = true
-        do {
-            let loginResponse = try await ClickAPI.shared.login(email: emailAddress, code: code)
-            if let user = loginResponse.data?.user, let profile = loginResponse.data?.profile {
-                UserManager.shared.set(user: user, profile: profile)
-                loginComplete = true
+        Task { @MainActor in
+            isLoading = true
+            do {
+                let loginResponse = try await ClickAPI.shared.login(email: emailAddress, code: code)
+                if let user = loginResponse.data?.user, let profile = loginResponse.data?.profile {
+                    UserManager.shared.set(user: user, profile: profile)
+                    loginComplete = true
+                }
+            } catch {
+                switch error {
+                case CMError.userDoesntExist:
+                    emailAddressError = "User doesn't exist"
+                case CMError.verifyCodeInvalid:
+                    codeError = "Verification code is invalid"
+                case CMError.userDeletedAccount:
+                    codeError = "This user already deleted his/her account"
+                default:
+                    codeError = "Unknown error"
+                }
             }
-        } catch {
-            switch error {
-            case CMError.userDoesntExist:
-                emailAddressError = "User doesn't exist"
-            case CMError.verifyCodeInvalid:
-                codeError = "Verification code is invalid"
-            case CMError.userDeletedAccount:
-                codeError = "This user already deleted his/her account"
-            default:
-                print(error)
-                codeError = "Unknown error"
-            }
+            isLoading = false
         }
-        isLoading = false
     }
     
     private func startCountdown() {
@@ -122,8 +119,7 @@ final class LoginViewModel: ObservableObject {
             guard let self else { return }
             
             if self.secondsUntilAllowedSendAgain == 0 {
-                timer.invalidate()
-                self.timer = nil
+                self.timer?.invalidate()
                 return
             }
             

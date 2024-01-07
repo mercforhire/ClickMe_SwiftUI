@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct InboxView: View {
-    @Binding var talkTo: UserProfile?
+    @Binding var newPerson: UserProfile?
     
     @StateObject private var viewModel: InboxViewModel
     @State private var navigationPath: [ScreenNames] = []
     
     init(myProfile: UserProfile, talkTo: Binding<UserProfile?>) {
         _viewModel = StateObject(wrappedValue: InboxViewModel(myProfile: myProfile))
-        self._talkTo = talkTo
+        self._newPerson = talkTo
     }
     
     var body: some View {
@@ -24,8 +24,9 @@ struct InboxView: View {
                 List(viewModel.conversations, id: \.id) { conversation in
                     ChatConversationView(conversation: conversation, currentUserId: viewModel.myProfile.userId)
                         .onTapGesture {
+                            newPerson = nil
                             viewModel.selectedConversation = conversation
-                            talkTo = viewModel.getOtherConversationParticipant()
+                            navigationPath.append(.chat)
                         }
                 }
                 .listStyle(PlainListStyle())
@@ -43,21 +44,27 @@ struct InboxView: View {
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
                 case ScreenNames.chat:
-                    if let talkingTo = talkTo {
+                    if let newPerson = newPerson {
+                        ChatView(myProfile: viewModel.myProfile, talkingTo: newPerson)
+                    } else if let talkingTo = viewModel.getOtherConversationParticipant() {
                         ChatView(myProfile: viewModel.myProfile, talkingTo: talkingTo)
                     }
                 default:
                     fatalError()
                 }
             }
-            .onChange(of: talkTo) { userToTalkTo in
-                if userToTalkTo != nil {
-                    navigationPath.append(.chat)
-                }
+            .onChange(of: newPerson) { userToTalkTo in
+                navigationPath.removeAll()
+                navigationPath.append(.chat)
             }
         }
         .onAppear {
             viewModel.fetchConversations()
+            
+            if viewModel.firstTime, newPerson != nil {
+                navigationPath.append(.chat)
+            }
+            viewModel.firstTime = false
         }
     }
 }

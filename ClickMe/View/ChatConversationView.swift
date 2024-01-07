@@ -62,6 +62,7 @@ struct ChatConversationView: View {
                 LoadingView()
             }
         }
+        .contentShape(Rectangle())
         .onAppear {
             theOtherUser = getTheOtherUser()
         }

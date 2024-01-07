@@ -56,9 +56,6 @@ struct HomeTabView: View {
                 SetupBasicInfoView(shouldReturnToLogin: $viewModel.shouldReturnToLogin,
                                    shouldPresentSetupProfileFlow: $viewModel.shouldPresentSetupProfileFlow)
             }
-            .onChange(of: viewModel.tabSelection) { _ in
-                print("viewModel.tabSelection: ", viewModel.tabSelection)
-            }
             .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat), perform: { notification in
                 viewModel.handleSwitchToChatNotification(notification: notification)
             })

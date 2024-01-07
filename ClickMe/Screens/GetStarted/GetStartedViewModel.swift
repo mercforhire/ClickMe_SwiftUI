@@ -19,7 +19,6 @@ final class GetStartedViewModel: ObservableObject {
             tabSelection = tabSelection + 1
         } else {
             shouldGoToNextScreen = true
-            print("shouldGoToNextScreen: ", shouldGoToNextScreen)
         }
     }
 }

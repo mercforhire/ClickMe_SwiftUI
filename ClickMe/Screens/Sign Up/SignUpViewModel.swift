@@ -32,14 +32,12 @@ final class SignUpViewModel: ObservableObject {
         Task {
             do {
                 let response = try await ClickAPI.shared.checkRegisterEmail(email: emailAddress)
-                print(response)
                 emailAddressError = nil
             } catch {
                 switch error {
                 case CMError.emailAlreadyTaken:
                     emailAddressError = "Email is already taken by another user"
                 default:
-                    print(error)
                     emailAddressError = "Unknown error"
                 }
             }
@@ -64,13 +62,11 @@ final class SignUpViewModel: ObservableObject {
         Task {
             do {
                 let response = try await ClickAPI.shared.sendCodeToEmail(email: emailAddress)
-                print(response)
             } catch {
                 switch error {
                 case CMError.sendCodeToEmailCalledTooFrequently:
                     codeError = "Please wait before sending another code"
                 default:
-                    print(error)
                     codeError = "Unknown error"
                 }
             }
@@ -107,7 +103,6 @@ final class SignUpViewModel: ObservableObject {
             case CMError.userDeletedAccount:
                 codeError = "This user already deleted his/her account"
             default:
-                print(error)
                 codeError = "Unknown error"
             }
         }

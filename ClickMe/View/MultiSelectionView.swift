@@ -32,12 +32,9 @@ struct MultiSelectionView<Selectable: Identifiable & Hashable>: View {
     private func toggleSelection(selectable: Selectable) {
         if let existingIndex = selected.firstIndex(where: { $0.id == selectable.id }) {
             selected.remove(at: existingIndex)
-            print("removed:", selectable)
         } else {
             selected.insert(selectable)
-            print("added:", selectable)
         }
-        print("selected.contains(where: { $0.id == selectable.id }):", selected.contains(where: { $0.id == selectable.id }) )
     }
 }
 

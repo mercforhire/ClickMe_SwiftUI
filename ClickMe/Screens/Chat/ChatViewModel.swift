@@ -59,8 +59,6 @@ final class ChatViewModel: ObservableObject {
                 blocked = false
             } else if let message = response?.message, message == "BLOCK_RECORD_EXIST" {
                 blocked = true
-            } else {
-                blocked = false
             }
         }
         
@@ -70,8 +68,6 @@ final class ChatViewModel: ObservableObject {
                 otherPersonBlockedMe = false
             } else if let message = response?.message, message == "BLOCK_RECORD_EXIST" {
                 otherPersonBlockedMe = true
-            } else {
-                otherPersonBlockedMe = false
             }
         }
     }

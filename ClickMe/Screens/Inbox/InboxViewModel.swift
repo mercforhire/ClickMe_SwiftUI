@@ -10,6 +10,7 @@ import Foundation
 @MainActor
 final class InboxViewModel: ObservableObject {
     var myProfile: UserProfile
+    @Published var firstTime = true
     @Published var isLoading = false
     @Published var conversations: [Conversation] = []
     @Published var selectedConversation: Conversation?
