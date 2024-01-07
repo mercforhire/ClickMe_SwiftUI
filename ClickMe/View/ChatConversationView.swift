@@ -49,9 +49,10 @@ struct ChatConversationView: View {
                             .font(.footnote)
                             .fontWeight(.light)
                             .foregroundColor(Color(.systemGray))
+                            .frame(maxWidth: 100)
                     }
                     
-                    Text(conversation.lastMessage)
+                    Text(conversation.lastMessage.messageString)
                         .font(.subheadline)
                         .fontWeight(.regular)
                         .foregroundColor(.primary)
@@ -61,9 +62,6 @@ struct ChatConversationView: View {
                 LoadingView()
             }
         }
-        .padding(.all, 10)
-        .background(Color(.systemGray6))
-        .clipShape(RoundedRectangle(cornerRadius: 5))
         .onAppear {
             theOtherUser = getTheOtherUser()
         }
@@ -75,11 +73,11 @@ struct ChatConversationView: View {
                 return participant
             }
         }
-        
         return nil
     }
 }
 
 #Preview {
-    ChatConversationView(conversation: Conversation.mockConversation(), currentUserId: "65971589d4f4d7af9f97a3bc")
+    ChatConversationView(conversation: Conversation.mockConversation(),
+                         currentUserId: "65971589d4f4d7af9f97a3bc")
 }

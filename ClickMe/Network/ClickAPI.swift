@@ -326,6 +326,18 @@ class ClickAPI {
         return response
     }
     
+    func getChatMessages(with userId: String) async throws -> GetChatMessagesResponse {
+        let parameters = ["withUserId": userId]
+        let url = baseURL + APIRequestURLs.getChatMessages.rawValue
+        let response: GetChatMessagesResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getChatMessages.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
         let filename = String.randomString(length: 5)
         let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"

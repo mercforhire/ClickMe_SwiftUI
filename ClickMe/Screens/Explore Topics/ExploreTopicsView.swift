@@ -63,9 +63,7 @@ struct ExploreTopicsView: View {
             viewModel.fetchTopics()
         }
         .fullScreenCover(isPresented: $viewModel.isShowingTopic) {
-            if let topic = viewModel.selectedTopic {
-                TopicDetailsView(topic: topic, isShowingTopic: $viewModel.isShowingTopic)
-            }
+            TopicDetailsView(isShowingTopic: $viewModel.isShowingTopic, topic: viewModel.selectedTopic!)
         }
     }
 }

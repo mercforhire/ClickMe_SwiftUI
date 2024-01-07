@@ -27,7 +27,7 @@ struct HomeTabView: View {
                     .tabItem {
                         Label("Bookings", systemImage: "calendar.badge.clock")
                     }
-                InboxView()
+                InboxView(currentUserId: viewModel.getCurrentUserId() ?? "65971589d4f4d7af9f97a3bc")
                     .tabItem {
                         Label("Inbox", systemImage: "bubble.left.and.text.bubble.right")
                     }
@@ -37,7 +37,7 @@ struct HomeTabView: View {
                     }
             }
             .onAppear {
-//                viewModel.checkProfileCompletion()
+                viewModel.checkProfileCompletion()
             }
             .fullScreenCover(isPresented: $viewModel.shouldPresentSetupProfileFlow) {
                 SetupBasicInfoView(shouldReturnToLogin: $viewModel.shouldReturnToLogin,

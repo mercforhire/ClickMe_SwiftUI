@@ -24,9 +24,15 @@ class RequestInterceptor: Alamofire.RequestInterceptor {
     }
 }
 
+enum DateError: String, Error {
+    case invalidDate
+}
+
 class NetworkService {
     private let sessionManager: Session
     private let interceptor = RequestInterceptor()
+    private let jsonDecoder = JSONDecoder()
+    private let formatter = DateFormatter()
     
     var apiKey: String? {
         didSet {
@@ -38,6 +44,25 @@ class NetworkService {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 60
         sessionManager = Session(interceptor: interceptor)
+        
+        formatter.calendar = Calendar(identifier: .iso8601)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        jsonDecoder.dateDecodingStrategy = .custom({ decoder -> Date in
+            let container = try decoder.singleValueContainer()
+            let dateStr = try container.decode(String.self)
+
+            self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+            if let date = self.formatter.date(from: dateStr) {
+                return date
+            }
+            self.formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXXXX"
+            if let date = self.formatter.date(from: dateStr) {
+                return date
+            }
+            throw DateError.invalidDate
+        })
     }
     
     func httpRequest<T>(url: String, method: HTTPMethod, parameters: Parameters?) async throws -> T where T : Decodable {
@@ -47,7 +72,7 @@ class NetworkService {
                                              encoding: method == .get ? URLEncoding.default : JSONEncoding.default,
                                              interceptor: interceptor)
         do {
-            let resultObject = try await request.serializingDecodable(T.self).value
+            let resultObject = try await request.serializingDecodable(T.self, decoder: jsonDecoder).value
             return resultObject
         } catch {
             throw CMError.invalidData

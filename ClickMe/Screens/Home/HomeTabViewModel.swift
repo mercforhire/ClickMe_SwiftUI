@@ -18,4 +18,8 @@ final class HomeTabViewModel: ObservableObject {
             shouldPresentSetupProfileFlow = true
         }
     }
+    
+    func getCurrentUserId() -> String? {
+        return UserManager.shared.user?._id
+    }
 }

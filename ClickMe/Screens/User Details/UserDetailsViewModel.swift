@@ -10,14 +10,16 @@ import SwiftUI
 
 @MainActor
 final class UserDetailsViewModel: ObservableObject {
-    @Published var profile: UserProfile?
+    @Published var profile: UserProfile
     @Published var tabSelection = 0
     @Published var following = false
     @Published var topics: [Topic] = []
     
+    init(profile: UserProfile) {
+        self.profile = profile
+    }
+    
     func getUserTopics() {
-        guard let profile else { return }
-        
         Task {
             let response = try? await ClickAPI.shared.getUserTopics(userId: profile.userId)
             if let topics = response?.data?.topics {
@@ -27,8 +29,7 @@ final class UserDetailsViewModel: ObservableObject {
     }
     
     func getFollowStatus() {
-        guard let myUserId = UserManager.shared.user?._id, 
-                let profile else {
+        guard let myUserId = UserManager.shared.user?._id else {
             return
         }
         
@@ -51,8 +52,6 @@ final class UserDetailsViewModel: ObservableObject {
     }
     
     func followUser() {
-        guard let profile else { return }
-        
         Task {
             let response = try? await ClickAPI.shared.follow(followingUserId: profile.id)
             if response?.success ?? false {
@@ -63,8 +62,6 @@ final class UserDetailsViewModel: ObservableObject {
     }
     
     func unfollowUser() {
-        guard let profile else { return }
-        
         Task {
             let response = try? await ClickAPI.shared.unfollow(followingUserId: profile.id)
             if response?.success ?? false {
@@ -75,8 +72,6 @@ final class UserDetailsViewModel: ObservableObject {
     }
     
     func refreshProfile() {
-        guard let profile else { return }
-        
         Task {
             let response = try? await ClickAPI.shared.getUserProfile(userId: profile.id)
             if let profile = response?.data?.profile {

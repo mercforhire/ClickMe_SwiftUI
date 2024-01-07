@@ -27,7 +27,7 @@ struct TopicView: View {
                             .opacity(0.5)
                     }
                     .frame(width: 50, height: 50)
-                    .clipShape(Circle())
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
                     .clipped()
                     VStack(alignment: .leading) {
                         Text("\(profile.firstName ?? "") \(profile.lastName ?? "")")

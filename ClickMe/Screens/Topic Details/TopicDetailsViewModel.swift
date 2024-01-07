@@ -10,12 +10,14 @@ import SwiftUI
 
 @MainActor
 final class TopicDetailsViewModel: ObservableObject {
-    @Published var topic: Topic?
+    @Published var topic: Topic
     @Published var isShowingProfile = false
     
+    init(topic: Topic) {
+        self.topic = topic
+    }
+    
     func refreshTopic() {
-        guard let topic else { return }
-        
         Task {
             let response = try? await ClickAPI.shared.getTopic(topicId: topic._id)
             if let topic = response?.data?.topic {

@@ -14,5 +14,7 @@ enum ScreenNames: String {
          login,
          register,
          setupBasicInfo,
-         setupDetailInfo
+         setupDetailInfo,
+         inbox,
+         chat
 }

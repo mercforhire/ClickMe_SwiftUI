@@ -65,11 +65,9 @@ struct ExploreView: View {
                 .environmentObject(filterViewModel)
         }
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
-            if let selectedProfile = viewModel.selectedProfile {
-                UserDetailsView(profile: selectedProfile, 
-                                isShowingProfile: $viewModel.isShowingProfile,
-                                loadTopics: true)
-            }
+            UserDetailsView(profile: viewModel.selectedProfile!,
+                            isShowingProfile: $viewModel.isShowingProfile,
+                            loadTopics: true)
         }
         .onAppear() {
             fetchUsers()
