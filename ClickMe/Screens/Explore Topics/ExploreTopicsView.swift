@@ -27,7 +27,7 @@ struct ExploreTopicsView: View {
                     ScrollView(.horizontal) {
                         LazyHGrid(rows: gridColumns) {
                             ForEach(Mood.list()) { mood in
-                                MoodView(mood: mood, 
+                                MoodView(mood: mood,
                                          width: moodCellWidth,
                                          height: 70,
                                          selected: viewModel.mood == mood)
@@ -49,6 +49,7 @@ struct ExploreTopicsView: View {
                                     viewModel.selectedTopic = topic
                                     viewModel.isShowingTopic = true
                                 }
+                                .listRowSeparator(.hidden)
                         }
                         .listStyle(.plain)
                         .refreshable {

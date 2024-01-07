@@ -12,6 +12,8 @@ import SwiftUI
 final class HomeTabViewModel: ObservableObject {
     @Published var shouldReturnToLogin = false
     @Published var shouldPresentSetupProfileFlow = false
+    @Published var tabSelection: HomeTabs = .explore
+    @Published var talkTo: UserProfile?
     
     func checkProfileCompletion() {
         if UserManager.shared.profile?.firstName?.isEmpty ?? true {
@@ -19,7 +21,14 @@ final class HomeTabViewModel: ObservableObject {
         }
     }
     
-    func getCurrentUserId() -> String? {
-        return UserManager.shared.user?._id
+    func getCurrentUser() -> UserProfile {
+        return UserManager.shared.profile!
+    }
+    
+    func handleSwitchToChatNotification(notification: NotificationCenter.Publisher.Output) {
+        if let user = notification.userInfo?["user"] as? UserProfile {
+            talkTo = user
+            tabSelection = .inbox
+        }
     }
 }

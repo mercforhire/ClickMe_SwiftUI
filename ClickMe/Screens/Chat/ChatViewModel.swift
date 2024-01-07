@@ -46,6 +46,7 @@ final class ChatViewModel: ObservableObject {
             if let newMessage = response?.data?.message {
                 self.messages.append(newMessage)
                 scrollToBottom.toggle()
+                typingMessage = ""
             }
             isSending = false
         }

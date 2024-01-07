@@ -30,6 +30,8 @@
 		720B605B2B4AC64700CF716E /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B605A2B4AC64700CF716E /* ChatViewModel.swift */; };
 		720B605D2B4ADAE700CF716E /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B605C2B4ADAE700CF716E /* MockData.swift */; };
 		720B605F2B4AEF2B00CF716E /* SendChatMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B605E2B4AEF2B00CF716E /* SendChatMessageResponse.swift */; };
+		720B60612B4B033400CF716E /* MyBookingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B60602B4B033400CF716E /* MyBookingsViewModel.swift */; };
+		720B60632B4B19F100CF716E /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B60622B4B19F100CF716E /* Notifications.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -158,6 +160,8 @@
 		720B605A2B4AC64700CF716E /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		720B605C2B4ADAE700CF716E /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		720B605E2B4AEF2B00CF716E /* SendChatMessageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendChatMessageResponse.swift; sourceTree = "<group>"; };
+		720B60602B4B033400CF716E /* MyBookingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookingsViewModel.swift; sourceTree = "<group>"; };
+		720B60622B4B19F100CF716E /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -303,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				72064F302B46ECBF00BB9ECC /* MyBookingsView.swift */,
+				720B60602B4B033400CF716E /* MyBookingsViewModel.swift */,
 			);
 			path = "My Bookings";
 			sourceTree = "<group>";
@@ -450,6 +455,7 @@
 				720B604D2B4A5F6000CF716E /* Attachment.swift */,
 				720B604F2B4A5FF000CF716E /* Request.swift */,
 				720B605C2B4ADAE700CF716E /* MockData.swift */,
+				720B60622B4B19F100CF716E /* Notifications.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -946,6 +952,7 @@
 				7237A58C2B42E5AD00ABF10F /* Mood.swift in Sources */,
 				7255862C2B4515C1005A37B9 /* Field.swift in Sources */,
 				722C59D72B43F0A100EBA081 /* APIRequestsURLs.swift in Sources */,
+				720B60612B4B033400CF716E /* MyBookingsViewModel.swift in Sources */,
 				725586172B44CA07005A37B9 /* ScreenNames.swift in Sources */,
 				72774C322B47D70000C5A248 /* SearchUsersResponse.swift in Sources */,
 				720B60522B4ABBAB00CF716E /* GetChatMessagesResponse.swift in Sources */,
@@ -989,6 +996,7 @@
 				724C954D2B4946E800AD2CFC /* ExploreTopicsView.swift in Sources */,
 				720B60502B4A5FF000CF716E /* Request.swift in Sources */,
 				72774C272B47A31400C5A248 /* ExploreCell.swift in Sources */,
+				720B60632B4B19F100CF716E /* Notifications.swift in Sources */,
 				72774C3F2B4828F500C5A248 /* TopicsResponse.swift in Sources */,
 				722C59E22B43FE6400EBA081 /* String+Ext.swift in Sources */,
 				725586192B44CC1B005A37B9 /* CMErrorLabel.swift in Sources */,

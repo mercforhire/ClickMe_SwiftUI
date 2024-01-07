@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+enum HomeTabs: Hashable {
+    case explore
+    case topics
+    case bookings
+    case inbox
+    case account
+}
+
 struct HomeTabView: View {
     @StateObject var viewModel = HomeTabViewModel()
     
@@ -14,35 +22,46 @@ struct HomeTabView: View {
         if viewModel.shouldReturnToLogin {
             LoginInitialView()
         } else {
-            TabView {
+            TabView(selection: $viewModel.tabSelection) {
                 ExploreView()
                     .tabItem {
                         Label("Explore", systemImage: "globe")
                     }
+                    .tag(HomeTabs.explore)
                 ExploreTopicsView()
                     .tabItem {
                         Label("Topics", systemImage: "lightbulb")
                     }
+                    .tag(HomeTabs.topics)
                 MyBookingsView()
                     .tabItem {
                         Label("Bookings", systemImage: "calendar.badge.clock")
                     }
-                InboxView(currentUserId: viewModel.getCurrentUserId() ?? "65971589d4f4d7af9f97a3bc")
+                    .tag(HomeTabs.bookings)
+                InboxView(myProfile: viewModel.getCurrentUser(), talkTo: $viewModel.talkTo)
                     .tabItem {
                         Label("Inbox", systemImage: "bubble.left.and.text.bubble.right")
                     }
+                    .tag(HomeTabs.inbox)
                 AccountView()
                     .tabItem {
                         Label("Account", systemImage: "person")
                     }
+                    .tag(HomeTabs.account)
             }
             .onAppear {
-                viewModel.checkProfileCompletion()
+//                viewModel.checkProfileCompletion()
             }
             .fullScreenCover(isPresented: $viewModel.shouldPresentSetupProfileFlow) {
                 SetupBasicInfoView(shouldReturnToLogin: $viewModel.shouldReturnToLogin,
                                    shouldPresentSetupProfileFlow: $viewModel.shouldPresentSetupProfileFlow)
             }
+            .onChange(of: viewModel.tabSelection) { _ in
+                print("viewModel.tabSelection: ", viewModel.tabSelection)
+            }
+            .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat), perform: { notification in
+                viewModel.handleSwitchToChatNotification(notification: notification)
+            })
         }
     }
 }

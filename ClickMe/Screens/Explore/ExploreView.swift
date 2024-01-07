@@ -26,6 +26,7 @@ struct ExploreView: View {
                             viewModel.selectedProfile = profile
                             viewModel.isShowingProfile = true
                         }
+                        .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
                 .toolbar {
@@ -85,6 +86,7 @@ struct ExploreView: View {
     
     func fetchUsers() {
         viewModel.fetchUsers(filter: filterViewModel.toExploreUsersParams())
+        viewModel.fetchFollowingUsers()
     }
 }
 

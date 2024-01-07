@@ -43,6 +43,11 @@ final class UserDetailsViewModel: ObservableObject {
         }
     }
     
+    func handleChatButton() {
+        print("Switch to chatting with \(profile.firstName)")
+        NotificationCenter.default.post(name: Notifications.SwitchToChat, object: nil, userInfo: ["user": profile])
+    }
+    
     func handleFollowButton() {
         if following {
             unfollowUser()

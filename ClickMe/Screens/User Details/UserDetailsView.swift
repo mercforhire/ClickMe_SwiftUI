@@ -47,7 +47,8 @@ struct UserDetailsView: View {
                             CMFollowButton(following: viewModel.following)
                         }
                         Button {
-                            
+                            isShowingProfile = false
+                            viewModel.handleChatButton()
                         } label: {
                             CMChatButton()
                         }

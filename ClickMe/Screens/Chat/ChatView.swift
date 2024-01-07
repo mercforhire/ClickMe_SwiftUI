@@ -17,28 +17,34 @@ struct ChatView: View {
     var body: some View {
         ZStack {
             VStack {
-                ScrollViewReader { (proxy: ScrollViewProxy) in
-                    List(viewModel.messages, id: \.id) { message in
-                        if message.fromUserId == viewModel.myProfile.userId {
-                            ChatMessageRightView(message: message,
-                                                 userProfile: viewModel.myProfile,
-                                                 showTimeStamp: message == viewModel.messages.last)
-                            .listRowSeparator(.hidden)
-                        } else {
-                            ChatMessageLeftView(message: message,
-                                                userProfile: viewModel.talkingTo,
-                                                showTimeStamp: message == viewModel.messages.last)
-                            .listRowSeparator(.hidden)
+                ZStack {
+                    ScrollViewReader { (proxy: ScrollViewProxy) in
+                        List(viewModel.messages, id: \.id) { message in
+                            if message.fromUserId == viewModel.myProfile.userId {
+                                ChatMessageRightView(message: message,
+                                                     userProfile: viewModel.myProfile,
+                                                     showTimeStamp: message == viewModel.messages.last)
+                                .listRowSeparator(.hidden)
+                            } else {
+                                ChatMessageLeftView(message: message,
+                                                    userProfile: viewModel.talkingTo,
+                                                    showTimeStamp: message == viewModel.messages.last)
+                                .listRowSeparator(.hidden)
+                            }
+                        }
+                        .listStyle(PlainListStyle())
+                        .refreshable {
+                            viewModel.fetchMessages()
+                        }
+                        .onChange(of: viewModel.scrollToBottom) { _ in
+                            if let last = viewModel.messages.last {
+                                proxy.scrollTo(last.id, anchor: .top)
+                            }
                         }
                     }
-                    .listStyle(PlainListStyle())
-                    .refreshable {
-                        viewModel.fetchMessages()
-                    }
-                    .onChange(of: viewModel.scrollToBottom) { _ in
-                        if let last = viewModel.messages.last {
-                            proxy.scrollTo(last.id, anchor: .top)
-                        }
+                    
+                    if viewModel.messages.isEmpty {
+                        CMEmptyView(imageName: "sad", message: "No messages")
                     }
                 }
                 
@@ -50,7 +56,7 @@ struct ChatView: View {
                         .textInputAutocapitalization(.sentences)
                         .lineLimit(4)
                         .keyboardType(.default)
-                        .frame(minHeight: CGFloat(30))
+                        .frame(minHeight: CGFloat(40))
                         .disabled(viewModel.otherPersonBlockedMe)
                     
                     Button {
@@ -61,12 +67,13 @@ struct ChatView: View {
                     }
                     .disabled(viewModel.typingMessage.isEmpty || viewModel.isSending || viewModel.otherPersonBlockedMe)
                     .opacity((viewModel.typingMessage.isEmpty || viewModel.isSending) ? 0.5 : 1)
-                }.frame(minHeight: CGFloat(50)).padding()
+                    .frame(height: 30)
+                }
+                .frame(minHeight: CGFloat(50))
+                .padding(.horizontal, 20)
+                .padding(.top, -5)
             }
             
-            if viewModel.messages.isEmpty {
-                CMEmptyView(imageName: "sad", message: "No messages")
-            }
             if viewModel.isLoading {
                 LoadingView()
             }

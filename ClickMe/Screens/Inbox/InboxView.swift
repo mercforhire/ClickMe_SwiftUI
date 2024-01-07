@@ -8,19 +8,24 @@
 import SwiftUI
 
 struct InboxView: View {
-    var currentUserId: String
-    @StateObject var viewModel = InboxViewModel()
+    @Binding var talkTo: UserProfile?
     
+    @StateObject private var viewModel: InboxViewModel
     @State private var navigationPath: [ScreenNames] = []
+    
+    init(myProfile: UserProfile, talkTo: Binding<UserProfile?>) {
+        _viewModel = StateObject(wrappedValue: InboxViewModel(myProfile: myProfile))
+        self._talkTo = talkTo
+    }
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
             ZStack {
                 List(viewModel.conversations, id: \.id) { conversation in
-                    ChatConversationView(conversation: conversation, currentUserId: currentUserId)
+                    ChatConversationView(conversation: conversation, currentUserId: viewModel.myProfile.userId)
                         .onTapGesture {
                             viewModel.selectedConversation = conversation
-                            navigationPath.append(.chat)
+                            talkTo = viewModel.getOtherConversationParticipant()
                         }
                 }
                 .listStyle(PlainListStyle())
@@ -38,11 +43,16 @@ struct InboxView: View {
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
                 case ScreenNames.chat:
-                    if let myProfile = viewModel.myProfile, let talkingTo = viewModel.talkingTo {
-                        ChatView(myProfile: myProfile, talkingTo: talkingTo)
+                    if let talkingTo = talkTo {
+                        ChatView(myProfile: viewModel.myProfile, talkingTo: talkingTo)
                     }
                 default:
                     fatalError()
+                }
+            }
+            .onChange(of: talkTo) { userToTalkTo in
+                if userToTalkTo != nil {
+                    navigationPath.append(.chat)
                 }
             }
         }
@@ -54,5 +64,5 @@ struct InboxView: View {
 
 #Preview {
     ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
-    return InboxView(currentUserId: "6599a7185c1c5add1b6aa587")
+    return InboxView(myProfile: UserProfile.mockProfile(), talkTo: .constant(nil))
 }

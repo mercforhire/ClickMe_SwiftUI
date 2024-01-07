@@ -7,9 +7,8 @@
 
 import Foundation
 
-struct UserProfile: Codable, Identifiable {
+struct UserProfile: Codable, Identifiable, Equatable {
     var id: String { return userId }
-    
     let userId: String
     let screenId: String
     let firstName: String?
@@ -25,6 +24,10 @@ struct UserProfile: Codable, Identifiable {
     let userPhotos: [Photo]?
     let languages: [Language]?
     var numberOfFollowers: Int?
+    
+    static func == (lhs: UserProfile, rhs: UserProfile) -> Bool {
+        lhs.userId == rhs.userId
+    }
     
     static func mockProfile() -> UserProfile {
         return UserProfile(userId: "65971589d4f4d7af9f97a3bc", screenId: "d0rk4vpj9p", firstName: "Kayla", lastName: "Koch", city: "Melodyview", state: "Washington", country: .canada, jobTitle: "Regional Group Technician", company: "Larkin LLC", field: .science, degree: "Paradigm", aboutMe: "Curo dolores cornu demulceo distinctio cunae truculenter clibanus.", userPhotos: [Photo(thumbnail: "https://picsum.photos/id/524/300/500", url: "https://picsum.photos/id/524/300/500"), Photo(thumbnail: "https://picsum.photos/id/524/300/500", url: "https://picsum.photos/id/524/300/500"), Photo(thumbnail: "https://picsum.photos/id/524/300/500", url: "https://picsum.photos/id/524/300/500")], languages: [.english, .french], numberOfFollowers: 55)

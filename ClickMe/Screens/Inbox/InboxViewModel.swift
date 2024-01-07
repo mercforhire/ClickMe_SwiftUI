@@ -9,25 +9,15 @@ import Foundation
 
 @MainActor
 final class InboxViewModel: ObservableObject {
+    var myProfile: UserProfile
     @Published var isLoading = false
     @Published var conversations: [Conversation] = []
     @Published var selectedConversation: Conversation?
     
-    var myProfile: UserProfile? {
-        return UserManager.shared.profile
+    init(myProfile: UserProfile) {
+        self.myProfile = myProfile
     }
-    
-    var talkingTo: UserProfile? {
-        guard let selectedConversation, let myUserId = myProfile?.userId else { return nil }
-        
-        for participant in selectedConversation.participants {
-            if participant.userId != myUserId {
-                return participant
-            }
-        }
-        return nil
-    }
-    
+
     func fetchConversations() {
         Task {
             isLoading = true
@@ -37,5 +27,16 @@ final class InboxViewModel: ObservableObject {
             }
             isLoading = false
         }
+    }
+    
+    func getOtherConversationParticipant() -> UserProfile? {
+        guard let selectedConversation else { return nil }
+        
+        for participant in selectedConversation.participants {
+            if participant.userId != myProfile.userId {
+                return participant
+            }
+        }
+        return nil
     }
 }
