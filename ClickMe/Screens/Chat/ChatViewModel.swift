@@ -15,6 +15,7 @@ final class ChatViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var messages: [Message] = []
     @Published var scrollToBottom: Bool = true // anytime this changes, trigger scroll to bottom
+    @Published var typingMessage: String = ""
     
     init(myProfile: UserProfile, talkingTo: UserProfile) {
         self.myProfile = myProfile
