@@ -13,7 +13,7 @@ struct BookingRequestView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top, spacing: 20) {
-                if let urlString = request.hostUser.userPhotos?.first?.thumbnail {
+                if let urlString = request.hostUser?.userPhotos?.first?.thumbnail {
                     AsyncImage(url: URL(string: urlString)) { image in
                         image
                             .resizable()
@@ -28,17 +28,17 @@ struct BookingRequestView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .clipped()
                     VStack(alignment: .leading) {
-                        Text("\(request.hostUser.firstName ?? "") \(request.hostUser.lastName ?? "")")
+                        Text("\(request.hostUser?.firstName ?? "") \(request.hostUser?.lastName ?? "")")
                             .font(.body)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
-                        Text(request.hostUser.jobTitle ?? "")
+                        Text(request.hostUser?.jobTitle ?? "")
                             .font(.subheadline)
                             .foregroundColor(.primary)
                     }
                 }
                 Spacer()
-                Image(request.topic.mood.imageName(), bundle: nil)
+                Image(request.topic?.mood.imageName() ?? "field_other", bundle: nil)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 30, height: 30)
@@ -53,7 +53,7 @@ struct BookingRequestView: View {
                 .fontWeight(.medium)
                 .foregroundColor(.secondary)
             
-            Text(request.topic.title)
+            Text(request.topic?.title ?? "")
                 .font(.title3)
                 .fontWeight(.medium)
                 .foregroundColor(.primary)

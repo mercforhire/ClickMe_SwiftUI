@@ -15,6 +15,7 @@ enum RequestStatus: String, Codable, Identifiable {
     case PENDING_APPROVAL
     case STARTED
     case FINISHED
+    case EXPIRED
     case unknown
     
     var id: RequestStatus { self }
@@ -33,6 +34,8 @@ enum RequestStatus: String, Codable, Identifiable {
             return "Started"
         case .FINISHED:
             return "Finished"
+        case .EXPIRED:
+            return "Expired"
         case .unknown:
             return "Unknown"
         }

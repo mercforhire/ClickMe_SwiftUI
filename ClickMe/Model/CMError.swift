@@ -22,4 +22,5 @@ enum CMError: Error {
     case s3DeleteFailed
     case topicDoesntExist
     case chatBlocked
+    case requestDoesntExist
 }

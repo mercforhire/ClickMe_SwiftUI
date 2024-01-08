@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserProfile: Codable, Identifiable, Equatable {
+struct UserProfile: Codable, Identifiable, Equatable, Hashable {
     var id: String { return userId }
     let userId: String
     let screenId: String

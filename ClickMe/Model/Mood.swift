@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Mood: String, Codable, Identifiable {
+enum Mood: String, Codable, Identifiable, Hashable {
     case startup
     case career
     case advance

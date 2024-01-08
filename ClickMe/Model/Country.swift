@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Country: String, Codable, Identifiable {
+enum Country: String, Codable, Identifiable, Hashable {
     case canada
     case usa
     case other

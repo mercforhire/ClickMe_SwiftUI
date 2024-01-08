@@ -16,5 +16,7 @@ enum ScreenNames: String {
          setupBasicInfo,
          setupDetailInfo,
          inbox,
-         chat
+         chat,
+         myBookings,
+         bookingDetails
 }

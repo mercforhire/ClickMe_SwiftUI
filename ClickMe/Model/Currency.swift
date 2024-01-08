@@ -29,6 +29,6 @@ enum Currency: String, Codable, Identifiable {
 
 extension Currency {
     init(from decoder: Decoder) throws {
-        self = try Currency(rawValue: decoder.singleValueContainer().decode(RawValue.self).lowercased()) ?? .USD
+        self = try Currency(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .USD
     }
 }

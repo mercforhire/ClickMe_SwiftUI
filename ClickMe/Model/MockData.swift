@@ -13,11 +13,11 @@ class MockData {
     }
     
     static func mockProfile() -> UserProfile {
-        return UserProfile(userId: "65971589d4f4d7af9f97a3bc", screenId: "d0rk4vpj9p", firstName: "Kayla", lastName: "Koch", city: "Melodyview", state: "Washington", country: .canada, jobTitle: "Regional Group Technician", company: "Larkin LLC", field: .science, degree: "Paradigm", aboutMe: "Curo dolores cornu demulceo distinctio cunae truculenter clibanus.", userPhotos: [mockPhoto(), mockPhoto(), mockPhoto()], languages: [.english, .french], numberOfFollowers: 55)
+        return UserProfile(userId: "65971589d4f4d7af9f97a3bc", screenId: "d0rk4vpj9p", firstName: "Kayla", lastName: "Koch", city: "Melodyview", state: "Washington", country: .canada, jobTitle: "Regional Group Technician", company: "Larkin LLC", field: .science, degree: "Paradigm", aboutMe: "Curo dolores cornu demulceo distinctio cunae truculenter clibanus.", userPhotos: [MockData.mockPhoto(), MockData.mockPhoto(), MockData.mockPhoto()], languages: [.english, .french], numberOfFollowers: 55)
     }
     
     static func mockProfile2() -> UserProfile {
-        return UserProfile(userId: "65971715d4f4d7af9f97d889", screenId: "0a6wb8asjp", firstName: "Reva", lastName: "Cormier", city: "Ephraimchester", state: "West Virginia", country: .usa, jobTitle: "Lead Response Administrator", company: "Fritsch, Lehner and Klein", field: .social, degree: "Communications", aboutMe: "Apparatus desipio adfectus tripudio super solvo utroque amor perspiciatis earum.", userPhotos: [mockPhoto(), mockPhoto(), mockPhoto()], languages: [.english], numberOfFollowers: 55)
+        return UserProfile(userId: "65971715d4f4d7af9f97d889", screenId: "0a6wb8asjp", firstName: "Reva", lastName: "Cormier", city: "Ephraimchester", state: "West Virginia", country: .usa, jobTitle: "Lead Response Administrator", company: "Fritsch, Lehner and Klein", field: .social, degree: "Communications", aboutMe: "Apparatus desipio adfectus tripudio super solvo utroque amor perspiciatis earum.", userPhotos: [MockData.mockPhoto(), MockData.mockPhoto(), MockData.mockPhoto()], languages: [.english], numberOfFollowers: 55)
     }
     
     static func mockShortMessage() -> Message {
@@ -44,10 +44,14 @@ class MockData {
     }
     
     static func mockTopic() -> Topic {
-        return Topic(_id: "6597179f748b7b670290b52d", userId: "6597171ad4f4d7af9f97da76", title: "Thesis vere decretum animi iure vilitas. ", keywords: ["startup", "advice"], description: "Libero repudiandae cohibeo a caelestis. Expedita testimonium contego. Contigo degusto admiratio vilitas demergo comitatus ut apud facere annus.", maxTimeMinutes: 180, priceHour: 2000, currency: .USD, mood: .startup, userProfile: mockProfile())
+        return Topic(_id: "6597179f748b7b670290b52d", userId: "6597171ad4f4d7af9f97da76", title: "Thesis vere decretum animi iure vilitas. ", keywords: ["startup", "advice"], description: "Libero repudiandae cohibeo a caelestis. Expedita testimonium contego. Contigo degusto admiratio vilitas demergo comitatus ut apud facere annus.", maxTimeMinutes: 180, priceHour: 2000, currency: .USD, mood: .startup, userProfile: MockData.mockProfile())
     }
     
     static func mockRequest() -> Request {
-        return Request(_id: "659bb0700c47d17cc781f078", createdDate: Date(timeIntervalSince1970: 1704568893224 / 1000), bookingUserId: "65971589d4f4d7af9f97a3bc", bookingUser: mockProfile(), hostUserId: "65971715d4f4d7af9f97d889", hostUser: mockProfile2(), topicId: "659adae17a68168153de39e2", topic: mockTopic(), startTime: Date(timeIntervalSince1970: 1704449058905 / 1000), endTime: Date(timeIntervalSince1970: 1704470549714 / 1000), status: .PENDING_APPROVAL)
+        return Request(_id: "659bb0700c47d17cc781f078", createdDate: Date(timeIntervalSince1970: 1704568893224 / 1000), bookingUserId: "65971589d4f4d7af9f97a3bc", bookingUser: MockData.mockProfile(), hostUserId: "65971715d4f4d7af9f97d889", hostUser: MockData.mockProfile2(), topicId: "659adae17a68168153de39e2", topic: MockData.mockTopic(), startTime: Date(timeIntervalSince1970: 1704449058905 / 1000), endTime: Date(timeIntervalSince1970: 1704470549714 / 1000), status: .PENDING_APPROVAL)
+    }
+    
+    static func mockReceipt() -> Receipt {
+        return Receipt(_id: "659c46599cf786482795c34b", createdDate: Date(timeIntervalSince1970: 1704568893224 / 1000), paymentIntentId: "pi_3OWO3wE0XSqZ8pU20SZchr6c", booker: MockData.mockProfile(), host: MockData.mockProfile2(), topic: MockData.mockTopic(), requestId: "659bb0700c47d17cc781f078", request: MockData.mockRequest(), status: "UNPAID", amount: 2000, currency: .USD)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Topic: Codable, Identifiable {
+struct Topic: Codable, Identifiable, Hashable {
     var id: String { return _id }
     
     var _id: String

@@ -14,6 +14,7 @@ final class MyBookingsViewModel: ObservableObject {
     
     @Published var isLoading = false
     @Published var requests: [Request] = []
+    @Published var selectedRequest: Request?
     
     init(myUserId: String) {
         self.myUserId = myUserId

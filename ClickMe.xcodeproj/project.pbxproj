@@ -36,6 +36,10 @@
 		720B60672B4C3D9300CF716E /* RequestStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B60662B4C3D9300CF716E /* RequestStatus.swift */; };
 		720B60692B4C414C00CF716E /* BookingRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B60682B4C414C00CF716E /* BookingRequestView.swift */; };
 		720B606B2B4C433500CF716E /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B606A2B4C433400CF716E /* DateUtil.swift */; };
+		720B606E2B4C6CB200CF716E /* BookingStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B606D2B4C6CB200CF716E /* BookingStatusView.swift */; };
+		720B60702B4C740100CF716E /* BookingStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B606F2B4C740100CF716E /* BookingStatusViewModel.swift */; };
+		720B60722B4C7E2500CF716E /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B60712B4C7E2500CF716E /* Receipt.swift */; };
+		720B60742B4C988600CF716E /* GetBookingDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B60732B4C988600CF716E /* GetBookingDetailsResponse.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -170,6 +174,10 @@
 		720B60662B4C3D9300CF716E /* RequestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatus.swift; sourceTree = "<group>"; };
 		720B60682B4C414C00CF716E /* BookingRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRequestView.swift; sourceTree = "<group>"; };
 		720B606A2B4C433400CF716E /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
+		720B606D2B4C6CB200CF716E /* BookingStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingStatusView.swift; sourceTree = "<group>"; };
+		720B606F2B4C740100CF716E /* BookingStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingStatusViewModel.swift; sourceTree = "<group>"; };
+		720B60712B4C7E2500CF716E /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
+		720B60732B4C988600CF716E /* GetBookingDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookingDetailsResponse.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -337,6 +345,15 @@
 			path = Chat;
 			sourceTree = "<group>";
 		};
+		720B606C2B4C6C7B00CF716E /* Booking Status */ = {
+			isa = PBXGroup;
+			children = (
+				720B606D2B4C6CB200CF716E /* BookingStatusView.swift */,
+				720B606F2B4C740100CF716E /* BookingStatusViewModel.swift */,
+			);
+			path = "Booking Status";
+			sourceTree = "<group>";
+		};
 		722C59D12B43EDE900EBA081 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +381,7 @@
 				720B60512B4ABBAA00CF716E /* GetChatMessagesResponse.swift */,
 				720B605E2B4AEF2B00CF716E /* SendChatMessageResponse.swift */,
 				720B60642B4C3AE800CF716E /* GetBookingRequestsResponse.swift */,
+				720B60732B4C988600CF716E /* GetBookingDetailsResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -372,13 +390,14 @@
 			isa = PBXGroup;
 			children = (
 				72064F322B47078F00BB9ECC /* Account */,
+				720B606C2B4C6C7B00CF716E /* Booking Status */,
+				720B60572B4AC62200CF716E /* Chat */,
 				72064F292B46EC1100BB9ECC /* Explore */,
 				72774C282B47B23300C5A248 /* Explore Filter */,
 				724C954B2B4946CC00AD2CFC /* Explore Topics */,
 				7237A5862B42E4D600ABF10F /* GetStarted */,
 				728499F02B45A54500C2826B /* Home */,
 				72774C4C2B48F6E400C5A248 /* Inbox */,
-				720B60572B4AC62200CF716E /* Chat */,
 				725586112B442604005A37B9 /* Login */,
 				7237A5942B43827400ABF10F /* LoginInitial */,
 				72064F2F2B46ECAC00BB9ECC /* My Bookings */,
@@ -465,6 +484,7 @@
 				720B604B2B4A5F2300CF716E /* Message.swift */,
 				720B604D2B4A5F6000CF716E /* Attachment.swift */,
 				720B604F2B4A5FF000CF716E /* Request.swift */,
+				720B60712B4C7E2500CF716E /* Receipt.swift */,
 				720B605C2B4ADAE700CF716E /* MockData.swift */,
 				720B60622B4B19F100CF716E /* Notifications.swift */,
 			);
@@ -962,8 +982,10 @@
 				7255862A2B44F80D005A37B9 /* GetUserProfileResponse.swift in Sources */,
 				720B60562B4AC29000CF716E /* ChatMessageRightView.swift in Sources */,
 				725586132B442625005A37B9 /* LoginView.swift in Sources */,
+				720B60702B4C740100CF716E /* BookingStatusViewModel.swift in Sources */,
 				722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */,
 				7237A58C2B42E5AD00ABF10F /* Mood.swift in Sources */,
+				720B60742B4C988600CF716E /* GetBookingDetailsResponse.swift in Sources */,
 				7255862C2B4515C1005A37B9 /* Field.swift in Sources */,
 				722C59D72B43F0A100EBA081 /* APIRequestsURLs.swift in Sources */,
 				720B60612B4B033400CF716E /* MyBookingsViewModel.swift in Sources */,
@@ -1005,9 +1027,11 @@
 				72064F2B2B46EC2C00BB9ECC /* ExploreView.swift in Sources */,
 				720B604E2B4A5F6000CF716E /* Attachment.swift in Sources */,
 				7237A58A2B42E53900ABF10F /* GetStartedSteps.swift in Sources */,
+				720B60722B4C7E2500CF716E /* Receipt.swift in Sources */,
 				724C954A2B4903F800AD2CFC /* TopicView.swift in Sources */,
 				725B99EC2B4169220066D240 /* ClickMeApp.swift in Sources */,
 				72774C352B47F6D100C5A248 /* UserDetailsView.swift in Sources */,
+				720B606E2B4C6CB200CF716E /* BookingStatusView.swift in Sources */,
 				724C954D2B4946E800AD2CFC /* ExploreTopicsView.swift in Sources */,
 				720B60502B4A5FF000CF716E /* Request.swift in Sources */,
 				72774C272B47A31400C5A248 /* ExploreCell.swift in Sources */,

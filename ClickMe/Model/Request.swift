@@ -7,17 +7,16 @@
 
 import Foundation
 
-struct Request: Codable, Identifiable {
+struct Request: Codable, Identifiable, Hashable {
     var id: String { return _id }
-    
     let _id: String
     let createdDate: Date
     let bookingUserId: String
-    var bookingUser: UserProfile
+    var bookingUser: UserProfile?
     let hostUserId: String
-    var hostUser: UserProfile
+    var hostUser: UserProfile?
     let topicId: String
-    var topic: Topic
+    var topic: Topic?
     let startTime: Date
     let endTime: Date
     let status: RequestStatus
@@ -27,5 +26,9 @@ struct Request: Codable, Identifiable {
         let startTime = DateUtil.convert(input: startTime, outputFormat: .format8)!
         let endTime = DateUtil.convert(input: endTime, outputFormat: .format8)!
         return "\(date), \(startTime) - \(endTime)"
+    }
+    
+    static func == (lhs: Request, rhs: Request) -> Bool {
+        lhs._id == rhs._id
     }
 }

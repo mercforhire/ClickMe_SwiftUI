@@ -9,32 +9,53 @@ import SwiftUI
 
 struct MyBookingsView: View {
     @StateObject var viewModel: MyBookingsViewModel
+    @State private var navigationPath: [ScreenNames] = []
     
     init(myUserId: String) {
         _viewModel = StateObject(wrappedValue: MyBookingsViewModel(myUserId: myUserId))
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationPath) {
             ZStack {
                 List(viewModel.requests, id: \.id) { request in
                     BookingRequestView(request: request)
                         .frame(height: 250)
-                        .onTapGesture {
-                            
-                        }
                         .listRowSeparator(.hidden)
+                        .onTapGesture {
+                            viewModel.selectedRequest = request
+                            navigationPath.append(.bookingDetails)
+                        }
                 }
                 .listStyle(.plain)
                 .refreshable {
                     viewModel.fetchRequests()
+                }
+                .toolbar {
+                    ToolbarItemGroup(placement: .topBarTrailing) {
+                        Button {
+                            
+                        } label: {
+                            Image("previous-date", bundle: nil)
+                                .resizable()
+                                .frame(width: 35, height: 35)
+                        }
+                    }
                 }
                 
                 if viewModel.requests.isEmpty {
                     CMEmptyView(imageName: "empty", message: "No booking requests")
                 }
             }
-            .navigationTitle("Booking requests")
+            .navigationTitle("My Bookings")
+            .navigationDestination(for: ScreenNames.self) { screenName in
+                switch screenName {
+                case ScreenNames.bookingDetails:
+                    BookingStatusView(request: viewModel.selectedRequest!)
+                default:
+                    fatalError()
+                }
+            }
         }
         .onAppear() {
             viewModel.fetchRequests()

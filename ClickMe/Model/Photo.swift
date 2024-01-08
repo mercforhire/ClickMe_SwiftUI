@@ -8,7 +8,7 @@
 import UIKit
 import Alamofire
 
-struct Photo: Codable, Identifiable {
+struct Photo: Codable, Identifiable, Hashable {
     var id: String { return thumbnail }
     var thumbnail: String
     var url: String
