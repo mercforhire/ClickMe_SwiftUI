@@ -22,39 +22,40 @@ struct ExploreTopicsView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
-                VStack {
-                    ScrollView(.horizontal) {
-                        LazyHGrid(rows: gridColumns) {
-                            ForEach(Mood.list()) { mood in
-                                MoodView(mood: mood,
-                                         width: moodCellWidth,
-                                         height: 70,
-                                         selected: viewModel.mood == mood)
-                                .onTapGesture {
-                                    viewModel.handleMoodClicked(mood: mood)
-                                }
+            VStack {
+                ScrollView(.horizontal) {
+                    LazyHGrid(rows: gridColumns) {
+                        ForEach(Mood.list()) { mood in
+                            MoodView(mood: mood,
+                                     width: moodCellWidth,
+                                     height: 70,
+                                     selected: viewModel.mood == mood)
+                            .onTapGesture {
+                                viewModel.handleMoodClicked(mood: mood)
                             }
                         }
-                        .frame(height: 150)
-                        .padding(.horizontal, 20)
+                    }
+                    .frame(height: 150)
+                    .padding(.horizontal, 20)
+                }
+                
+                ZStack {
+                    List(viewModel.topics, id: \.id) { topic in
+                        TopicView(topic: topic)
+                            .frame(height: 300)
+                            .onTapGesture {
+                                viewModel.selectedTopic = topic
+                                viewModel.isShowingTopic = true
+                            }
+                            .listRowSeparator(.hidden)
+                    }
+                    .listStyle(.plain)
+                    .refreshable {
+                        viewModel.fetchTopics()
                     }
                     
                     if viewModel.topics.isEmpty {
                         CMEmptyView(imageName: "bad", message: "No topics of this category")
-                    } else {
-                        List(viewModel.topics, id: \.id) { topic in
-                            TopicView(topic: topic, width: cellWidth, height: 250)
-                                .onTapGesture {
-                                    viewModel.selectedTopic = topic
-                                    viewModel.isShowingTopic = true
-                                }
-                                .listRowSeparator(.hidden)
-                        }
-                        .listStyle(.plain)
-                        .refreshable {
-                            viewModel.fetchTopics()
-                        }
                     }
                 }
             }

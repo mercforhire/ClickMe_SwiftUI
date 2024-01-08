@@ -50,5 +50,5 @@ struct TopicSimpleView: View {
 }
 
 #Preview {
-    TopicSimpleView(topic: Topic.mockTopic(), width: 250, height: 200)
+    TopicSimpleView(topic: MockData.mockTopic(), width: 250, height: 200)
 }

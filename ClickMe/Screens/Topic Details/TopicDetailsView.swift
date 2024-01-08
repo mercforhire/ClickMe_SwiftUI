@@ -140,5 +140,5 @@ struct TopicDetailsView: View {
 }
 
 #Preview {
-    TopicDetailsView(isShowingTopic: .constant(true), topic: Topic.mockTopic())
+    TopicDetailsView(isShowingTopic: .constant(true), topic: MockData.mockTopic())
 }

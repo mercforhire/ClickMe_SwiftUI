@@ -33,7 +33,7 @@ struct HomeTabView: View {
                         Label("Topics", systemImage: "lightbulb")
                     }
                     .tag(HomeTabs.topics)
-                MyBookingsView()
+                MyBookingsView(myUserId: viewModel.getCurrentUser().userId)
                     .tabItem {
                         Label("Bookings", systemImage: "calendar.badge.clock")
                     }

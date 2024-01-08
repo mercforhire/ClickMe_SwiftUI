@@ -1,19 +1,19 @@
 //
-//  TopicView.swift
+//  BookingRequestView.swift
 //  ClickMe
 //
-//  Created by Leon Chen on 2024-01-05.
+//  Created by Leon Chen on 2024-01-08.
 //
 
 import SwiftUI
 
-struct TopicView: View {
-    var topic: Topic
+struct BookingRequestView: View {
+    var request: Request
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top, spacing: 20) {
-                if let profile = topic.userProfile, let urlString = profile.userPhotos?.first?.thumbnail {
+                if let urlString = request.hostUser.userPhotos?.first?.thumbnail {
                     AsyncImage(url: URL(string: urlString)) { image in
                         image
                             .resizable()
@@ -28,20 +28,17 @@ struct TopicView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .clipped()
                     VStack(alignment: .leading) {
-                        Text("\(profile.firstName ?? "") \(profile.lastName ?? "")")
+                        Text("\(request.hostUser.firstName ?? "") \(request.hostUser.lastName ?? "")")
                             .font(.body)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
-                            .lineLimit(1)
-                        
-                        Text(profile.jobTitle ?? "")
+                        Text(request.hostUser.jobTitle ?? "")
                             .font(.subheadline)
                             .foregroundColor(.primary)
-                            .lineLimit(2)
                     }
                 }
                 Spacer()
-                Image(topic.mood.imageName(), bundle: nil)
+                Image(request.topic.mood.imageName(), bundle: nil)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 30, height: 30)
@@ -51,25 +48,24 @@ struct TopicView: View {
                 .frame(height: 1)
                 .overlay(.primary)
             
-            Text(topic.title)
+            Text(request.timeAndDuration)
+                .font(.body)
+                .fontWeight(.medium)
+                .foregroundColor(.secondary)
+            
+            Text(request.topic.title)
                 .font(.title3)
                 .fontWeight(.medium)
                 .foregroundColor(.primary)
                 .padding(.vertical, 5)
-                .lineLimit(2)
-            
-            Text(topic.description)
-                .font(.body)
-                .fontWeight(.regular)
-                .foregroundColor(.primary)
-                .lineLimit(4)
             
             Spacer()
             
-            Text(topic.displayablePrice)
-                .font(.title3)
-                .fontWeight(.medium)
-                .foregroundColor(.primary)
+            Text(request.status.text())
+                .font(.body)
+                .fontWeight(.bold)
+                .foregroundColor(request.status == .DECLINED ? .red : .accent)
+                .frame(maxWidth: .infinity, alignment: .trailing)
 
         }
         .padding(.all, 20)
@@ -79,5 +75,5 @@ struct TopicView: View {
 }
 
 #Preview {
-    TopicView(topic: MockData.mockTopic())
+    BookingRequestView(request: MockData.mockRequest())
 }

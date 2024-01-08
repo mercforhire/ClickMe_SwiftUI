@@ -177,5 +177,5 @@ struct UserDetailsView: View {
 }
 
 #Preview {
-    UserDetailsView(profile: UserProfile.mockProfile(), isShowingProfile: .constant(true), loadTopics: true)
+    UserDetailsView(profile: MockData.mockProfile(), isShowingProfile: .constant(true), loadTopics: true)
 }

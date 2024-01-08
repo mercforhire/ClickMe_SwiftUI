@@ -60,7 +60,7 @@ struct ChatMessageLeftView: View {
 
 #Preview {
     VStack {
-        ChatMessageLeftView(message: Message.mockShortMessage(), userProfile: UserProfile.mockProfile(), showTimeStamp: true)
-        ChatMessageLeftView(message: Message.mockLongMessage(), userProfile: UserProfile.mockProfile(), showTimeStamp: true)
+        ChatMessageLeftView(message: MockData.mockShortMessage(), userProfile: MockData.mockProfile(), showTimeStamp: true)
+        ChatMessageLeftView(message: MockData.mockLongMessage(), userProfile: MockData.mockProfile(), showTimeStamp: true)
     }
 }

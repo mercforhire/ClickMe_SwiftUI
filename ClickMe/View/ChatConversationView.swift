@@ -79,6 +79,6 @@ struct ChatConversationView: View {
 }
 
 #Preview {
-    ChatConversationView(conversation: Conversation.mockConversation(),
+    ChatConversationView(conversation: MockData.mockConversation(),
                          currentUserId: "65971589d4f4d7af9f97a3bc")
 }

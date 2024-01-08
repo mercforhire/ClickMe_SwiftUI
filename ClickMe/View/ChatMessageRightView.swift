@@ -59,7 +59,7 @@ struct ChatMessageRightView: View {
 
 #Preview {
     VStack {
-        ChatMessageRightView(message: Message.mockShortMessage(), userProfile: UserProfile.mockProfile(), showTimeStamp: true)
-        ChatMessageRightView(message: Message.mockLongMessage(), userProfile: UserProfile.mockProfile(), showTimeStamp: true)
+        ChatMessageRightView(message: MockData.mockShortMessage(), userProfile: MockData.mockProfile(), showTimeStamp: true)
+        ChatMessageRightView(message: MockData.mockLongMessage(), userProfile: MockData.mockProfile(), showTimeStamp: true)
     }
 }

@@ -11,17 +11,11 @@ struct ExploreView: View {
     @StateObject var viewModel = ExploreViewModel()
     @StateObject var filterViewModel = ExploreFilterViewModel()
     
-    private let screenWidth = UIScreen.main.bounds.size.width
-    private let padding: CGFloat = 40
-    private var cellWidth: CGFloat {
-        return screenWidth - padding * 2
-    }
-    
     var body: some View {
         NavigationView {
             ZStack {
                 List(viewModel.showUsers, id: \.id) { profile in
-                    ExploreCell(profile: profile, imageWidth: cellWidth, imageHeight: 200)
+                    ExploreCell(profile: profile, imageHeight: 200)
                         .onTapGesture {
                             viewModel.selectedProfile = profile
                             viewModel.isShowingProfile = true

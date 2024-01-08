@@ -33,6 +33,8 @@ enum APIRequestURLs: String {
     case getBlockStatus = "/api/users/getBlockStatus"
     case blockUser = "/api/users/blockUser"
     case unblockUser = "/api/users/unblockUser"
+    case getHostBookingRequests = "/api/topics/getHostBookingRequests"
+    case getGuestBookingRequests = "/api/topics/getGuestBookingRequests"
     
     func getHTTPMethod() -> HTTPMethod {
         switch self {
@@ -84,6 +86,10 @@ enum APIRequestURLs: String {
             return .post
         case .unblockUser:
             return .post
+        case .getHostBookingRequests:
+            return .get
+        case .getGuestBookingRequests:
+            return .get
         }
     }
     

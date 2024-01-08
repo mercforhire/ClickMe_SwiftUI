@@ -388,6 +388,30 @@ class ClickAPI {
         return response
     }
     
+    func getGuestBookingRequests(userId: String) async throws -> GetBookingRequestsResponse {
+        let parameters = ["userId": userId]
+        let url = baseURL + APIRequestURLs.getGuestBookingRequests.rawValue
+        let response: GetBookingRequestsResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getGuestBookingRequests.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func getHostBookingRequests(userId: String) async throws -> GetBookingRequestsResponse {
+        let parameters = ["userId": userId]
+        let url = baseURL + APIRequestURLs.getHostBookingRequests.rawValue
+        let response: GetBookingRequestsResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getHostBookingRequests.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
         let filename = String.randomString(length: 5)
         let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"
