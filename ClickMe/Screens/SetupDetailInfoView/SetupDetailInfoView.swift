@@ -33,6 +33,11 @@ struct SetupDetailInfoView: View {
                     CMErrorLabel(photosError)
                 }
             }
+            .alert(isPresented: $viewModel.s3UploadError) {
+                Alert(title: Text("Upload error"),
+                      message: Text("Something went wrong while uploading to S3"),
+                      dismissButton: .default(Text("Ok")))
+            }
             
             Section(header: Text("About me")) {
                 TextEditor(text: $viewModel.aboutMe)
@@ -68,11 +73,6 @@ struct SetupDetailInfoView: View {
         }
         .task(id: viewModel.pickerItem) {
             viewModel.handleReceivedPickerItem()
-        }
-        .alert(isPresented: $viewModel.s3UploadError) {
-            Alert(title: Text("Upload error"),
-                  message: Text("Something went wrong while uploading to S3"),
-                  dismissButton: .default(Text("Ok")))
         }
         .alert(isPresented: $viewModel.updateProfileError) {
             Alert(title: Text("Server error"),

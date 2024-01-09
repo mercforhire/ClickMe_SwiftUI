@@ -166,12 +166,60 @@ struct AccountView: View {
                                 case .signOut:
                                     viewModel.handleLogOut()
                                 case .deleteAccount:
-                                    break
+                                    viewModel.isShowingDeleteAccountDialog = true
                                 }
                             }
                         }
                     }
                 }
+                
+                //https://stackoverflow.com/questions/59116198/multiple-alerts-in-one-view-can-not-be-called-swiftui
+                Text("")
+                    .alert("Submit feedback", isPresented: $viewModel.isPostingFeedback) {
+                        TextField("Message", text: $viewModel.feedback)
+                        Button("Send") {
+                            viewModel.handlePostFeedback()
+                            viewModel.isPostingFeedback = false
+                        }
+                        Button("Cancel", role: .cancel) {
+                            viewModel.isPostingFeedback = false
+                            viewModel.feedback = ""
+                        }
+                    }
+                
+                Text("")
+                    .alert(isPresented: $viewModel.postFeedbackSuccess) {
+                        Alert(title: Text("Feedback sent"),
+                              message: Text("Thank you for your feedback"),
+                              dismissButton: .default(Text("Ok")))
+                    }
+                    
+                Text("")
+                    .alert(isPresented: $viewModel.postFeedbackError) {
+                        Alert(title: Text("Feedback error"),
+                              message: Text("Failed to sent feedback"),
+                              dismissButton: .default(Text("Ok")))
+                    }
+                
+                Text("")
+                    .alert("Are you sure? Type DELETE to confirm", isPresented: $viewModel.isShowingDeleteAccountDialog) {
+                        TextField("Confirmation", text: $viewModel.deleteDialogText)
+                        Button("Ok", role: .destructive) {
+                            viewModel.handleDeleteAccount()
+                            viewModel.isShowingDeleteAccountDialog = false
+                        }
+                        Button("Cancel", role: .cancel) {
+                            viewModel.isShowingDeleteAccountDialog = false
+                            viewModel.deleteDialogText = ""
+                        }
+                    }
+                
+                Text("")
+                    .alert(isPresented: $viewModel.deleteAccountError) {
+                        Alert(title: Text("Delete account error"),
+                              message: Text("Invalid entry for confirmation"),
+                              dismissButton: .default(Text("Ok")))
+                    }
                 
                 if viewModel.isLoading {
                     LoadingView()
@@ -179,24 +227,6 @@ struct AccountView: View {
             }
             .navigationTitle("My Profile")
             .background(Color(.systemGray6))
-            .onAppear {
-                viewModel.refreshData()
-            }
-            .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
-                UserDetailsView(profile: viewModel.myProfile,
-                                isShowingProfile: $viewModel.isShowingProfile,
-                                loadTopics: false)
-            }
-            .alert(isPresented: $viewModel.postFeedbackSuccess) {
-                Alert(title: Text("Feedback sent"),
-                      message: Text("Thank you for your feedback"),
-                      dismissButton: .default(Text("Ok")))
-            }
-            .alert(isPresented: $viewModel.postFeedbackError) {
-                Alert(title: Text("Feedback error"),
-                      message: Text("Failed to sent feedback"),
-                      dismissButton: .default(Text("Ok")))
-            }
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
                 case ScreenNames.myPastBookings(let myUserId):
@@ -205,19 +235,14 @@ struct AccountView: View {
                     fatalError()
                 }
             }
-            .alert("Submit feedback", isPresented: $viewModel.isPostingFeedback) {
-                TextField("Message", text: $viewModel.feedback)
-                Button("Send") {
-                    viewModel.handlePostFeedback()
-                    viewModel.isPostingFeedback = false
-                }
-                Button("Cancel", role: .cancel) {
-                    viewModel.isPostingFeedback = false
-                    viewModel.feedback = ""
-                }
-            } message: {
-                Text("Please enter your feedback")
-            }
+        }
+        .onAppear {
+            viewModel.refreshData()
+        }
+        .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
+            UserDetailsView(profile: viewModel.myProfile,
+                            isShowingProfile: $viewModel.isShowingProfile,
+                            loadTopics: false)
         }
     }
 }

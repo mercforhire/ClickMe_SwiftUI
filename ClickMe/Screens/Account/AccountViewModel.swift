@@ -16,6 +16,9 @@ final class AccountViewModel: ObservableObject {
     @Published var feedback: String = ""
     @Published var postFeedbackSuccess = false
     @Published var postFeedbackError = false
+    @Published var isShowingDeleteAccountDialog = false
+    @Published var deleteDialogText: String = ""
+    @Published var deleteAccountError = false
     
     init(myProfile: UserProfile) {
         self.myProfile = myProfile
@@ -50,5 +53,22 @@ final class AccountViewModel: ObservableObject {
     func handleLogOut() {
         UserManager.shared.logout()
         NotificationCenter.default.post(name: Notifications.SwitchToGetStarted, object: nil, userInfo: nil)
+        print("log out and go back to initial screen")
+    }
+    
+    func handleDeleteAccount() {
+        guard deleteDialogText == "DELETE" else {
+            deleteAccountError = true
+            return
+        }
+        
+        Task {
+            isLoading = true
+            let response = try? await ClickAPI.shared.deleteAccount()
+            if response?.success ?? false {
+                handleLogOut()
+            }
+            isLoading = false
+        }
     }
 }
