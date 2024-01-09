@@ -46,4 +46,9 @@ final class AccountViewModel: ObservableObject {
             isLoading = false
         }
     }
+    
+    func handleLogOut() {
+        UserManager.shared.logout()
+        NotificationCenter.default.post(name: Notifications.SwitchToGetStarted, object: nil, userInfo: nil)
+    }
 }

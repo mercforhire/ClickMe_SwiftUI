@@ -147,52 +147,37 @@ struct AccountView: View {
                             CMButton(title: "Edit profile")
                         }
                     }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.horizontal, 10)
                     
                     Form {
                         ForEach(AccountMenu.list(), id: \.self) { row in
                             Label(row.text(), systemImage: row.iconName())
-                                .onTapGesture {
-                                    switch row {
-                                    case .wallet:
-                                        break
-                                    case .history:
-                                        navigationPath.append(.myPastBookings(viewModel.myProfile.userId))
-                                    case .switchMode:
-                                        break
-                                    case .support:
-                                        break
-                                    case .feedback:
-                                        viewModel.isPostingFeedback = true
-                                    case .signOut:
-                                        UserManager.shared.logout()
-                                    case .deleteAccount:
-                                        break
-                                    }
+                            .onTapGesture {
+                                switch row {
+                                case .wallet:
+                                    break
+                                case .history:
+                                    navigationPath.append(.myPastBookings(viewModel.myProfile.userId))
+                                case .switchMode:
+                                    break
+                                case .support:
+                                    break
+                                case .feedback:
+                                    viewModel.isPostingFeedback = true
+                                case .signOut:
+                                    viewModel.handleLogOut()
+                                case .deleteAccount:
+                                    break
                                 }
+                            }
                         }
                     }
-                }
-                .alert("Submit feedback", isPresented: $viewModel.isPostingFeedback) {
-                    TextField("Message", text: $viewModel.feedback)
-                    Button("Send") {
-                        viewModel.handlePostFeedback()
-                        viewModel.isPostingFeedback = false
-                    }
-                    Button("Cancel", role: .cancel) {
-                        viewModel.isPostingFeedback = false
-                        viewModel.feedback = ""
-                    }
-                } message: {
-                    Text("Please enter your feedback")
                 }
                 
                 if viewModel.isLoading {
                     LoadingView()
                 }
             }
-            .navigationTitle("My profile")
+            .navigationTitle("My Profile")
             .background(Color(.systemGray6))
             .onAppear {
                 viewModel.refreshData()
@@ -219,6 +204,19 @@ struct AccountView: View {
                 default:
                     fatalError()
                 }
+            }
+            .alert("Submit feedback", isPresented: $viewModel.isPostingFeedback) {
+                TextField("Message", text: $viewModel.feedback)
+                Button("Send") {
+                    viewModel.handlePostFeedback()
+                    viewModel.isPostingFeedback = false
+                }
+                Button("Cancel", role: .cancel) {
+                    viewModel.isPostingFeedback = false
+                    viewModel.feedback = ""
+                }
+            } message: {
+                Text("Please enter your feedback")
             }
         }
     }

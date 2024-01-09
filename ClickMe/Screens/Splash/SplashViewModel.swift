@@ -31,11 +31,16 @@ final class SplashViewModel: ObservableObject {
     }
     
     func startSplashCountdown() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             withAnimation {
                 self.appIsActive = true
             }
         }
+    }
+    
+    func handleSwitchToGetStartedNotification() {
+        loggedIn = false
+        prepareToLogin()
     }
     
     func logOut() {

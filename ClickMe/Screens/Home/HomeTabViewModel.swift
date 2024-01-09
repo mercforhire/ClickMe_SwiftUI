@@ -10,7 +10,6 @@ import SwiftUI
 
 @MainActor
 final class HomeTabViewModel: ObservableObject {
-    @Published var shouldReturnToLogin = false
     @Published var shouldPresentSetupProfileFlow = false
     @Published var tabSelection: HomeTabs = .explore
     @Published var talkTo: UserProfile?

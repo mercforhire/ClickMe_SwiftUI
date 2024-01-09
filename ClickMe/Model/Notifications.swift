@@ -9,4 +9,5 @@ import Foundation
 
 class Notifications {
     static let SwitchToChat: Notification.Name = Notification.Name("SwitchToChat")
+    static let SwitchToGetStarted: Notification.Name = Notification.Name("SwitchToGetStarted")
 }

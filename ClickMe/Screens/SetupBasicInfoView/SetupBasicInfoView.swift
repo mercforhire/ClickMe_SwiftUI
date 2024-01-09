@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SetupBasicInfoView: View {
-    @Binding var shouldReturnToLogin: Bool
     @Binding var shouldPresentSetupProfileFlow: Bool
     
     @StateObject var viewModel = SetupBasicInfoViewModel()
@@ -117,9 +116,8 @@ struct SetupBasicInfoView: View {
             .toolbar() {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Log out") {
-                        viewModel.logoutAndQuit()
+                        viewModel.handleLogOut()
                         shouldPresentSetupProfileFlow = false
-                        shouldReturnToLogin = true
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
@@ -135,5 +133,5 @@ struct SetupBasicInfoView: View {
 }
 
 #Preview {
-    SetupBasicInfoView(shouldReturnToLogin: .constant(false), shouldPresentSetupProfileFlow: .constant(true))
+    SetupBasicInfoView(shouldPresentSetupProfileFlow: .constant(true))
 }

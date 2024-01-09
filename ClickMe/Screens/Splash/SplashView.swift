@@ -33,6 +33,9 @@ struct SplashView: View {
             viewModel.prepareToLogin()
             viewModel.startSplashCountdown()
         }
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToGetStarted), perform: { _ in
+            viewModel.handleSwitchToGetStartedNotification()
+        })
     }
 }
 

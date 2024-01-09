@@ -39,7 +39,8 @@ final class SetupBasicInfoViewModel: ObservableObject {
         return true
     }
     
-    func logoutAndQuit() {
+    func handleLogOut() {
         UserManager.shared.logout()
+        NotificationCenter.default.post(name: Notifications.SwitchToGetStarted, object: nil, userInfo: nil)
     }
 }

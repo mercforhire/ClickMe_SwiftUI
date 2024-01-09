@@ -19,47 +19,42 @@ struct HomeTabView: View {
     @StateObject var viewModel = HomeTabViewModel()
     
     var body: some View {
-        if viewModel.shouldReturnToLogin {
-            LoginInitialView()
-        } else {
-            TabView(selection: $viewModel.tabSelection) {
-                ExploreView(myProfile: viewModel.getCurrentUser())
-                    .tabItem {
-                        Label("Explore", systemImage: "globe")
-                    }
-                    .tag(HomeTabs.explore)
-                ExploreTopicsView()
-                    .tabItem {
-                        Label("Topics", systemImage: "lightbulb")
-                    }
-                    .tag(HomeTabs.topics)
-                MyBookingsView(myUserId: viewModel.getCurrentUser().userId)
-                    .tabItem {
-                        Label("Bookings", systemImage: "calendar.badge.clock")
-                    }
-                    .tag(HomeTabs.bookings)
-                InboxView(myProfile: viewModel.getCurrentUser(), talkTo: $viewModel.talkTo)
-                    .tabItem {
-                        Label("Inbox", systemImage: "bubble.left.and.text.bubble.right")
-                    }
-                    .tag(HomeTabs.inbox)
-                AccountView(myProfile: viewModel.getCurrentUser())
-                    .tabItem {
-                        Label("Account", systemImage: "person")
-                    }
-                    .tag(HomeTabs.account)
-            }
-            .onAppear {
-//                viewModel.checkProfileCompletion()
-            }
-            .fullScreenCover(isPresented: $viewModel.shouldPresentSetupProfileFlow) {
-                SetupBasicInfoView(shouldReturnToLogin: $viewModel.shouldReturnToLogin,
-                                   shouldPresentSetupProfileFlow: $viewModel.shouldPresentSetupProfileFlow)
-            }
-            .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat), perform: { notification in
-                viewModel.handleSwitchToChatNotification(notification: notification)
-            })
+        TabView(selection: $viewModel.tabSelection) {
+            ExploreView(myProfile: viewModel.getCurrentUser())
+                .tabItem {
+                    Label("Explore", systemImage: "globe")
+                }
+                .tag(HomeTabs.explore)
+            ExploreTopicsView()
+                .tabItem {
+                    Label("Topics", systemImage: "lightbulb")
+                }
+                .tag(HomeTabs.topics)
+            MyBookingsView(myUserId: viewModel.getCurrentUser().userId)
+                .tabItem {
+                    Label("Bookings", systemImage: "calendar.badge.clock")
+                }
+                .tag(HomeTabs.bookings)
+            InboxView(myProfile: viewModel.getCurrentUser(), talkTo: $viewModel.talkTo)
+                .tabItem {
+                    Label("Inbox", systemImage: "bubble.left.and.text.bubble.right")
+                }
+                .tag(HomeTabs.inbox)
+            AccountView(myProfile: viewModel.getCurrentUser())
+                .tabItem {
+                    Label("Account", systemImage: "person")
+                }
+                .tag(HomeTabs.account)
         }
+        .onAppear {
+//                viewModel.checkProfileCompletion()
+        }
+        .fullScreenCover(isPresented: $viewModel.shouldPresentSetupProfileFlow) {
+            SetupBasicInfoView(shouldPresentSetupProfileFlow: $viewModel.shouldPresentSetupProfileFlow)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat), perform: { notification in
+            viewModel.handleSwitchToChatNotification(notification: notification)
+        })
     }
 }
 
