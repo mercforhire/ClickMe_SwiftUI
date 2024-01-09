@@ -20,11 +20,10 @@ struct MyBookingsView: View {
             ZStack {
                 List(viewModel.requests, id: \.id) { request in
                     BookingRequestView(request: request)
-                        .frame(height: 250)
+                        .frame(height: 300)
                         .listRowSeparator(.hidden)
                         .onTapGesture {
-                            viewModel.selectedRequest = request
-                            navigationPath.append(.bookingDetails)
+                            navigationPath.append(.bookingDetails(request))
                         }
                 }
                 .listStyle(.plain)
@@ -34,7 +33,7 @@ struct MyBookingsView: View {
                 .toolbar {
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         Button {
-                            
+                            navigationPath.append(.myPastBookings(viewModel.myUserId))
                         } label: {
                             Image("previous-date", bundle: nil)
                                 .resizable()
@@ -50,8 +49,10 @@ struct MyBookingsView: View {
             .navigationTitle("My Bookings")
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
-                case ScreenNames.bookingDetails:
-                    BookingStatusView(request: viewModel.selectedRequest!)
+                case ScreenNames.bookingDetails(let request):
+                    BookingStatusView(request: request)
+                case ScreenNames.myPastBookings(let myUserId):
+                    MyPastBookingsView(myUserId: myUserId, navigationPath: $navigationPath)
                 default:
                     fatalError()
                 }

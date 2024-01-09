@@ -52,6 +52,6 @@ class MockData {
     }
     
     static func mockReceipt() -> Receipt {
-        return Receipt(_id: "659c46599cf786482795c34b", createdDate: Date(timeIntervalSince1970: 1704568893224 / 1000), paymentIntentId: "pi_3OWO3wE0XSqZ8pU20SZchr6c", booker: MockData.mockProfile(), host: MockData.mockProfile2(), topic: MockData.mockTopic(), requestId: "659bb0700c47d17cc781f078", request: MockData.mockRequest(), status: "UNPAID", amount: 2000, currency: .USD)
+        return Receipt(_id: "659c46599cf786482795c34b", createdDate: Date(timeIntervalSince1970: 1704568893224 / 1000), paymentIntentId: "pi_3OWO3wE0XSqZ8pU20SZchr6c", booker: MockData.mockProfile(), host: MockData.mockProfile2(), topic: MockData.mockTopic(), requestId: "659bb0700c47d17cc781f078", request: MockData.mockRequest(), status: .UNPAID, amount: 2000, currency: .USD)
     }
 }

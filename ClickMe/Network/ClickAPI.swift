@@ -400,10 +400,34 @@ class ClickAPI {
         return response
     }
     
+    func getGuestPastBookingRequests(userId: String) async throws -> GetBookingRequestsResponse {
+        let parameters = ["userId": userId]
+        let url = baseURL + APIRequestURLs.getGuestPastBookingRequests.rawValue
+        let response: GetBookingRequestsResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getGuestPastBookingRequests.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func getHostBookingRequests(userId: String) async throws -> GetBookingRequestsResponse {
         let parameters = ["userId": userId]
         let url = baseURL + APIRequestURLs.getHostBookingRequests.rawValue
         let response: GetBookingRequestsResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getHostBookingRequests.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func getHostPastBookingRequests(userId: String) async throws -> GetBookingRequestsResponse {
+        let parameters = ["userId": userId]
+        let url = baseURL + APIRequestURLs.getHostPastBookingRequests.rawValue
+        let response: GetBookingRequestsResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getHostPastBookingRequests.getHTTPMethod(), parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
         } else if !response.success {

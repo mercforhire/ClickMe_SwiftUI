@@ -24,7 +24,7 @@ struct TopicView: View {
                             .scaledToFill()
                             .opacity(0.5)
                     }
-                    .frame(width: 50, height: 50)
+                    .frame(width: 80, height: 80)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .clipped()
                     VStack(alignment: .leading) {
@@ -44,7 +44,7 @@ struct TopicView: View {
                 Image(topic.mood.imageName(), bundle: nil)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 30, height: 30)
+                    .frame(width: 50, height: 50)
             }
             
             Divider()

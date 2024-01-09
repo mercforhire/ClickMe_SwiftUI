@@ -1,15 +1,15 @@
 //
-//  MyBookingsViewModel.swift
+//  MyPastBookingsViewModel.swift
 //  ClickMe
 //
-//  Created by Leon Chen on 2024-01-07.
+//  Created by Leon Chen on 2024-01-09.
 //
 
 import Foundation
 import SwiftUI
 
 @MainActor
-final class MyBookingsViewModel: ObservableObject {
+final class MyPastBookingsViewModel: ObservableObject {
     var myUserId: String
     
     @Published var isLoading = false
@@ -22,7 +22,7 @@ final class MyBookingsViewModel: ObservableObject {
     func fetchRequests() {
         Task {
             isLoading = true
-            let response = try? await ClickAPI.shared.getGuestBookingRequests(userId: myUserId)
+            let response = try? await ClickAPI.shared.getGuestPastBookingRequests(userId: myUserId)
             if let requests = response?.data?.requests {
                 self.requests = requests
             }

@@ -26,7 +26,7 @@ struct TopicSimpleView: View {
                     Image(topic.mood.imageName(), bundle: nil)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 30, height: 50)
+                        .frame(width: 50, height: 50)
                 }
                 Text(topic.title)
                     .font(.title2)

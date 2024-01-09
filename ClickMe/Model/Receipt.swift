@@ -18,7 +18,7 @@ struct Receipt: Codable, Identifiable {
     var topic: Topic?
     let requestId: String
     let request: Request?
-    let status: String
+    let status: ReceiptStatus
     let amount: Double
     let currency: Currency
     

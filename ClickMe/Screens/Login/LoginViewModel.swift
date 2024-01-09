@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 final class LoginViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var emailAddress = ""
@@ -31,7 +32,7 @@ final class LoginViewModel: ObservableObject {
         guard !emailAddress.isEmpty, emailAddress.isValidEmail else {
             return
         }
-        Task { @MainActor in
+        Task {
             do {
                 let response = try await ClickAPI.shared.checkLoginEmail(email: emailAddress)
                 emailAddressError = nil
@@ -60,7 +61,7 @@ final class LoginViewModel: ObservableObject {
         }
         emailAddressError = nil
         
-        Task { @MainActor in
+        Task {
             isLoading = true
             do {
                 let response = try await ClickAPI.shared.sendCodeToEmail(email: emailAddress)
@@ -78,7 +79,7 @@ final class LoginViewModel: ObservableObject {
         startCountdown()
     }
     
-    func login() {
+    func login() async {
         guard !emailAddress.isEmpty, emailAddress.isValidEmail else {
             return
         }
@@ -89,28 +90,26 @@ final class LoginViewModel: ObservableObject {
         }
         codeError = nil
         
-        Task { @MainActor in
-            isLoading = true
-            do {
-                let loginResponse = try await ClickAPI.shared.login(email: emailAddress, code: code)
-                if let user = loginResponse.data?.user, let profile = loginResponse.data?.profile {
-                    UserManager.shared.set(user: user, profile: profile)
-                    loginComplete = true
-                }
-            } catch {
-                switch error {
-                case CMError.userDoesntExist:
-                    emailAddressError = "User doesn't exist"
-                case CMError.verifyCodeInvalid:
-                    codeError = "Verification code is invalid"
-                case CMError.userDeletedAccount:
-                    codeError = "This user already deleted his/her account"
-                default:
-                    codeError = "Unknown error"
-                }
+        isLoading = true
+        do {
+            let loginResponse = try await ClickAPI.shared.login(email: emailAddress, code: code)
+            if let user = loginResponse.data?.user, let profile = loginResponse.data?.profile {
+                UserManager.shared.set(user: user, profile: profile)
+                loginComplete = true
             }
-            isLoading = false
+        } catch {
+            switch error {
+            case CMError.userDoesntExist:
+                emailAddressError = "User doesn't exist"
+            case CMError.verifyCodeInvalid:
+                codeError = "Verification code is invalid"
+            case CMError.userDeletedAccount:
+                codeError = "This user already deleted his/her account"
+            default:
+                codeError = "Unknown error"
+            }
         }
+        isLoading = false
     }
     
     private func startCountdown() {

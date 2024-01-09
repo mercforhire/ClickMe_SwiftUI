@@ -41,7 +41,7 @@ struct BookingRequestView: View {
                 Image(request.topic?.mood.imageName() ?? "field_other", bundle: nil)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 30, height: 30)
+                    .frame(width: 50, height: 50)
             }
             
             Divider()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ScreenNames: String {
+enum ScreenNames: Hashable {
     case splash,
          getStarted,
          loginInitial,
@@ -17,6 +17,7 @@ enum ScreenNames: String {
          setupDetailInfo,
          inbox,
          chat,
-         myBookings,
-         bookingDetails
+         myBookings
+    case myPastBookings(String)
+    case bookingDetails(Request)
 }
