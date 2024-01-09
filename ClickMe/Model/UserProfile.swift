@@ -24,6 +24,7 @@ struct UserProfile: Codable, Identifiable, Equatable, Hashable {
     let userPhotos: [Photo]?
     let languages: [Language]?
     var numberOfFollowers: Int?
+    var numberFollowing: Int?
     
     static func == (lhs: UserProfile, rhs: UserProfile) -> Bool {
         lhs.userId == rhs.userId

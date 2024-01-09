@@ -23,7 +23,7 @@ struct HomeTabView: View {
             LoginInitialView()
         } else {
             TabView(selection: $viewModel.tabSelection) {
-                ExploreView()
+                ExploreView(myProfile: viewModel.getCurrentUser())
                     .tabItem {
                         Label("Explore", systemImage: "globe")
                     }
@@ -43,7 +43,7 @@ struct HomeTabView: View {
                         Label("Inbox", systemImage: "bubble.left.and.text.bubble.right")
                     }
                     .tag(HomeTabs.inbox)
-                AccountView()
+                AccountView(myProfile: viewModel.getCurrentUser())
                     .tabItem {
                         Label("Account", systemImage: "person")
                     }

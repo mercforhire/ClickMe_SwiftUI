@@ -450,6 +450,18 @@ class ClickAPI {
         return response
     }
     
+    func postFeedback(message: String) async throws -> DefaultResponse {
+        let parameters = ["message": message]
+        let url = baseURL + APIRequestURLs.postFeedback.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url, method: APIRequestURLs.postFeedback.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
         let filename = String.randomString(length: 5)
         let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"

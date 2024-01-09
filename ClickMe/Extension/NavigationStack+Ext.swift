@@ -1,5 +1,5 @@
 //
-//  View+Ext.swift
+//  NavigationStack+Ext.swift
 //  ClickMe
 //
 //  Created by Leon Chen on 2024-01-05.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension NavigationView {
+extension NavigationStack {
     /// Applies the given transform if the given condition evaluates to `true`.
     /// - Parameters:
     ///   - condition: The condition to evaluate.

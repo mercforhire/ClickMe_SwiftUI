@@ -10,6 +10,8 @@ import SwiftUI
 
 @MainActor
 final class ExploreViewModel: ObservableObject {
+    var myProfile: UserProfile
+    
     @Published var profiles: [UserProfile] = []
     @Published var searchResults: [UserProfile] = []
     @Published var followingUsers: [UserProfile] = []
@@ -29,6 +31,10 @@ final class ExploreViewModel: ObservableObject {
             return followingUsers
         }
         return searchIsActive ? searchResults : profiles
+    }
+    
+    init(myProfile: UserProfile) {
+        self.myProfile = myProfile
     }
     
     func fetchUsers(filter: ExploreUsersParams) {
@@ -52,12 +58,8 @@ final class ExploreViewModel: ObservableObject {
     }
     
     func fetchFollowingUsers() {
-        guard let myUserId = UserManager.shared.user?._id else {
-            return
-        }
-        
         Task {
-            let response = try? await ClickAPI.shared.getFollowingUsers(userId: myUserId)
+            let response = try? await ClickAPI.shared.getFollowingUsers(userId: myProfile.userId)
             if let profiles = response?.data?.profiles {
                 self.followingUsers = profiles
             }

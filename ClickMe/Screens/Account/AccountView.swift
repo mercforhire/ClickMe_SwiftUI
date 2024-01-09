@@ -7,12 +7,223 @@
 
 import SwiftUI
 
+enum AccountMenu: Int, Identifiable {
+    case wallet
+    case history
+    case switchMode
+    case support
+    case feedback
+    case signOut
+    case deleteAccount
+    
+    var id: AccountMenu { self }
+    
+    static func list() -> [AccountMenu] {
+        return [.switchMode, .wallet, .history, .support, .feedback, .signOut, .deleteAccount]
+    }
+    
+    func text() -> String {
+        switch self {
+        case .switchMode:
+            return "Switch to host"
+        case .wallet:
+            return "My Wallet"
+        case .history:
+            return "Booking History"
+        case .support:
+            return "Support & FAQ"
+        case .feedback:
+            return "Feedback"
+        case .signOut:
+            return "Sign Out"
+        case .deleteAccount:
+            return "Delete Account"
+        }
+    }
+    
+    func iconName() -> String {
+        switch self {
+        case .wallet:
+            return "dollarsign.circle"
+        case .history:
+            return "clock.arrow.circlepath"
+        case .switchMode:
+            return "arrow.2.squarepath"
+        case .support:
+            return "questionmark.circle"
+        case .feedback:
+            return "star.bubble"
+        case .signOut:
+            return "rectangle.portrait.and.arrow.right"
+        case .deleteAccount:
+            return "trash"
+        }
+    }
+}
+
 struct AccountView: View {
+    @StateObject var viewModel: AccountViewModel
+    @State private var navigationPath: [ScreenNames] = []
+    
+    init(myProfile: UserProfile) {
+        _viewModel = StateObject(wrappedValue: AccountViewModel(myProfile: myProfile))
+    }
+    
     var body: some View {
-        Text("Account screen")
+        NavigationStack(path: $navigationPath) {
+            ZStack {
+                VStack(alignment: .center) {
+                    if let urlString = viewModel.myProfile.userPhotos?.first?.thumbnail {
+                        AsyncImage(url: URL(string: urlString)) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                        } placeholder: {
+                            Image("male-l", bundle: nil)
+                                .resizable()
+                                .scaledToFill()
+                                .opacity(0.5)
+                        }
+                        .frame(width: 80, height: 80)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                        .clipped()
+                    }
+                    
+                    Text("\(viewModel.myProfile.firstName ?? "") \(viewModel.myProfile.lastName ?? "")")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                        .padding(.bottom, 5)
+                    
+                    Text("\(viewModel.myProfile.jobTitle ?? "") at \(viewModel.myProfile.company ?? "")")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(.primary)
+                        .padding(.bottom, 5)
+                    
+                    Text("ID: \(viewModel.myProfile.screenId)")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .padding(.bottom, 5)
+                    
+                    HStack(alignment: .center, spacing: 20) {
+                        VStack {
+                            Text("\(viewModel.myProfile.numberFollowing ?? 0)")
+                                .font(.body)
+                                .fontWeight(.medium)
+                                .foregroundColor(.primary)
+                            
+                            Text("Following")
+                                .font(.body)
+                                .fontWeight(.medium)
+                        }
+                        
+                        Divider()
+                            .frame(width: 1)
+                            .overlay(Color.secondary)
+                        
+                        VStack {
+                            Text("\(viewModel.myProfile.numberOfFollowers ?? 0)")
+                                .font(.body)
+                                .fontWeight(.medium)
+                                .foregroundColor(.primary)
+                            Text("Followers")
+                                .font(.body)
+                                .fontWeight(.medium)
+                        }
+                    }
+                    .frame(height: 50)
+                    
+                    HStack(spacing: 10) {
+                        Button {
+                            viewModel.isShowingProfile = true
+                        } label: {
+                            CMButton(title: "View profile")
+                        }
+                        
+                        Button {
+                            
+                        } label: {
+                            CMButton(title: "Edit profile")
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.horizontal, 10)
+                    
+                    Form {
+                        ForEach(AccountMenu.list(), id: \.self) { row in
+                            Label(row.text(), systemImage: row.iconName())
+                                .onTapGesture {
+                                    switch row {
+                                    case .wallet:
+                                        break
+                                    case .history:
+                                        navigationPath.append(.myPastBookings(viewModel.myProfile.userId))
+                                    case .switchMode:
+                                        break
+                                    case .support:
+                                        break
+                                    case .feedback:
+                                        viewModel.isPostingFeedback = true
+                                    case .signOut:
+                                        UserManager.shared.logout()
+                                    case .deleteAccount:
+                                        break
+                                    }
+                                }
+                        }
+                    }
+                }
+                .alert("Submit feedback", isPresented: $viewModel.isPostingFeedback) {
+                    TextField("Message", text: $viewModel.feedback)
+                    Button("Send") {
+                        viewModel.handlePostFeedback()
+                        viewModel.isPostingFeedback = false
+                    }
+                    Button("Cancel", role: .cancel) {
+                        viewModel.isPostingFeedback = false
+                        viewModel.feedback = ""
+                    }
+                } message: {
+                    Text("Please enter your feedback")
+                }
+                
+                if viewModel.isLoading {
+                    LoadingView()
+                }
+            }
+            .navigationTitle("My profile")
+            .background(Color(.systemGray6))
+            .onAppear {
+                viewModel.refreshData()
+            }
+            .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
+                UserDetailsView(profile: viewModel.myProfile,
+                                isShowingProfile: $viewModel.isShowingProfile,
+                                loadTopics: false)
+            }
+            .alert(isPresented: $viewModel.postFeedbackSuccess) {
+                Alert(title: Text("Feedback sent"),
+                      message: Text("Thank you for your feedback"),
+                      dismissButton: .default(Text("Ok")))
+            }
+            .alert(isPresented: $viewModel.postFeedbackError) {
+                Alert(title: Text("Feedback error"),
+                      message: Text("Failed to sent feedback"),
+                      dismissButton: .default(Text("Ok")))
+            }
+            .navigationDestination(for: ScreenNames.self) { screenName in
+                switch screenName {
+                case ScreenNames.myPastBookings(let myUserId):
+                    MyPastBookingsView(myUserId: myUserId, navigationPath: $navigationPath)
+                default:
+                    fatalError()
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    AccountView()
+    AccountView(myProfile: MockData.mockProfile())
 }

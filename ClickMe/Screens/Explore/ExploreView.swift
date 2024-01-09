@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct ExploreView: View {
-    @StateObject var viewModel = ExploreViewModel()
+    @StateObject var viewModel: ExploreViewModel
     @StateObject var filterViewModel = ExploreFilterViewModel()
     
+    init(myProfile: UserProfile) {
+        _viewModel = StateObject(wrappedValue: ExploreViewModel(myProfile: myProfile))
+    }
+    
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 List(viewModel.showUsers, id: \.id) { profile in
                     ExploreCell(profile: profile, imageHeight: 200)
@@ -86,5 +90,5 @@ struct ExploreView: View {
 
 #Preview {
     ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
-    return ExploreView()
+    return ExploreView(myProfile: MockData.mockProfile())
 }
