@@ -166,6 +166,7 @@ final class EditProfileViewModel: ObservableObject {
             
             await deleteAllPhotos()
             updateProfileFinished = true
+            NotificationCenter.default.post(name: Notifications.RefreshProfile, object: nil, userInfo: nil)
         }
     }
     

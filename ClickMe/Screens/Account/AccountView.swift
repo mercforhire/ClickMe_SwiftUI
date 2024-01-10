@@ -246,6 +246,9 @@ struct AccountView: View {
                             isShowingProfile: $viewModel.isShowingProfile,
                             loadTopics: false)
         }
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.RefreshProfile), perform: { notification in
+            viewModel.refreshData()
+        })
     }
 }
 
