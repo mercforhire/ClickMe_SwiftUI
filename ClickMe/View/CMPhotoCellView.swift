@@ -10,6 +10,7 @@ import SwiftUI
 struct CMPhotoCellView: View {
     var photo: Photo?
     var width: CGFloat
+    var height: CGFloat
     
     var body: some View {
         ZStack {
@@ -21,25 +22,25 @@ struct CMPhotoCellView: View {
                 } placeholder: {
                     Color.accentColor
                 }
-                .frame(width: width, height: width)
+                .frame(width: width, height: height)
                 .clipped()
             } else {
                 Image("male-l", bundle: nil)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: width, height: width)
+                    .frame(width: width, height: height)
                     .clipped()
             }
             Image("frame", bundle: nil)
                 .resizable()
-                .frame(width: width, height: width)
+                .frame(width: width, height: height)
                 .foregroundStyle(.background)
             Image("border", bundle: nil)
                 .resizable()
-                .frame(width: width, height: width)
+                .frame(width: width, height: height)
                 .foregroundStyle(.accent)
         }
-        .frame(width: width, height: width)
+        .frame(width: width, height: height)
         .overlay(alignment: .bottomTrailing) {
             if let _ = photo {
                 CMMinusButton()
@@ -55,5 +56,5 @@ struct CMPhotoCellView: View {
 #Preview {
     let url = "https://media.licdn.com/dms/image/C5603AQFAiZ5E98oI1w/profile-displayphoto-shrink_200_200/0/1564032471373?e=1709769600&v=beta&t=xuD6QC1lVyhH5CVpT6GIdK_CZnm317WMp5xTnD-Du40"
     let photo = Photo(thumbnail: url, url: url)
-    return CMPhotoCellView(photo: photo, width: 200)
+    return CMPhotoCellView(photo: photo, width: 200, height: 200)
 }

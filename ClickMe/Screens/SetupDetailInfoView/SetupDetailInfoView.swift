@@ -14,16 +14,19 @@ struct SetupDetailInfoView: View {
     @StateObject var viewModel: SetupDetailInfoViewModel = SetupDetailInfoViewModel()
     
     private let screenWidth = UIScreen.main.bounds.size.width
-    private let padding: CGFloat = 25
+    private let padding: CGFloat = 40
     private var photoCellWidth: CGFloat {
-        return screenWidth / 2 - padding * 2
+        return (screenWidth - padding * 2) / 2
     }
+    private let gridMatrix: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
         Form {
             Section(header: Text("Upload photos")) {
                 ProfilePhotosGridView(photos: $viewModel.userPhotos,
-                                      width: photoCellWidth)
+                                      width: photoCellWidth, 
+                                      maxPhotos: 4,
+                                      gridMatrix: gridMatrix)
                 { index in
                     viewModel.handleDeletePhoto(index: index)
                 } handlePhotoPicker: {
@@ -89,5 +92,8 @@ struct SetupDetailInfoView: View {
 
 #Preview {
     var vm = SetupDetailInfoViewModel()
-    return SetupDetailInfoView(basicInfo: SetupBasicInfoViewModel(), shouldPresentSetupProfileFlow: .constant(true), navigationPath: .constant([.setupDetailInfo]), viewModel: vm)
+    return SetupDetailInfoView(basicInfo: SetupBasicInfoViewModel(), 
+                               shouldPresentSetupProfileFlow: .constant(true),
+                               navigationPath: .constant([.setupDetailInfo]),
+                               viewModel: vm)
 }

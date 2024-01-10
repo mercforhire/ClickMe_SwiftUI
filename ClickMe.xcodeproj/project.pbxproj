@@ -10,6 +10,11 @@
 		1CA3DDF647D77A8DAD829BC7 /* Pods_ClickMe_ClickMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DECAF67D3A100A044C1CE85A /* Pods_ClickMe_ClickMeUITests.framework */; };
 		667EBEC37EF047021F3C64C1 /* Pods_ClickMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B096689CA93AFFDF059A141E /* Pods_ClickMe.framework */; };
 		6BAC22E226CD876E4A70AC4C /* Pods_ClickMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 953EFE63C1B45C26F2F6A760 /* Pods_ClickMeTests.framework */; };
+		720087AA2B4DAB4E0020633F /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087A92B4DAB4E0020633F /* EditProfileView.swift */; };
+		720087AC2B4DAB560020633F /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087AB2B4DAB560020633F /* EditProfileViewModel.swift */; };
+		720087AE2B4DD8F70020633F /* ReorderableForEach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087AD2B4DD8F70020633F /* ReorderableForEach.swift */; };
+		720087B02B4DDA4C0020633F /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087AF2B4DDA4C0020633F /* View+Ext.swift */; };
+		720087B42B4DFE200020633F /* DragRelocateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087B32B4DFE200020633F /* DragRelocateDelegate.swift */; };
 		72064F2B2B46EC2C00BB9ECC /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72064F2A2B46EC2C00BB9ECC /* ExploreView.swift */; };
 		72064F312B46ECBF00BB9ECC /* MyBookingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72064F302B46ECBF00BB9ECC /* MyBookingsView.swift */; };
 		72064F342B4707A200BB9ECC /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72064F332B4707A200BB9ECC /* AccountView.swift */; };
@@ -152,6 +157,11 @@
 		2C53F0EEE1B86E33E645A4EC /* Pods-ClickMe-ClickMeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMe-ClickMeUITests.release.xcconfig"; path = "Target Support Files/Pods-ClickMe-ClickMeUITests/Pods-ClickMe-ClickMeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		46AC286571B3594AE493BED8 /* Pods-ClickMe-ClickMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMe-ClickMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-ClickMe-ClickMeUITests/Pods-ClickMe-ClickMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		4D9ED630657C498C5DEC4B3B /* Pods-ClickMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMe.release.xcconfig"; path = "Target Support Files/Pods-ClickMe/Pods-ClickMe.release.xcconfig"; sourceTree = "<group>"; };
+		720087A92B4DAB4E0020633F /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		720087AB2B4DAB560020633F /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		720087AD2B4DD8F70020633F /* ReorderableForEach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderableForEach.swift; sourceTree = "<group>"; };
+		720087AF2B4DDA4C0020633F /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
+		720087B32B4DFE200020633F /* DragRelocateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragRelocateDelegate.swift; sourceTree = "<group>"; };
 		72064F2A2B46EC2C00BB9ECC /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		72064F302B46ECBF00BB9ECC /* MyBookingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookingsView.swift; sourceTree = "<group>"; };
 		72064F332B4707A200BB9ECC /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -318,6 +328,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		720087A82B4DAB3C0020633F /* Edit Profile */ = {
+			isa = PBXGroup;
+			children = (
+				720087A92B4DAB4E0020633F /* EditProfileView.swift */,
+				720087AB2B4DAB560020633F /* EditProfileViewModel.swift */,
+			);
+			path = "Edit Profile";
+			sourceTree = "<group>";
+		};
 		72064F292B46EC1100BB9ECC /* Explore */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +433,7 @@
 		7237A5812B42E47B00ABF10F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				720087A82B4DAB3C0020633F /* Edit Profile */,
 				72064F322B47078F00BB9ECC /* Account */,
 				720B606C2B4C6C7B00CF716E /* Booking Status */,
 				720B60572B4AC62200CF716E /* Chat */,
@@ -474,6 +494,8 @@
 				720B60412B49D42A00CF716E /* ChatConversationView.swift */,
 				720B60532B4ABD7400CF716E /* ChatMessageLeftView.swift */,
 				720B60552B4AC29000CF716E /* ChatMessageRightView.swift */,
+				720087AD2B4DD8F70020633F /* ReorderableForEach.swift */,
+				720087B32B4DFE200020633F /* DragRelocateDelegate.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -484,6 +506,7 @@
 				722C59E12B43FE6400EBA081 /* String+Ext.swift */,
 				725586212B44D846005A37B9 /* UIImage+Ext.swift */,
 				72774C2D2B47CE8000C5A248 /* NavigationStack+Ext.swift */,
+				720087AF2B4DDA4C0020633F /* View+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -981,6 +1004,7 @@
 				728499F62B4657E900C2826B /* CMPhotoPicker.swift in Sources */,
 				72774C432B482C7100C5A248 /* Currency.swift in Sources */,
 				7255861E2B44CECC005A37B9 /* SetupBasicInfoView.swift in Sources */,
+				720087B02B4DDA4C0020633F /* View+Ext.swift in Sources */,
 				724C95512B49508200AD2CFC /* MoodView.swift in Sources */,
 				724C95482B4902A000AD2CFC /* TopicResponse.swift in Sources */,
 				720B60422B49D42A00CF716E /* ChatConversationView.swift in Sources */,
@@ -995,6 +1019,7 @@
 				72774C492B48812700C5A248 /* FollowingUsersResponse.swift in Sources */,
 				722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */,
 				720B60652B4C3AE900CF716E /* GetBookingRequestsResponse.swift in Sources */,
+				720087B42B4DFE200020633F /* DragRelocateDelegate.swift in Sources */,
 				7237A59C2B439BD800ABF10F /* SafariView.swift in Sources */,
 				722C59DD2B43F8F900EBA081 /* ClickAPI.swift in Sources */,
 				725586242B44EF5E005A37B9 /* UserManager.swift in Sources */,
@@ -1027,6 +1052,7 @@
 				720B60692B4C414C00CF716E /* BookingRequestView.swift in Sources */,
 				720B605F2B4AEF2B00CF716E /* SendChatMessageResponse.swift in Sources */,
 				722C59DB2B43F74D00EBA081 /* CMError.swift in Sources */,
+				720087AC2B4DAB560020633F /* EditProfileViewModel.swift in Sources */,
 				720B60442B49DF1900CF716E /* GetConversationsResponse.swift in Sources */,
 				725586332B4529B4005A37B9 /* Language.swift in Sources */,
 				720B605B2B4AC64700CF716E /* ChatViewModel.swift in Sources */,
@@ -1059,6 +1085,7 @@
 				720B604E2B4A5F6000CF716E /* Attachment.swift in Sources */,
 				7237A58A2B42E53900ABF10F /* GetStartedSteps.swift in Sources */,
 				720B60722B4C7E2500CF716E /* Receipt.swift in Sources */,
+				720087AE2B4DD8F70020633F /* ReorderableForEach.swift in Sources */,
 				724C954A2B4903F800AD2CFC /* TopicView.swift in Sources */,
 				725B99EC2B4169220066D240 /* ClickMeApp.swift in Sources */,
 				72774C352B47F6D100C5A248 /* UserDetailsView.swift in Sources */,
@@ -1078,6 +1105,7 @@
 				7237A5962B43829500ABF10F /* LoginInitialView.swift in Sources */,
 				72064F362B470B7200BB9ECC /* ExploreViewModel.swift in Sources */,
 				720B604A2B4A584E00CF716E /* InboxViewModel.swift in Sources */,
+				720087AA2B4DAB4E0020633F /* EditProfileView.swift in Sources */,
 				720B60542B4ABD7500CF716E /* ChatMessageLeftView.swift in Sources */,
 				722DD67F2B45578400AD8401 /* CMPlusButton.swift in Sources */,
 				720B60672B4C3D9300CF716E /* RequestStatus.swift in Sources */,

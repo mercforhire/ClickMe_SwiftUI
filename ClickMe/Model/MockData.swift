@@ -12,12 +12,24 @@ class MockData {
         Photo(thumbnail: "https://picsum.photos/id/524/300/500", url: "https://picsum.photos/id/524/300/500")
     }
     
+    static func mockPhoto1() -> Photo {
+        Photo(thumbnail: "https://picsum.photos/id/525/300/500", url: "https://picsum.photos/id/525/300/500")
+    }
+    
+    static func mockPhoto2() -> Photo {
+        Photo(thumbnail: "https://picsum.photos/id/526/300/500", url: "https://picsum.photos/id/526/300/500")
+    }
+    
+    static func mockPhoto3() -> Photo {
+        Photo(thumbnail: "https://picsum.photos/id/527/300/500", url: "https://picsum.photos/id/527/300/500")
+    }
+    
     static func mockProfile() -> UserProfile {
-        return UserProfile(userId: "65971589d4f4d7af9f97a3bc", screenId: "d0rk4vpj9p", firstName: "Kayla", lastName: "Koch", city: "Melodyview", state: "Washington", country: .canada, jobTitle: "Regional Group Technician", company: "Larkin LLC", field: .science, degree: "Paradigm", aboutMe: "Curo dolores cornu demulceo distinctio cunae truculenter clibanus.", userPhotos: [MockData.mockPhoto(), MockData.mockPhoto(), MockData.mockPhoto()], languages: [.english, .french], numberOfFollowers: 55, numberFollowing: 1)
+        return UserProfile(userId: "65971589d4f4d7af9f97a3bc", screenId: "d0rk4vpj9p", firstName: "Kayla", lastName: "Koch", city: "Melodyview", state: "Washington", country: .canada, jobTitle: "Regional Group Technician", company: "Larkin LLC", field: .science, degree: "Paradigm", aboutMe: "Curo dolores cornu demulceo distinctio cunae truculenter clibanus.", userPhotos: [MockData.mockPhoto(), MockData.mockPhoto1(), MockData.mockPhoto2()], languages: [.english, .french], numberOfFollowers: 55, numberFollowing: 1)
     }
     
     static func mockProfile2() -> UserProfile {
-        return UserProfile(userId: "65971715d4f4d7af9f97d889", screenId: "0a6wb8asjp", firstName: "Reva", lastName: "Cormier", city: "Ephraimchester", state: "West Virginia", country: .usa, jobTitle: "Lead Response Administrator", company: "Fritsch, Lehner and Klein", field: .social, degree: "Communications", aboutMe: "Apparatus desipio adfectus tripudio super solvo utroque amor perspiciatis earum.", userPhotos: [MockData.mockPhoto(), MockData.mockPhoto(), MockData.mockPhoto()], languages: [.english], numberOfFollowers: 55, numberFollowing: 1)
+        return UserProfile(userId: "65971715d4f4d7af9f97d889", screenId: "0a6wb8asjp", firstName: "Reva", lastName: "Cormier", city: "Ephraimchester", state: "West Virginia", country: .usa, jobTitle: "Lead Response Administrator", company: "Fritsch, Lehner and Klein", field: .social, degree: "Communications", aboutMe: "Apparatus desipio adfectus tripudio super solvo utroque amor perspiciatis earum.", userPhotos: [MockData.mockPhoto3(), MockData.mockPhoto2(), MockData.mockPhoto1()], languages: [.english], numberOfFollowers: 55, numberFollowing: 1)
     }
     
     static func mockShortMessage() -> Message {

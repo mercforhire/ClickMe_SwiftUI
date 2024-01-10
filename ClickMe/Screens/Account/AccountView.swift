@@ -142,7 +142,7 @@ struct AccountView: View {
                         }
                         
                         Button {
-                            
+                            navigationPath.append(.editProfile(viewModel.myProfile))
                         } label: {
                             CMButton(title: "Edit profile")
                         }
@@ -231,12 +231,14 @@ struct AccountView: View {
                 switch screenName {
                 case ScreenNames.myPastBookings(let myUserId):
                     MyPastBookingsView(myUserId: myUserId, navigationPath: $navigationPath)
+                case ScreenNames.editProfile(let profile):
+                    EditProfileView(myProfile: profile, navigationPath: $navigationPath)
                 default:
                     fatalError()
                 }
             }
         }
-        .onAppear {
+        .task {
             viewModel.refreshData()
         }
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
