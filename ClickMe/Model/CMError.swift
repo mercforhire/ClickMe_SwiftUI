@@ -23,4 +23,9 @@ enum CMError: Error {
     case topicDoesntExist
     case chatBlocked
     case requestDoesntExist
+    case cantBookOwn
+    case invalidBookingTime
+    case bookingTimeTooLong
+    case invalidTimeSlot
+    case timeslotConflict
 }

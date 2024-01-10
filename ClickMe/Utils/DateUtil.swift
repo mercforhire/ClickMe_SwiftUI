@@ -25,8 +25,8 @@ class DateUtil {
         case format7 = "yyyy-MM-dd'T'HH:mm:ss.SSSSZ"
         ///hh:mm a -- 1:12 PM
         case format8 = "h:mm a"
-        ///EEEE MMMM d, 2021 -- Tuesday October 18, 2021
-        case format9 = "EEEE MMMM d, 2021"
+        ///EEEE MMMM d, yyyy -- Tuesday October 18, 2021
+        case format9 = "EEEE MMMM d, yyyy"
         ///October 18 5:30 PM
         case format10 = "MMMM d h:mm a"
         ///October 18
@@ -35,6 +35,9 @@ class DateUtil {
         case format12 = "MM/dd/yyyy"
         ///MMMM, yyyy -- October, 2019
         case format14 = "MMMM, yyyy"
+        
+        ///EEEE MMMM d -- Tuesday October 18
+        case format15 = "EEEE MMMM d"
     }
     
     static private var formatter: DateFormatter = {

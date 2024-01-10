@@ -19,6 +19,13 @@
 		720087BC2B4EDBC40020633F /* UsersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087BB2B4EDBC40020633F /* UsersListView.swift */; };
 		720087BE2B4EDBCF0020633F /* UsersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087BD2B4EDBCF0020633F /* UsersListViewModel.swift */; };
 		720087C02B4EEBC50020633F /* SimpleUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087BF2B4EEBC50020633F /* SimpleUserCell.swift */; };
+		720087C32B4EF4530020633F /* SelectTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087C22B4EF4530020633F /* SelectTimeView.swift */; };
+		720087C52B4EFBE20020633F /* GetAvailabilityResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087C42B4EFBE20020633F /* GetAvailabilityResponse.swift */; };
+		720087C72B4EFC770020633F /* Timeslot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087C62B4EFC770020633F /* Timeslot.swift */; };
+		720087C92B4EFD370020633F /* SelectTimeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087C82B4EFD370020633F /* SelectTimeViewModel.swift */; };
+		720087CB2B4EFDC20020633F /* RequestBookingParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087CA2B4EFDC20020633F /* RequestBookingParams.swift */; };
+		720087CD2B4EFEEC0020633F /* RequestResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087CC2B4EFEEC0020633F /* RequestResponse.swift */; };
+		720087CF2B4F23B70020633F /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087CE2B4F23B70020633F /* Date+Ext.swift */; };
 		72064F2B2B46EC2C00BB9ECC /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72064F2A2B46EC2C00BB9ECC /* ExploreView.swift */; };
 		72064F312B46ECBF00BB9ECC /* MyBookingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72064F302B46ECBF00BB9ECC /* MyBookingsView.swift */; };
 		72064F342B4707A200BB9ECC /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72064F332B4707A200BB9ECC /* AccountView.swift */; };
@@ -170,6 +177,13 @@
 		720087BB2B4EDBC40020633F /* UsersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListView.swift; sourceTree = "<group>"; };
 		720087BD2B4EDBCF0020633F /* UsersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListViewModel.swift; sourceTree = "<group>"; };
 		720087BF2B4EEBC50020633F /* SimpleUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleUserCell.swift; sourceTree = "<group>"; };
+		720087C22B4EF4530020633F /* SelectTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTimeView.swift; sourceTree = "<group>"; };
+		720087C42B4EFBE20020633F /* GetAvailabilityResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAvailabilityResponse.swift; sourceTree = "<group>"; };
+		720087C62B4EFC770020633F /* Timeslot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeslot.swift; sourceTree = "<group>"; };
+		720087C82B4EFD370020633F /* SelectTimeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTimeViewModel.swift; sourceTree = "<group>"; };
+		720087CA2B4EFDC20020633F /* RequestBookingParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBookingParams.swift; sourceTree = "<group>"; };
+		720087CC2B4EFEEC0020633F /* RequestResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestResponse.swift; sourceTree = "<group>"; };
+		720087CE2B4F23B70020633F /* Date+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		72064F2A2B46EC2C00BB9ECC /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		72064F302B46ECBF00BB9ECC /* MyBookingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookingsView.swift; sourceTree = "<group>"; };
 		72064F332B4707A200BB9ECC /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -362,6 +376,15 @@
 			path = "Users List";
 			sourceTree = "<group>";
 		};
+		720087C12B4EF43B0020633F /* Select Time */ = {
+			isa = PBXGroup;
+			children = (
+				720087C22B4EF4530020633F /* SelectTimeView.swift */,
+				720087C82B4EFD370020633F /* SelectTimeViewModel.swift */,
+			);
+			path = "Select Time";
+			sourceTree = "<group>";
+		};
 		72064F292B46EC1100BB9ECC /* Explore */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,12 +468,14 @@
 				72774C312B47D70000C5A248 /* SearchUsersResponse.swift */,
 				72774C3E2B4828F500C5A248 /* TopicsResponse.swift */,
 				724C95472B4902A000AD2CFC /* TopicResponse.swift */,
+				720087CC2B4EFEEC0020633F /* RequestResponse.swift */,
 				72774C482B48812700C5A248 /* GetUsersResponse.swift */,
 				720B60432B49DF1900CF716E /* GetConversationsResponse.swift */,
 				720B60512B4ABBAA00CF716E /* GetChatMessagesResponse.swift */,
 				720B605E2B4AEF2B00CF716E /* SendChatMessageResponse.swift */,
 				720B60642B4C3AE800CF716E /* GetBookingRequestsResponse.swift */,
 				720B60732B4C988600CF716E /* GetBookingDetailsResponse.swift */,
+				720087C42B4EFBE20020633F /* GetAvailabilityResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -458,6 +483,7 @@
 		7237A5812B42E47B00ABF10F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				720087C12B4EF43B0020633F /* Select Time */,
 				720087BA2B4EDBAD0020633F /* Users List */,
 				72064F322B47078F00BB9ECC /* Account */,
 				720B606C2B4C6C7B00CF716E /* Booking Status */,
@@ -531,6 +557,7 @@
 		7237A5842B42E4AE00ABF10F /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				720087CE2B4F23B70020633F /* Date+Ext.swift */,
 				722C59E12B43FE6400EBA081 /* String+Ext.swift */,
 				725586212B44D846005A37B9 /* UIImage+Ext.swift */,
 				72774C2D2B47CE8000C5A248 /* NavigationStack+Ext.swift */,
@@ -558,6 +585,7 @@
 				720B60752B4D1B8700CF716E /* ReceiptStatus.swift */,
 				725586322B4529B4005A37B9 /* Language.swift */,
 				72774C402B482BFB00C5A248 /* Topic.swift */,
+				720087C62B4EFC770020633F /* Timeslot.swift */,
 				72774C422B482C7100C5A248 /* Currency.swift */,
 				720B60452B49DF3400CF716E /* Conversation.swift */,
 				720B604B2B4A5F2300CF716E /* Message.swift */,
@@ -766,6 +794,7 @@
 				728499FB2B46C06C00C2826B /* UpdateProfileParams.swift */,
 				72064F372B471C6500BB9ECC /* ExploreUsersParams.swift */,
 				72774C2F2B47D42B00C5A248 /* SearchUsersParams.swift */,
+				720087CA2B4EFDC20020633F /* RequestBookingParams.swift */,
 			);
 			path = Params;
 			sourceTree = "<group>";
@@ -1023,6 +1052,8 @@
 			files = (
 				727BD74B2B453A6400D4279D /* Photo.swift in Sources */,
 				725586202B44D68A005A37B9 /* SetupBasicInfoViewModel.swift in Sources */,
+				720087C52B4EFBE20020633F /* GetAvailabilityResponse.swift in Sources */,
+				720087C72B4EFC770020633F /* Timeslot.swift in Sources */,
 				7255862E2B45261D005A37B9 /* Country.swift in Sources */,
 				728499F42B463CB500C2826B /* HomeTabViewModel.swift in Sources */,
 				720B60592B4AC63D00CF716E /* ChatView.swift in Sources */,
@@ -1059,8 +1090,10 @@
 				722C59E42B44009B00EBA081 /* LoadingView.swift in Sources */,
 				7255861B2B44CCE9005A37B9 /* CMEmailTextField.swift in Sources */,
 				72774C3D2B4805A100C5A248 /* TopicSimpleView.swift in Sources */,
+				720087CD2B4EFEEC0020633F /* RequestResponse.swift in Sources */,
 				725586312B452910005A37B9 /* SetupDetailInfoView.swift in Sources */,
 				728499ED2B45867300C2826B /* SplashViewModel.swift in Sources */,
+				720087C32B4EF4530020633F /* SelectTimeView.swift in Sources */,
 				727BD7492B45310100D4279D /* MultiSelector.swift in Sources */,
 				7255862A2B44F80D005A37B9 /* GetUserProfileResponse.swift in Sources */,
 				720B60562B4AC29000CF716E /* ChatMessageRightView.swift in Sources */,
@@ -1092,7 +1125,9 @@
 				724C95442B48FFCB00AD2CFC /* TopicDetailsView.swift in Sources */,
 				728499FE2B46C2AE00C2826B /* UpdateUserProfileResponse.swift in Sources */,
 				720087C02B4EEBC50020633F /* SimpleUserCell.swift in Sources */,
+				720087CB2B4EFDC20020633F /* RequestBookingParams.swift in Sources */,
 				725586152B442634005A37B9 /* LoginViewModel.swift in Sources */,
+				720087CF2B4F23B70020633F /* Date+Ext.swift in Sources */,
 				72774C2E2B47CE8000C5A248 /* NavigationStack+Ext.swift in Sources */,
 				728499F92B466B0400C2826B /* Utils.swift in Sources */,
 				728499F22B45A56200C2826B /* HomeTabView.swift in Sources */,
@@ -1125,6 +1160,7 @@
 				720B60502B4A5FF000CF716E /* Request.swift in Sources */,
 				72774C272B47A31400C5A248 /* ExploreCell.swift in Sources */,
 				720B60632B4B19F100CF716E /* Notifications.swift in Sources */,
+				720087C92B4EFD370020633F /* SelectTimeViewModel.swift in Sources */,
 				72774C3F2B4828F500C5A248 /* TopicsResponse.swift in Sources */,
 				722C59E22B43FE6400EBA081 /* String+Ext.swift in Sources */,
 				725586192B44CC1B005A37B9 /* CMErrorLabel.swift in Sources */,

@@ -497,6 +497,66 @@ class ClickAPI {
         return response
     }
     
+    func getAvailability(userId: String) async throws -> GetAvailabilityResponse {
+        let parameters = ["userId": userId]
+        let url = baseURL + APIRequestURLs.getAvailability.rawValue
+        let response: GetAvailabilityResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getAvailability.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "AVAILABILITY_NOT_FOUND_FOR_USER" {
+            throw CMError.userDoesntExist
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func requestBooking(params: RequestBookingParams) async throws -> RequestResponse {
+        let parameters = params.params()
+        let url = baseURL + APIRequestURLs.getAvailability.rawValue
+        let response: RequestResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getAvailability.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "CAN_NOT_BOOK_OWN_SCHEDULE" {
+            throw CMError.cantBookOwn
+        } else if !response.success, response.message == "START_TIME_END_TIME_INVALID" {
+            throw CMError.invalidBookingTime
+        } else if !response.success, response.message == "BOOKING_TIME_EXCEEDS_TOPIC_MAX_LIMIT" {
+            throw CMError.bookingTimeTooLong
+        } else if !response.success, response.message == "TIME_SLOT_IN_NOT_IN_AVAILABILITY" {
+            throw CMError.invalidTimeSlot
+        } else if !response.success, response.message == "TIME_SLOT_IN_CONFLICT_WITH_EXISTING_BOOKING" {
+            throw CMError.timeslotConflict
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func checkBookingAvailability(params: RequestBookingParams) async throws -> DefaultResponse {
+        let parameters = params.params()
+        let url = baseURL + APIRequestURLs.checkBookingAvailability.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url, 
+                                                                      method: APIRequestURLs.checkBookingAvailability.getHTTPMethod(),
+                                                                      parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "CAN_NOT_BOOK_OWN_SCHEDULE" {
+            throw CMError.cantBookOwn
+        } else if !response.success, response.message == "START_TIME_END_TIME_INVALID" {
+            throw CMError.invalidBookingTime
+        } else if !response.success, response.message == "BOOKING_TIME_EXCEEDS_TOPIC_MAX_LIMIT" {
+            throw CMError.bookingTimeTooLong
+        } else if !response.success, response.message == "TIME_SLOT_IN_NOT_IN_AVAILABILITY" {
+            throw CMError.invalidTimeSlot
+        } else if !response.success, response.message == "TIME_SLOT_IN_CONFLICT_WITH_EXISTING_BOOKING" {
+            throw CMError.timeslotConflict
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
         let filename = String.randomString(length: 5)
         let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"

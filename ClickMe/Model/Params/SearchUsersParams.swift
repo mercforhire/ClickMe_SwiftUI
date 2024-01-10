@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 struct SearchUsersParams {
-    var keyword = ""
+    var keyword: String
  
     func params() -> Parameters {
         var params: Parameters = [:]
