@@ -46,7 +46,7 @@ struct MyBookingsView: View {
                     CMEmptyView(imageName: "empty", message: "No booking requests")
                 }
             }
-            .navigationTitle("My Bookings")
+            .navigationTitle("My bookings")
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
                 case ScreenNames.bookingDetails(let request):

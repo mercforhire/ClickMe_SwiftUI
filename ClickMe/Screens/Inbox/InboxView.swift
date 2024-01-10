@@ -33,6 +33,7 @@ struct InboxView: View {
                 .refreshable {
                     viewModel.fetchConversations()
                 }
+                
                 if viewModel.conversations.isEmpty {
                     CMEmptyView(imageName: "sad", message: "No conversations")
                 }
@@ -49,6 +50,8 @@ struct InboxView: View {
                     } else if let talkingTo = viewModel.getOtherConversationParticipant() {
                         ChatView(myProfile: viewModel.myProfile, talkingTo: talkingTo)
                     }
+                case ScreenNames.usersList(let type, let myUserId):
+                    UsersListView(type: type, myUserId: myUserId)
                 default:
                     fatalError()
                 }
@@ -56,6 +59,11 @@ struct InboxView: View {
             .onChange(of: newPerson) { userToTalkTo in
                 navigationPath.removeAll()
                 navigationPath.append(.chat)
+            }
+            .toolbar {
+                Button("", systemImage: "person.slash.fill") {
+                    navigationPath.append(.usersList(.blockedUsers, viewModel.myProfile.userId))
+                }
             }
         }
         .onAppear {

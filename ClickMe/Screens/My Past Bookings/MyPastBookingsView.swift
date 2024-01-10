@@ -34,7 +34,7 @@ struct MyPastBookingsView: View {
                 CMEmptyView(imageName: "empty", message: "No past booking requests")
             }
         }
-        .navigationTitle("Past Bookings")
+        .navigationTitle("Past bookings")
         .onAppear() {
             viewModel.fetchRequests()
         }

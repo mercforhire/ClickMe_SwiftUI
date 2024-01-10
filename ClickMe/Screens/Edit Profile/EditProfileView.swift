@@ -130,7 +130,7 @@ struct EditProfileView: View {
                     }
                 }
             }
-            .navigationTitle("Edit Profile")
+            .navigationTitle("Edit profile")
             .toolbar() {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button("", systemImage: "camera") {

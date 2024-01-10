@@ -27,17 +27,17 @@ enum AccountMenu: Int, Identifiable {
         case .switchMode:
             return "Switch to host"
         case .wallet:
-            return "My Wallet"
+            return "My wallet"
         case .history:
-            return "Booking History"
+            return "Booking history"
         case .support:
             return "Support & FAQ"
         case .feedback:
             return "Feedback"
         case .signOut:
-            return "Sign Out"
+            return "Sign out"
         case .deleteAccount:
-            return "Delete Account"
+            return "Delete account"
         }
     }
     
@@ -72,83 +72,94 @@ struct AccountView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             ZStack {
-                VStack(alignment: .center) {
-                    if let urlString = viewModel.myProfile.userPhotos?.first?.thumbnail {
-                        AsyncImage(url: URL(string: urlString)) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                        } placeholder: {
-                            Image("male-l", bundle: nil)
-                                .resizable()
-                                .scaledToFill()
-                                .opacity(0.5)
+                Form {
+                    VStack(alignment: .center) {
+                        if let urlString = viewModel.myProfile.userPhotos?.first?.thumbnail {
+                            AsyncImage(url: URL(string: urlString)) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                            } placeholder: {
+                                Image("male-l", bundle: nil)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .opacity(0.5)
+                            }
+                            .frame(width: 80, height: 80)
+                            .clipShape(RoundedRectangle(cornerRadius: 5))
+                            .clipped()
                         }
-                        .frame(width: 80, height: 80)
-                        .clipShape(RoundedRectangle(cornerRadius: 5))
-                        .clipped()
-                    }
-                    
-                    Text("\(viewModel.myProfile.firstName ?? "") \(viewModel.myProfile.lastName ?? "")")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
-                        .padding(.bottom, 5)
-                    
-                    Text("\(viewModel.myProfile.jobTitle ?? "") at \(viewModel.myProfile.company ?? "")")
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
-                        .padding(.bottom, 5)
-                    
-                    Text("ID: \(viewModel.myProfile.screenId)")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .padding(.bottom, 5)
-                    
-                    HStack(alignment: .center, spacing: 20) {
-                        VStack {
-                            Text("\(viewModel.myProfile.numberFollowing ?? 0)")
-                                .font(.body)
-                                .fontWeight(.medium)
-                                .foregroundColor(.primary)
+                        
+                        Text("\(viewModel.myProfile.firstName ?? "") \(viewModel.myProfile.lastName ?? "")")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundColor(.primary)
+                            .padding(.bottom, 5)
+                        
+                        Text("\(viewModel.myProfile.jobTitle ?? "") at \(viewModel.myProfile.company ?? "")")
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .foregroundColor(.primary)
+                            .padding(.bottom, 5)
+                        
+                        Text("ID: \(viewModel.myProfile.screenId)")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .padding(.bottom, 5)
+                            .textSelection(.enabled)
+                        
+                        HStack(alignment: .center, spacing: 20) {
+                            VStack {
+                                Text("\(viewModel.myProfile.numberFollowing ?? 0)")
+                                    .font(.body)
+                                    .fontWeight(.medium)
+                                    .foregroundColor(.primary)
+                                
+                                Text("Following")
+                                    .font(.body)
+                                    .fontWeight(.medium)
+                            }
+                            .onTapGesture {
+                                print("Go to following screen")
+                                navigationPath.append(.usersList(.following, viewModel.myProfile.userId))
+                            }
                             
-                            Text("Following")
-                                .font(.body)
-                                .fontWeight(.medium)
+                            Divider()
+                                .frame(width: 1)
+                                .overlay(Color.secondary)
+                            
+                            VStack {
+                                Text("\(viewModel.myProfile.numberOfFollowers ?? 0)")
+                                    .font(.body)
+                                    .fontWeight(.medium)
+                                    .foregroundColor(.primary)
+                                Text("Followers")
+                                    .font(.body)
+                                    .fontWeight(.medium)
+                            }
+                            .onTapGesture {
+                                print("Go to followers screen")
+                                navigationPath.append(.usersList(.followers, viewModel.myProfile.userId))
+                            }
                         }
+                        .frame(height: 50)
                         
-                        Divider()
-                            .frame(width: 1)
-                            .overlay(Color.secondary)
-                        
-                        VStack {
-                            Text("\(viewModel.myProfile.numberOfFollowers ?? 0)")
-                                .font(.body)
-                                .fontWeight(.medium)
-                                .foregroundColor(.primary)
-                            Text("Followers")
-                                .font(.body)
-                                .fontWeight(.medium)
+                        HStack(spacing: 10) {
+                            Button {
+                                viewModel.isShowingProfile = true
+                            } label: {
+                                CMButton(title: "View profile")
+                            }
+                            
+                            Button {
+                                navigationPath.append(.editProfile(viewModel.myProfile))
+                            } label: {
+                                CMButton(title: "Edit profile")
+                            }
                         }
                     }
-                    .frame(height: 50)
                     
-                    HStack(spacing: 10) {
-                        Button {
-                            viewModel.isShowingProfile = true
-                        } label: {
-                            CMButton(title: "View profile")
-                        }
-                        
-                        Button {
-                            navigationPath.append(.editProfile(viewModel.myProfile))
-                        } label: {
-                            CMButton(title: "Edit profile")
-                        }
-                    }
-                    
-                    Form {
+                    Section {
                         ForEach(AccountMenu.list(), id: \.self) { row in
                             Label(row.text(), systemImage: row.iconName())
                             .onTapGesture {
@@ -171,6 +182,10 @@ struct AccountView: View {
                             }
                         }
                     }
+                }
+                
+                if viewModel.isLoading {
+                    LoadingView()
                 }
                 
                 //https://stackoverflow.com/questions/59116198/multiple-alerts-in-one-view-can-not-be-called-swiftui
@@ -220,12 +235,8 @@ struct AccountView: View {
                               message: Text("Invalid entry for confirmation"),
                               dismissButton: .default(Text("Ok")))
                     }
-                
-                if viewModel.isLoading {
-                    LoadingView()
-                }
             }
-            .navigationTitle("My Profile")
+            .navigationTitle("My profile")
             .background(Color(.systemGray6))
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
@@ -233,6 +244,8 @@ struct AccountView: View {
                     MyPastBookingsView(myUserId: myUserId, navigationPath: $navigationPath)
                 case ScreenNames.editProfile(let profile):
                     EditProfileView(myProfile: profile, navigationPath: $navigationPath)
+                case ScreenNames.usersList(let type, let myUserId):
+                    UsersListView(type: type, myUserId: myUserId)
                 default:
                     fatalError()
                 }

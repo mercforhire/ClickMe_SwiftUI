@@ -21,4 +21,5 @@ enum ScreenNames: Hashable {
     case myPastBookings(String)
     case bookingDetails(Request)
     case editProfile(UserProfile)
+    case usersList(UsersListTypes, String)
 }

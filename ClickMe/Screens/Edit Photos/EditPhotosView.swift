@@ -68,7 +68,7 @@ struct EditPhotosView: View {
                     LoadingView()
                 }
             }
-            .navigationTitle("Edit Photos")
+            .navigationTitle("Edit photos")
         }
         .overlay(alignment: .topTrailing) {
             Button(action: {

@@ -82,7 +82,7 @@ struct SignUpView: View {
                     .disabled(!viewModel.agreeToTermsOfUse)
                     .padding(.bottom, 20)
                 }
-                .navigationTitle("Sign Up")
+                .navigationTitle("Sign up")
                 .toolbar() {
                     ToolbarItem(placement: .keyboard) {
                         Button("Done") {

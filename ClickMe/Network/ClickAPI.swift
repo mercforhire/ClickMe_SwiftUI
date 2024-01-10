@@ -289,10 +289,34 @@ class ClickAPI {
         return response
     }
     
-    func getFollowingUsers(userId: String) async throws -> FollowingUsersResponse {
+    func getFollowingUsers(userId: String) async throws -> GetUsersResponse {
         let parameters = ["userId": userId]
         let url = baseURL + APIRequestURLs.getFollowingUsers.rawValue
-        let response: FollowingUsersResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getFollowingUsers.getHTTPMethod(), parameters: parameters)
+        let response: GetUsersResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getFollowingUsers.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func getFollowers(userId: String) async throws -> GetUsersResponse {
+        let parameters = ["userId": userId]
+        let url = baseURL + APIRequestURLs.getFollowers.rawValue
+        let response: GetUsersResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getFollowers.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func getBlockedUsers(userId: String) async throws -> GetUsersResponse {
+        let parameters = ["userId": userId]
+        let url = baseURL + APIRequestURLs.getBlockedUsers.rawValue
+        let response: GetUsersResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getBlockedUsers.getHTTPMethod(), parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
         } else if !response.success {
