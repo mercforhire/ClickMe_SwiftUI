@@ -42,8 +42,7 @@ final class EditProfileViewModel: ObservableObject {
     @Published var updateProfileFinished = false
     
     @Published var photosToDelete: [Photo] = []
-    
-    @Published var draggedPhoto: Photo?
+    @Published var isPresentingEditPhotosScreen = false
     
     var isValidForm: Bool {
         guard !firstName.isEmpty else {
@@ -99,19 +98,23 @@ final class EditProfileViewModel: ObservableObject {
         languages = Set(myProfile.languages ?? [])
     }
     
-    func handleDeletePhoto(index: Int) {
+    func move(from source: IndexSet, to destination: Int) {
+        userPhotos.move(fromOffsets: source, toOffset: destination )
+    }
+    
+    func handleDeletePhoto(at offsets: IndexSet) {
         if userPhotos.count <= 1 {
             photosError = "Can't not delete the last photo"
             return
         }
         
-        Task {
+        offsets.forEach { index in
             let photo = userPhotos[index]
             // instead of deleting from AWS S3 right away, add the photo to photosToDelete,
             // only delete them from server AFTER the profile is saved
             photosToDelete.append(photo)
-            userPhotos.remove(at: index)
         }
+        userPhotos.remove(atOffsets: offsets)
     }
     
     func handlePhotoPicker() {

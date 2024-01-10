@@ -15,6 +15,7 @@
 		720087AE2B4DD8F70020633F /* ReorderableForEach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087AD2B4DD8F70020633F /* ReorderableForEach.swift */; };
 		720087B02B4DDA4C0020633F /* View+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087AF2B4DDA4C0020633F /* View+Ext.swift */; };
 		720087B42B4DFE200020633F /* DragRelocateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087B32B4DFE200020633F /* DragRelocateDelegate.swift */; };
+		720087B62B4E1E210020633F /* EditPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720087B52B4E1E210020633F /* EditPhotosView.swift */; };
 		72064F2B2B46EC2C00BB9ECC /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72064F2A2B46EC2C00BB9ECC /* ExploreView.swift */; };
 		72064F312B46ECBF00BB9ECC /* MyBookingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72064F302B46ECBF00BB9ECC /* MyBookingsView.swift */; };
 		72064F342B4707A200BB9ECC /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72064F332B4707A200BB9ECC /* AccountView.swift */; };
@@ -162,6 +163,7 @@
 		720087AD2B4DD8F70020633F /* ReorderableForEach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReorderableForEach.swift; sourceTree = "<group>"; };
 		720087AF2B4DDA4C0020633F /* View+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Ext.swift"; sourceTree = "<group>"; };
 		720087B32B4DFE200020633F /* DragRelocateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragRelocateDelegate.swift; sourceTree = "<group>"; };
+		720087B52B4E1E210020633F /* EditPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotosView.swift; sourceTree = "<group>"; };
 		72064F2A2B46EC2C00BB9ECC /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		72064F302B46ECBF00BB9ECC /* MyBookingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookingsView.swift; sourceTree = "<group>"; };
 		72064F332B4707A200BB9ECC /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -337,6 +339,14 @@
 			path = "Edit Profile";
 			sourceTree = "<group>";
 		};
+		720087B72B4E1E2F0020633F /* Edit Photos */ = {
+			isa = PBXGroup;
+			children = (
+				720087B52B4E1E210020633F /* EditPhotosView.swift */,
+			);
+			path = "Edit Photos";
+			sourceTree = "<group>";
+		};
 		72064F292B46EC1100BB9ECC /* Explore */ = {
 			isa = PBXGroup;
 			children = (
@@ -433,6 +443,7 @@
 		7237A5812B42E47B00ABF10F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				720087B72B4E1E2F0020633F /* Edit Photos */,
 				720087A82B4DAB3C0020633F /* Edit Profile */,
 				72064F322B47078F00BB9ECC /* Account */,
 				720B606C2B4C6C7B00CF716E /* Booking Status */,
@@ -1098,6 +1109,7 @@
 				722C59E22B43FE6400EBA081 /* String+Ext.swift in Sources */,
 				725586192B44CC1B005A37B9 /* CMErrorLabel.swift in Sources */,
 				725586262B44F201005A37B9 /* S3KeysResponse.swift in Sources */,
+				720087B62B4E1E210020633F /* EditPhotosView.swift in Sources */,
 				725586222B44D846005A37B9 /* UIImage+Ext.swift in Sources */,
 				72064F3A2B471ED900BB9ECC /* ExploreUsersResponse.swift in Sources */,
 				728499FC2B46C06D00C2826B /* UpdateProfileParams.swift in Sources */,

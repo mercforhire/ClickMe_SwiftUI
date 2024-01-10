@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 
 struct Photo: Codable, Identifiable, Hashable, Equatable {
-    var id: String { return thumbnail }
+    var id: String { return "\(thumbnail)_\(url)" }
     var thumbnail: String
     var url: String
     
