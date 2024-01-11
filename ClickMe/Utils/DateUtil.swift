@@ -36,8 +36,8 @@ class DateUtil {
         ///MMMM, yyyy -- October, 2019
         case format14 = "MMMM, yyyy"
         
-        ///EEEE MMMM d -- Tuesday October 18
-        case format15 = "EEEE MMMM d"
+        ///EE MMM d -- Tuesday October 18
+        case format15 = "EE MMM d"
     }
     
     static private var formatter: DateFormatter = {

@@ -1,18 +1,18 @@
 //
-//  TopicDetailsView.swift
+//  ConfirmBookingView.swift
 //  ClickMe
 //
-//  Created by Leon Chen on 2024-01-05.
+//  Created by Leon Chen on 2024-01-10.
 //
 
 import SwiftUI
 
-struct TopicDetailsView: View {
-    @StateObject var viewModel: TopicDetailsViewModel
+struct ConfirmBookingView: View {
+    @StateObject var viewModel: ConfirmBookingViewModel
     @Binding var navigationPath: [ScreenNames]
     
-    init(topic: Topic, navigationPath: Binding<[ScreenNames]>) {
-        _viewModel = StateObject(wrappedValue: TopicDetailsViewModel(topic: topic))
+    init(topic: Topic, host: UserProfile, startTime: Date, endTime: Date, navigationPath: Binding<[ScreenNames]>) {
+        _viewModel = StateObject(wrappedValue: ConfirmBookingViewModel(topic: topic, host: host, startTime: startTime, endTime: endTime))
         self._navigationPath = navigationPath
     }
     
@@ -34,9 +34,6 @@ struct TopicDetailsView: View {
                         .frame(width: 80, height: 80)
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                         .clipped()
-                        .onTapGesture {
-                            viewModel.isShowingProfile = true
-                        }
                     }
                     
                     VStack(alignment: .leading) {
@@ -88,18 +85,10 @@ struct TopicDetailsView: View {
                     .padding(.vertical, 5)
                 
                 HStack {
-                    Text(viewModel.topic.displayablePrice)
+                    Text(viewModel.displayablePrice)
                         .font(.body)
                         .fontWeight(.medium)
                         .foregroundColor(.primary)
-                    
-                    Spacer()
-                    
-                    Button {
-                        
-                    } label: {
-                        CMChatButton()
-                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal, 10)
@@ -109,9 +98,9 @@ struct TopicDetailsView: View {
                     .overlay(Color(.systemGray6))
                 
                 Button {
-                    navigationPath.append(.selectTime(viewModel.topic, viewModel.topic.userProfile!))
+                    navigationPath.removeAll()
                 } label: {
-                    CMButton(title: "Schedule a time")
+                    CMButton(title: "Confirm")
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.vertical, 20)
@@ -121,16 +110,15 @@ struct TopicDetailsView: View {
             .padding(.horizontal, 20)
             
         }
+        .navigationTitle("Confirm booking")
         .background(Color(.systemGray6))
-        .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
-            UserDetailsView(profile: viewModel.topic.userProfile!,
-                            isShowingProfile: $viewModel.isShowingProfile,
-                            loadTopics: false)
-        }
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            viewModel.getPriceData()
+        }
     }
 }
 
 #Preview {
-    TopicDetailsView(topic: MockData.mockTopic(), navigationPath: .constant([]))
+    ConfirmBookingView(topic: MockData.mockTopic(), host: MockData.mockProfile2(), startTime: Date(), endTime: Date().getPastOrFutureDate(hour: 1), navigationPath: .constant([]))
 }

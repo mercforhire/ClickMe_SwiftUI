@@ -113,6 +113,9 @@
 		725B99FD2B4169250066D240 /* ClickMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B99FC2B4169250066D240 /* ClickMeTests.swift */; };
 		725B9A072B4169250066D240 /* ClickMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B9A062B4169250066D240 /* ClickMeUITests.swift */; };
 		725B9A092B4169250066D240 /* ClickMeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B9A082B4169250066D240 /* ClickMeUITestsLaunchTests.swift */; };
+		7275920D2B4F6BBC0071ABA5 /* ConfirmBookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7275920C2B4F6BBC0071ABA5 /* ConfirmBookingView.swift */; };
+		7275920F2B4F6BC80071ABA5 /* ConfirmBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7275920E2B4F6BC80071ABA5 /* ConfirmBookingViewModel.swift */; };
+		727592112B4F7EBD0071ABA5 /* GetBookingPriceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727592102B4F7EBC0071ABA5 /* GetBookingPriceResponse.swift */; };
 		72774C272B47A31400C5A248 /* ExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72774C262B47A31400C5A248 /* ExploreCell.swift */; };
 		72774C2A2B47B24A00C5A248 /* ExploreFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72774C292B47B24A00C5A248 /* ExploreFilterView.swift */; };
 		72774C2C2B47C43C00C5A248 /* ExploreFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72774C2B2B47C43C00C5A248 /* ExploreFilterViewModel.swift */; };
@@ -274,6 +277,9 @@
 		725B9A022B4169250066D240 /* ClickMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClickMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		725B9A062B4169250066D240 /* ClickMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMeUITests.swift; sourceTree = "<group>"; };
 		725B9A082B4169250066D240 /* ClickMeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		7275920C2B4F6BBC0071ABA5 /* ConfirmBookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBookingView.swift; sourceTree = "<group>"; };
+		7275920E2B4F6BC80071ABA5 /* ConfirmBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBookingViewModel.swift; sourceTree = "<group>"; };
+		727592102B4F7EBC0071ABA5 /* GetBookingPriceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookingPriceResponse.swift; sourceTree = "<group>"; };
 		72774C262B47A31400C5A248 /* ExploreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCell.swift; sourceTree = "<group>"; };
 		72774C292B47B24A00C5A248 /* ExploreFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFilterView.swift; sourceTree = "<group>"; };
 		72774C2B2B47C43C00C5A248 /* ExploreFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreFilterViewModel.swift; sourceTree = "<group>"; };
@@ -476,6 +482,7 @@
 				720B60642B4C3AE800CF716E /* GetBookingRequestsResponse.swift */,
 				720B60732B4C988600CF716E /* GetBookingDetailsResponse.swift */,
 				720087C42B4EFBE20020633F /* GetAvailabilityResponse.swift */,
+				727592102B4F7EBC0071ABA5 /* GetBookingPriceResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -483,6 +490,7 @@
 		7237A5812B42E47B00ABF10F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				7275920B2B4F6BA80071ABA5 /* Confirm Booking */,
 				720087C12B4EF43B0020633F /* Select Time */,
 				720087BA2B4EDBAD0020633F /* Users List */,
 				72064F322B47078F00BB9ECC /* Account */,
@@ -741,6 +749,15 @@
 				725B9A082B4169250066D240 /* ClickMeUITestsLaunchTests.swift */,
 			);
 			path = ClickMeUITests;
+			sourceTree = "<group>";
+		};
+		7275920B2B4F6BA80071ABA5 /* Confirm Booking */ = {
+			isa = PBXGroup;
+			children = (
+				7275920C2B4F6BBC0071ABA5 /* ConfirmBookingView.swift */,
+				7275920E2B4F6BC80071ABA5 /* ConfirmBookingViewModel.swift */,
+			);
+			path = "Confirm Booking";
 			sourceTree = "<group>";
 		};
 		72774C282B47B23300C5A248 /* Explore Filter */ = {
@@ -1129,6 +1146,7 @@
 				725586152B442634005A37B9 /* LoginViewModel.swift in Sources */,
 				720087CF2B4F23B70020633F /* Date+Ext.swift in Sources */,
 				72774C2E2B47CE8000C5A248 /* NavigationStack+Ext.swift in Sources */,
+				727592112B4F7EBD0071ABA5 /* GetBookingPriceResponse.swift in Sources */,
 				728499F92B466B0400C2826B /* Utils.swift in Sources */,
 				728499F22B45A56200C2826B /* HomeTabView.swift in Sources */,
 				7237A5882B42E4F800ABF10F /* GetStartedView.swift in Sources */,
@@ -1159,8 +1177,10 @@
 				724C954D2B4946E800AD2CFC /* ExploreTopicsView.swift in Sources */,
 				720B60502B4A5FF000CF716E /* Request.swift in Sources */,
 				72774C272B47A31400C5A248 /* ExploreCell.swift in Sources */,
+				7275920D2B4F6BBC0071ABA5 /* ConfirmBookingView.swift in Sources */,
 				720B60632B4B19F100CF716E /* Notifications.swift in Sources */,
 				720087C92B4EFD370020633F /* SelectTimeViewModel.swift in Sources */,
+				7275920F2B4F6BC80071ABA5 /* ConfirmBookingViewModel.swift in Sources */,
 				72774C3F2B4828F500C5A248 /* TopicsResponse.swift in Sources */,
 				722C59E22B43FE6400EBA081 /* String+Ext.swift in Sources */,
 				725586192B44CC1B005A37B9 /* CMErrorLabel.swift in Sources */,

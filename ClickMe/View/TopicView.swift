@@ -12,7 +12,7 @@ struct TopicView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(alignment: .top, spacing: 20) {
+            HStack(alignment: .top, spacing: 10) {
                 if let profile = topic.userProfile, let urlString = profile.userPhotos?.first?.thumbnail {
                     AsyncImage(url: URL(string: urlString)) { image in
                         image
@@ -26,7 +26,7 @@ struct TopicView: View {
                     }
                     .frame(width: 80, height: 80)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .clipped()
+                    
                     VStack(alignment: .leading) {
                         Text("\(profile.firstName ?? "") \(profile.lastName ?? "")")
                             .font(.body)
@@ -38,6 +38,7 @@ struct TopicView: View {
                             .font(.subheadline)
                             .foregroundColor(.primary)
                             .lineLimit(2)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
                 Spacer()
@@ -57,12 +58,14 @@ struct TopicView: View {
                 .foregroundColor(.primary)
                 .padding(.vertical, 5)
                 .lineLimit(2)
+                .fixedSize(horizontal: false, vertical: true)
             
             Text(topic.description)
                 .font(.body)
                 .fontWeight(.regular)
                 .foregroundColor(.primary)
                 .lineLimit(4)
+                .fixedSize(horizontal: false, vertical: true)
             
             Spacer()
             

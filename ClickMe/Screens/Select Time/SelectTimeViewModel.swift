@@ -9,8 +9,8 @@ import Foundation
 
 @MainActor
 final class SelectTimeViewModel: ObservableObject {
-    var host: UserProfile
     var topic: Topic
+    var host: UserProfile
     
     @Published var timezone: String?
     @Published var timesAvailable: [Timeslot] = []
@@ -20,8 +20,17 @@ final class SelectTimeViewModel: ObservableObject {
     @Published var selectedEndTime: Date = Date().getPastOrFutureDate(hour: 1)
     @Published var isLoading = false
     @Published var availabilityError: String?
+    @Published var allowedToNext = false
     
-    init(host: UserProfile, topic: Topic) {
+    var startTime: Date {
+        Date.buildDateFrom(day: selectedDay, time: selectedStartTime)
+    }
+    
+    var endTime: Date {
+        Date.buildDateFrom(day: selectedDay, time: selectedEndTime)
+    }
+    
+    init(topic: Topic, host: UserProfile) {
         self.host = host
         self.topic = topic
     }
@@ -40,8 +49,6 @@ final class SelectTimeViewModel: ObservableObject {
     }
     
     func checkBookingAvailability() {
-        let startTime = Date.buildDateFrom(day: selectedDay, time: selectedStartTime)
-        let endTime = Date.buildDateFrom(day: selectedDay, time: selectedEndTime)
         let params = RequestBookingParams(topicId: topic.id, startTime: startTime, endTime: endTime)
             
         isLoading = true
@@ -50,6 +57,7 @@ final class SelectTimeViewModel: ObservableObject {
                 let response = try await ClickAPI.shared.checkBookingAvailability(params: params)
                 if response.success {
                     availabilityError = nil
+                    allowedToNext = true
                 } else {
                     availabilityError = "Unknown error"
                 }
@@ -58,13 +66,13 @@ final class SelectTimeViewModel: ObservableObject {
                 case CMError.cantBookOwn:
                     availabilityError = "Can't book own topic"
                 case CMError.invalidBookingTime:
-                    availabilityError = "Invalid start finish time"
+                    availabilityError = "Invalid start and finish time"
                 case CMError.bookingTimeTooLong:
                     availabilityError = "Booking time exceeded topic's max allowed time"
                 case CMError.invalidTimeSlot:
-                    availabilityError = "Time requested is not within host's time slots"
+                    availabilityError = "Time is not within host's time slots"
                 case CMError.timeslotConflict:
-                    availabilityError = "Time requested is in conflict with existing booking"
+                    availabilityError = "Time is in conflict with an existing booking"
                 default:
                     availabilityError = "Unknown error"
                 }

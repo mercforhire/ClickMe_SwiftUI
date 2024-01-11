@@ -22,7 +22,7 @@ struct Request: Codable, Identifiable, Hashable {
     let status: RequestStatus
     
     var timeAndDuration: String {
-        let date = DateUtil.convert(input: startTime, outputFormat: .format11)!
+        let date = DateUtil.convert(input: startTime, outputFormat: .format15)!
         let startTime = DateUtil.convert(input: startTime, outputFormat: .format8)!
         let endTime = DateUtil.convert(input: endTime, outputFormat: .format8)!
         return "\(date), \(startTime) - \(endTime)"

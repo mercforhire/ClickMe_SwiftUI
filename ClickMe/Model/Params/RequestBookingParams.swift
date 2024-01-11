@@ -16,8 +16,8 @@ struct RequestBookingParams {
     func params() -> Parameters {
         var params: Parameters = [:]
         params["topicId"] = topicId
-        params["startTime"] = startTime
-        params["endTime"] = endTime
+        params["startTime"] = DateUtil.convert(input: startTime, outputFormat: .format7) ?? ""
+        params["endTime"] = DateUtil.convert(input: endTime, outputFormat: .format7) ?? ""
         return params
     }
 }

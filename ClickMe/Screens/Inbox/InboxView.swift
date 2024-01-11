@@ -56,23 +56,23 @@ struct InboxView: View {
                     fatalError()
                 }
             }
-            .onChange(of: newPerson) { userToTalkTo in
-                navigationPath.removeAll()
-                navigationPath.append(.chat)
-            }
             .toolbar {
                 Button("", systemImage: "person.slash.fill") {
                     navigationPath.append(.usersList(.blockedUsers, viewModel.myProfile.userId))
                 }
             }
-        }
-        .onAppear {
-            viewModel.fetchConversations()
-            
-            if viewModel.firstTime, newPerson != nil {
+            .onChange(of: newPerson) { userToTalkTo in
+                navigationPath.removeAll()
                 navigationPath.append(.chat)
             }
-            viewModel.firstTime = false
+            .onAppear {
+                viewModel.fetchConversations()
+                
+                if viewModel.firstTime, newPerson != nil {
+                    navigationPath.append(.chat)
+                }
+                viewModel.firstTime = false
+            }
         }
     }
 }

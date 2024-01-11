@@ -557,6 +557,22 @@ class ClickAPI {
         return response
     }
     
+    func getBookingPrice(params: RequestBookingParams) async throws -> GetBookingPriceResponse {
+        let parameters = params.params()
+        let url = baseURL + APIRequestURLs.getBookingPrice.rawValue
+        let response: GetBookingPriceResponse = try await service.httpRequest(url: url,
+                                                                      method: APIRequestURLs.getBookingPrice.getHTTPMethod(),
+                                                                      parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "TOPIC_DOES_NOT_EXIST" {
+            throw CMError.topicDoesntExist
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
         let filename = String.randomString(length: 5)
         let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"

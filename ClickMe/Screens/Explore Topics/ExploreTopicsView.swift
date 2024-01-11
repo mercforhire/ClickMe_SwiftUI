@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ExploreTopicsView: View {
     @StateObject var viewModel = ExploreTopicsViewModel()
+    @State private var navigationPath: [ScreenNames] = []
     
     private let screenWidth = UIScreen.main.bounds.size.width
     private let padding: CGFloat = 40
@@ -16,56 +17,63 @@ struct ExploreTopicsView: View {
         return screenWidth - padding * 2
     }
     private var moodCellWidth: CGFloat {
-        return screenWidth / 2 - padding * 2
+        return (screenWidth - padding * 5) / 2
     }
     private let gridColumns: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
-        NavigationView {
-            VStack {
-                ScrollView(.horizontal) {
-                    LazyHGrid(rows: gridColumns) {
-                        ForEach(Mood.list()) { mood in
-                            MoodView(mood: mood,
-                                     width: moodCellWidth,
-                                     height: 70,
-                                     selected: viewModel.mood == mood)
-                            .onTapGesture {
-                                viewModel.handleMoodClicked(mood: mood)
+        NavigationStack(path: $navigationPath) {
+            ZStack {
+                List {
+                    ScrollView(.horizontal) {
+                        LazyHGrid(rows: gridColumns) {
+                            ForEach(Mood.list()) { mood in
+                                MoodView(mood: mood,
+                                         width: moodCellWidth,
+                                         height: 70,
+                                         selected: viewModel.mood == mood)
+                                .onTapGesture {
+                                    viewModel.handleMoodClicked(mood: mood)
+                                }
                             }
                         }
-                    }
-                    .frame(height: 150)
-                    .padding(.horizontal, 20)
-                }
-                
-                ZStack {
-                    List(viewModel.topics, id: \.id) { topic in
-                        TopicView(topic: topic)
-                            .frame(height: 300)
-                            .onTapGesture {
-                                viewModel.selectedTopic = topic
-                                viewModel.isShowingTopic = true
-                            }
-                            .listRowSeparator(.hidden)
-                    }
-                    .listStyle(.plain)
-                    .refreshable {
-                        viewModel.fetchTopics()
+                        .frame(height: 150)
                     }
                     
-                    if viewModel.topics.isEmpty {
-                        CMEmptyView(imageName: "bad", message: "No topics of this category")
+                    ForEach(viewModel.topics) { topic in
+                        TopicView(topic: topic)
+                            .frame(height: 320)
+                            .listRowSeparator(.hidden)
+                            .onTapGesture {
+                                navigationPath.append(.topicDetails(topic))
+                            }
                     }
+                }
+                .listStyle(.plain)
+                .refreshable {
+                    viewModel.fetchTopics()
+                }
+                
+                if viewModel.topics.isEmpty {
+                    CMEmptyView(imageName: "bad", message: "No topics of this category")
                 }
             }
             .navigationTitle("Topics")
+            .navigationDestination(for: ScreenNames.self) { screenName in
+                switch screenName {
+                case ScreenNames.topicDetails(let topic):
+                    TopicDetailsView(topic: topic, navigationPath: $navigationPath)
+                case ScreenNames.selectTime(let topic, let host):
+                    SelectTimeView(topic: topic, host: host, navigationPath: $navigationPath)
+                case ScreenNames.confirmBooking(let topic, let host, let startTime, let endTime):
+                    ConfirmBookingView(topic: topic, host: host, startTime: startTime, endTime: endTime, navigationPath: $navigationPath)
+                default:
+                    fatalError()
+                }
+            }
         }
         .onAppear() {
             viewModel.fetchTopics()
-        }
-        .fullScreenCover(isPresented: $viewModel.isShowingTopic) {
-            TopicDetailsView(isShowingTopic: $viewModel.isShowingTopic, topic: viewModel.selectedTopic!)
         }
     }
 }

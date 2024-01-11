@@ -131,7 +131,7 @@ extension Date {
         components.day = day.day()
         components.month = day.month()
         components.year = day.year()
-        let resultDate = components.date!
+        let resultDate = Calendar.current.date(from: components)!
         return resultDate
     }
     
