@@ -52,11 +52,11 @@ struct ChatConversationView: View {
                             .frame(maxWidth: 100)
                     }
                     
-                    Text(conversation.lastMessage.messageString)
+                    Text(conversation.lastMessage.getDisplayMessage(participants: conversation.participants))
                         .font(.subheadline)
                         .fontWeight(.regular)
                         .foregroundColor(.primary)
-                        .lineLimit(4)
+                        .lineLimit(3)
                 }
             } else {
                 LoadingView()

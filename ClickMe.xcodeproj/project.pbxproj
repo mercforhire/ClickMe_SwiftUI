@@ -62,6 +62,7 @@
 		720B607E2B4D5BE400CF716E /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B607D2B4D5BE300CF716E /* AccountViewModel.swift */; };
 		7219050B2B500C79000516CA /* BookingRequestedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219050A2B500C79000516CA /* BookingRequestedView.swift */; };
 		7219050D2B501AEB000516CA /* StripeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219050C2B501AEB000516CA /* StripeData.swift */; };
+		7219050F2B502550000516CA /* MessageAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219050E2B502550000516CA /* MessageAction.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -225,6 +226,7 @@
 		720B607D2B4D5BE300CF716E /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		7219050A2B500C79000516CA /* BookingRequestedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRequestedView.swift; sourceTree = "<group>"; };
 		7219050C2B501AEB000516CA /* StripeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeData.swift; sourceTree = "<group>"; };
+		7219050E2B502550000516CA /* MessageAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAction.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -452,6 +454,17 @@
 		720B607C2B4D1F3800CF716E /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				7237A58B2B42E5AD00ABF10F /* Mood.swift */,
+				722C59DA2B43F74D00EBA081 /* CMError.swift */,
+				725586162B44CA07005A37B9 /* ScreenNames.swift */,
+				7255862D2B45261D005A37B9 /* Country.swift */,
+				720B60662B4C3D9300CF716E /* RequestStatus.swift */,
+				725586322B4529B4005A37B9 /* Language.swift */,
+				72774C422B482C7100C5A248 /* Currency.swift */,
+				7219050E2B502550000516CA /* MessageAction.swift */,
+				720B60752B4D1B8700CF716E /* ReceiptStatus.swift */,
+				7237A5892B42E53900ABF10F /* GetStartedSteps.swift */,
+				7255862B2B4515C1005A37B9 /* Field.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -593,21 +606,11 @@
 				720B607C2B4D1F3800CF716E /* Enums */,
 				728499FA2B46C06600C2826B /* Params */,
 				722C59DE2B43FA6500EBA081 /* Responses */,
-				722C59DA2B43F74D00EBA081 /* CMError.swift */,
-				7237A5892B42E53900ABF10F /* GetStartedSteps.swift */,
-				7237A58B2B42E5AD00ABF10F /* Mood.swift */,
-				7255862B2B4515C1005A37B9 /* Field.swift */,
 				725586272B44F7E8005A37B9 /* User.swift */,
 				727BD74A2B453A6400D4279D /* Photo.swift */,
 				7255860F2B4419AF005A37B9 /* UserProfile.swift */,
-				725586162B44CA07005A37B9 /* ScreenNames.swift */,
-				7255862D2B45261D005A37B9 /* Country.swift */,
-				720B60662B4C3D9300CF716E /* RequestStatus.swift */,
-				720B60752B4D1B8700CF716E /* ReceiptStatus.swift */,
-				725586322B4529B4005A37B9 /* Language.swift */,
 				72774C402B482BFB00C5A248 /* Topic.swift */,
 				720087C62B4EFC770020633F /* Timeslot.swift */,
-				72774C422B482C7100C5A248 /* Currency.swift */,
 				720B60452B49DF3400CF716E /* Conversation.swift */,
 				720B604B2B4A5F2300CF716E /* Message.swift */,
 				720B604D2B4A5F6000CF716E /* Attachment.swift */,
@@ -1122,6 +1125,7 @@
 				722C59E42B44009B00EBA081 /* LoadingView.swift in Sources */,
 				7255861B2B44CCE9005A37B9 /* CMEmailTextField.swift in Sources */,
 				72774C3D2B4805A100C5A248 /* TopicSimpleView.swift in Sources */,
+				7219050F2B502550000516CA /* MessageAction.swift in Sources */,
 				720087CD2B4EFEEC0020633F /* RequestResponse.swift in Sources */,
 				725586312B452910005A37B9 /* SetupDetailInfoView.swift in Sources */,
 				728499ED2B45867300C2826B /* SplashViewModel.swift in Sources */,

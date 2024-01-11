@@ -29,4 +29,8 @@ struct UserProfile: Codable, Identifiable, Equatable, Hashable {
     static func == (lhs: UserProfile, rhs: UserProfile) -> Bool {
         lhs.userId == rhs.userId
     }
+    
+    static func getUser(from participants: [UserProfile], of userId: String) -> UserProfile? {
+        return participants.first(where: { $0.userId == userId })
+    }
 }

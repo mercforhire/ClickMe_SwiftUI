@@ -12,6 +12,9 @@ import SwiftUI
 final class ChatViewModel: ObservableObject {
     var myProfile: UserProfile
     var talkingTo: UserProfile
+    var participants: [UserProfile] {
+        return [myProfile, talkingTo]
+    }
     @Published var isLoading = false
     @Published var isSending = false
     @Published var messages: [Message] = []

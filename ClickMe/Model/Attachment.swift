@@ -8,7 +8,7 @@
 import Foundation
 
 struct Attachment: Codable {
-    let action: String?
+    let action: MessageAction
     let request: Request?
     let topic: Topic?
 }

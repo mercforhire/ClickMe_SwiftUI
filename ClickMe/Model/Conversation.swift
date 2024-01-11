@@ -15,6 +15,4 @@ struct Conversation: Codable, Identifiable {
     let participants: [UserProfile]
     let lastMessage: Message
     let lastMessageDate: Date
-    
-    
 }

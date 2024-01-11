@@ -16,11 +16,37 @@ struct Message: Codable, Identifiable, Equatable {
     let message: String?
     let attachment: Attachment?
     
-    var messageString: String {
+    func getDisplayMessage(participants: [UserProfile]) -> String {
         if !(message?.isEmpty ?? true) {
             return message ?? ""
         }
-        return "This message contains a special action."
+        
+        if let attachment = attachment, let request = attachment.request, let topic = attachment.topic {
+            switch attachment.action {
+            case .BOOKING_ATTEMPT:
+                if let booker = UserProfile.getUser(from: participants, of: request.bookingUserId) {
+                    return "\(booker.firstName ?? "") has made an attempt to book topic: \(topic.title) on \(request.timeAndDuration)"
+                }
+            case .BOOKING_REQUEST:
+                if let booker = UserProfile.getUser(from: participants, of: request.bookingUserId) {
+                    return "\(booker.firstName ?? "") has made a request to book topic: \(topic.title) on \(request.timeAndDuration)"
+                }
+            case .APPROVED:
+                if let host = UserProfile.getUser(from: participants, of: request.hostUserId) {
+                    return "\(host.firstName ?? "") has approved the request to book topic: \(topic.title) on \(request.timeAndDuration)"
+                }
+            case .DECLINED:
+                if let host = UserProfile.getUser(from: participants, of: request.hostUserId) {
+                    return "\(host.firstName ?? "") has declined the request to book topic: \(topic.title) on \(request.timeAndDuration)"
+                }
+            case .CANCEL:
+                return "Booking \(request.timeAndDuration) of topic: \(topic.title) has been cancelled"
+            case .unknown:
+                break
+            }
+        }
+            
+        return ""
     }
     
     static func == (lhs: Message, rhs: Message) -> Bool {

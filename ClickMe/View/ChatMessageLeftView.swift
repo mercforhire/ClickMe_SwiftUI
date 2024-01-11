@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 struct ChatMessageLeftView: View {
-    var message: Message
+    var message: String
+    var createdDate: Date
     var userProfile: UserProfile
     var showTimeStamp: Bool
     
@@ -37,7 +38,7 @@ struct ChatMessageLeftView: View {
             }
             
             VStack(alignment: .leading) {
-                Text(message.message ?? "")
+                Text(message)
                     .font(.body)
                     .fontWeight(.regular)
                     .padding(.all, 10)
@@ -46,7 +47,7 @@ struct ChatMessageLeftView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 if showTimeStamp {
-                    Text(Utils.timeAgoSince(message.createdDate))
+                    Text(Utils.timeAgoSince(createdDate))
                         .font(.footnote)
                         .fontWeight(.light)
                         .foregroundColor(Color(.systemGray))
@@ -60,7 +61,13 @@ struct ChatMessageLeftView: View {
 
 #Preview {
     VStack {
-        ChatMessageLeftView(message: MockData.mockShortMessage(), userProfile: MockData.mockProfile(), showTimeStamp: true)
-        ChatMessageLeftView(message: MockData.mockLongMessage(), userProfile: MockData.mockProfile(), showTimeStamp: true)
+        ChatMessageLeftView(message: MockData.mockShortMessage().message ?? "",
+                            createdDate: MockData.mockShortMessage().createdDate,
+                            userProfile: MockData.mockProfile(),
+                            showTimeStamp: true)
+        ChatMessageLeftView(message: MockData.mockLongMessage().message ?? "",
+                            createdDate: MockData.mockLongMessage().createdDate,
+                            userProfile: MockData.mockProfile(),
+                            showTimeStamp: true)
     }
 }

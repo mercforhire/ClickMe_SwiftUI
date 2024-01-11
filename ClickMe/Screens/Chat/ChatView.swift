@@ -19,27 +19,12 @@ struct ChatView: View {
             VStack {
                 ZStack {
                     ScrollViewReader { (proxy: ScrollViewProxy) in
-                        List(viewModel.messages, id: \.id) { message in
-                            if message.fromUserId == viewModel.myProfile.userId {
-                                ChatMessageRightView(message: message,
-                                                     userProfile: viewModel.myProfile,
-                                                     showTimeStamp: message == viewModel.messages.last)
-                                .listRowSeparator(.hidden)
-                            } else {
-                                ChatMessageLeftView(message: message,
-                                                    userProfile: viewModel.talkingTo,
-                                                    showTimeStamp: message == viewModel.messages.last)
-                                .listRowSeparator(.hidden)
-                            }
-                        }
-                        .listStyle(PlainListStyle())
-                        .refreshable {
+                        MessagesListView(messages: viewModel.messages,
+                                         myProfile: viewModel.myProfile,
+                                         talkingTo: viewModel.talkingTo,
+                                         scrollToBottom: $viewModel.scrollToBottom,
+                                         scrollViewProxy: proxy) {
                             viewModel.fetchMessages()
-                        }
-                        .onChange(of: viewModel.scrollToBottom) { _ in
-                            if let last = viewModel.messages.last {
-                                proxy.scrollTo(last.id, anchor: .top)
-                            }
                         }
                     }
                     
@@ -97,4 +82,48 @@ struct ChatView: View {
 #Preview {
     ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
     return ChatView(myProfile: MockData.mockProfile(), talkingTo: MockData.mockProfile2())
+}
+
+struct MessagesListView: View {
+    var messages: [Message]
+    var myProfile: UserProfile
+    var talkingTo: UserProfile
+    @Binding var scrollToBottom: Bool
+    var scrollViewProxy: ScrollViewProxy
+    
+    var refreshHandler: () -> Void
+    
+    private var participants: [UserProfile] {
+        return [myProfile, talkingTo]
+    }
+    
+    var body: some View {
+        List(messages, id: \.id) { message in
+            let messageString = message.getDisplayMessage(participants: participants)
+            let showTimeStamp = message == messages.last
+            
+            if message.fromUserId == myProfile.userId {
+                ChatMessageRightView(message: messageString,
+                                     createdDate: message.createdDate,
+                                     userProfile: myProfile,
+                                     showTimeStamp: showTimeStamp)
+                .listRowSeparator(.hidden)
+            } else {
+                ChatMessageLeftView(message: messageString,
+                                    createdDate: message.createdDate,
+                                    userProfile: talkingTo,
+                                    showTimeStamp: showTimeStamp)
+                .listRowSeparator(.hidden)
+            }
+        }
+        .listStyle(PlainListStyle())
+        .refreshable(action: {
+            refreshHandler()
+        })
+        .onChange(of: scrollToBottom) { _ in
+            if let last = messages.last {
+                scrollViewProxy.scrollTo(last.id, anchor: .top)
+            }
+        }
+    }
 }
