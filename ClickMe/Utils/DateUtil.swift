@@ -62,7 +62,6 @@ class DateUtil {
         var result: String?
         formatter.timeZone = timeZone
         result = formatter.string(from: input)
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
         return result ?? formatter.string(from: input)
     }
     

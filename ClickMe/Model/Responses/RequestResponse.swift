@@ -15,4 +15,6 @@ struct RequestResponse: Codable {
 
 struct RequestData: Codable {
     var request: Request?
+    var stripeData: StripeData?
+    var receipt: Receipt?
 }

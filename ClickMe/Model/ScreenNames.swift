@@ -17,7 +17,8 @@ enum ScreenNames: Hashable {
          setupDetailInfo,
          inbox,
          chat,
-         myBookings
+         myBookings,
+         bookingRequested
     case myPastBookings(String)
     case bookingDetails(Request)
     case editProfile(UserProfile)

@@ -60,6 +60,8 @@
 		720B60792B4D1C1E00CF716E /* MyPastBookingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B60782B4D1C1E00CF716E /* MyPastBookingsView.swift */; };
 		720B607B2B4D1C2C00CF716E /* MyPastBookingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B607A2B4D1C2C00CF716E /* MyPastBookingsViewModel.swift */; };
 		720B607E2B4D5BE400CF716E /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720B607D2B4D5BE300CF716E /* AccountViewModel.swift */; };
+		7219050B2B500C79000516CA /* BookingRequestedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219050A2B500C79000516CA /* BookingRequestedView.swift */; };
+		7219050D2B501AEB000516CA /* StripeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219050C2B501AEB000516CA /* StripeData.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -221,6 +223,8 @@
 		720B60782B4D1C1E00CF716E /* MyPastBookingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPastBookingsView.swift; sourceTree = "<group>"; };
 		720B607A2B4D1C2C00CF716E /* MyPastBookingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPastBookingsViewModel.swift; sourceTree = "<group>"; };
 		720B607D2B4D5BE300CF716E /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
+		7219050A2B500C79000516CA /* BookingRequestedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRequestedView.swift; sourceTree = "<group>"; };
+		7219050C2B501AEB000516CA /* StripeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeData.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -452,6 +456,14 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
+		721905092B500C5D000516CA /* Booking Requested */ = {
+			isa = PBXGroup;
+			children = (
+				7219050A2B500C79000516CA /* BookingRequestedView.swift */,
+			);
+			path = "Booking Requested";
+			sourceTree = "<group>";
+		};
 		722C59D12B43EDE900EBA081 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -490,6 +502,7 @@
 		7237A5812B42E47B00ABF10F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				721905092B500C5D000516CA /* Booking Requested */,
 				7275920B2B4F6BA80071ABA5 /* Confirm Booking */,
 				720087C12B4EF43B0020633F /* Select Time */,
 				720087BA2B4EDBAD0020633F /* Users List */,
@@ -600,6 +613,7 @@
 				720B604D2B4A5F6000CF716E /* Attachment.swift */,
 				720B604F2B4A5FF000CF716E /* Request.swift */,
 				720B60712B4C7E2500CF716E /* Receipt.swift */,
+				7219050C2B501AEB000516CA /* StripeData.swift */,
 				720B605C2B4ADAE700CF716E /* MockData.swift */,
 				720B60622B4B19F100CF716E /* Notifications.swift */,
 			);
@@ -1075,6 +1089,7 @@
 				728499F42B463CB500C2826B /* HomeTabViewModel.swift in Sources */,
 				720B60592B4AC63D00CF716E /* ChatView.swift in Sources */,
 				72774C302B47D42B00C5A248 /* SearchUsersParams.swift in Sources */,
+				7219050B2B500C79000516CA /* BookingRequestedView.swift in Sources */,
 				720B606B2B4C433500CF716E /* DateUtil.swift in Sources */,
 				720087BC2B4EDBC40020633F /* UsersListView.swift in Sources */,
 				72774C472B48432B00C5A248 /* CMEmptyView.swift in Sources */,
@@ -1186,6 +1201,7 @@
 				725586192B44CC1B005A37B9 /* CMErrorLabel.swift in Sources */,
 				725586262B44F201005A37B9 /* S3KeysResponse.swift in Sources */,
 				720087B62B4E1E210020633F /* EditPhotosView.swift in Sources */,
+				7219050D2B501AEB000516CA /* StripeData.swift in Sources */,
 				725586222B44D846005A37B9 /* UIImage+Ext.swift in Sources */,
 				72064F3A2B471ED900BB9ECC /* ExploreUsersResponse.swift in Sources */,
 				728499FC2B46C06D00C2826B /* UpdateProfileParams.swift in Sources */,

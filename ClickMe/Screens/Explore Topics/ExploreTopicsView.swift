@@ -67,6 +67,8 @@ struct ExploreTopicsView: View {
                     SelectTimeView(topic: topic, host: host, navigationPath: $navigationPath)
                 case ScreenNames.confirmBooking(let topic, let host, let startTime, let endTime):
                     ConfirmBookingView(topic: topic, host: host, startTime: startTime, endTime: endTime, navigationPath: $navigationPath)
+                case ScreenNames.bookingRequested:
+                    BookingRequestedView(navigationPath: $navigationPath)
                 default:
                     fatalError()
                 }

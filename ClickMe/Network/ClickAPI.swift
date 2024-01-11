@@ -513,8 +513,8 @@ class ClickAPI {
     
     func requestBooking(params: RequestBookingParams) async throws -> RequestResponse {
         let parameters = params.params()
-        let url = baseURL + APIRequestURLs.getAvailability.rawValue
-        let response: RequestResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getAvailability.getHTTPMethod(), parameters: parameters)
+        let url = baseURL + APIRequestURLs.requestBooking.rawValue
+        let response: RequestResponse = try await service.httpRequest(url: url, method: APIRequestURLs.requestBooking.getHTTPMethod(), parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
         } else if !response.success, response.message == "CAN_NOT_BOOK_OWN_SCHEDULE" {

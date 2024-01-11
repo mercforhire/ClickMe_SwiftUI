@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CMButton: View {
     var title: LocalizedStringKey
+    var fullWidth: Bool = false
     
     var body: some View {
         ZStack {
@@ -19,6 +20,7 @@ struct CMButton: View {
                 .foregroundStyle(.white)
                 .padding(.horizontal, 20)
         }
+        .frame(maxWidth: fullWidth ? .infinity : nil)
         .background(Color.accentColor)
         .cornerRadius(10)
     }

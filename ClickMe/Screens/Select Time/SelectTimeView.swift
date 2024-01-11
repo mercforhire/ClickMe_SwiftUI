@@ -93,6 +93,7 @@ struct SelectTimeView: View {
         .onChange(of: viewModel.allowedToNext) { newValue in
             if viewModel.allowedToNext {
                 navigationPath.append(.confirmBooking(viewModel.topic, viewModel.host, viewModel.startTime, viewModel.endTime))
+                viewModel.allowedToNext = false
             }
         }
     }
