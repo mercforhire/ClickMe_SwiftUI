@@ -22,4 +22,15 @@ enum BookingAction {
             return "Cancel"
         }
     }
+    
+    func apiParameter() -> String {
+        switch self {
+        case .accept:
+            return "APPROVE"
+        case .decline:
+            return "DECLINE"
+        case .cancel:
+            return "CANCEL"
+        }
+    }
 }

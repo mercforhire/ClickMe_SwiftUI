@@ -83,6 +83,8 @@
 		7219053C2B50BEE0000516CA /* BookingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219053B2B50BEE0000516CA /* BookingAction.swift */; };
 		7219053F2B516079000516CA /* HostBookingFinalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219053E2B516079000516CA /* HostBookingFinalView.swift */; };
 		721905412B5161EC000516CA /* HostBookingFinalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721905402B5161EC000516CA /* HostBookingFinalViewModel.swift */; };
+		721905432B5181E2000516CA /* StartCallSessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721905422B5181E2000516CA /* StartCallSessionResponse.swift */; };
+		721905452B518232000516CA /* CallSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721905442B518232000516CA /* CallSession.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -267,6 +269,8 @@
 		7219053B2B50BEE0000516CA /* BookingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingAction.swift; sourceTree = "<group>"; };
 		7219053E2B516079000516CA /* HostBookingFinalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostBookingFinalView.swift; sourceTree = "<group>"; };
 		721905402B5161EC000516CA /* HostBookingFinalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostBookingFinalViewModel.swift; sourceTree = "<group>"; };
+		721905422B5181E2000516CA /* StartCallSessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCallSessionResponse.swift; sourceTree = "<group>"; };
+		721905442B518232000516CA /* CallSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallSession.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -442,6 +446,7 @@
 			children = (
 				72064F2A2B46EC2C00BB9ECC /* ExploreView.swift */,
 				72064F352B470B7200BB9ECC /* ExploreViewModel.swift */,
+				72774C282B47B23300C5A248 /* Explore Filter */,
 			);
 			path = Explore;
 			sourceTree = "<group>";
@@ -451,6 +456,8 @@
 			children = (
 				72064F302B46ECBF00BB9ECC /* MyBookingsView.swift */,
 				720B60602B4B033400CF716E /* MyBookingsViewModel.swift */,
+				720B60772B4D1C0100CF716E /* My Past Bookings */,
+				720B606C2B4C6C7B00CF716E /* Booking Status */,
 			);
 			path = "My Bookings";
 			sourceTree = "<group>";
@@ -460,6 +467,9 @@
 			children = (
 				72064F332B4707A200BB9ECC /* AccountView.swift */,
 				720B607D2B4D5BE300CF716E /* AccountViewModel.swift */,
+				720087BA2B4EDBAD0020633F /* Users List */,
+				720087A82B4DAB3C0020633F /* Edit Profile */,
+				720087B72B4E1E2F0020633F /* Edit Photos */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -523,6 +533,7 @@
 			children = (
 				721905112B504167000516CA /* HostTabView.swift */,
 				7219051C2B504322000516CA /* HostTabViewModel.swift */,
+				7219051E2B504430000516CA /* Host Get Started */,
 			);
 			path = "Host Home";
 			sourceTree = "<group>";
@@ -560,40 +571,43 @@
 			path = "Host Get Started";
 			sourceTree = "<group>";
 		};
-		721905232B50696D000516CA /* Host Request */ = {
+		721905232B50696D000516CA /* Request Overview */ = {
 			isa = PBXGroup;
 			children = (
 				721905242B50698D000516CA /* HostRequestView.swift */,
 				721905262B506997000516CA /* HostRequestViewModel.swift */,
 			);
-			path = "Host Request";
+			path = "Request Overview";
 			sourceTree = "<group>";
 		};
-		721905282B506B32000516CA /* Host Upcoming Bookings */ = {
+		721905282B506B32000516CA /* Upcoming Bookings */ = {
 			isa = PBXGroup;
 			children = (
 				721905292B506B52000516CA /* HostUpcomingBookingsView.swift */,
 				7219052B2B506B61000516CA /* HostUpcomingBookingsViewModel.swift */,
+				721905312B50B448000516CA /* Past Bookings */,
+				721905232B50696D000516CA /* Request Overview */,
+				7219053D2B516046000516CA /* Booking Final */,
 			);
-			path = "Host Upcoming Bookings";
+			path = "Upcoming Bookings";
 			sourceTree = "<group>";
 		};
-		721905312B50B448000516CA /* Host Past Bookings */ = {
+		721905312B50B448000516CA /* Past Bookings */ = {
 			isa = PBXGroup;
 			children = (
 				721905322B50B4A7000516CA /* PastHostingsView.swift */,
 				721905342B50B4C6000516CA /* PastHostingsViewModel.swift */,
 			);
-			path = "Host Past Bookings";
+			path = "Past Bookings";
 			sourceTree = "<group>";
 		};
-		7219053D2B516046000516CA /* Host Booking Final */ = {
+		7219053D2B516046000516CA /* Booking Final */ = {
 			isa = PBXGroup;
 			children = (
 				7219053E2B516079000516CA /* HostBookingFinalView.swift */,
 				721905402B5161EC000516CA /* HostBookingFinalViewModel.swift */,
 			);
-			path = "Host Booking Final";
+			path = "Booking Final";
 			sourceTree = "<group>";
 		};
 		722C59D12B43EDE900EBA081 /* Network */ = {
@@ -627,6 +641,7 @@
 				720B60732B4C988600CF716E /* GetBookingDetailsResponse.swift */,
 				720087C42B4EFBE20020633F /* GetAvailabilityResponse.swift */,
 				727592102B4F7EBC0071ABA5 /* GetBookingPriceResponse.swift */,
+				721905422B5181E2000516CA /* StartCallSessionResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -634,39 +649,19 @@
 		7237A5812B42E47B00ABF10F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				7219053D2B516046000516CA /* Host Booking Final */,
-				721905312B50B448000516CA /* Host Past Bookings */,
-				721905282B506B32000516CA /* Host Upcoming Bookings */,
-				721905232B50696D000516CA /* Host Request */,
-				7219051E2B504430000516CA /* Host Get Started */,
+				721905282B506B32000516CA /* Upcoming Bookings */,
 				721905192B50424B000516CA /* Host Status */,
 				721905162B5041C4000516CA /* Host Topics */,
 				721905132B50419E000516CA /* Host Calender */,
 				721905102B50413B000516CA /* Host Home */,
-				721905092B500C5D000516CA /* Booking Requested */,
-				7275920B2B4F6BA80071ABA5 /* Confirm Booking */,
-				720087C12B4EF43B0020633F /* Select Time */,
-				720087BA2B4EDBAD0020633F /* Users List */,
 				72064F322B47078F00BB9ECC /* Account */,
-				720B606C2B4C6C7B00CF716E /* Booking Status */,
-				720B60572B4AC62200CF716E /* Chat */,
-				720087B72B4E1E2F0020633F /* Edit Photos */,
-				720087A82B4DAB3C0020633F /* Edit Profile */,
 				72064F292B46EC1100BB9ECC /* Explore */,
-				72774C282B47B23300C5A248 /* Explore Filter */,
 				724C954B2B4946CC00AD2CFC /* Explore Topics */,
-				7237A5862B42E4D600ABF10F /* Get Started */,
 				728499F02B45A54500C2826B /* Home */,
 				72774C4C2B48F6E400C5A248 /* Inbox */,
-				725586112B442604005A37B9 /* Login */,
-				7237A5942B43827400ABF10F /* LoginInitial */,
+				7237A5942B43827400ABF10F /* Login Initial */,
 				72064F2F2B46ECAC00BB9ECC /* My Bookings */,
-				720B60772B4D1C0100CF716E /* My Past Bookings */,
-				7255861C2B44CEC0005A37B9 /* SetupBasicInfoView */,
-				7255862F2B4528ED005A37B9 /* SetupDetailInfoView */,
-				7237A59D2B43A60900ABF10F /* Sign Up */,
 				7237A5912B437E5400ABF10F /* Splash */,
-				724C95422B48FFB300AD2CFC /* Topic Details */,
 				72774C332B47F66200C5A248 /* User Details */,
 			);
 			path = Screens;
@@ -750,6 +745,7 @@
 				7219050C2B501AEB000516CA /* StripeData.swift */,
 				720B605C2B4ADAE700CF716E /* MockData.swift */,
 				720B60622B4B19F100CF716E /* Notifications.swift */,
+				721905442B518232000516CA /* CallSession.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -772,13 +768,16 @@
 			path = Splash;
 			sourceTree = "<group>";
 		};
-		7237A5942B43827400ABF10F /* LoginInitial */ = {
+		7237A5942B43827400ABF10F /* Login Initial */ = {
 			isa = PBXGroup;
 			children = (
 				7237A5952B43829500ABF10F /* LoginInitialView.swift */,
 				7237A5972B438C3D00ABF10F /* LoginInitialViewModel.swift */,
+				7237A5862B42E4D600ABF10F /* Get Started */,
+				725586112B442604005A37B9 /* Login */,
+				7237A59D2B43A60900ABF10F /* Sign Up */,
 			);
-			path = LoginInitial;
+			path = "Login Initial";
 			sourceTree = "<group>";
 		};
 		7237A59D2B43A60900ABF10F /* Sign Up */ = {
@@ -804,6 +803,10 @@
 			children = (
 				724C954C2B4946E800AD2CFC /* ExploreTopicsView.swift */,
 				724C954E2B494C4500AD2CFC /* ExploreTopicsViewModel.swift */,
+				720087C12B4EF43B0020633F /* Select Time */,
+				721905092B500C5D000516CA /* Booking Requested */,
+				7275920B2B4F6BA80071ABA5 /* Confirm Booking */,
+				724C95422B48FFB300AD2CFC /* Topic Details */,
 			);
 			path = "Explore Topics";
 			sourceTree = "<group>";
@@ -931,6 +934,7 @@
 			children = (
 				72774C4D2B48F6F800C5A248 /* InboxView.swift */,
 				720B60492B4A584E00CF716E /* InboxViewModel.swift */,
+				720B60572B4AC62200CF716E /* Chat */,
 			);
 			path = Inbox;
 			sourceTree = "<group>";
@@ -940,6 +944,8 @@
 			children = (
 				728499F12B45A56200C2826B /* HomeTabView.swift */,
 				728499F32B463CB500C2826B /* HomeTabViewModel.swift */,
+				7255861C2B44CEC0005A37B9 /* SetupBasicInfoView */,
+				7255862F2B4528ED005A37B9 /* SetupDetailInfoView */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1265,6 +1271,7 @@
 				722C59E42B44009B00EBA081 /* LoadingView.swift in Sources */,
 				7255861B2B44CCE9005A37B9 /* CMEmailTextField.swift in Sources */,
 				72774C3D2B4805A100C5A248 /* TopicSimpleView.swift in Sources */,
+				721905452B518232000516CA /* CallSession.swift in Sources */,
 				7219050F2B502550000516CA /* MessageAction.swift in Sources */,
 				720087CD2B4EFEEC0020633F /* RequestResponse.swift in Sources */,
 				725586312B452910005A37B9 /* SetupDetailInfoView.swift in Sources */,
@@ -1314,6 +1321,7 @@
 				72774C2E2B47CE8000C5A248 /* NavigationStack+Ext.swift in Sources */,
 				727592112B4F7EBD0071ABA5 /* GetBookingPriceResponse.swift in Sources */,
 				728499F92B466B0400C2826B /* Utils.swift in Sources */,
+				721905432B5181E2000516CA /* StartCallSessionResponse.swift in Sources */,
 				728499F22B45A56200C2826B /* HomeTabView.swift in Sources */,
 				7237A5882B42E4F800ABF10F /* GetStartedView.swift in Sources */,
 				722C59E02B43FA7600EBA081 /* DefaultResponse.swift in Sources */,

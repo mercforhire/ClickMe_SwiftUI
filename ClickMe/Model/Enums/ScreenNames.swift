@@ -27,5 +27,6 @@ enum ScreenNames: Hashable {
     case topicDetails(Topic)
     case selectTime(Topic, UserProfile)
     case confirmBooking(Topic, UserProfile, Date, Date)
+    case hostRequestOverview(Request)
     case hostBookingFinal(BookingAction)
 }

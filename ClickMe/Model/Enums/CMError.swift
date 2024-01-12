@@ -28,4 +28,10 @@ enum CMError: Error {
     case bookingTimeTooLong
     case invalidTimeSlot
     case timeslotConflict
+    case bookingRequestMustBePending
+    case bookingRequestMustBeApproved
+    case useIsNotInTheBooking
+    case tooEarlyToStartSession
+    case alreadyPastSessionEndTime
+    case agoraTokenError
 }

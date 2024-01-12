@@ -23,7 +23,7 @@ struct HostUpcomingBookingsView: View {
                         .frame(height: 300)
                         .listRowSeparator(.hidden)
                         .onTapGesture {
-                            
+                            navigationPath.append(.hostRequestOverview(request))
                         }
                 }
                 .listStyle(.plain)
@@ -51,6 +51,10 @@ struct HostUpcomingBookingsView: View {
                 switch screenName {
                 case ScreenNames.hostPastBookings(let userId):
                     PastHostingsView(myUserId: userId, navigationPath: $navigationPath)
+                case ScreenNames.hostRequestOverview(let request):
+                    HostRequestView(request: request, navigationPath: $navigationPath)
+                case ScreenNames.hostBookingFinal(let action):
+                    HostBookingFinalView(action: action, navigationPath: $navigationPath)
                 default:
                     fatalError()
                 }

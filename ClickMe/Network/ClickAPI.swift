@@ -589,6 +589,48 @@ class ClickAPI {
         return response
     }
     
+    func requestAction(requestId: String, action: BookingAction, message: String) async throws -> DefaultResponse {
+        let parameters = ["requestId": requestId, "action": action.apiParameter(), "message": message]
+        let url = baseURL + APIRequestURLs.requestAction.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url,
+                                                                      method: APIRequestURLs.requestAction.getHTTPMethod(),
+                                                                      parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "BOOKING_STATUS_NOT_PENDING" {
+            throw CMError.bookingRequestMustBePending
+        } else if !response.success, response.message == "BOOKING_CAN_ONLY_BE_CANCELLED_AFTER_IT_IS_APPROVED" {
+            throw CMError.bookingRequestMustBeApproved
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func startCallingSession(requestId: String, forceNewToken: Bool = false) async throws -> StartCallSessionResponse {
+        let parameters = ["requestId": requestId, "forceNewToken": forceNewToken ? "true" : "false"]
+        let url = baseURL + APIRequestURLs.startCallingSession.rawValue
+        let response: StartCallSessionResponse = try await service.httpRequest(url: url,
+                                                                               method: APIRequestURLs.requestAction.getHTTPMethod(),
+                                                                               parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "USER_NOT_SCHEDULE_HOST_NOR_BOOKING_USER" {
+            throw CMError.useIsNotInTheBooking
+        } else if !response.success, response.message == "BOOKING_REQUEST_STATUS_INVALID" {
+            throw CMError.bookingRequestMustBeApproved
+        } else if !response.success, response.message == "TOO_EARLY_TO_START_BOOKING_SESSION" {
+            throw CMError.tooEarlyToStartSession
+        } else if !response.success, response.message == "SESSION_ALREADY_OVER" {
+            throw CMError.alreadyPastSessionEndTime
+        } else if !response.success, response.message == "AGORA_TOKEN_GENERATION_FAILED" {
+            throw CMError.agoraTokenError
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
         let filename = String.randomString(length: 5)
         let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"

@@ -13,10 +13,12 @@ struct TextFieldActionView: View {
     @Binding var typingMessage: String
     var actionHandler: () -> Void
     
+    @State var errorMessage: String?
+    
     private let screenWidth = UIScreen.main.bounds.size.width
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             TextField("Send a message along with the action",
                       text: $typingMessage,
                       axis: .vertical)
@@ -27,13 +29,23 @@ struct TextFieldActionView: View {
             .padding(.horizontal, 5)
             .padding(.top, 10)
             
+            if let errorMessage = errorMessage {
+                CMErrorLabel(errorMessage)
+            }
+            
             Button(action: {
+                if typingMessage.isEmpty {
+                    errorMessage = "Please type a message"
+                    return
+                }
+                errorMessage = nil
                 isShowingView = false
                 actionHandler()
             }, label: {
                 Text(buttonText)
             })
             .padding(.top, 10)
+            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/ ,alignment: .center)
         }
         .padding(.top, 25)
         .padding(.bottom, 20)

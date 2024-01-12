@@ -13,6 +13,7 @@ enum RequestStatus: String, Codable, Identifiable {
     case DECLINED
     case AWAITING_PAYMENT
     case PENDING_APPROVAL
+    case CANCELLED
     case STARTED
     case FINISHED
     case EXPIRED
@@ -32,6 +33,8 @@ enum RequestStatus: String, Codable, Identifiable {
             return "Pending approval"
         case .STARTED:
             return "Started"
+        case .CANCELLED:
+            return "Cancelled"
         case .FINISHED:
             return "Finished"
         case .EXPIRED:

@@ -60,7 +60,15 @@ class MockData {
     }
     
     static func mockRequest() -> Request {
-        return Request(_id: "659bb0700c47d17cc781f078", createdDate: Date(timeIntervalSince1970: 1704568893224 / 1000), bookingUserId: "65971589d4f4d7af9f97a3bc", bookingUser: MockData.mockProfile(), hostUserId: "65971715d4f4d7af9f97d889", hostUser: MockData.mockProfile2(), topicId: "659adae17a68168153de39e2", topic: MockData.mockTopic(), startTime: Date(timeIntervalSince1970: 1704449058905 / 1000), endTime: Date(timeIntervalSince1970: 1704470549714 / 1000), status: .PENDING_APPROVAL)
+        return Request(_id: "659bb0700c47d17cc781f078", createdDate: Date(timeIntervalSince1970: 1704568893224 / 1000), bookingUserId: MockData.mockProfile().userId, bookingUser: MockData.mockProfile(), hostUserId: MockData.mockProfile2().userId, hostUser: MockData.mockProfile2(), topicId: MockData.mockTopic()._id, topic: MockData.mockTopic(), startTime: Date(timeIntervalSince1970: 1704449058905 / 1000), endTime: Date(timeIntervalSince1970: 1704470549714 / 1000), status: .PENDING_APPROVAL)
+    }
+    
+    static func mockRequest2() -> Request {
+        return Request(_id: "659bb0700c47d17cc781f078", createdDate: Date(timeIntervalSince1970: 1704568893224 / 1000), bookingUserId: MockData.mockProfile().userId, bookingUser: MockData.mockProfile(), hostUserId: MockData.mockProfile2().userId, hostUser: MockData.mockProfile2(), topicId: MockData.mockTopic()._id, topic: MockData.mockTopic(), startTime: Date(timeIntervalSince1970: 1704449058905 / 1000), endTime: Date(timeIntervalSince1970: 1704470549714 / 1000), status: .APPROVED)
+    }
+    
+    static func mockRequest3() -> Request {
+        return Request(_id: "659bb0700c47d17cc781f078", createdDate: Date(timeIntervalSince1970: 1704568893224 / 1000), bookingUserId: MockData.mockProfile().userId, bookingUser: MockData.mockProfile(), hostUserId: MockData.mockProfile2().userId, hostUser: MockData.mockProfile2(), topicId: MockData.mockTopic()._id, topic: MockData.mockTopic(), startTime: Date(timeIntervalSince1970: 1704449058905 / 1000), endTime: Date(timeIntervalSince1970: 1704470549714 / 1000), status: .FINISHED)
     }
     
     static func mockReceipt() -> Receipt {
