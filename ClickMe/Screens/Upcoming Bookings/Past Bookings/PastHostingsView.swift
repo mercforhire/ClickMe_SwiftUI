@@ -23,27 +23,20 @@ struct PastHostingsView: View {
                     .frame(height: 300)
                     .listRowSeparator(.hidden)
                     .onTapGesture {
-                        
+                        navigationPath.append(.hostRequestOverview(request))
                     }
             }
             .listStyle(.plain)
             .refreshable {
-                
-            }
-            .toolbar {
-                ToolbarItemGroup(placement: .topBarTrailing) {
-                    Button {
-                        
-                    } label: {
-                        Image("previous-date", bundle: nil)
-                            .resizable()
-                            .frame(width: 35, height: 35)
-                    }
-                }
+                viewModel.fetchRequests()
             }
             
             if viewModel.requests.isEmpty {
                 CMEmptyView(imageName: "empty", message: "No past hostings")
+            }
+            
+            if viewModel.isLoading {
+                LoadingView()
             }
         }
         .navigationTitle("Past hostings")

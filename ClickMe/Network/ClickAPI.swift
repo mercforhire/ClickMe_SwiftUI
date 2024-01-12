@@ -388,8 +388,8 @@ class ClickAPI {
         return response
     }
     
-    func block(blockUserId: String) async throws -> DefaultResponse {
-        let parameters = ["blockUserId": blockUserId]
+    func block(blockUserId: String, reason: String) async throws -> DefaultResponse {
+        let parameters = ["blockUserId": blockUserId, "reason": reason]
         let url = baseURL + APIRequestURLs.blockUser.rawValue
         let response: DefaultResponse = try await service.httpRequest(url: url, method: APIRequestURLs.blockUser.getHTTPMethod(), parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {

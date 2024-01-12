@@ -85,7 +85,7 @@ final class ChatViewModel: ObservableObject {
     
     func blockUser() {
         Task {
-            let response = try? await ClickAPI.shared.block(blockUserId: talkingTo.userId)
+            let response = try? await ClickAPI.shared.block(blockUserId: talkingTo.userId, reason: "")
             if response?.success ?? false {
                 blocked = true
             }

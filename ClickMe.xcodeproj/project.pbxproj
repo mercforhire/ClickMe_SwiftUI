@@ -85,6 +85,11 @@
 		721905412B5161EC000516CA /* HostBookingFinalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721905402B5161EC000516CA /* HostBookingFinalViewModel.swift */; };
 		721905432B5181E2000516CA /* StartCallSessionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721905422B5181E2000516CA /* StartCallSessionResponse.swift */; };
 		721905452B518232000516CA /* CallSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721905442B518232000516CA /* CallSession.swift */; };
+		721D0D2B2B519EBE00095A97 /* CallingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D2A2B519EBE00095A97 /* CallingView.swift */; };
+		721D0D2D2B519ECA00095A97 /* CallingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D2C2B519ECA00095A97 /* CallingViewModel.swift */; };
+		721D0D2F2B51A13900095A97 /* BlockReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D2E2B51A13900095A97 /* BlockReason.swift */; };
+		721D0D312B51AA7300095A97 /* CMMinimizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D302B51AA7300095A97 /* CMMinimizeButton.swift */; };
+		721D0D332B51BB7500095A97 /* CMRoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D322B51BB7500095A97 /* CMRoundButton.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -271,6 +276,11 @@
 		721905402B5161EC000516CA /* HostBookingFinalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostBookingFinalViewModel.swift; sourceTree = "<group>"; };
 		721905422B5181E2000516CA /* StartCallSessionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCallSessionResponse.swift; sourceTree = "<group>"; };
 		721905442B518232000516CA /* CallSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallSession.swift; sourceTree = "<group>"; };
+		721D0D2A2B519EBE00095A97 /* CallingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallingView.swift; sourceTree = "<group>"; };
+		721D0D2C2B519ECA00095A97 /* CallingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallingViewModel.swift; sourceTree = "<group>"; };
+		721D0D2E2B51A13900095A97 /* BlockReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockReason.swift; sourceTree = "<group>"; };
+		721D0D302B51AA7300095A97 /* CMMinimizeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMMinimizeButton.swift; sourceTree = "<group>"; };
+		721D0D322B51BB7500095A97 /* CMRoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMRoundButton.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -516,6 +526,7 @@
 				720B60752B4D1B8700CF716E /* ReceiptStatus.swift */,
 				7237A5892B42E53900ABF10F /* GetStartedSteps.swift */,
 				7255862B2B4515C1005A37B9 /* Field.swift */,
+				721D0D2E2B51A13900095A97 /* BlockReason.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -610,6 +621,15 @@
 			path = "Booking Final";
 			sourceTree = "<group>";
 		};
+		721D0D292B519E6C00095A97 /* Calling */ = {
+			isa = PBXGroup;
+			children = (
+				721D0D2A2B519EBE00095A97 /* CallingView.swift */,
+				721D0D2C2B519ECA00095A97 /* CallingViewModel.swift */,
+			);
+			path = Calling;
+			sourceTree = "<group>";
+		};
 		722C59D12B43EDE900EBA081 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -649,6 +669,7 @@
 		7237A5812B42E47B00ABF10F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				721D0D292B519E6C00095A97 /* Calling */,
 				721905282B506B32000516CA /* Upcoming Bookings */,
 				721905192B50424B000516CA /* Host Status */,
 				721905162B5041C4000516CA /* Host Topics */,
@@ -703,6 +724,8 @@
 				724C95492B4903F800AD2CFC /* TopicView.swift */,
 				720B60682B4C414C00CF716E /* BookingRequestView.swift */,
 				72774C442B48351900C5A248 /* CMXButton.swift */,
+				721D0D322B51BB7500095A97 /* CMRoundButton.swift */,
+				721D0D302B51AA7300095A97 /* CMMinimizeButton.swift */,
 				72774C462B48432A00C5A248 /* CMEmptyView.swift */,
 				724C95502B49508200AD2CFC /* MoodView.swift */,
 				720B60412B49D42A00CF716E /* ChatConversationView.swift */,
@@ -1239,6 +1262,7 @@
 				72774C432B482C7100C5A248 /* Currency.swift in Sources */,
 				721905182B5041D5000516CA /* HostTopicsView.swift in Sources */,
 				721905222B5067B9000516CA /* HostCalenderViewModel.swift in Sources */,
+				721D0D2B2B519EBE00095A97 /* CallingView.swift in Sources */,
 				7255861E2B44CECC005A37B9 /* SetupBasicInfoView.swift in Sources */,
 				720087B02B4DDA4C0020633F /* View+Ext.swift in Sources */,
 				724C95512B49508200AD2CFC /* MoodView.swift in Sources */,
@@ -1299,8 +1323,10 @@
 				720B60522B4ABBAB00CF716E /* GetChatMessagesResponse.swift in Sources */,
 				7237A59F2B43A62100ABF10F /* SignUpView.swift in Sources */,
 				720B60692B4C414C00CF716E /* BookingRequestView.swift in Sources */,
+				721D0D332B51BB7500095A97 /* CMRoundButton.swift in Sources */,
 				721905202B504447000516CA /* HostGetStartedView.swift in Sources */,
 				720B605F2B4AEF2B00CF716E /* SendChatMessageResponse.swift in Sources */,
+				721D0D2D2B519ECA00095A97 /* CallingViewModel.swift in Sources */,
 				722C59DB2B43F74D00EBA081 /* CMError.swift in Sources */,
 				720087AC2B4DAB560020633F /* EditProfileViewModel.swift in Sources */,
 				720B60442B49DF1900CF716E /* GetConversationsResponse.swift in Sources */,
@@ -1364,9 +1390,11 @@
 				725586262B44F201005A37B9 /* S3KeysResponse.swift in Sources */,
 				720087B62B4E1E210020633F /* EditPhotosView.swift in Sources */,
 				7219050D2B501AEB000516CA /* StripeData.swift in Sources */,
+				721D0D312B51AA7300095A97 /* CMMinimizeButton.swift in Sources */,
 				725586222B44D846005A37B9 /* UIImage+Ext.swift in Sources */,
 				72064F3A2B471ED900BB9ECC /* ExploreUsersResponse.swift in Sources */,
 				728499FC2B46C06D00C2826B /* UpdateProfileParams.swift in Sources */,
+				721D0D2F2B51A13900095A97 /* BlockReason.swift in Sources */,
 				7255860E2B44197E005A37B9 /* LoginResponse.swift in Sources */,
 				7237A5962B43829500ABF10F /* LoginInitialView.swift in Sources */,
 				72064F362B470B7200BB9ECC /* ExploreViewModel.swift in Sources */,

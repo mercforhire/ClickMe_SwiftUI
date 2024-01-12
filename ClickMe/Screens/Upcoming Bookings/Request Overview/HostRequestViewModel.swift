@@ -19,7 +19,7 @@ final class HostRequestViewModel: ObservableObject {
     @Published var isShowingDeclineModal = false
     @Published var isShowingCancelModal = false
     @Published var actionError: String?
-    @Published var actionComplete = false
+    @Published var goToCallScreen = false
     
     var booker: UserProfile {
         return request.bookingUser!
@@ -64,7 +64,7 @@ final class HostRequestViewModel: ObservableObject {
                 let response = try await ClickAPI.shared.requestAction(requestId: request._id, action: .accept, message: actionMessage)
                 if response.success {
                     actionError = nil
-                    actionComplete = true
+                    fetchData()
                 } else {
                     actionError = "Unknown error"
                 }
@@ -89,7 +89,7 @@ final class HostRequestViewModel: ObservableObject {
                 let response = try await ClickAPI.shared.requestAction(requestId: request._id, action: .decline, message: actionMessage)
                 if response.success {
                     actionError = nil
-                    actionComplete = true
+                    fetchData()
                 } else {
                     actionError = "Unknown error"
                 }
@@ -114,7 +114,7 @@ final class HostRequestViewModel: ObservableObject {
                 let response = try await ClickAPI.shared.requestAction(requestId: request._id, action: .cancel, message: actionMessage)
                 if response.success {
                     actionError = nil
-                    actionComplete = true
+                    fetchData()
                 } else {
                     actionError = "Unknown error"
                 }
@@ -138,7 +138,7 @@ final class HostRequestViewModel: ObservableObject {
                 if let callSession = response.data?.session {
                     self.callSession = callSession
                     actionError = nil
-                    actionComplete = true
+                                        goToCallScreen = true
                     print("go to calling screen using session:")
                     print(callSession)
                 } else {

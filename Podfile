@@ -10,6 +10,7 @@ target 'ClickMe' do
   pod 'AWSS3'
   pod 'AWSCore'
   pod 'Valet'
+  pod 'AgoraRtcEngine_iOS', '4.2.6'
   
   target 'ClickMeTests' do
     inherit! :search_paths

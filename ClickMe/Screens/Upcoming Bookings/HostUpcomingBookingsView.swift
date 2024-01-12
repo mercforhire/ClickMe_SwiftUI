@@ -45,6 +45,10 @@ struct HostUpcomingBookingsView: View {
                 if viewModel.requests.isEmpty {
                     CMEmptyView(imageName: "empty", message: "No booking requests")
                 }
+                
+                if viewModel.isLoading {
+                    LoadingView()
+                }
             }
             .navigationTitle("Upcoming bookings")
             .navigationDestination(for: ScreenNames.self) { screenName in
