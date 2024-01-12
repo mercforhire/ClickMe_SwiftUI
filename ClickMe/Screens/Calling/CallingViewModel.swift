@@ -40,11 +40,33 @@ final class CallingViewModel: ObservableObject {
     var token: String
     
     @Published var meetingState: MeetingState = .connecting
-    @Published var myMicState: MicState = .speaking
+    @Published var micState: MicState?
+    @Published var speakerState: SpeakerState = .speaker
     @Published var talkingToMicState: MicState = .speaking
+    @Published var otherPersonIsConnected: Bool = false
     
-    var endTime: String {
-        return  DateUtil.convert(input: request.endTime, outputFormat: .format8)!
+    var meetingEndTime: String {
+        return DateUtil.convert(input: request.endTime, outputFormat: .format8)!
+    }
+    
+    var micIconName: String {
+        switch micState {
+        case .muted:
+            return "mic.slash.fill"
+        case .speaking:
+            return "mic.fill"
+        }
+    }
+    
+    var speakerIconName: String {
+        switch speakerState {
+        case .muted:
+            return "speaker.slash.fill"
+        case .ear:
+            return "ear"
+        case .speaker:
+            return "speaker.wave.3.fill"
+        }
     }
     
     init(myProfile: UserProfile, talkingTo: UserProfile, topic: Topic, request: Request, token: String) {

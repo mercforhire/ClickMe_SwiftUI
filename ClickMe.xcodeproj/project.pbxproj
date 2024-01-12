@@ -90,6 +90,10 @@
 		721D0D2F2B51A13900095A97 /* BlockReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D2E2B51A13900095A97 /* BlockReason.swift */; };
 		721D0D312B51AA7300095A97 /* CMMinimizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D302B51AA7300095A97 /* CMMinimizeButton.swift */; };
 		721D0D332B51BB7500095A97 /* CMRoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D322B51BB7500095A97 /* CMRoundButton.swift */; };
+		721D0D372B51CC0D00095A97 /* AgoraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D352B51CC0D00095A97 /* AgoraManager.swift */; };
+		721D0D3E2B51DAA300095A97 /* WriteReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D3D2B51DAA300095A97 /* WriteReviewView.swift */; };
+		721D0D402B51DAAD00095A97 /* WriteReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D3F2B51DAAD00095A97 /* WriteReviewViewModel.swift */; };
+		721D0D422B51E6B900095A97 /* MyCosmosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D412B51E6B900095A97 /* MyCosmosView.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -281,6 +285,10 @@
 		721D0D2E2B51A13900095A97 /* BlockReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockReason.swift; sourceTree = "<group>"; };
 		721D0D302B51AA7300095A97 /* CMMinimizeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMMinimizeButton.swift; sourceTree = "<group>"; };
 		721D0D322B51BB7500095A97 /* CMRoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMRoundButton.swift; sourceTree = "<group>"; };
+		721D0D352B51CC0D00095A97 /* AgoraManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgoraManager.swift; sourceTree = "<group>"; };
+		721D0D3D2B51DAA300095A97 /* WriteReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewView.swift; sourceTree = "<group>"; };
+		721D0D3F2B51DAAD00095A97 /* WriteReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewModel.swift; sourceTree = "<group>"; };
+		721D0D412B51E6B900095A97 /* MyCosmosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCosmosView.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -630,6 +638,74 @@
 			path = Calling;
 			sourceTree = "<group>";
 		};
+		721D0D342B51CC0D00095A97 /* Agora */ = {
+			isa = PBXGroup;
+			children = (
+				721D0D352B51CC0D00095A97 /* AgoraManager.swift */,
+			);
+			path = Agora;
+			sourceTree = "<group>";
+		};
+		721D0D392B51CDD000095A97 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				7237A58D2B43016100ABF10F /* CMButton.swift */,
+				722DD67E2B45578400AD8401 /* CMPlusButton.swift */,
+				728499E82B45650300C2826B /* CMMinusButton.swift */,
+				72774C382B47F9A600C5A248 /* CMFollowButton.swift */,
+				72774C3A2B47FC4900C5A248 /* CMChatButton.swift */,
+				72774C442B48351900C5A248 /* CMXButton.swift */,
+				721D0D322B51BB7500095A97 /* CMRoundButton.swift */,
+				721D0D302B51AA7300095A97 /* CMMinimizeButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		721D0D3A2B51CDF100095A97 /* Full size views */ = {
+			isa = PBXGroup;
+			children = (
+				722C59E32B44009B00EBA081 /* LoadingView.swift */,
+				7219052F2B50A2AD000516CA /* ErrorView.swift */,
+				72774C462B48432A00C5A248 /* CMEmptyView.swift */,
+			);
+			path = "Full size views";
+			sourceTree = "<group>";
+		};
+		721D0D3B2B51CE1300095A97 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7237A5992B438E1C00ABF10F /* GetStartedStepView.swift */,
+				727BD74F2B45519600D4279D /* CMPhotoCellView.swift */,
+				72774C262B47A31400C5A248 /* ExploreCell.swift */,
+				720087BF2B4EEBC50020633F /* SimpleUserCell.swift */,
+				72774C3C2B4805A000C5A248 /* TopicSimpleView.swift */,
+				724C95492B4903F800AD2CFC /* TopicView.swift */,
+				724C95502B49508200AD2CFC /* MoodView.swift */,
+				720B60412B49D42A00CF716E /* ChatConversationView.swift */,
+				720B60532B4ABD7400CF716E /* ChatMessageLeftView.swift */,
+				720B60552B4AC29000CF716E /* ChatMessageRightView.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		721D0D3C2B51DA8900095A97 /* Write review */ = {
+			isa = PBXGroup;
+			children = (
+				721D0D3D2B51DAA300095A97 /* WriteReviewView.swift */,
+				721D0D3F2B51DAAD00095A97 /* WriteReviewViewModel.swift */,
+			);
+			path = "Write review";
+			sourceTree = "<group>";
+		};
+		721D0D432B51E8FB00095A97 /* UIViewRepresentable */ = {
+			isa = PBXGroup;
+			children = (
+				7237A59B2B439BD800ABF10F /* SafariView.swift */,
+				721D0D412B51E6B900095A97 /* MyCosmosView.swift */,
+			);
+			path = UIViewRepresentable;
+			sourceTree = "<group>";
+		};
 		722C59D12B43EDE900EBA081 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -669,6 +745,7 @@
 		7237A5812B42E47B00ABF10F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				721D0D3C2B51DA8900095A97 /* Write review */,
 				721D0D292B519E6C00095A97 /* Calling */,
 				721905282B506B32000516CA /* Upcoming Bookings */,
 				721905192B50424B000516CA /* Host Status */,
@@ -692,6 +769,7 @@
 			isa = PBXGroup;
 			children = (
 				725586232B44EF5E005A37B9 /* UserManager.swift */,
+				721D0D342B51CC0D00095A97 /* Agora */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -699,40 +777,20 @@
 		7237A5832B42E4A000ABF10F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				721905372B50BBD8000516CA /* TextFieldActionView.swift */,
-				721905392B50BC07000516CA /* CustomModifiers.swift */,
-				722C59E32B44009B00EBA081 /* LoadingView.swift */,
-				7219052F2B50A2AD000516CA /* ErrorView.swift */,
-				7237A58D2B43016100ABF10F /* CMButton.swift */,
-				7237A5992B438E1C00ABF10F /* GetStartedStepView.swift */,
-				7237A59B2B439BD800ABF10F /* SafariView.swift */,
-				722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */,
-				725586182B44CC1B005A37B9 /* CMErrorLabel.swift */,
+				720B60682B4C414C00CF716E /* BookingRequestView.swift */,
 				7255861A2B44CCE9005A37B9 /* CMEmailTextField.swift */,
+				725586182B44CC1B005A37B9 /* CMErrorLabel.swift */,
+				728499F52B4657E900C2826B /* CMPhotoPicker.swift */,
+				721905392B50BC07000516CA /* CustomModifiers.swift */,
+				722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */,
 				725586342B452E8B005A37B9 /* MultiSelectionView.swift */,
 				727BD7482B45310100D4279D /* MultiSelector.swift */,
-				722DD67E2B45578400AD8401 /* CMPlusButton.swift */,
-				728499E82B45650300C2826B /* CMMinusButton.swift */,
-				727BD74F2B45519600D4279D /* CMPhotoCellView.swift */,
 				728499EE2B4587EE00C2826B /* ProfilePhotosGridView.swift */,
-				728499F52B4657E900C2826B /* CMPhotoPicker.swift */,
-				72774C262B47A31400C5A248 /* ExploreCell.swift */,
-				720087BF2B4EEBC50020633F /* SimpleUserCell.swift */,
-				72774C382B47F9A600C5A248 /* CMFollowButton.swift */,
-				72774C3A2B47FC4900C5A248 /* CMChatButton.swift */,
-				72774C3C2B4805A000C5A248 /* TopicSimpleView.swift */,
-				724C95492B4903F800AD2CFC /* TopicView.swift */,
-				720B60682B4C414C00CF716E /* BookingRequestView.swift */,
-				72774C442B48351900C5A248 /* CMXButton.swift */,
-				721D0D322B51BB7500095A97 /* CMRoundButton.swift */,
-				721D0D302B51AA7300095A97 /* CMMinimizeButton.swift */,
-				72774C462B48432A00C5A248 /* CMEmptyView.swift */,
-				724C95502B49508200AD2CFC /* MoodView.swift */,
-				720B60412B49D42A00CF716E /* ChatConversationView.swift */,
-				720B60532B4ABD7400CF716E /* ChatMessageLeftView.swift */,
-				720B60552B4AC29000CF716E /* ChatMessageRightView.swift */,
-				720087AD2B4DD8F70020633F /* ReorderableForEach.swift */,
-				720087B32B4DFE200020633F /* DragRelocateDelegate.swift */,
+				721D0D432B51E8FB00095A97 /* UIViewRepresentable */,
+				721905372B50BBD8000516CA /* TextFieldActionView.swift */,
+				721D0D392B51CDD000095A97 /* Buttons */,
+				721D0D3B2B51CE1300095A97 /* Cells */,
+				721D0D3A2B51CDF100095A97 /* Full size views */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -978,6 +1036,8 @@
 			children = (
 				728499F82B466B0400C2826B /* Utils.swift */,
 				720B606A2B4C433400CF716E /* DateUtil.swift */,
+				720087AD2B4DD8F70020633F /* ReorderableForEach.swift */,
+				720087B32B4DFE200020633F /* DragRelocateDelegate.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1319,6 +1379,7 @@
 				725586172B44CA07005A37B9 /* ScreenNames.swift in Sources */,
 				7219053A2B50BC07000516CA /* CustomModifiers.swift in Sources */,
 				720B60792B4D1C1E00CF716E /* MyPastBookingsView.swift in Sources */,
+				721D0D422B51E6B900095A97 /* MyCosmosView.swift in Sources */,
 				72774C322B47D70000C5A248 /* SearchUsersResponse.swift in Sources */,
 				720B60522B4ABBAB00CF716E /* GetChatMessagesResponse.swift in Sources */,
 				7237A59F2B43A62100ABF10F /* SignUpView.swift in Sources */,
@@ -1327,11 +1388,13 @@
 				721905202B504447000516CA /* HostGetStartedView.swift in Sources */,
 				720B605F2B4AEF2B00CF716E /* SendChatMessageResponse.swift in Sources */,
 				721D0D2D2B519ECA00095A97 /* CallingViewModel.swift in Sources */,
+				721D0D372B51CC0D00095A97 /* AgoraManager.swift in Sources */,
 				722C59DB2B43F74D00EBA081 /* CMError.swift in Sources */,
 				720087AC2B4DAB560020633F /* EditProfileViewModel.swift in Sources */,
 				720B60442B49DF1900CF716E /* GetConversationsResponse.swift in Sources */,
 				7219053F2B516079000516CA /* HostBookingFinalView.swift in Sources */,
 				725586332B4529B4005A37B9 /* Language.swift in Sources */,
+				721D0D3E2B51DAA300095A97 /* WriteReviewView.swift in Sources */,
 				720087BE2B4EDBCF0020633F /* UsersListViewModel.swift in Sources */,
 				720B605B2B4AC64700CF716E /* ChatViewModel.swift in Sources */,
 				7237A5982B438C3D00ABF10F /* LoginInitialViewModel.swift in Sources */,
@@ -1351,6 +1414,7 @@
 				728499F22B45A56200C2826B /* HomeTabView.swift in Sources */,
 				7237A5882B42E4F800ABF10F /* GetStartedView.swift in Sources */,
 				722C59E02B43FA7600EBA081 /* DefaultResponse.swift in Sources */,
+				721D0D402B51DAAD00095A97 /* WriteReviewViewModel.swift in Sources */,
 				720B605D2B4ADAE700CF716E /* MockData.swift in Sources */,
 				720B604C2B4A5F2300CF716E /* Message.swift in Sources */,
 				725586102B4419AF005A37B9 /* UserProfile.swift in Sources */,

@@ -26,10 +26,10 @@ struct CallingView: View {
             Spacer()
             
             HStack(alignment: .top) {
-                SpeakerAvatarView(user: viewModel.myProfile, micState: $viewModel.myMicState)
-                    .frame(width: 130)
-                SpeakerAvatarView(user: viewModel.talkingTo, micState: $viewModel.talkingToMicState)
-                    .frame(width: 130)
+                SpeakerAvatarView(user: viewModel.myProfile, micState: .constant(nil), connected: .constant(true))
+                    .frame(width: 130, height: 180)
+                SpeakerAvatarView(user: viewModel.talkingTo, micState: $viewModel.talkingToMicState, connected: $viewModel.otherPersonIsConnected)
+                    .frame(width: 130, height: 180)
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 20)
@@ -41,7 +41,7 @@ struct CallingView: View {
                 .lineLimit(2)
                 .padding(.horizontal, 20)
             
-            Text("Meeting end at \(viewModel.endTime)")
+            Text("Meeting end at \(viewModel.meetingEndTime)")
                 .font(.body)
                 .fontWeight(.medium)
                 .foregroundColor(.white)
@@ -56,6 +56,7 @@ struct CallingView: View {
                     .foregroundColor(.white)
                     .padding(.all, 15)
                     .background(Color.white.opacity(0.5))
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
             } else if viewModel.meetingState == .ended {
                 Text("Meeting ended")
                     .font(.body)
@@ -63,19 +64,20 @@ struct CallingView: View {
                     .foregroundColor(.white)
                     .padding(.all, 15)
                     .background(Color.white.opacity(0.5))
+                    .clipShape(RoundedRectangle(cornerRadius: 5))
             }
             
             HStack(spacing: 30) {
                 Button(action: {
                     
                 }, label: {
-                    CMRoundButton(iconName: "mic.slash.fill")
+                    CMRoundButton(iconName: viewModel.micIconName)
                 })
                 
                 Button(action: {
                     
                 }, label: {
-                    CMRoundButton(iconName: "ear")
+                    CMRoundButton(iconName: viewModel.speakerIconName)
                 })
             }
             
@@ -117,7 +119,8 @@ struct CallingView: View {
 
 struct SpeakerAvatarView: View {
     var user: UserProfile
-    @Binding var micState: MicState
+    @Binding var micState: MicState?
+    @Binding var connected: Bool
     
     var micStateIconName: String {
         switch micState {
@@ -125,46 +128,69 @@ struct SpeakerAvatarView: View {
             return "mic.slash.fill"
         case .speaking:
             return "mic.fill"
+        default:
+            return ""
         }
     }
     
     var body: some View {
-        VStack(spacing: 5) {
-            if let urlString = user.avatarThumbnailUrl {
-                AsyncImage(url: URL(string: urlString)) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                } placeholder: {
-                    Image("male-l", bundle: nil)
-                        .resizable()
-                        .scaledToFill()
-                        .opacity(0.5)
-                }
-                .frame(width: 80, height: 80)
-                .clipShape(RoundedRectangle(cornerRadius: 5))
-                .clipped()
-            } else {
-                Image("male-l", bundle: nil)
-                    .resizable()
-                    .frame(height: 80)
+        ZStack {
+            VStack(alignment: .center, spacing: 5) {
+                if let urlString = user.avatarThumbnailUrl {
+                    AsyncImage(url: URL(string: urlString)) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } placeholder: {
+                        Image("male-l", bundle: nil)
+                            .resizable()
+                            .scaledToFill()
+                            .opacity(0.5)
+                    }
+                    .frame(width: 80, height: 80)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                     .clipped()
+                } else {
+                    Image("male-l", bundle: nil)
+                        .resizable()
+                        .frame(height: 80)
+                        .clipShape(RoundedRectangle(cornerRadius: 5))
+                        .clipped()
+                }
+                
+                Text("\(user.firstName ?? "") \(user.lastName ?? "")")
+                    .font(.body)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                
+                Text("\(user.jobTitle ?? "")")
+                    .font(.footnote)
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+            }
+            .overlay(alignment: .topTrailing) {
+                if let micState = micState {
+                    Image(systemName: micStateIconName)
+                        .imageScale(.medium)
+                        .foregroundColor(.white)
+                }
             }
             
-            Text("\(user.firstName ?? "") \(user.lastName ?? "")")
-                .font(.body)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-            
-            Text("\(user.jobTitle ?? "")")
-                .font(.footnote)
-                .foregroundColor(.white)
-        }
-        .overlay(alignment: .topTrailing) {
-            Image(systemName: micStateIconName)
-                .imageScale(.medium)
-                .foregroundColor(.white)
+            if !connected {
+                Text("Waiting")
+                    .font(.body)
+                    .fontWeight(.medium)
+                    .frame(
+                        minWidth: 0,
+                        maxWidth: .infinity,
+                        minHeight: 0,
+                        maxHeight: .infinity,
+                        alignment: .center
+                    )
+                    .foregroundColor(.black)
+                    .background(Color.white.opacity(0.5))
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
         }
     }
 }

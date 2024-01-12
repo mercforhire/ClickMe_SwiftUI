@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct EditPhotosView: View {
     @Binding var isPresentingEditPhotosScreen: Bool
@@ -85,7 +86,7 @@ struct EditPhotosView: View {
                   dismissButton: .default(Text("Ok")))
         }
         .popover(isPresented: $viewModel.isPresentingPhotoPicker) {
-            CMPhotoPicker(avatarItem: $viewModel.pickerItem)
+            PhotosPicker("Select a photo", selection: $viewModel.pickerItem, matching: .images)
         }
         .task(id: viewModel.pickerItem) {
             viewModel.handleReceivedPickerItem()
