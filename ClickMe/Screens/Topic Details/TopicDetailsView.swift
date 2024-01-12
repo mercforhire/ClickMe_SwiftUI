@@ -20,7 +20,7 @@ struct TopicDetailsView: View {
         ScrollView(.vertical) {
             VStack(alignment: .leading) {
                 HStack(alignment: .center, spacing: 10) {
-                    if let urlString = viewModel.topic.userProfile?.userPhotos?.first?.thumbnail {
+                    if let urlString = viewModel.topic.userProfile?.avatarUrl {
                         AsyncImage(url: URL(string: urlString)) { image in
                             image
                                 .resizable()

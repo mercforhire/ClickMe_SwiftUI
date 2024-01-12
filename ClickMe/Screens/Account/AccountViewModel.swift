@@ -50,6 +50,10 @@ final class AccountViewModel: ObservableObject {
         }
     }
     
+    func handleSwitchMode() {
+        NotificationCenter.default.post(name: Notifications.ToggleGuestHostMode, object: nil, userInfo: nil)
+    }
+    
     func handleLogOut() {
         UserManager.shared.logout()
         NotificationCenter.default.post(name: Notifications.SwitchToGetStarted, object: nil, userInfo: nil)

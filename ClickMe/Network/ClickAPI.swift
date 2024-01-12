@@ -573,6 +573,22 @@ class ClickAPI {
         return response
     }
     
+    func setAvailability(params: SetAvailabilityParams) async throws -> DefaultResponse {
+        let parameters = params.params()
+        let url = baseURL + APIRequestURLs.setAvailability.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url,
+                                                                      method: APIRequestURLs.setAvailability.getHTTPMethod(),
+                                                                      parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "BAD_TIME_SLOT" {
+            throw CMError.invalidData
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
         let filename = String.randomString(length: 5)
         let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"

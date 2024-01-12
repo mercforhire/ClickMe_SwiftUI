@@ -12,7 +12,7 @@ struct SimpleUserCell: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
-            if let urlString = profile.userPhotos?.first?.url {
+            if let urlString = profile.avatarUrl {
                 AsyncImage(url: URL(string: urlString)) { image in
                     image
                         .resizable()

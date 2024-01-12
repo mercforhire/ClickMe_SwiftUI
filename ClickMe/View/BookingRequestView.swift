@@ -13,7 +13,7 @@ struct BookingRequestView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top, spacing: 20) {
-                if let urlString = request.hostUser?.userPhotos?.first?.thumbnail {
+                if let urlString = request.hostUser?.avatarThumbnailUrl {
                     AsyncImage(url: URL(string: urlString)) { image in
                         image
                             .resizable()

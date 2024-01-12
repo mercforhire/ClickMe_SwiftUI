@@ -13,7 +13,7 @@ struct TopicView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top, spacing: 10) {
-                if let profile = topic.userProfile, let urlString = profile.userPhotos?.first?.thumbnail {
+                if let profile = topic.userProfile, let urlString = profile.avatarThumbnailUrl {
                     AsyncImage(url: URL(string: urlString)) { image in
                         image
                             .resizable()

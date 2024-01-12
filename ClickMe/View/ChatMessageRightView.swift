@@ -33,7 +33,7 @@ struct ChatMessageRightView: View {
                 }
             }
             
-            if let urlString = userProfile.userPhotos?.first?.thumbnail  {
+            if let urlString = userProfile.avatarThumbnailUrl {
                 AsyncImage(url: URL(string: urlString)) { image in
                     image
                         .resizable()

@@ -14,7 +14,12 @@ struct SplashView: View {
         ZStack {
             if viewModel.appIsActive && !viewModel.loginInProgress {
                 if viewModel.loggedIn {
-                    HomeTabView()
+                    if viewModel.hostMode {
+                        HostTabView()
+                    } else {
+                        HomeTabView()
+                    }
+                    
                 } else {
                     GetStartedView()
                 }
@@ -35,6 +40,9 @@ struct SplashView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToGetStarted), perform: { _ in
             viewModel.handleSwitchToGetStartedNotification()
+        })
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.ToggleGuestHostMode), perform: { _ in
+            viewModel.hostMode.toggle()
         })
     }
 }

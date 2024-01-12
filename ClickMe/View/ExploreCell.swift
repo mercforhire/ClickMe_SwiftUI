@@ -13,7 +13,7 @@ struct ExploreCell: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            if let urlString = profile.userPhotos?.first?.url {
+            if let urlString = profile.avatarUrl {
                 AsyncImage(url: URL(string: urlString)) { image in
                     image
                         .resizable()

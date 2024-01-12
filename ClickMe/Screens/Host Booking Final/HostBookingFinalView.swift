@@ -1,35 +1,33 @@
 //
-//  BookingRequestedView.swift
+//  HostBookingFinalView.swift
 //  ClickMe
 //
-//  Created by Leon Chen on 2024-01-11.
+//  Created by Leon Chen on 2024-01-12.
 //
 
 import SwiftUI
 
-struct BookingRequestedView: View {
+struct HostBookingFinalView: View {
     @Binding var navigationPath: [ScreenNames]
+    @StateObject var viewModel: HostBookingFinalViewModel
     
-    init(navigationPath: Binding<[ScreenNames]>) {
+    init(action: BookingAction, navigationPath: Binding<[ScreenNames]>) {
+        _viewModel = StateObject(wrappedValue: HostBookingFinalViewModel(action: action))
         self._navigationPath = navigationPath
     }
     
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
-            Image("time", bundle: nil)
+            Image(viewModel.actionImageName, bundle: nil)
                 .resizable()
                 .scaledToFit()
                 .frame(height: 300)
-            Text("Your request has been sent")
+            Text(viewModel.actionSentence)
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
                 .padding(.bottom, 20)
-            Text("The ClickMe host will make a decision soon.")
-                .font(.body)
-                .fontWeight(.medium)
-                .foregroundColor(.primary)
             Spacer()
             Button {
                 navigationPath.removeAll()
@@ -44,5 +42,5 @@ struct BookingRequestedView: View {
 }
 
 #Preview {
-    BookingRequestedView(navigationPath: .constant([]))
+    HostBookingFinalView(action: .accept, navigationPath: .constant([]))
 }

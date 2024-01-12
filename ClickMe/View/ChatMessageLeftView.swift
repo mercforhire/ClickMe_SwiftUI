@@ -16,7 +16,7 @@ struct ChatMessageLeftView: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            if let urlString = userProfile.userPhotos?.first?.thumbnail  {
+            if let urlString = userProfile.avatarThumbnailUrl  {
                 AsyncImage(url: URL(string: urlString)) { image in
                     image
                         .resizable()

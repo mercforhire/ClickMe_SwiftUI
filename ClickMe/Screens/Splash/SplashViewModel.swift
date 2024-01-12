@@ -13,6 +13,7 @@ final class SplashViewModel: ObservableObject {
     @Published var appIsActive = false
     @Published var loginInProgress = false
     @Published var loggedIn = false
+    @Published var hostMode = false
     
     func prepareToLogin() {
         if let apiKey = UserManager.shared.apiKey {

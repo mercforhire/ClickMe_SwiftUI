@@ -74,7 +74,7 @@ struct AccountView: View {
             ZStack {
                 Form {
                     VStack(alignment: .center) {
-                        if let urlString = viewModel.myProfile.userPhotos?.first?.thumbnail {
+                        if let urlString = viewModel.myProfile.avatarUrl {
                             AsyncImage(url: URL(string: urlString)) { image in
                                 image
                                     .resizable()
@@ -169,7 +169,7 @@ struct AccountView: View {
                                 case .history:
                                     navigationPath.append(.myPastBookings(viewModel.myProfile.userId))
                                 case .switchMode:
-                                    break
+                                    viewModel.handleSwitchMode()
                                 case .support:
                                     break
                                 case .feedback:

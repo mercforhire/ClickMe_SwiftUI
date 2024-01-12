@@ -15,7 +15,7 @@ struct ChatConversationView: View {
     var body: some View {
         HStack(alignment: .top) {
             if let theOtherUser = theOtherUser {
-                if let urlString = theOtherUser.userPhotos?.first?.thumbnail  {
+                if let urlString = theOtherUser.avatarThumbnailUrl  {
                     AsyncImage(url: URL(string: urlString)) { image in
                         image
                             .resizable()
@@ -49,7 +49,6 @@ struct ChatConversationView: View {
                             .font(.footnote)
                             .fontWeight(.light)
                             .foregroundColor(Color(.systemGray))
-                            .frame(maxWidth: 100)
                     }
                     
                     Text(conversation.lastMessage.getDisplayMessage(participants: conversation.participants))

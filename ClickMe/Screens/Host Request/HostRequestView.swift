@@ -1,17 +1,17 @@
 //
-//  BookingStatusView.swift
+//  HostRequestView.swift
 //  ClickMe
 //
-//  Created by Leon Chen on 2024-01-08.
+//  Created by Leon Chen on 2024-01-11.
 //
 
 import SwiftUI
 
-struct BookingStatusView: View {
-    @StateObject var viewModel: BookingStatusViewModel
+struct HostRequestView: View {
+    @StateObject var viewModel: HostRequestViewModel
     
     init(request: Request) {
-        _viewModel = StateObject(wrappedValue: BookingStatusViewModel(request: request))
+        _viewModel = StateObject(wrappedValue: HostRequestViewModel(request: request))
     }
     
     var body: some View {
@@ -111,33 +111,56 @@ struct BookingStatusView: View {
                     .padding(.all, 10)
                 
                 if let receipt = viewModel.receipt {
-                    Text(receipt.displayablePrice)
-                        .font(.body)
-                        .fontWeight(.medium)
+                    HStack {
+                        Text(receipt.displayablePrice)
+                            .font(.body)
+                            .fontWeight(.medium)
                         .foregroundColor(.secondary)
+                        
+                        Text("minus platform fees (20%)")
+                            .font(.body)
+                            .fontWeight(.medium)
+                            .foregroundColor(.secondary)
+                    }
                 }
                 
                 Divider()
                     .frame(height: 5)
                     .overlay(Color(.systemGray6))
                 
-                HStack {
+                if viewModel.request.status == .PENDING_APPROVAL {
                     Button {
                         
                     } label: {
-                        CMButton(title: "Start call")
+                        CMButton(title: "Accept", fullWidth: true)
                     }
-                    
-                    Spacer()
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.all, 10)
                     
                     Button {
                         
                     } label: {
-                        CMButton(title: "Cancel booking")
+                        CMButton(title: "Reject", fullWidth: true)
                     }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.all, 10)
+                } else if viewModel.request.status == .APPROVED {
+                    Button {
+                        
+                    } label: {
+                        CMButton(title: "Start call", fullWidth: true)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.all, 10)
+                } else if viewModel.request.status == .FINISHED {
+                    Button {
+                        
+                    } label: {
+                        CMButton(title: "Write review", fullWidth: true)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.all, 10)
                 }
-                .padding(.all, 10)
-                .frame(maxWidth: .infinity, alignment: .center)
             }
             .background(Color(.systemBackground))
             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -159,5 +182,5 @@ struct BookingStatusView: View {
 
 #Preview {
     ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
-    return BookingStatusView(request: MockData.mockRequest())
+    return HostRequestView(request: MockData.mockRequest())
 }

@@ -21,7 +21,7 @@ struct ConfirmBookingView: View {
             ScrollView(.vertical) {
                 VStack(alignment: .leading) {
                     HStack(alignment: .center, spacing: 10) {
-                        if let urlString = viewModel.topic.userProfile?.userPhotos?.first?.thumbnail {
+                        if let urlString = viewModel.host.avatarUrl {
                             AsyncImage(url: URL(string: urlString)) { image in
                                 image
                                     .resizable()
@@ -38,16 +38,16 @@ struct ConfirmBookingView: View {
                         }
                         
                         VStack(alignment: .leading) {
-                            Text("\(viewModel.topic.userProfile?.firstName ?? "") \(viewModel.topic.userProfile?.lastName ?? "")")
+                            Text("\(viewModel.host.firstName ?? "") \(viewModel.host.lastName ?? "")")
                                 .font(.body)
                                 .fontWeight(.bold)
                                 .foregroundColor(.primary)
                             
-                            Text(viewModel.topic.userProfile?.jobTitle ?? "")
+                            Text(viewModel.host.jobTitle ?? "")
                                 .font(.subheadline)
                                 .foregroundColor(.primary)
                             
-                            Text(viewModel.topic.userProfile?.company ?? "")
+                            Text(viewModel.host.company ?? "")
                                 .font(.subheadline)
                                 .foregroundColor(.primary)
                         }
