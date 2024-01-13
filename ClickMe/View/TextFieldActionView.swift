@@ -31,6 +31,7 @@ struct TextFieldActionView: View {
             
             if let errorMessage = errorMessage {
                 CMErrorLabel(errorMessage)
+                    .padding(.horizontal, 5)
             }
             
             Button(action: {

@@ -166,5 +166,5 @@ struct EditProfileView: View {
 }
 
 #Preview {
-    EditProfileView(myProfile: MockData.mockProfile(), navigationPath: .constant([.editProfile(MockData.mockProfile())]))
+    EditProfileView(myProfile: MockData.mockProfile(), navigationPath: .constant([.editProfile]))
 }

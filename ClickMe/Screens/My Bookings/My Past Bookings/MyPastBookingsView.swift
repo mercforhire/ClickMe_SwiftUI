@@ -11,8 +11,8 @@ struct MyPastBookingsView: View {
     @StateObject var viewModel: MyPastBookingsViewModel
     @Binding var navigationPath: [ScreenNames]
     
-    init(myUserId: String, navigationPath: Binding<[ScreenNames]>) {
-        _viewModel = StateObject(wrappedValue: MyPastBookingsViewModel(myUserId: myUserId))
+    init(myProfile: UserProfile, navigationPath: Binding<[ScreenNames]>) {
+        _viewModel = StateObject(wrappedValue: MyPastBookingsViewModel(myProfile: myProfile))
         self._navigationPath = navigationPath
     }
     
@@ -43,5 +43,5 @@ struct MyPastBookingsView: View {
 
 #Preview {
     ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
-    return MyPastBookingsView(myUserId: "65971589d4f4d7af9f97a3bc", navigationPath: .constant([]))
+    return MyPastBookingsView(myProfile: MockData.mockProfile(), navigationPath: .constant([]))
 }

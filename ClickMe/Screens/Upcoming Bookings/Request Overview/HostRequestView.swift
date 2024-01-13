@@ -133,6 +133,7 @@ struct HostRequestView: View {
                     
                     if let actionError = viewModel.actionError {
                         CMErrorLabel(actionError)
+                            .padding(.horizontal, 10)
                     }
                     
                     if viewModel.request.status == .PENDING_APPROVAL {

@@ -9,13 +9,14 @@ import Foundation
 
 @MainActor
 final class BookingStatusViewModel: ObservableObject {
+    var myProfile: UserProfile
     @Published var request: Request
     @Published var receipt: Receipt?
     @Published var isLoading = false
     @Published var isShowingProfile = false
     @Published var isShowingCancelModal = false
+    @Published var isShowingReview = false
     @Published var actionError: String?
-    @Published var goToCallScreen = false
     @Published var callSession: CallSession?
     
     var host: UserProfile {
@@ -26,7 +27,8 @@ final class BookingStatusViewModel: ObservableObject {
         return request.topic!
     }
     
-    init(request: Request) {
+    init(myProfile: UserProfile, request: Request) {
+        self.myProfile = myProfile
         self.request = request
     }
     
@@ -73,7 +75,7 @@ final class BookingStatusViewModel: ObservableObject {
                 if let callSession = response.data?.session {
                     self.callSession = callSession
                     actionError = nil
-                    goToCallScreen = true
+                    fetchData()
                     print("go to calling screen using session:")
                     print(callSession)
                 } else {

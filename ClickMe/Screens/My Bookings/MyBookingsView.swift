@@ -11,8 +11,8 @@ struct MyBookingsView: View {
     @StateObject var viewModel: MyBookingsViewModel
     @State private var navigationPath: [ScreenNames] = []
     
-    init(myUserId: String) {
-        _viewModel = StateObject(wrappedValue: MyBookingsViewModel(myUserId: myUserId))
+    init(myProfile: UserProfile) {
+        _viewModel = StateObject(wrappedValue: MyBookingsViewModel(myProfile: myProfile))
     }
     
     var body: some View {
@@ -33,7 +33,7 @@ struct MyBookingsView: View {
                 .toolbar {
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         Button {
-                            navigationPath.append(.myPastBookings(viewModel.myUserId))
+                            navigationPath.append(.myPastBookings)
                         } label: {
                             Image("previous-date", bundle: nil)
                                 .resizable()
@@ -50,9 +50,9 @@ struct MyBookingsView: View {
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
                 case ScreenNames.bookingDetails(let request):
-                    BookingStatusView(request: request, navigationPath: $navigationPath)
-                case ScreenNames.myPastBookings(let myUserId):
-                    MyPastBookingsView(myUserId: myUserId, navigationPath: $navigationPath)
+                    BookingStatusView(myProfile: viewModel.myProfile,request: request, navigationPath: $navigationPath)
+                case ScreenNames.myPastBookings:
+                    MyPastBookingsView(myProfile: viewModel.myProfile, navigationPath: $navigationPath)
                 default:
                     fatalError()
                 }
@@ -66,5 +66,5 @@ struct MyBookingsView: View {
 
 #Preview {
     ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
-    return MyBookingsView(myUserId: "65971589d4f4d7af9f97a3bc")
+    return MyBookingsView(myProfile: MockData.mockProfile())
 }

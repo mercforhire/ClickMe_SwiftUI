@@ -19,10 +19,10 @@ enum ScreenNames: Hashable {
          chat,
          myBookings,
          bookingRequested
-    case myPastBookings(String)
-    case hostPastBookings(String)
+    case myPastBookings
+    case hostPastBookings
     case bookingDetails(Request)
-    case editProfile(UserProfile)
+    case editProfile
     case usersList(UsersListTypes, String)
     case topicDetails(Topic)
     case selectTime(Topic, UserProfile)

@@ -10,19 +10,19 @@ import SwiftUI
 
 @MainActor
 final class MyPastBookingsViewModel: ObservableObject {
-    var myUserId: String
+    var myProfile: UserProfile
     
     @Published var isLoading = false
     @Published var requests: [Request] = []
     
-    init(myUserId: String) {
-        self.myUserId = myUserId
+    init(myProfile: UserProfile) {
+        self.myProfile = myProfile
     }
     
     func fetchRequests() {
         Task {
             isLoading = true
-            let response = try? await ClickAPI.shared.getGuestPastBookingRequests(userId: myUserId)
+            let response = try? await ClickAPI.shared.getGuestPastBookingRequests(userId: myProfile.userId)
             if let requests = response?.data?.requests {
                 self.requests = requests
             }

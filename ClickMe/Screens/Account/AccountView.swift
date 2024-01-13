@@ -152,7 +152,7 @@ struct AccountView: View {
                             }
                             
                             Button {
-                                navigationPath.append(.editProfile(viewModel.myProfile))
+                                navigationPath.append(.editProfile)
                             } label: {
                                 CMButton(title: "Edit profile")
                             }
@@ -167,7 +167,7 @@ struct AccountView: View {
                                 case .wallet:
                                     break
                                 case .history:
-                                    navigationPath.append(.myPastBookings(viewModel.myProfile.userId))
+                                    navigationPath.append(.myPastBookings)
                                 case .switchMode:
                                     viewModel.handleSwitchMode()
                                 case .support:
@@ -240,10 +240,10 @@ struct AccountView: View {
             .background(Color(.systemGray6))
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
-                case ScreenNames.myPastBookings(let myUserId):
-                    MyPastBookingsView(myUserId: myUserId, navigationPath: $navigationPath)
-                case ScreenNames.editProfile(let profile):
-                    EditProfileView(myProfile: profile, navigationPath: $navigationPath)
+                case ScreenNames.myPastBookings:
+                    MyPastBookingsView(myProfile: viewModel.myProfile, navigationPath: $navigationPath)
+                case ScreenNames.editProfile:
+                    EditProfileView(myProfile: viewModel.myProfile, navigationPath: $navigationPath)
                 case ScreenNames.usersList(let type, let myUserId):
                     UsersListView(type: type, myUserId: myUserId)
                 default:

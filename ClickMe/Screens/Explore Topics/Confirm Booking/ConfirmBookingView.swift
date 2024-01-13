@@ -97,6 +97,7 @@ struct ConfirmBookingView: View {
                     
                     if let bookingError = viewModel.bookingError {
                         CMErrorLabel(bookingError)
+                            .padding(.horizontal, 10)
                     }
                     
                     Button {

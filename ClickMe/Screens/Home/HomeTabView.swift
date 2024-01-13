@@ -30,7 +30,7 @@ struct HomeTabView: View {
                     Label("Topics", systemImage: "lightbulb")
                 }
                 .tag(HomeTabs.topics)
-            MyBookingsView(myUserId: viewModel.getCurrentUser().userId)
+            MyBookingsView(myProfile: viewModel.getCurrentUser())
                 .tabItem {
                     Label("Bookings", systemImage: "calendar.badge.clock")
                 }

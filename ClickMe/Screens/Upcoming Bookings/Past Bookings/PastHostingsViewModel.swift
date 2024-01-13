@@ -9,19 +9,19 @@ import Foundation
 
 @MainActor
 final class PastHostingsViewModel: ObservableObject {
-    var myUserId: String
+    var myProfile: UserProfile
     
     @Published var isLoading = false
     @Published var requests: [Request] = []
     
-    init(myUserId: String) {
-        self.myUserId = myUserId
+    init(myProfile: UserProfile) {
+        self.myProfile = myProfile
     }
     
     func fetchRequests() {
         Task {
             isLoading = true
-            let response = try? await ClickAPI.shared.getHostPastBookingRequests(userId: myUserId)
+            let response = try? await ClickAPI.shared.getHostPastBookingRequests(userId: myProfile.userId)
             if let requests = response?.data?.requests {
                 self.requests = requests
             }

@@ -30,7 +30,7 @@ struct HostTabView: View {
                     Label("Calender", systemImage: "clock")
                 }
                 .tag(HostTabs.calendar)
-            HostUpcomingBookingsView(myUserId: viewModel.getCurrentUser().userId)
+            HostUpcomingBookingsView(myProfile: viewModel.getCurrentUser())
                 .tabItem {
                     Label("Upcoming", systemImage: "calendar.badge.exclamationmark")
                 }

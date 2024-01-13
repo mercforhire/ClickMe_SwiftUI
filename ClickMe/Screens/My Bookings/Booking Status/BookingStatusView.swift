@@ -11,8 +11,8 @@ struct BookingStatusView: View {
     @StateObject var viewModel: BookingStatusViewModel
     @Binding var navigationPath: [ScreenNames]
     
-    init(request: Request, navigationPath: Binding<[ScreenNames]>) {
-        _viewModel = StateObject(wrappedValue: BookingStatusViewModel(request: request))
+    init(myProfile: UserProfile, request: Request, navigationPath: Binding<[ScreenNames]>) {
+        _viewModel = StateObject(wrappedValue: BookingStatusViewModel(myProfile: myProfile, request: request))
         self._navigationPath = navigationPath
     }
     
@@ -126,6 +126,7 @@ struct BookingStatusView: View {
                     
                     if let actionError = viewModel.actionError {
                         CMErrorLabel(actionError)
+                            .padding(.horizontal, 10)
                     }
                     
                     if viewModel.request.status == .APPROVED {
@@ -146,7 +147,7 @@ struct BookingStatusView: View {
                         .padding(.all, 10)
                     } else if viewModel.request.status == .FINISHED {
                         Button {
-                            
+                            viewModel.isShowingReview = true
                         } label: {
                             CMButton(title: "Write review", fullWidth: true)
                         }
@@ -184,13 +185,19 @@ struct BookingStatusView: View {
                             isShowingProfile: $viewModel.isShowingProfile,
                             loadTopics: false)
         }
-        .onAppear {
-//                viewModel.fetchData()
+        .fullScreenCover(isPresented: $viewModel.isShowingReview) {
+            WriteReviewView(myUserId: viewModel.myProfile.userId,
+                            reviewing: viewModel.host,
+                            topic: viewModel.topic,
+                            request: viewModel.request,
+                            isShowingReview: $viewModel.isShowingReview)
         }
     }
 }
 
 #Preview {
     ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
-    return BookingStatusView(request: MockData.mockRequest2(), navigationPath: .constant([]))
+    return BookingStatusView(myProfile: MockData.mockProfile(),
+                             request: MockData.mockRequest2(),
+                             navigationPath: .constant([]))
 }
