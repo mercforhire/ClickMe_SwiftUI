@@ -11,7 +11,8 @@ import PhotosUI
 
 @MainActor
 final class EditProfileViewModel: ObservableObject {
-    @Published var myProfile: UserProfile
+    var myProfile: UserProfile
+    
     @Published var isLoading = false
     
     @Published var firstName = ""

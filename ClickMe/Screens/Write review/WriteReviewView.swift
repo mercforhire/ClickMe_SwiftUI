@@ -11,8 +11,8 @@ struct WriteReviewView: View {
     @Binding var isShowingReview: Bool
     @StateObject var viewModel: WriteReviewViewModel
     
-    init(myUserId: String, reviewing: UserProfile, topic: Topic, request: Request, isShowingReview: Binding<Bool>) {
-        _viewModel = StateObject(wrappedValue: WriteReviewViewModel(myUserId: myUserId, reviewing: reviewing, topic: topic, request: request))
+    init(myUserId: String, reviewing: UserProfile, topic: Topic, request: Request, existingReview: Review? = nil, isShowingReview: Binding<Bool>) {
+        _viewModel = StateObject(wrappedValue: WriteReviewViewModel(myUserId: myUserId, reviewing: reviewing, topic: topic, request: request, existingReview: existingReview))
         _isShowingReview = isShowingReview
     }
     
@@ -112,6 +112,11 @@ struct WriteReviewView: View {
             
             if viewModel.isLoading {
                 LoadingView()
+            }
+        }
+        .onChange(of: viewModel.reviewSubmitSuccess) { success in
+            if success {
+                isShowingReview = false
             }
         }
     }

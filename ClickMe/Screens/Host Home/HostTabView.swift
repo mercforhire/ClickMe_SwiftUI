@@ -35,7 +35,7 @@ struct HostTabView: View {
                     Label("Upcoming", systemImage: "calendar.badge.exclamationmark")
                 }
                 .tag(HostTabs.upcoming)
-            HostTopicsView()
+            HostTopicsView(myProfile: viewModel.getCurrentUser())
                 .tabItem {
                     Label("Topics", systemImage: "lightbulb")
                 }

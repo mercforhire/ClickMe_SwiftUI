@@ -149,7 +149,7 @@ struct BookingStatusView: View {
                         Button {
                             viewModel.isShowingReview = true
                         } label: {
-                            CMButton(title: "Write review", fullWidth: true)
+                            CMButton(title: viewModel.review == nil ? "Write review" : "Edit review", fullWidth: true)
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.all, 10)
@@ -190,7 +190,11 @@ struct BookingStatusView: View {
                             reviewing: viewModel.host,
                             topic: viewModel.topic,
                             request: viewModel.request,
+                            existingReview: viewModel.review,
                             isShowingReview: $viewModel.isShowingReview)
+        }
+        .onAppear() {
+            viewModel.fetchData()
         }
     }
 }

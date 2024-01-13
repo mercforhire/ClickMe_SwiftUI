@@ -97,6 +97,9 @@
 		721D0D452B52087800095A97 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D442B52087800095A97 /* Review.swift */; };
 		721D0D472B520B5D00095A97 /* GetReviewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D462B520B5D00095A97 /* GetReviewsResponse.swift */; };
 		721D0D492B520D3B00095A97 /* GetUserRatingsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D482B520D3B00095A97 /* GetUserRatingsResponse.swift */; };
+		721D0D4B2B5316ED00095A97 /* HostTopicsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D4A2B5316ED00095A97 /* HostTopicsViewModel.swift */; };
+		721D0D4E2B531C1800095A97 /* EditTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D4D2B531C1800095A97 /* EditTopicView.swift */; };
+		721D0D502B531C2800095A97 /* EditTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D4F2B531C2800095A97 /* EditTopicViewModel.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -295,6 +298,9 @@
 		721D0D442B52087800095A97 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		721D0D462B520B5D00095A97 /* GetReviewsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetReviewsResponse.swift; sourceTree = "<group>"; };
 		721D0D482B520D3B00095A97 /* GetUserRatingsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserRatingsResponse.swift; sourceTree = "<group>"; };
+		721D0D4A2B5316ED00095A97 /* HostTopicsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostTopicsViewModel.swift; sourceTree = "<group>"; };
+		721D0D4D2B531C1800095A97 /* EditTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTopicView.swift; sourceTree = "<group>"; };
+		721D0D4F2B531C2800095A97 /* EditTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTopicViewModel.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -576,6 +582,8 @@
 			isa = PBXGroup;
 			children = (
 				721905172B5041D5000516CA /* HostTopicsView.swift */,
+				721D0D4A2B5316ED00095A97 /* HostTopicsViewModel.swift */,
+				721D0D4C2B531BEF00095A97 /* Edit Topic */,
 			);
 			path = "Host Topics";
 			sourceTree = "<group>";
@@ -710,6 +718,15 @@
 				721D0D412B51E6B900095A97 /* MyCosmosView.swift */,
 			);
 			path = UIViewRepresentable;
+			sourceTree = "<group>";
+		};
+		721D0D4C2B531BEF00095A97 /* Edit Topic */ = {
+			isa = PBXGroup;
+			children = (
+				721D0D4D2B531C1800095A97 /* EditTopicView.swift */,
+				721D0D4F2B531C2800095A97 /* EditTopicViewModel.swift */,
+			);
+			path = "Edit Topic";
 			sourceTree = "<group>";
 		};
 		722C59D12B43EDE900EBA081 /* Network */ = {
@@ -1352,6 +1369,7 @@
 				721905152B5041B6000516CA /* HostCalenderView.swift in Sources */,
 				72774C492B48812700C5A248 /* GetUsersResponse.swift in Sources */,
 				721905352B50B4C6000516CA /* PastHostingsViewModel.swift in Sources */,
+				721D0D4E2B531C1800095A97 /* EditTopicView.swift in Sources */,
 				722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */,
 				720B60652B4C3AE900CF716E /* GetBookingRequestsResponse.swift in Sources */,
 				720087B42B4DFE200020633F /* DragRelocateDelegate.swift in Sources */,
@@ -1386,6 +1404,7 @@
 				7255862C2B4515C1005A37B9 /* Field.swift in Sources */,
 				720B607B2B4D1C2C00CF716E /* MyPastBookingsViewModel.swift in Sources */,
 				722C59D72B43F0A100EBA081 /* APIRequestsURLs.swift in Sources */,
+				721D0D4B2B5316ED00095A97 /* HostTopicsViewModel.swift in Sources */,
 				720B60612B4B033400CF716E /* MyBookingsViewModel.swift in Sources */,
 				725586172B44CA07005A37B9 /* ScreenNames.swift in Sources */,
 				7219053A2B50BC07000516CA /* CustomModifiers.swift in Sources */,
@@ -1476,6 +1495,7 @@
 				720B604A2B4A584E00CF716E /* InboxViewModel.swift in Sources */,
 				721D0D472B520B5D00095A97 /* GetReviewsResponse.swift in Sources */,
 				721905272B506997000516CA /* HostRequestViewModel.swift in Sources */,
+				721D0D502B531C2800095A97 /* EditTopicViewModel.swift in Sources */,
 				720087AA2B4DAB4E0020633F /* EditProfileView.swift in Sources */,
 				720B60542B4ABD7500CF716E /* ChatMessageLeftView.swift in Sources */,
 				7219051B2B50425B000516CA /* HostStatusView.swift in Sources */,

@@ -21,11 +21,16 @@ final class WriteReviewViewModel: ObservableObject {
     @Published var reviewSubmittionError: String?
     @Published var reviewSubmitSuccess = false
     
-    init(myUserId: String, reviewing: UserProfile, topic: Topic, request: Request) {
+    init(myUserId: String, reviewing: UserProfile, topic: Topic, request: Request, existingReview: Review? = nil) {
         self.myUserId = myUserId
         self.reviewing = reviewing
         self.topic = topic
         self.request = request
+        
+        if let existingReview {
+            rating = existingReview.rating
+            writtenReview = existingReview.comment
+        }
     }
     
     func submitReview() {

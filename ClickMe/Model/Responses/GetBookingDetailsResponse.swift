@@ -16,4 +16,5 @@ struct GetBookingDetailsResponse: Codable {
 struct GetBookingDetailsData: Codable {
     var request: Request
     var receipt: Receipt?
+    var reviews: [Review]?
 }

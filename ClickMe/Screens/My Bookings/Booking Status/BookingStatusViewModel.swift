@@ -12,6 +12,7 @@ final class BookingStatusViewModel: ObservableObject {
     var myProfile: UserProfile
     @Published var request: Request
     @Published var receipt: Receipt?
+    @Published var review: Review?
     @Published var isLoading = false
     @Published var isShowingProfile = false
     @Published var isShowingCancelModal = false
@@ -39,6 +40,7 @@ final class BookingStatusViewModel: ObservableObject {
             if let request = response?.data?.request {
                 self.request = request
                 self.receipt = response?.data?.receipt
+                self.review = response?.data?.reviews?.first(where: { $0.reviewerId == myProfile.userId })
             }
             isLoading = false
         }
@@ -58,7 +60,7 @@ final class BookingStatusViewModel: ObservableObject {
             } catch {
                 switch error {
                 case CMError.bookingRequestMustBeApproved:
-                    actionError = "Can only cancel already approved booking"
+                    actionError = "Can only cancel an approved booking"
                 default:
                     actionError = "Unknown error"
                 }

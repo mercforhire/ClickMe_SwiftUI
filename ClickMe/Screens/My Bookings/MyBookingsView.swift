@@ -50,7 +50,7 @@ struct MyBookingsView: View {
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
                 case ScreenNames.bookingDetails(let request):
-                    BookingStatusView(myProfile: viewModel.myProfile,request: request, navigationPath: $navigationPath)
+                    BookingStatusView(myProfile: viewModel.myProfile, request: request, navigationPath: $navigationPath)
                 case ScreenNames.myPastBookings:
                     MyPastBookingsView(myProfile: viewModel.myProfile, navigationPath: $navigationPath)
                 default:

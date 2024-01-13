@@ -24,6 +24,14 @@ class MockData {
         Photo(thumbnail: "https://picsum.photos/id/527/300/500", url: "https://picsum.photos/id/527/300/500")
     }
     
+    static func mockUser() -> User {
+        return User(_id: "65971589d4f4d7af9f97a3bc", email: "cassandra_labadie-brown36@yahoo.com", apiKey: "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e")
+    }
+    
+    static func mockUser2() -> User {
+        return User(_id: "65971715d4f4d7af9f97d889", email: "giovanny_dach-bins15@gmail.com", apiKey: "00bdda2d44401b66b309bec2ec3d7e4ae6b975b2824fd4f814f11023369886cb83e005e5a1fc97b783bd4110e948bd345053c364b50a84cc48245d4d0de380a8")
+    }
+    
     static func mockProfile() -> UserProfile {
         return UserProfile(userId: "65971589d4f4d7af9f97a3bc", screenId: "d0rk4vpj9p", firstName: "Kayla", lastName: "Koch", city: "Melodyview", state: "Washington", country: .canada, jobTitle: "Regional Group Technician", company: "Larkin LLC", field: .science, degree: "Paradigm", aboutMe: "Curo dolores cornu demulceo distinctio cunae truculenter clibanus.", userPhotos: [MockData.mockPhoto(), MockData.mockPhoto1(), MockData.mockPhoto2()], languages: [.english, .french], numberOfFollowers: 55, numberFollowing: 1)
     }

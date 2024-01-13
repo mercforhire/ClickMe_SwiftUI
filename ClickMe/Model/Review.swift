@@ -29,5 +29,5 @@ struct Review: Codable, Identifiable, Hashable {
     var requestId: String
     var rating: Double
     var comment: String
-    var reviewer: UserProfile
+    var reviewer: UserProfile?
 }
