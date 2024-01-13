@@ -9,18 +9,18 @@ import SwiftUI
 
 struct TextFieldActionView: View {
     let buttonText: String
+    var placeholder: String = "Send a message along with the action"
     @Binding var isShowingView: Bool
-    @Binding var typingMessage: String
-    var actionHandler: () -> Void
+    @State var initialMessage: String = ""
+    var actionHandler: ((String) -> Void)?
     
-    @State var errorMessage: String?
-    
+    @State private var errorMessage: String?
     private let screenWidth = UIScreen.main.bounds.size.width
     
     var body: some View {
         VStack(alignment: .leading) {
-            TextField("Send a message along with the action",
-                      text: $typingMessage,
+            TextField(placeholder,
+                      text: $initialMessage,
                       axis: .vertical)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .textInputAutocapitalization(.sentences)
@@ -34,13 +34,13 @@ struct TextFieldActionView: View {
             }
             
             Button(action: {
-                if typingMessage.isEmpty {
+                if initialMessage.isEmpty {
                     errorMessage = "Please type a message"
                     return
                 }
                 errorMessage = nil
                 isShowingView = false
-                actionHandler()
+                actionHandler?(initialMessage)
             }, label: {
                 Text(buttonText)
             })
@@ -68,8 +68,8 @@ struct TextFieldActionView: View {
 #Preview {
     TextFieldActionView(buttonText: "Accept",
                         isShowingView: .constant(true),
-                        typingMessage: .constant(""),
-                        actionHandler: {
-        print("action button pressed")
+                        actionHandler: { message in
+        
+        print("message typed: \(message)")
     })
 }

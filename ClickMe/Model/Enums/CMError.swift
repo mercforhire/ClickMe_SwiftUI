@@ -30,8 +30,11 @@ enum CMError: Error {
     case timeslotConflict
     case bookingRequestMustBePending
     case bookingRequestMustBeApproved
-    case useIsNotInTheBooking
+    case userIsNotInTheBooking
     case tooEarlyToStartSession
     case alreadyPastSessionEndTime
     case agoraTokenError
+    case bookingRequestMustBeFinished
+    case canNotReviewSelf
+    case reviewMustContainComment
 }

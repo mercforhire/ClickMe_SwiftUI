@@ -186,21 +186,19 @@ struct HostRequestView: View {
             
             if viewModel.isShowingAcceptModal {
                 TextFieldActionView(buttonText: BookingAction.accept.actionText(),
-                                    isShowingView: $viewModel.isShowingAcceptModal,
-                                    typingMessage: $viewModel.actionMessage) {
-                    viewModel.handleAcceptAction()
+                                    isShowingView: $viewModel.isShowingAcceptModal) { message in
+                    viewModel.handleAcceptAction(message: message)
                 }
+                
             } else if viewModel.isShowingDeclineModal {
                 TextFieldActionView(buttonText: BookingAction.decline.actionText(),
-                                    isShowingView: $viewModel.isShowingDeclineModal,
-                                    typingMessage: $viewModel.actionMessage) {
-                    viewModel.handleDeclineAction()
+                                    isShowingView: $viewModel.isShowingDeclineModal) { message in
+                    viewModel.handleDeclineAction(message: message)
                 }
             } else if viewModel.isShowingCancelModal {
                 TextFieldActionView(buttonText: BookingAction.cancel.actionText(),
-                                    isShowingView: $viewModel.isShowingCancelModal,
-                                    typingMessage: $viewModel.actionMessage) {
-                    viewModel.handleCancelAction()
+                                    isShowingView: $viewModel.isShowingCancelModal) { message in
+                    viewModel.handleCancelAction(message: message)
                 }
             }
             

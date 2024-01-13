@@ -13,7 +13,6 @@ final class BookingStatusViewModel: ObservableObject {
     @Published var receipt: Receipt?
     @Published var isLoading = false
     @Published var isShowingProfile = false
-    @Published var actionMessage: String = ""
     @Published var isShowingCancelModal = false
     @Published var actionError: String?
     @Published var goToCallScreen = false
@@ -31,16 +30,6 @@ final class BookingStatusViewModel: ObservableObject {
         self.request = request
     }
     
-    func checkIfMessageIsFilled() -> Bool {
-        if actionMessage.isEmpty {
-            actionError = "Please enter a message"
-            return false
-        }
-        
-        actionError = nil
-        return true
-    }
-    
     func fetchData() {
         Task {
             isLoading = true
@@ -53,13 +42,11 @@ final class BookingStatusViewModel: ObservableObject {
         }
     }
     
-    func handleCancelAction() {
-        guard checkIfMessageIsFilled() else { return }
-        
+    func handleCancelAction(message: String) {
         isLoading = true
         Task {
             do {
-                let response = try await ClickAPI.shared.requestAction(requestId: request._id, action: .cancel, message: actionMessage)
+                let response = try await ClickAPI.shared.requestAction(requestId: request._id, action: .cancel, message: message)
                 if response.success {
                     actionError = nil
                     fetchData()

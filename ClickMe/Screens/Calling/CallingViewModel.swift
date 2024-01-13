@@ -40,9 +40,9 @@ final class CallingViewModel: ObservableObject {
     var token: String
     
     @Published var meetingState: MeetingState = .connecting
-    @Published var micState: MicState?
+    @Published var micState: MicState = .speaking
     @Published var speakerState: SpeakerState = .speaker
-    @Published var talkingToMicState: MicState = .speaking
+    @Published var talkingToMicState: MicState?
     @Published var otherPersonIsConnected: Bool = false
     
     var meetingEndTime: String {

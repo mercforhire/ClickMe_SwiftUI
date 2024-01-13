@@ -28,6 +28,4 @@ struct Topic: Codable, Identifiable, Hashable {
         let amount: Double = Double(priceHour) / 100.0
         return "\(amount.formatted(.currency(code: currency.rawValue))) / hour"
     }
-    
-    
 }

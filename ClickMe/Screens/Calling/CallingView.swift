@@ -26,9 +26,13 @@ struct CallingView: View {
             Spacer()
             
             HStack(alignment: .top) {
-                SpeakerAvatarView(user: viewModel.myProfile, micState: .constant(nil), connected: .constant(true))
+                SpeakerAvatarView(user: viewModel.myProfile, 
+                                  micState: .constant(nil),
+                                  connected: .constant(true))
                     .frame(width: 130, height: 180)
-                SpeakerAvatarView(user: viewModel.talkingTo, micState: $viewModel.talkingToMicState, connected: $viewModel.otherPersonIsConnected)
+                SpeakerAvatarView(user: viewModel.talkingTo, 
+                                  micState: $viewModel.talkingToMicState,
+                                  connected: $viewModel.otherPersonIsConnected)
                     .frame(width: 130, height: 180)
             }
             .padding(.horizontal, 20)
@@ -207,6 +211,6 @@ struct HangUpButton: View {
         }
         .frame(maxWidth: .infinity)
         .background(Color.red)
-        .cornerRadius(5)
+        .clipShape(RoundedRectangle(cornerRadius: 5))
     }
 }

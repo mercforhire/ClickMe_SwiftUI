@@ -94,6 +94,9 @@
 		721D0D3E2B51DAA300095A97 /* WriteReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D3D2B51DAA300095A97 /* WriteReviewView.swift */; };
 		721D0D402B51DAAD00095A97 /* WriteReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D3F2B51DAAD00095A97 /* WriteReviewViewModel.swift */; };
 		721D0D422B51E6B900095A97 /* MyCosmosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D412B51E6B900095A97 /* MyCosmosView.swift */; };
+		721D0D452B52087800095A97 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D442B52087800095A97 /* Review.swift */; };
+		721D0D472B520B5D00095A97 /* GetReviewsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D462B520B5D00095A97 /* GetReviewsResponse.swift */; };
+		721D0D492B520D3B00095A97 /* GetUserRatingsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D482B520D3B00095A97 /* GetUserRatingsResponse.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -289,6 +292,9 @@
 		721D0D3D2B51DAA300095A97 /* WriteReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewView.swift; sourceTree = "<group>"; };
 		721D0D3F2B51DAAD00095A97 /* WriteReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewModel.swift; sourceTree = "<group>"; };
 		721D0D412B51E6B900095A97 /* MyCosmosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCosmosView.swift; sourceTree = "<group>"; };
+		721D0D442B52087800095A97 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		721D0D462B520B5D00095A97 /* GetReviewsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetReviewsResponse.swift; sourceTree = "<group>"; };
+		721D0D482B520D3B00095A97 /* GetUserRatingsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserRatingsResponse.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -738,6 +744,8 @@
 				720087C42B4EFBE20020633F /* GetAvailabilityResponse.swift */,
 				727592102B4F7EBC0071ABA5 /* GetBookingPriceResponse.swift */,
 				721905422B5181E2000516CA /* StartCallSessionResponse.swift */,
+				721D0D462B520B5D00095A97 /* GetReviewsResponse.swift */,
+				721D0D482B520D3B00095A97 /* GetUserRatingsResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -823,6 +831,7 @@
 				720B604D2B4A5F6000CF716E /* Attachment.swift */,
 				720B604F2B4A5FF000CF716E /* Request.swift */,
 				720B60712B4C7E2500CF716E /* Receipt.swift */,
+				721D0D442B52087800095A97 /* Review.swift */,
 				7219050C2B501AEB000516CA /* StripeData.swift */,
 				720B605C2B4ADAE700CF716E /* MockData.swift */,
 				720B60622B4B19F100CF716E /* Notifications.swift */,
@@ -1307,6 +1316,7 @@
 			files = (
 				727BD74B2B453A6400D4279D /* Photo.swift in Sources */,
 				725586202B44D68A005A37B9 /* SetupBasicInfoViewModel.swift in Sources */,
+				721D0D452B52087800095A97 /* Review.swift in Sources */,
 				7219051D2B504322000516CA /* HostTabViewModel.swift in Sources */,
 				720087C52B4EFBE20020633F /* GetAvailabilityResponse.swift in Sources */,
 				720087C72B4EFC770020633F /* Timeslot.swift in Sources */,
@@ -1333,6 +1343,7 @@
 				721905122B504167000516CA /* HostTabView.swift in Sources */,
 				7237A58E2B43016100ABF10F /* CMButton.swift in Sources */,
 				724C95462B48FFEE00AD2CFC /* TopicDetailsViewModel.swift in Sources */,
+				721D0D492B520D3B00095A97 /* GetUserRatingsResponse.swift in Sources */,
 				72774C2C2B47C43C00C5A248 /* ExploreFilterViewModel.swift in Sources */,
 				720B60762B4D1B8700CF716E /* ReceiptStatus.swift in Sources */,
 				720B60462B49DF3400CF716E /* Conversation.swift in Sources */,
@@ -1463,6 +1474,7 @@
 				7237A5962B43829500ABF10F /* LoginInitialView.swift in Sources */,
 				72064F362B470B7200BB9ECC /* ExploreViewModel.swift in Sources */,
 				720B604A2B4A584E00CF716E /* InboxViewModel.swift in Sources */,
+				721D0D472B520B5D00095A97 /* GetReviewsResponse.swift in Sources */,
 				721905272B506997000516CA /* HostRequestViewModel.swift in Sources */,
 				720087AA2B4DAB4E0020633F /* EditProfileView.swift in Sources */,
 				720B60542B4ABD7500CF716E /* ChatMessageLeftView.swift in Sources */,

@@ -14,7 +14,6 @@ final class HostRequestViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var isShowingProfile = false
     @Published var callSession: CallSession?
-    @Published var actionMessage: String = ""
     @Published var isShowingAcceptModal = false
     @Published var isShowingDeclineModal = false
     @Published var isShowingCancelModal = false
@@ -33,16 +32,6 @@ final class HostRequestViewModel: ObservableObject {
         self.request = request
     }
     
-    func checkIfMessageIsFilled() -> Bool {
-        if actionMessage.isEmpty {
-            actionError = "Please enter a message"
-            return false
-        }
-        
-        actionError = nil
-        return true
-    }
-    
     func fetchData() {
         Task {
             isLoading = true
@@ -55,13 +44,11 @@ final class HostRequestViewModel: ObservableObject {
         }
     }
     
-    func handleAcceptAction() {
-        guard checkIfMessageIsFilled() else { return }
-        
+    func handleAcceptAction(message: String) {
         isLoading = true
         Task {
             do {
-                let response = try await ClickAPI.shared.requestAction(requestId: request._id, action: .accept, message: actionMessage)
+                let response = try await ClickAPI.shared.requestAction(requestId: request._id, action: .accept, message: message)
                 if response.success {
                     actionError = nil
                     fetchData()
@@ -80,13 +67,11 @@ final class HostRequestViewModel: ObservableObject {
         }
     }
     
-    func handleDeclineAction() {
-        guard checkIfMessageIsFilled() else { return }
-        
+    func handleDeclineAction(message: String) {
         isLoading = true
         Task {
             do {
-                let response = try await ClickAPI.shared.requestAction(requestId: request._id, action: .decline, message: actionMessage)
+                let response = try await ClickAPI.shared.requestAction(requestId: request._id, action: .decline, message: message)
                 if response.success {
                     actionError = nil
                     fetchData()
@@ -105,13 +90,11 @@ final class HostRequestViewModel: ObservableObject {
         }
     }
     
-    func handleCancelAction() {
-        guard checkIfMessageIsFilled() else { return }
-        
+    func handleCancelAction(message: String) {
         isLoading = true
         Task {
             do {
-                let response = try await ClickAPI.shared.requestAction(requestId: request._id, action: .cancel, message: actionMessage)
+                let response = try await ClickAPI.shared.requestAction(requestId: request._id, action: .cancel, message: message)
                 if response.success {
                     actionError = nil
                     fetchData()

@@ -138,7 +138,7 @@ struct BookingStatusView: View {
                         .padding(.all, 10)
                         
                         Button {
-                            
+                            viewModel.isShowingCancelModal = true
                         } label: {
                             CMButton(title: "Cancel booking", fullWidth: true)
                         }
@@ -163,9 +163,13 @@ struct BookingStatusView: View {
             
             if viewModel.isShowingCancelModal {
                 TextFieldActionView(buttonText: BookingAction.cancel.actionText(),
-                                    isShowingView: $viewModel.isShowingCancelModal,
-                                    typingMessage: $viewModel.actionMessage) {
-                    viewModel.handleCancelAction()
+                                    isShowingView: $viewModel.isShowingCancelModal) { message in
+                    viewModel.handleCancelAction(message: message)
+                }
+                
+                TextFieldActionView(buttonText: BookingAction.cancel.actionText(),
+                                    isShowingView: $viewModel.isShowingCancelModal) { message in
+                    viewModel.handleCancelAction(message: message)
                 }
             }
             
@@ -188,5 +192,5 @@ struct BookingStatusView: View {
 
 #Preview {
     ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
-    return BookingStatusView(request: MockData.mockRequest(), navigationPath: .constant([]))
+    return BookingStatusView(request: MockData.mockRequest2(), navigationPath: .constant([]))
 }

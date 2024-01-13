@@ -536,7 +536,7 @@ class ClickAPI {
     func checkBookingAvailability(params: RequestBookingParams) async throws -> DefaultResponse {
         let parameters = params.params()
         let url = baseURL + APIRequestURLs.checkBookingAvailability.rawValue
-        let response: DefaultResponse = try await service.httpRequest(url: url, 
+        let response: DefaultResponse = try await service.httpRequest(url: url,
                                                                       method: APIRequestURLs.checkBookingAvailability.getHTTPMethod(),
                                                                       parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {
@@ -561,8 +561,8 @@ class ClickAPI {
         let parameters = params.params()
         let url = baseURL + APIRequestURLs.getBookingPrice.rawValue
         let response: GetBookingPriceResponse = try await service.httpRequest(url: url,
-                                                                      method: APIRequestURLs.getBookingPrice.getHTTPMethod(),
-                                                                      parameters: parameters)
+                                                                              method: APIRequestURLs.getBookingPrice.getHTTPMethod(),
+                                                                              parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
         } else if !response.success, response.message == "TOPIC_DOES_NOT_EXIST" {
@@ -616,7 +616,7 @@ class ClickAPI {
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
         } else if !response.success, response.message == "USER_NOT_SCHEDULE_HOST_NOR_BOOKING_USER" {
-            throw CMError.useIsNotInTheBooking
+            throw CMError.userIsNotInTheBooking
         } else if !response.success, response.message == "BOOKING_REQUEST_STATUS_INVALID" {
             throw CMError.bookingRequestMustBeApproved
         } else if !response.success, response.message == "TOO_EARLY_TO_START_BOOKING_SESSION" {
@@ -625,6 +625,60 @@ class ClickAPI {
             throw CMError.alreadyPastSessionEndTime
         } else if !response.success, response.message == "AGORA_TOKEN_GENERATION_FAILED" {
             throw CMError.agoraTokenError
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func submitReview(revieweeId: String, requestId: String, rating: Double, comment: String) async throws -> DefaultResponse {
+        let parameters: Parameters = ["revieweeId": revieweeId, "requestId": requestId, "rating": rating, "comment": comment]
+        let url = baseURL + APIRequestURLs.postReview.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url,
+                                                                      method: APIRequestURLs.postReview.getHTTPMethod(),
+                                                                      parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "CAN_ONLY_REVIEW_A_FINISHED_BOOKING" {
+            throw CMError.bookingRequestMustBeFinished
+        } else if !response.success, response.message == "REVIEWER_IS_NOT_PART_OF_THE_BOOKING" {
+            throw CMError.userIsNotInTheBooking
+        } else if !response.success, response.message == "REVIEWEE_IS_NOT_PART_OF_THE_BOOKING" {
+            throw CMError.userIsNotInTheBooking
+        } else if !response.success, response.message == "CAN_NOT_REVIEW_SELF" {
+            throw CMError.canNotReviewSelf
+        } else if !response.success, response.message == "INVALID_RATING" {
+            throw CMError.invalidData
+        } else if !response.success, response.message == "COMMENT_IS_EMPTY" {
+            throw CMError.reviewMustContainComment
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func getReviewsByUser(userId: String) async throws -> GetReviewsResponse {
+        let parameters = ["userId": userId]
+        let url = baseURL + APIRequestURLs.getReviewsByUser.rawValue
+        let response: GetReviewsResponse = try await service.httpRequest(url: url,
+                                                                         method: APIRequestURLs.getReviewsByUser.getHTTPMethod(),
+                                                                         parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func getUserRatings(userId: String) async throws -> GetUserRatingsResponse {
+        let parameters = ["userId": userId]
+        let url = baseURL + APIRequestURLs.getUserRatings.rawValue
+        let response: GetUserRatingsResponse = try await service.httpRequest(url: url,
+                                                                             method: APIRequestURLs.getReviewsByUser.getHTTPMethod(),
+                                                                             parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
         } else if !response.success {
             throw CMError.unableToComplete
         }
