@@ -12,7 +12,9 @@ class RequestInterceptor: Alamofire.RequestInterceptor {
     var apiKey: String?
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        guard let apiKey = apiKey, let urlString = urlRequest.url?.absoluteString, APIRequestURLs.needAuthToken(url: urlString) else {
+        guard let apiKey = apiKey, 
+                let urlString = urlRequest.url?.absoluteString,
+                APIRequestURLs.needAuthToken(url: urlString) else {
             // If the request does not require authentication, we can directly return it as unmodified.
             return completion(.success(urlRequest))
         }
@@ -71,10 +73,13 @@ class NetworkService {
                                              parameters: parameters,
                                              encoding: (method == .get || method == .delete) ? URLEncoding.default : JSONEncoding.default,
                                              interceptor: interceptor)
+        let result = request.serializingDecodable(T.self, decoder: jsonDecoder)
         do {
-            let resultObject = try await request.serializingDecodable(T.self, decoder: jsonDecoder).value
+            let resultObject = try await result.value
+            print(resultObject)
             return resultObject
         } catch {
+            print(error)
             throw CMError.invalidData
         }
     }

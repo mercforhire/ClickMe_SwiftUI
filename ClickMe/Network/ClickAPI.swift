@@ -83,6 +83,31 @@ class ClickAPI {
         }
     }
     
+    func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
+        let filename = String.randomString(length: 5)
+        let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"
+        let fullsizeFileName = "\(userId)-\(filename)-full.jpg"
+        let thumbnailImage = photo.resize(640, 480)
+        let fullSizeImage = photo.resize(1920, 1080)
+        
+        guard let thumbnailImageData = thumbnailImage.jpeg,
+              let fullSizeImageData = fullSizeImage.jpeg,
+              let thumbnailDataUrl = Utils.saveImageToDocumentDirectory(filename: thumbnailFileName, jpegData: thumbnailImageData),
+              let fullSizeDataUrl = Utils.saveImageToDocumentDirectory(filename: fullsizeFileName, jpegData: fullSizeImageData)
+        else { return nil }
+        
+        do {
+            try await uploadS3file(fileUrl: thumbnailDataUrl, fileName: thumbnailFileName)
+            try await uploadS3file(fileUrl: fullSizeDataUrl, fileName: fullsizeFileName)
+        } catch {
+            throw error
+        }
+        
+        let finalThumbnailURL = "\(s3RootURL)\(thumbnailFileName)"
+        let finalFullURL = "\(s3RootURL)\(fullsizeFileName)"
+        return Photo(thumbnail: finalThumbnailURL, url: finalFullURL)
+    }
+    
     func sendCodeToEmail(email: String, skipSendingEmail: Bool = false) async throws -> DefaultResponse {
         let parameters = ["email": email, "skipSendingEmail": skipSendingEmail ? "true" : "false"]
         let url = baseURL + APIRequestURLs.getEmailCode.rawValue
@@ -737,28 +762,17 @@ class ClickAPI {
         return response
     }
     
-    func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
-        let filename = String.randomString(length: 5)
-        let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"
-        let fullsizeFileName = "\(userId)-\(filename)-full.jpg"
-        let thumbnailImage = photo.resize(640, 480)
-        let fullSizeImage = photo.resize(1920, 1080)
-        
-        guard let thumbnailImageData = thumbnailImage.jpeg,
-              let fullSizeImageData = fullSizeImage.jpeg,
-              let thumbnailDataUrl = Utils.saveImageToDocumentDirectory(filename: thumbnailFileName, jpegData: thumbnailImageData),
-              let fullSizeDataUrl = Utils.saveImageToDocumentDirectory(filename: fullsizeFileName, jpegData: fullSizeImageData)
-        else { return nil }
-        
-        do {
-            try await uploadS3file(fileUrl: thumbnailDataUrl, fileName: thumbnailFileName)
-            try await uploadS3file(fileUrl: fullSizeDataUrl, fileName: fullsizeFileName)
-        } catch {
-            throw error
+    func getHostStatistics() async throws -> GetHostStatisticsResponse {
+        let url = baseURL + APIRequestURLs.getHostStatistics.rawValue
+        let response: GetHostStatisticsResponse =
+            try await service.httpRequest(url: url,
+                                          method: APIRequestURLs.getHostStatistics.getHTTPMethod(),
+                                          parameters: nil)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
         }
-        
-        let finalThumbnailURL = "\(s3RootURL)\(thumbnailFileName)"
-        let finalFullURL = "\(s3RootURL)\(fullsizeFileName)"
-        return Photo(thumbnail: finalThumbnailURL, url: finalFullURL)
+        return response
     }
 }

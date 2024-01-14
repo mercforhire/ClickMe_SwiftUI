@@ -73,10 +73,10 @@ final class HostCalenderViewModel: ObservableObject {
         timesAvailable.append(newTimeslot)
         timesAvailable.sort { $0.start < $1.start }
         
-        saveAvailablity()
+        saveAvailablity(scrollToBottom: true)
     }
     
-    func saveAvailablity() {
+    func saveAvailablity(scrollToBottom: Bool) {
         isLoading = true
         let params = SetAvailabilityParams(timezone: timezone.identifier, timesAvailable: timesAvailable)
         
@@ -84,7 +84,9 @@ final class HostCalenderViewModel: ObservableObject {
             let response = try? await ClickAPI.shared.setAvailability(params: params)
             if response?.success ?? false {
                 addTimeslotError = nil
-                scrollViewProxy?.scrollTo("bottom", anchor: .bottom)
+                if scrollToBottom {
+                    scrollViewProxy?.scrollTo("bottom", anchor: .bottom)
+                }
             } else {
                 addTimeslotError = "Error saving available timeslots"
             }

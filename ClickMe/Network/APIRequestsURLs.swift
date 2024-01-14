@@ -55,6 +55,7 @@ enum APIRequestURLs: String {
     case createTopic = "/api/topics/createTopic"
     case editTopic = "/api/topics/editTopic"
     case deleteTopic = "/api/topics/deleteTopic"
+    case getHostStatistics = "/api/users/getHostStatistics"
     
     func getHTTPMethod() -> HTTPMethod {
         switch self {
@@ -150,6 +151,8 @@ enum APIRequestURLs: String {
             return .post
         case .deleteTopic:
             return .delete
+        case .getHostStatistics:
+            return .get
         }
     }
     

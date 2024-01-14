@@ -31,7 +31,7 @@ struct HostCalenderView: View {
                                     .swipeActions(allowsFullSwipe: false) {
                                         Button(role: .destructive) {
                                             viewModel.timesAvailable.remove(at: index)
-                                            viewModel.saveAvailablity()
+                                            viewModel.saveAvailablity(scrollToBottom: false)
                                         } label: {
                                             Label("Delete", systemImage: "xmark.bin")
                                         }

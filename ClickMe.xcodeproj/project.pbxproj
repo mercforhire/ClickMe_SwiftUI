@@ -103,6 +103,8 @@
 		721D0D522B5331A800095A97 /* CreateTopicParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D512B5331A800095A97 /* CreateTopicParams.swift */; };
 		721D0D542B53328300095A97 /* EditTopicParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D532B53328300095A97 /* EditTopicParams.swift */; };
 		721D0D562B5344C200095A97 /* TopicLengthChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D552B5344C200095A97 /* TopicLengthChoice.swift */; };
+		721D0D582B543C4800095A97 /* HostStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D572B543C4700095A97 /* HostStatusViewModel.swift */; };
+		721D0D5B2B54610100095A97 /* GetHostStatisticsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D5A2B54610100095A97 /* GetHostStatisticsResponse.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -307,6 +309,8 @@
 		721D0D512B5331A800095A97 /* CreateTopicParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTopicParams.swift; sourceTree = "<group>"; };
 		721D0D532B53328300095A97 /* EditTopicParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTopicParams.swift; sourceTree = "<group>"; };
 		721D0D552B5344C200095A97 /* TopicLengthChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicLengthChoice.swift; sourceTree = "<group>"; };
+		721D0D572B543C4700095A97 /* HostStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostStatusViewModel.swift; sourceTree = "<group>"; };
+		721D0D5A2B54610100095A97 /* GetHostStatisticsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHostStatisticsResponse.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -599,6 +603,7 @@
 			isa = PBXGroup;
 			children = (
 				7219051A2B50425B000516CA /* HostStatusView.swift */,
+				721D0D572B543C4700095A97 /* HostStatusViewModel.swift */,
 			);
 			path = "Host Status";
 			sourceTree = "<group>";
@@ -736,11 +741,18 @@
 			path = "Edit Topic";
 			sourceTree = "<group>";
 		};
+		721D0D592B54468700095A97 /* Host account */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Host account";
+			sourceTree = "<group>";
+		};
 		722C59D12B43EDE900EBA081 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				722C59D42B43EF0F00EBA081 /* NetworkService.swift */,
 				722C59D62B43F0A100EBA081 /* APIRequestsURLs.swift */,
+				722C59D42B43EF0F00EBA081 /* NetworkService.swift */,
 				722C59DC2B43F8F900EBA081 /* ClickAPI.swift */,
 			);
 			path = Network;
@@ -770,6 +782,7 @@
 				721905422B5181E2000516CA /* StartCallSessionResponse.swift */,
 				721D0D462B520B5D00095A97 /* GetReviewsResponse.swift */,
 				721D0D482B520D3B00095A97 /* GetUserRatingsResponse.swift */,
+				721D0D5A2B54610100095A97 /* GetHostStatisticsResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -777,6 +790,7 @@
 		7237A5812B42E47B00ABF10F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				721D0D592B54468700095A97 /* Host account */,
 				721D0D3C2B51DA8900095A97 /* Write review */,
 				721D0D292B519E6C00095A97 /* Calling */,
 				721905282B506B32000516CA /* Upcoming Bookings */,
@@ -1477,6 +1491,7 @@
 				7237A58A2B42E53900ABF10F /* GetStartedSteps.swift in Sources */,
 				721905252B50698D000516CA /* HostRequestView.swift in Sources */,
 				720B60722B4C7E2500CF716E /* Receipt.swift in Sources */,
+				721D0D5B2B54610100095A97 /* GetHostStatisticsResponse.swift in Sources */,
 				720087AE2B4DD8F70020633F /* ReorderableForEach.swift in Sources */,
 				724C954A2B4903F800AD2CFC /* TopicView.swift in Sources */,
 				725B99EC2B4169220066D240 /* ClickMeApp.swift in Sources */,
@@ -1502,6 +1517,7 @@
 				728499FC2B46C06D00C2826B /* UpdateProfileParams.swift in Sources */,
 				721D0D2F2B51A13900095A97 /* BlockReason.swift in Sources */,
 				7255860E2B44197E005A37B9 /* LoginResponse.swift in Sources */,
+				721D0D582B543C4800095A97 /* HostStatusViewModel.swift in Sources */,
 				7237A5962B43829500ABF10F /* LoginInitialView.swift in Sources */,
 				72064F362B470B7200BB9ECC /* ExploreViewModel.swift in Sources */,
 				720B604A2B4A584E00CF716E /* InboxViewModel.swift in Sources */,
