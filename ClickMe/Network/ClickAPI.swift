@@ -190,9 +190,9 @@ class ClickAPI {
         return response
     }
     
-    func getS3Keys() async throws -> S3KeysResponse {
-        let url = baseURL + APIRequestURLs.getS3Keys.rawValue
-        let response: S3KeysResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getS3Keys.getHTTPMethod(), parameters: nil)
+    func getAppKeys() async throws -> AppKeysResponse {
+        let url = baseURL + APIRequestURLs.getAppKeys.rawValue
+        let response: AppKeysResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getAppKeys.getHTTPMethod(), parameters: nil)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
         } else if !response.success {

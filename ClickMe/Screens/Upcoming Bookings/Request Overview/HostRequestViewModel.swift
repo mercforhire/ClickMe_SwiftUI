@@ -11,6 +11,8 @@ import Foundation
 final class HostRequestViewModel: ObservableObject {
     @Published var request: Request
     @Published var receipt: Receipt?
+    @Published var review: Review?
+    
     @Published var isLoading = false
     @Published var isShowingProfile = false
     @Published var callSession: CallSession?
@@ -39,6 +41,7 @@ final class HostRequestViewModel: ObservableObject {
             if let request = response?.data?.request {
                 self.request = request
                 self.receipt = response?.data?.receipt
+                self.review = response?.data?.reviews?.first(where: { $0.reviewerId == booker.userId })
             }
             isLoading = false
         }

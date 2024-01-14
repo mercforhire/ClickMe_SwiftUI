@@ -13,9 +13,6 @@ struct Receipt: Codable, Identifiable {
     let _id: String
     let createdDate: Date
     let paymentIntentId: String
-    let booker: UserProfile?
-    let host: UserProfile?
-    var topic: Topic?
     let requestId: String
     let request: Request?
     let status: ReceiptStatus

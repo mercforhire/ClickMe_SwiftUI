@@ -15,7 +15,7 @@ enum APIRequestURLs: String {
     case login = "/api/users/authentication/login"
     case loginUsingAPIKey = "/api/users/authentication/loginUsingAPIKey"
     case registerNewUser = "/api/users/authentication/registerNewUser"
-    case getS3Keys = "/api/config/getS3Keys"
+    case getAppKeys = "/api/config/getAppKeys"
     case getUserProfile = "/api/users/getUserProfile"
     case updateUserProfile = "/api/users/account_update/update"
     case exploreUsers = "/api/users/exploreUsers"
@@ -71,7 +71,7 @@ enum APIRequestURLs: String {
             return .post
         case .checkRegisterEmail:
             return .post
-        case .getS3Keys:
+        case .getAppKeys:
             return .get
         case .getUserProfile:
             return .get

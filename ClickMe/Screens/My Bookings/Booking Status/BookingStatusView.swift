@@ -118,6 +118,7 @@ struct BookingStatusView: View {
                             .font(.body)
                             .fontWeight(.medium)
                             .foregroundColor(.secondary)
+                            .padding(.horizontal, 10)
                     }
                     
                     Divider()
@@ -146,6 +147,20 @@ struct BookingStatusView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.all, 10)
                     } else if viewModel.request.status == .FINISHED {
+                        if let review = viewModel.review {
+                            VStack(alignment: .center, spacing: 10) {
+                                MyCosmosView(rating: .constant(review.rating),
+                                             tintColor: .systemYellow)
+                                .disabled(true)
+                                
+                                Text(review.comment)
+                                    .font(.body)
+                                    .fontWeight(.regular)
+                                    .foregroundColor(.primary)
+                            }
+                            .padding(.all, 10)
+                        }
+                        
                         Button {
                             viewModel.isShowingReview = true
                         } label: {

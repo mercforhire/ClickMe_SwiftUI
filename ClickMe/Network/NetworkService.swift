@@ -73,6 +73,7 @@ class NetworkService {
                                              parameters: parameters,
                                              encoding: (method == .get || method == .delete) ? URLEncoding.default : JSONEncoding.default,
                                              interceptor: interceptor)
+        print(parameters)
         let result = request.serializingDecodable(T.self, decoder: jsonDecoder)
         do {
             let resultObject = try await result.value

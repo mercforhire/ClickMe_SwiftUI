@@ -125,6 +125,7 @@ struct HostRequestView: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.secondary)
                         }
+                        .padding(.horizontal, 10)
                     }
                     
                     Divider()
@@ -169,7 +170,18 @@ struct HostRequestView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.all, 10)
                     } else if viewModel.request.status == .FINISHED {
-                        // display review
+                        if let review = viewModel.review {
+                            VStack(alignment: .center, spacing: 10) {
+                                MyCosmosView(rating: .constant(review.rating),
+                                             tintColor: .systemYellow)
+                                
+                                Text(review.comment)
+                                    .font(.body)
+                                    .fontWeight(.regular)
+                                    .foregroundColor(.primary)
+                            }
+                            .padding(.all, 10)
+                        }
                     }
                 }
                 .background(Color(.systemBackground))
@@ -209,12 +221,15 @@ struct HostRequestView: View {
                             loadTopics: false)
         }
         .onAppear {
-//            viewModel.fetchData()
+            viewModel.fetchData()
         }
     }
 }
 
 #Preview {
     ClickAPI.shared.apiKey = MockData.mockUser2().apiKey
-    return HostRequestView(request: MockData.mockRequest(), navigationPath: .constant([]))
+    return NavigationStack {
+        HostRequestView(request: MockData.mockRequest3(),
+                        navigationPath: .constant([]))
+    }
 }

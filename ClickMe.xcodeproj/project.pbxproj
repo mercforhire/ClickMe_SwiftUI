@@ -150,7 +150,7 @@
 		725586202B44D68A005A37B9 /* SetupBasicInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7255861F2B44D68A005A37B9 /* SetupBasicInfoViewModel.swift */; };
 		725586222B44D846005A37B9 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725586212B44D846005A37B9 /* UIImage+Ext.swift */; };
 		725586242B44EF5E005A37B9 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725586232B44EF5E005A37B9 /* UserManager.swift */; };
-		725586262B44F201005A37B9 /* S3KeysResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725586252B44F201005A37B9 /* S3KeysResponse.swift */; };
+		725586262B44F201005A37B9 /* AppKeysResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725586252B44F201005A37B9 /* AppKeysResponse.swift */; };
 		725586282B44F7E8005A37B9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725586272B44F7E8005A37B9 /* User.swift */; };
 		7255862A2B44F80D005A37B9 /* GetUserProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725586292B44F80D005A37B9 /* GetUserProfileResponse.swift */; };
 		7255862C2B4515C1005A37B9 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7255862B2B4515C1005A37B9 /* Field.swift */; };
@@ -323,6 +323,7 @@
 		721D0D632B547AEA00095A97 /* HostAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostAccountView.swift; sourceTree = "<group>"; };
 		721D0D652B547AF600095A97 /* HostAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostAccountViewModel.swift; sourceTree = "<group>"; };
 		721D0D672B547BD800095A97 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
+		721D0D692B54892300095A97 /* ClickMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClickMe.entitlements; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -362,7 +363,7 @@
 		7255861F2B44D68A005A37B9 /* SetupBasicInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupBasicInfoViewModel.swift; sourceTree = "<group>"; };
 		725586212B44D846005A37B9 /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		725586232B44EF5E005A37B9 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		725586252B44F201005A37B9 /* S3KeysResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3KeysResponse.swift; sourceTree = "<group>"; };
+		725586252B44F201005A37B9 /* AppKeysResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppKeysResponse.swift; sourceTree = "<group>"; };
 		725586272B44F7E8005A37B9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		725586292B44F80D005A37B9 /* GetUserProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserProfileResponse.swift; sourceTree = "<group>"; };
 		7255862B2B4515C1005A37B9 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
@@ -771,7 +772,7 @@
 			children = (
 				722C59DF2B43FA7600EBA081 /* DefaultResponse.swift */,
 				7255860D2B44197E005A37B9 /* LoginResponse.swift */,
-				725586252B44F201005A37B9 /* S3KeysResponse.swift */,
+				725586252B44F201005A37B9 /* AppKeysResponse.swift */,
 				725586292B44F80D005A37B9 /* GetUserProfileResponse.swift */,
 				728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */,
 				72064F392B471ED900BB9ECC /* ExploreUsersResponse.swift */,
@@ -998,6 +999,7 @@
 		725B99EA2B4169220066D240 /* ClickMe */ = {
 			isa = PBXGroup;
 			children = (
+				721D0D692B54892300095A97 /* ClickMe.entitlements */,
 				728499F72B466AF600C2826B /* Utils */,
 				725B99EB2B4169220066D240 /* ClickMeApp.swift */,
 				722C59D12B43EDE900EBA081 /* Network */,
@@ -1523,7 +1525,7 @@
 				72774C3F2B4828F500C5A248 /* TopicsResponse.swift in Sources */,
 				722C59E22B43FE6400EBA081 /* String+Ext.swift in Sources */,
 				725586192B44CC1B005A37B9 /* CMErrorLabel.swift in Sources */,
-				725586262B44F201005A37B9 /* S3KeysResponse.swift in Sources */,
+				725586262B44F201005A37B9 /* AppKeysResponse.swift in Sources */,
 				720087B62B4E1E210020633F /* EditPhotosView.swift in Sources */,
 				7219050D2B501AEB000516CA /* StripeData.swift in Sources */,
 				721D0D312B51AA7300095A97 /* CMMinimizeButton.swift in Sources */,
@@ -1708,10 +1710,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = ClickMe/ClickMe.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ClickMe/Preview Content\"";
-				DEVELOPMENT_TEAM = JT5853THPU;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = NT385FNA76;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1728,6 +1733,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ByteraInc.ClickMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "pass-provisioning entitlement profile";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1743,10 +1750,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = ClickMe/ClickMe.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ClickMe/Preview Content\"";
-				DEVELOPMENT_TEAM = JT5853THPU;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = NT385FNA76;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1763,6 +1773,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ByteraInc.ClickMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "pass-provisioning entitlement profile";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

@@ -33,6 +33,9 @@ struct MyCosmosView: UIViewRepresentable {
         uiView.settings.emptyBorderColor = tintColor
         uiView.settings.filledBorderColor = tintColor
         uiView.settings.emptyBorderWidth = 1
+        uiView.didFinishTouchingCosmos = { rating in
+            self.rating = rating
+        }
     }
 }
 

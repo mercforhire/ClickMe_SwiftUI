@@ -17,6 +17,7 @@ class UserManager {
     var apiKey: String? {
         return api.apiKey
     }
+    var agoraAppId: String?
     
     private var api: ClickAPI {
         return ClickAPI.shared
@@ -37,22 +38,25 @@ class UserManager {
         self.profile = profile
         api.apiKey = user.apiKey
         saveAPIKey()
-        fetchS3Keys()
+        fetchAppKeys()
     }
     
     func set(profile: UserProfile) {
         self.profile = profile
     }
     
-    func fetchS3Keys() {
+    func fetchAppKeys() {
         Task {
             do {
-                let response = try await api.getS3Keys()
-                if let s3Keys = response.data {
-                    api.initializeS3(bucketName: s3Keys.buckName!, s3Key: s3Keys.s3Key!, accessKey: s3Keys.s3AccessKey!)
+                let response = try await api.getAppKeys()
+                if let appKeys = response.data {
+                    api.initializeS3(bucketName: appKeys.buckName,
+                                     s3Key: appKeys.s3Key,
+                                     accessKey: appKeys.s3AccessKey)
+                    agoraAppId = appKeys.agoraAppId
                 }
             } catch {
-                print("getS3Keys error:", error)
+                print("getAppKeys error:", error)
             }
         }
     }
