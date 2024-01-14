@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct SplashView: View {
+    @AppStorage("startinHostMode") private var startinHostMode = false
     @StateObject var viewModel = SplashViewModel()
     
     var body: some View {
         ZStack {
             if viewModel.appIsActive && !viewModel.loginInProgress {
                 if viewModel.loggedIn {
-                    if viewModel.hostMode {
+                    if startinHostMode {
                         HostTabView()
                     } else {
                         HomeTabView()
@@ -42,7 +43,7 @@ struct SplashView: View {
             viewModel.handleSwitchToGetStartedNotification()
         })
         .onReceive(NotificationCenter.default.publisher(for: Notifications.ToggleGuestHostMode), perform: { _ in
-            viewModel.hostMode.toggle()
+            startinHostMode.toggle()
         })
     }
 }

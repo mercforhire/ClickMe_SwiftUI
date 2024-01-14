@@ -20,8 +20,9 @@ struct SetAvailabilityParams {
         for time in timesAvailable {
             timeslotsArray.append(time.params())
         }
-        params["timezone"] = timeslotsArray
+        params["timesAvailable"] = timeslotsArray
         
         return params
     }
 }
+

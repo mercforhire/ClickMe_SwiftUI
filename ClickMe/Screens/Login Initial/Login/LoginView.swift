@@ -22,65 +22,65 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            NavigationView {
-                VStack(alignment: .center) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Sign in to continue")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                            .padding(.top, 20)
-                        CMEmailTextField(text: $viewModel.emailAddress)
-                            .focused($focusedTextField, equals: .email)
-                            .onSubmit {
-                                viewModel.verifyEmailAddress()
-                            }
-                        if let emailAddressError = viewModel.emailAddressError, !emailAddressError.isEmpty {
-                            CMErrorLabel("\(emailAddressError)")
+            VStack(alignment: .center) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Sign in to continue")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                        .padding(.top, 20)
+                    CMEmailTextField(text: $viewModel.emailAddress)
+                        .focused($focusedTextField, equals: .email)
+                        .onSubmit {
+                            viewModel.verifyEmailAddress()
                         }
-                        HStack {
-                            TextField("Verification code", text: $viewModel.code)
-                                .keyboardType(.numberPad)
-                                .focused($focusedTextField, equals: .code)
-                                .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
-                                .frame(height: 50)
-                                .border(.secondary)
-                            Button {
-                                viewModel.sendCode()
-                            } label: {
-                                CMButton(title: viewModel.getCodeButtonTitle)
-                            }
-                            .disabled(viewModel.secondsUntilAllowedSendAgain > 0)
-                        }
-                        if let codeError = viewModel.codeError, !codeError.isEmpty {
-                            CMErrorLabel("\(codeError)")
-                        }
+                    if let emailAddressError = viewModel.emailAddressError, !emailAddressError.isEmpty {
+                        CMErrorLabel("\(emailAddressError)")
                     }
-                    Button {
-                        Task {
-                            await viewModel.login()
-                            if viewModel.loginComplete {
-                                navigationPath.removeLast()
-                            }
+                    HStack {
+                        TextField("Verification code", text: $viewModel.code)
+                            .keyboardType(.numberPad)
+                            .focused($focusedTextField, equals: .code)
+                            .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
+                            .frame(height: 50)
+                            .border(.secondary)
+                        Button {
+                            viewModel.sendCode()
+                        } label: {
+                            CMButton(title: viewModel.getCodeButtonTitle)
                         }
-                    } label: {
-                        CMButton(title: "Login")
+                        .disabled(viewModel.secondsUntilAllowedSendAgain > 0)
                     }
-                    .disabled(!viewModel.loginButtonEnabled)
-                    .padding(.vertical, 40)
-                    
-                    Spacer()
-                }
-                .navigationTitle("Login")
-                .toolbar() {
-                    ToolbarItem(placement: .keyboard) {
-                        Button("Done") {
-                            focusedTextField = nil
-                        }
+                    if let codeError = viewModel.codeError, !codeError.isEmpty {
+                        CMErrorLabel("\(codeError)")
                     }
                 }
-                .padding(.horizontal, 20)
+                Button {
+                    Task {
+                        await viewModel.login()
+                        if viewModel.loginComplete {
+                            navigationPath.removeLast()
+                        }
+                    }
+                } label: {
+                    CMButton(title: "Login")
+                }
+                .disabled(!viewModel.loginButtonEnabled)
+                .padding(.vertical, 40)
+                
+                Spacer()
             }
+            .navigationTitle("Login")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar() {
+                ToolbarItem(placement: .keyboard) {
+                    Button("Done") {
+                        focusedTextField = nil
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            
             if viewModel.isLoading {
                 LoadingView()
             }

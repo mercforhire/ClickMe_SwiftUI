@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Mood: String, Codable, Identifiable, Hashable {
+enum Mood: String, Codable, Identifiable, Hashable, CaseIterable {
     case startup
     case career
     case advance
@@ -18,7 +18,7 @@ enum Mood: String, Codable, Identifiable, Hashable {
     case society
     case other
     
-    var id: Mood { self }
+    var id: Self { self }
     
     func text() -> String {
         switch self {
@@ -64,10 +64,6 @@ enum Mood: String, Codable, Identifiable, Hashable {
         case .other:
             return "field_other"
         }
-    }
-    
-    static func list() -> [Mood] {
-        return [.startup, .career, .advance, .welfare, .pressure, .advice, .lifestyle, .society, .other]
     }
 }
 

@@ -18,21 +18,34 @@ final class EditTopicViewModel: ObservableObject {
     @Published var titleError: String?
     
     @Published var keywords: [String] = []
+    @Published var isShowingAddKeywordDialog = false
+    @Published var newKeyword: String = ""
+    @Published var addKeywordError: String?
     
     @Published var description: String = ""
     @Published var descriptionError: String?
     
-    @Published var maxTimeHours: Double = 1
-    @Published var maxTimeHoursError: String?
+    @Published var topicLength: TopicLengthChoice = .hour_2
+    var maxTimeMinutes: Int {
+        return topicLength.numberOfMins()
+    }
+    @Published var topicLengthError: String?
     
-    @Published var dollarPriceHour: Double = 0.0
+    @Published var dollarPriceHour: String = ""
+    var centsPerHour: Int {
+        Int((Double(dollarPriceHour) ?? 0) * 100)
+    }
     @Published var dollarPriceHourError: String?
     
-    @Published var currency: Currency?
-    @Published var currencyError: String?
+    @Published var currency: Currency = .USD
     
-    @Published var mood: Mood?
-    @Published var moodError: String?
+    @Published var mood: Mood = .other
+    
+    @Published var submissionComplete = false
+    @Published var isShowingSubmissionErrorDialog = false
+    @Published var submissionError: String?
+    
+    @Published var isShowingDeleteTopicDialog = false
     
     var isValidForm: Bool {
         guard !title.isEmpty else {
@@ -47,29 +60,11 @@ final class EditTopicViewModel: ObservableObject {
         }
         descriptionError = nil
         
-        guard maxTimeHours >= 1 && maxTimeHours <= 3 else {
-            maxTimeHoursError = "Max length each session must be between 1 to 3 hours"
-            return false
-        }
-        maxTimeHoursError = nil
-        
-        guard dollarPriceHour >= 0 && dollarPriceHour <= 50 else {
+        guard !dollarPriceHour.isEmpty && centsPerHour >= 0 && centsPerHour <= 5000 else {
             dollarPriceHourError = "Price per hour should be from 0 to max of $50 a hour"
             return false
         }
         dollarPriceHourError = nil
-        
-        guard currency == nil else {
-            currencyError = "Currency must be set"
-            return false
-        }
-        currencyError = nil
-        
-        guard mood == nil else {
-            moodError = "Please set the mood(category) of topic"
-            return false
-        }
-        moodError = nil
         
         return true
     }
@@ -85,9 +80,131 @@ final class EditTopicViewModel: ObservableObject {
         title = topic.title
         keywords = topic.keywords
         description = topic.description
-        maxTimeHours = Double(topic.maxTimeMinutes) / 60
-        dollarPriceHour = Double(topic.priceHour) / 100
+        topicLength = TopicLengthChoice.enumFromMinutes(minutes: topic.maxTimeMinutes)
+        dollarPriceHour = String(format: "%.2f", Double(topic.priceHour) / 100)
         currency = topic.currency
         mood = topic.mood
+    }
+    
+    func handleCreateTopic() {
+        guard isValidForm else { return }
+        
+        isLoading = true
+        Task {
+            let params = CreateTopicParams(title: title,
+                                           keywords: keywords,
+                                           description: description,
+                                           maxTimeMinutes: maxTimeMinutes,
+                                           priceHour: centsPerHour,
+                                           currency: currency,
+                                           mood: mood)
+            do {
+                let response = try await ClickAPI.shared.createTopic(params: params)
+                if response.success {
+                    submissionError = nil
+                    submissionComplete = true
+                    NotificationCenter.default.post(name: Notifications.RefreshMyTopics, object: nil, userInfo: nil)
+                }
+            } catch {
+                submissionError = "Unknown error"
+                submissionComplete = false
+                isShowingSubmissionErrorDialog = true
+            }
+            isLoading = false
+        }
+    }
+    
+    func handleEditTopic() {
+        guard isValidForm, let topic else { return }
+        
+        isLoading = true
+        Task {
+            let params = EditTopicParams(topicId: topic.id,
+                                         title: title,
+                                         keywords: keywords,
+                                         description: description,
+                                         maxTimeMinutes: maxTimeMinutes,
+                                         priceHour: centsPerHour,
+                                         currency: currency,
+                                         mood: mood)
+            do {
+                let response = try await ClickAPI.shared.editTopic(params: params)
+                if response.success {
+                    submissionError = nil
+                    submissionComplete = true
+                    NotificationCenter.default.post(name: Notifications.RefreshMyTopics, object: nil, userInfo: nil)
+                }
+            } catch {
+                switch error {
+                case CMError.topicDoesntExist:
+                    submissionError = "Topic doesn't exist"
+                case CMError.userIsNotTopicOwner:
+                    submissionError = "User is not topic owner"
+                default:
+                    submissionError = "Unknown error"
+                }
+                submissionComplete = false
+                isShowingSubmissionErrorDialog = true
+            }
+            isLoading = false
+        }
+    }
+    
+    func handleDeleteTopic() {
+        guard isValidForm, let topic else { return }
+        
+        isLoading = true
+        Task {
+            do {
+                let response = try await ClickAPI.shared.deleteTopic(topicId: topic._id)
+                if response.success {
+                    submissionError = nil
+                    submissionComplete = true
+                    NotificationCenter.default.post(name: Notifications.RefreshMyTopics, object: nil, userInfo: nil)
+                }
+            } catch {
+                switch error {
+                case CMError.topicDoesntExist:
+                    submissionError = "Topic doesn't exist"
+                case CMError.userIsNotTopicOwner:
+                    submissionError = "User is not topic owner"
+                case CMError.topicHasOngoingBookings:
+                    submissionError = "The topic has ongoing bookings"
+                default:
+                    submissionError = "Unknown error"
+                }
+                submissionComplete = false
+                isShowingSubmissionErrorDialog = true
+            }
+            isLoading = false
+        }
+    }
+    
+    func handleAddNewKeyword() {
+        if newKeyword.isEmpty {
+            addKeywordError = "Type something to add it"
+            return
+        } else if keywords.contains(newKeyword) {
+            addKeywordError = "Keywords already contain this word"
+            return
+        }
+        
+        addKeywordError = nil
+        keywords.append(newKeyword.lowercased())
+        newKeyword = ""
+        isShowingAddKeywordDialog = false
+    }
+    
+    func handleCancelAddNewKeyword() {
+        newKeyword = ""
+        isShowingAddKeywordDialog = false
+    }
+    
+    func handleSaveButton() {
+        if topic == nil {
+            handleCreateTopic()
+        } else {
+            handleEditTopic()
+        }
     }
 }

@@ -125,6 +125,7 @@ struct EditProfileView: View {
                         optionToString: { $0.text() },
                         selected: $viewModel.languages
                     )
+                    
                     if let languagesError = viewModel.languagesError, !languagesError.isEmpty {
                         CMErrorLabel(languagesError)
                     }

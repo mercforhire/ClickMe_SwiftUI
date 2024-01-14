@@ -100,6 +100,9 @@
 		721D0D4B2B5316ED00095A97 /* HostTopicsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D4A2B5316ED00095A97 /* HostTopicsViewModel.swift */; };
 		721D0D4E2B531C1800095A97 /* EditTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D4D2B531C1800095A97 /* EditTopicView.swift */; };
 		721D0D502B531C2800095A97 /* EditTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D4F2B531C2800095A97 /* EditTopicViewModel.swift */; };
+		721D0D522B5331A800095A97 /* CreateTopicParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D512B5331A800095A97 /* CreateTopicParams.swift */; };
+		721D0D542B53328300095A97 /* EditTopicParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D532B53328300095A97 /* EditTopicParams.swift */; };
+		721D0D562B5344C200095A97 /* TopicLengthChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D552B5344C200095A97 /* TopicLengthChoice.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -301,6 +304,9 @@
 		721D0D4A2B5316ED00095A97 /* HostTopicsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostTopicsViewModel.swift; sourceTree = "<group>"; };
 		721D0D4D2B531C1800095A97 /* EditTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTopicView.swift; sourceTree = "<group>"; };
 		721D0D4F2B531C2800095A97 /* EditTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTopicViewModel.swift; sourceTree = "<group>"; };
+		721D0D512B5331A800095A97 /* CreateTopicParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTopicParams.swift; sourceTree = "<group>"; };
+		721D0D532B53328300095A97 /* EditTopicParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTopicParams.swift; sourceTree = "<group>"; };
+		721D0D552B5344C200095A97 /* TopicLengthChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicLengthChoice.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -547,6 +553,7 @@
 				7237A5892B42E53900ABF10F /* GetStartedSteps.swift */,
 				7255862B2B4515C1005A37B9 /* Field.swift */,
 				721D0D2E2B51A13900095A97 /* BlockReason.swift */,
+				721D0D552B5344C200095A97 /* TopicLengthChoice.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -1076,6 +1083,8 @@
 				72774C2F2B47D42B00C5A248 /* SearchUsersParams.swift */,
 				720087CA2B4EFDC20020633F /* RequestBookingParams.swift */,
 				7219052D2B509EE6000516CA /* SetAvailabilityParams.swift */,
+				721D0D512B5331A800095A97 /* CreateTopicParams.swift */,
+				721D0D532B53328300095A97 /* EditTopicParams.swift */,
 			);
 			path = Params;
 			sourceTree = "<group>";
@@ -1368,6 +1377,7 @@
 				72774C4E2B48F6F800C5A248 /* InboxView.swift in Sources */,
 				721905152B5041B6000516CA /* HostCalenderView.swift in Sources */,
 				72774C492B48812700C5A248 /* GetUsersResponse.swift in Sources */,
+				721D0D562B5344C200095A97 /* TopicLengthChoice.swift in Sources */,
 				721905352B50B4C6000516CA /* PastHostingsViewModel.swift in Sources */,
 				721D0D4E2B531C1800095A97 /* EditTopicView.swift in Sources */,
 				722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */,
@@ -1414,6 +1424,7 @@
 				720B60522B4ABBAB00CF716E /* GetChatMessagesResponse.swift in Sources */,
 				7237A59F2B43A62100ABF10F /* SignUpView.swift in Sources */,
 				720B60692B4C414C00CF716E /* BookingRequestView.swift in Sources */,
+				721D0D522B5331A800095A97 /* CreateTopicParams.swift in Sources */,
 				721D0D332B51BB7500095A97 /* CMRoundButton.swift in Sources */,
 				721905202B504447000516CA /* HostGetStartedView.swift in Sources */,
 				720B605F2B4AEF2B00CF716E /* SendChatMessageResponse.swift in Sources */,
@@ -1455,6 +1466,7 @@
 				721905382B50BBD8000516CA /* TextFieldActionView.swift in Sources */,
 				725586282B44F7E8005A37B9 /* User.swift in Sources */,
 				7237A5902B437BFA00ABF10F /* GetStartedViewModel.swift in Sources */,
+				721D0D542B53328300095A97 /* EditTopicParams.swift in Sources */,
 				728499EF2B4587EE00C2826B /* ProfilePhotosGridView.swift in Sources */,
 				72774C452B48351900C5A248 /* CMXButton.swift in Sources */,
 				72064F312B46ECBF00BB9ECC /* MyBookingsView.swift in Sources */,

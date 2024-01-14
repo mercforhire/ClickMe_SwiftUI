@@ -27,7 +27,7 @@ struct ExploreTopicsView: View {
                 List {
                     ScrollView(.horizontal) {
                         LazyHGrid(rows: gridColumns) {
-                            ForEach(Mood.list()) { mood in
+                            ForEach(Mood.allCases) { mood in
                                 MoodView(mood: mood,
                                          width: moodCellWidth,
                                          height: 70,

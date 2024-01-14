@@ -12,6 +12,7 @@ import SwiftUI
 final class HostCalenderViewModel: ObservableObject {
     var myUserId: String
     var timezone: TimeZone = Calendar.current.timeZone
+    var scrollViewProxy: ScrollViewProxy?
     
     @Published var isLoading = false
     @Published var timesAvailable: [Timeslot] = []
@@ -46,6 +47,12 @@ final class HostCalenderViewModel: ObservableObject {
     }
     
     func addNewTimeSlot() {
+        // check if the timeslot is already in the past
+        if endTime < Date() {
+            addTimeslotError = "Timeslot is in the past"
+            return
+        }
+        
         // check if the new time overlaps with any existing timeslots
         let newTimeslot = Timeslot(start: startTime, end: endTime)
         var overlapWith: Timeslot?
@@ -77,6 +84,7 @@ final class HostCalenderViewModel: ObservableObject {
             let response = try? await ClickAPI.shared.setAvailability(params: params)
             if response?.success ?? false {
                 addTimeslotError = nil
+                scrollViewProxy?.scrollTo("bottom", anchor: .bottom)
             } else {
                 addTimeslotError = "Error saving available timeslots"
             }

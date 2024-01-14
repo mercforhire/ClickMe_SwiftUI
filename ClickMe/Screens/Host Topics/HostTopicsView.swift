@@ -24,7 +24,7 @@ struct HostTopicsView: View {
                             .frame(height: 320)
                             .listRowSeparator(.hidden)
                             .onTapGesture {
-                                navigationPath.append(.topicDetails(topic))
+                                navigationPath.append(.editTopic(topic))
                             }
                     }
                 }
@@ -41,14 +41,14 @@ struct HostTopicsView: View {
             .toolbar() {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button("", systemImage: "plus") {
-                        
+                        navigationPath.append(.editTopic(nil))
                     }
                 }
             }
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
-                case ScreenNames.topicDetails(let topic):
-                    TopicDetailsView(topic: topic, navigationPath: $navigationPath)
+                case ScreenNames.editTopic(let topic):
+                    EditTopicView(myProfile: viewModel.myProfile, topic: topic, navigationPath: $navigationPath)
                 default:
                     fatalError()
                 }
@@ -57,6 +57,9 @@ struct HostTopicsView: View {
         .onAppear() {
             viewModel.fetchTopics()
         }
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.RefreshMyTopics), perform: { _ in
+            viewModel.fetchTopics()
+        })
     }
 }
 

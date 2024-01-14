@@ -685,6 +685,58 @@ class ClickAPI {
         return response
     }
     
+    func createTopic(params: CreateTopicParams) async throws -> TopicResponse {
+        let parameters = params.params()
+        let url = baseURL + APIRequestURLs.createTopic.rawValue
+        let response: TopicResponse = try await service.httpRequest(url: url,
+                                                                    method: APIRequestURLs.createTopic.getHTTPMethod(),
+                                                                    parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func editTopic(params: EditTopicParams) async throws -> TopicResponse {
+        let parameters = params.params()
+        let url = baseURL + APIRequestURLs.editTopic.rawValue
+        let response: TopicResponse = try await service.httpRequest(url: url,
+                                                                    method: APIRequestURLs.editTopic.getHTTPMethod(),
+                                                                    parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "TOPIC_DOES_NOT_EXIST" {
+            throw CMError.topicDoesntExist
+        } else if !response.success, response.message == "USER_DOES_NOT_OWN_THE_TOPIC" {
+            throw CMError.userIsNotTopicOwner
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func deleteTopic(topicId: String) async throws -> TopicResponse {
+        let parameters = ["topicId": topicId]
+        let url = baseURL + APIRequestURLs.deleteTopic.rawValue
+        let response: TopicResponse = try await service.httpRequest(url: url,
+                                                                    method: APIRequestURLs.deleteTopic.getHTTPMethod(),
+                                                                    parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "TOPIC_DOES_NOT_EXIST" {
+            throw CMError.topicDoesntExist
+        } else if !response.success, response.message == "USER_DOES_NOT_OWN_THE_TOPIC" {
+            throw CMError.userIsNotTopicOwner
+        } else if !response.success, response.message == "ONGOING_REQUESTS_EXIST_FOR_TOPIC" {
+            throw CMError.topicHasOngoingBookings
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func uploadPhoto(userId: String, photo: UIImage) async throws -> Photo? {
         let filename = String.randomString(length: 5)
         let thumbnailFileName = "\(userId)-\(filename)-thumb.jpg"

@@ -22,76 +22,75 @@ struct SignUpView: View {
     
     var body: some View {
         ZStack {
-            NavigationView {
-                VStack(alignment: .center) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Create an account")
-                            .font(.title2)
-                            .fontWeight(.bold)
+            VStack(alignment: .center) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Create an account")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                        .padding(.top, 20)
+                    CMEmailTextField(text: $viewModel.emailAddress)
+                        .focused($focusedTextField, equals: .email)
+                        .onSubmit {
+                            viewModel.verifyEmailAddress()
+                        }
+                    if let emailAddressError = viewModel.emailAddressError, !emailAddressError.isEmpty {
+                        CMErrorLabel("\(emailAddressError)")
+                    }
+                    HStack {
+                        Image(systemName: "lock.fill")
+                        Text("We never share this with anyone and it won't be on your profile.")
+                            .font(.body)
+                            .fontWeight(.regular)
                             .foregroundColor(.primary)
-                            .padding(.top, 20)
-                        CMEmailTextField(text: $viewModel.emailAddress)
-                            .focused($focusedTextField, equals: .email)
-                            .onSubmit {
-                                viewModel.verifyEmailAddress()
-                            }
-                        if let emailAddressError = viewModel.emailAddressError, !emailAddressError.isEmpty {
-                            CMErrorLabel("\(emailAddressError)")
-                        }
-                        HStack {
-                            Image(systemName: "lock.fill")
-                            Text("We never share this with anyone and it won't be on your profile.")
-                                .font(.body)
-                                .fontWeight(.regular)
-                                .foregroundColor(.primary)
-                        }
-                        HStack {
-                            TextField("Verification code", text: $viewModel.code)
-                                .keyboardType(.numberPad)
-                                .focused($focusedTextField, equals: .code)
-                                .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
-                                .frame(height: 50)
-                                .border(.secondary)
-                            Button {
-                                viewModel.sendCode()
-                            } label: {
-                                CMButton(title: viewModel.getCodeButtonTitle)
-                            }
-                            .disabled(viewModel.secondsUntilAllowedSendAgain > 0)
-                        }
-                        if let codeError = viewModel.codeError, !codeError.isEmpty {
-                            CMErrorLabel("\(codeError)")
-                        }
-                        CheckboxView(checked: $viewModel.agreeToTermsOfUse, termsOfUseHandler: {
-                            viewModel.isPresentingTermsOfUse = true
-                        }, privacyHandler: {
-                            viewModel.isPresentingPrivacy = true
-                        })
                     }
-                    Spacer()
-                    Button {
-                        Task {
-                            await viewModel.register()
-                            if viewModel.registerComplete {
-                                navigationPath.removeLast()
-                            }
+                    HStack {
+                        TextField("Verification code", text: $viewModel.code)
+                            .keyboardType(.numberPad)
+                            .focused($focusedTextField, equals: .code)
+                            .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
+                            .frame(height: 50)
+                            .border(.secondary)
+                        Button {
+                            viewModel.sendCode()
+                        } label: {
+                            CMButton(title: viewModel.getCodeButtonTitle)
                         }
-                    } label: {
-                        CMButton(title: "Register")
+                        .disabled(viewModel.secondsUntilAllowedSendAgain > 0)
                     }
-                    .disabled(!viewModel.agreeToTermsOfUse)
-                    .padding(.bottom, 20)
+                    if let codeError = viewModel.codeError, !codeError.isEmpty {
+                        CMErrorLabel("\(codeError)")
+                    }
+                    CheckboxView(checked: $viewModel.agreeToTermsOfUse, termsOfUseHandler: {
+                        viewModel.isPresentingTermsOfUse = true
+                    }, privacyHandler: {
+                        viewModel.isPresentingPrivacy = true
+                    })
                 }
-                .navigationTitle("Sign up")
-                .toolbar() {
-                    ToolbarItem(placement: .keyboard) {
-                        Button("Done") {
-                            focusedTextField = nil
+                Spacer()
+                Button {
+                    Task {
+                        await viewModel.register()
+                        if viewModel.registerComplete {
+                            navigationPath.removeLast()
                         }
                     }
+                } label: {
+                    CMButton(title: "Register")
                 }
-                .padding(.horizontal, 20)
+                .disabled(!viewModel.agreeToTermsOfUse)
+                .padding(.bottom, 20)
             }
+            .navigationTitle("Sign up")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar() {
+                ToolbarItem(placement: .keyboard) {
+                    Button("Done") {
+                        focusedTextField = nil
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
             .fullScreenCover(isPresented: $viewModel.isPresentingTermsOfUse) {
                 SafariView(url: URL(string: "https://www.google.com")!)
                     .ignoresSafeArea()

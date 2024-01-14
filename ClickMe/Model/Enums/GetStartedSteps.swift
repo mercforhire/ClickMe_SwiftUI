@@ -37,7 +37,7 @@ enum GetStartedSteps: Int, Identifiable {
         case .two:
             return "1-ON-1 VOICE CHAT WITH PROFESSIONALS"
         case .three:
-            return "EXPLORE \(Mood.list().count) MOODS"
+            return "EXPLORE \(Mood.allCases.count) MOODS"
         }
     }
     

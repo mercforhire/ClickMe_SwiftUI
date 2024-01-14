@@ -16,6 +16,8 @@ enum HostTabs: Hashable {
 }
 
 struct HostTabView: View {
+    @AppStorage("hasShownGetStartedScreen") private var hasShownGetStartedScreen = false
+    
     @StateObject var viewModel = HostTabViewModel()
     
     var body: some View {
@@ -47,7 +49,9 @@ struct HostTabView: View {
                 .tag(HostTabs.account)
         }
         .onAppear {
-            viewModel.shouldPresentGetStartedView = true
+            if !hasShownGetStartedScreen {
+                viewModel.shouldPresentGetStartedView = true
+            }
         }
         .fullScreenCover(isPresented: $viewModel.shouldPresentGetStartedView) {
             HostGetStartedView(isShowingGetStarted: $viewModel.shouldPresentGetStartedView)

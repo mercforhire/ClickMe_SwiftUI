@@ -13,4 +13,5 @@ class Notifications {
     static let RefreshProfile: Notification.Name = Notification.Name("RefreshProfile")
     static let ToggleGuestHostMode: Notification.Name = Notification.Name("ToggleGuestHostMode")
     static let APIKeyInvalid: Notification.Name = Notification.Name("APIKeyInvalid")
+    static let RefreshMyTopics: Notification.Name = Notification.Name("RefreshMyTopics")
 }

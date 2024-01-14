@@ -31,10 +31,12 @@ enum CMError: Error {
     case bookingRequestMustBePending
     case bookingRequestMustBeApproved
     case userIsNotInTheBooking
+    case userIsNotTopicOwner
     case tooEarlyToStartSession
     case alreadyPastSessionEndTime
     case agoraTokenError
     case bookingRequestMustBeFinished
     case canNotReviewSelf
     case reviewMustContainComment
+    case topicHasOngoingBookings
 }
