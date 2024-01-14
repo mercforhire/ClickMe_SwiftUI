@@ -30,4 +30,5 @@ enum ScreenNames: Hashable {
     case hostRequestOverview(Request)
     case hostBookingFinal(BookingAction)
     case editTopic(Topic?)
+    case reviews(UserProfile)
 }

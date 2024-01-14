@@ -49,7 +49,7 @@ enum APIRequestURLs: String {
     case setAvailability = "/api/topics/setAvailability"
     case requestAction = "/api/topics/requestAction"
     case startCallingSession = "/api/calling/startCallingSession"
-    case getReviewsByUser = "/api/topics/getReviewsByUser"
+    case getReviewsAboutUser = "/api/topics/getReviewsAboutUser"
     case postReview = "/api/topics/postReview"
     case getUserRatings = "/api/topics/getUserRatings"
     case createTopic = "/api/topics/createTopic"
@@ -139,7 +139,7 @@ enum APIRequestURLs: String {
             return .post
         case .startCallingSession:
             return .post
-        case .getReviewsByUser:
+        case .getReviewsAboutUser:
             return .get
         case .postReview:
             return .post

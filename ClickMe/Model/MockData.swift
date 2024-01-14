@@ -82,4 +82,15 @@ class MockData {
     static func mockReceipt() -> Receipt {
         return Receipt(_id: "659c46599cf786482795c34b", createdDate: Date(timeIntervalSince1970: 1704568893224 / 1000), paymentIntentId: "pi_3OWO3wE0XSqZ8pU20SZchr6c", booker: MockData.mockProfile(), host: MockData.mockProfile2(), topic: MockData.mockTopic(), requestId: "659bb0700c47d17cc781f078", request: MockData.mockRequest(), status: .UNPAID, amount: 2000, currency: .USD)
     }
+    
+    static func mockReview() -> Review {
+        return Review(_id: "65a1c929c692e4f102cb7cc0", 
+                      createdDate: DateUtil.produceDate(dateString: "2024-01-12T23:00:14.985+00:00", dateFormat: DateUtil.AppDateFormat.format7.rawValue)!,
+                      reviewerId: mockUser()._id,
+                      revieweeId: mockUser2()._id,
+                      requestId: "659bb0700c47d17cc781f078",
+                      rating: 5.0,
+                      comment: "another good session",
+                      reviewer: MockData.mockProfile())
+    }
 }

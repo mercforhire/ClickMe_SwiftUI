@@ -105,6 +105,11 @@
 		721D0D562B5344C200095A97 /* TopicLengthChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D552B5344C200095A97 /* TopicLengthChoice.swift */; };
 		721D0D582B543C4800095A97 /* HostStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D572B543C4700095A97 /* HostStatusViewModel.swift */; };
 		721D0D5B2B54610100095A97 /* GetHostStatisticsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D5A2B54610100095A97 /* GetHostStatisticsResponse.swift */; };
+		721D0D5E2B546C0F00095A97 /* ReviewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D5D2B546C0F00095A97 /* ReviewsView.swift */; };
+		721D0D602B546C8700095A97 /* ReviewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D5F2B546C8700095A97 /* ReviewsViewModel.swift */; };
+		721D0D622B546F2700095A97 /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D612B546F2700095A97 /* ReviewCell.swift */; };
+		721D0D642B547AEA00095A97 /* HostAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D632B547AEA00095A97 /* HostAccountView.swift */; };
+		721D0D662B547AF600095A97 /* HostAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D652B547AF600095A97 /* HostAccountViewModel.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -311,6 +316,11 @@
 		721D0D552B5344C200095A97 /* TopicLengthChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicLengthChoice.swift; sourceTree = "<group>"; };
 		721D0D572B543C4700095A97 /* HostStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostStatusViewModel.swift; sourceTree = "<group>"; };
 		721D0D5A2B54610100095A97 /* GetHostStatisticsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetHostStatisticsResponse.swift; sourceTree = "<group>"; };
+		721D0D5D2B546C0F00095A97 /* ReviewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsView.swift; sourceTree = "<group>"; };
+		721D0D5F2B546C8700095A97 /* ReviewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsViewModel.swift; sourceTree = "<group>"; };
+		721D0D612B546F2700095A97 /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
+		721D0D632B547AEA00095A97 /* HostAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostAccountView.swift; sourceTree = "<group>"; };
+		721D0D652B547AF600095A97 /* HostAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostAccountViewModel.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -496,7 +506,8 @@
 			children = (
 				72064F302B46ECBF00BB9ECC /* MyBookingsView.swift */,
 				720B60602B4B033400CF716E /* MyBookingsViewModel.swift */,
-				720B60772B4D1C0100CF716E /* My Past Bookings */,
+				721D0D3C2B51DA8900095A97 /* Write review */,
+				720B60772B4D1C0100CF716E /* My past bookings */,
 				720B606C2B4C6C7B00CF716E /* Booking Status */,
 			);
 			path = "My Bookings";
@@ -532,13 +543,13 @@
 			path = "Booking Status";
 			sourceTree = "<group>";
 		};
-		720B60772B4D1C0100CF716E /* My Past Bookings */ = {
+		720B60772B4D1C0100CF716E /* My past bookings */ = {
 			isa = PBXGroup;
 			children = (
 				720B60782B4D1C1E00CF716E /* MyPastBookingsView.swift */,
 				720B607A2B4D1C2C00CF716E /* MyPastBookingsViewModel.swift */,
 			);
-			path = "My Past Bookings";
+			path = "My past bookings";
 			sourceTree = "<group>";
 		};
 		720B607C2B4D1F3800CF716E /* Enums */ = {
@@ -702,6 +713,7 @@
 			children = (
 				7237A5992B438E1C00ABF10F /* GetStartedStepView.swift */,
 				727BD74F2B45519600D4279D /* CMPhotoCellView.swift */,
+				721D0D612B546F2700095A97 /* ReviewCell.swift */,
 				72774C262B47A31400C5A248 /* ExploreCell.swift */,
 				720087BF2B4EEBC50020633F /* SimpleUserCell.swift */,
 				72774C3C2B4805A000C5A248 /* TopicSimpleView.swift */,
@@ -744,8 +756,19 @@
 		721D0D592B54468700095A97 /* Host account */ = {
 			isa = PBXGroup;
 			children = (
+				721D0D632B547AEA00095A97 /* HostAccountView.swift */,
+				721D0D652B547AF600095A97 /* HostAccountViewModel.swift */,
 			);
 			path = "Host account";
+			sourceTree = "<group>";
+		};
+		721D0D5C2B546BF200095A97 /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				721D0D5D2B546C0F00095A97 /* ReviewsView.swift */,
+				721D0D5F2B546C8700095A97 /* ReviewsViewModel.swift */,
+			);
+			path = Reviews;
 			sourceTree = "<group>";
 		};
 		722C59D12B43EDE900EBA081 /* Network */ = {
@@ -790,8 +813,8 @@
 		7237A5812B42E47B00ABF10F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				721D0D5C2B546BF200095A97 /* Reviews */,
 				721D0D592B54468700095A97 /* Host account */,
-				721D0D3C2B51DA8900095A97 /* Write review */,
 				721D0D292B519E6C00095A97 /* Calling */,
 				721905282B506B32000516CA /* Upcoming Bookings */,
 				721905192B50424B000516CA /* Host Status */,
@@ -1390,6 +1413,7 @@
 				72064F382B471C6500BB9ECC /* ExploreUsersParams.swift in Sources */,
 				72774C4E2B48F6F800C5A248 /* InboxView.swift in Sources */,
 				721905152B5041B6000516CA /* HostCalenderView.swift in Sources */,
+				721D0D642B547AEA00095A97 /* HostAccountView.swift in Sources */,
 				72774C492B48812700C5A248 /* GetUsersResponse.swift in Sources */,
 				721D0D562B5344C200095A97 /* TopicLengthChoice.swift in Sources */,
 				721905352B50B4C6000516CA /* PastHostingsViewModel.swift in Sources */,
@@ -1402,6 +1426,7 @@
 				721905302B50A2AD000516CA /* ErrorView.swift in Sources */,
 				725586242B44EF5E005A37B9 /* UserManager.swift in Sources */,
 				728499EB2B457C9D00C2826B /* SetupDetailInfoViewModel.swift in Sources */,
+				721D0D5E2B546C0F00095A97 /* ReviewsView.swift in Sources */,
 				7237A5932B437E6300ABF10F /* SplashView.swift in Sources */,
 				72774C412B482BFB00C5A248 /* Topic.swift in Sources */,
 				728499E92B45650300C2826B /* CMMinusButton.swift in Sources */,
@@ -1474,6 +1499,7 @@
 				720B604C2B4A5F2300CF716E /* Message.swift in Sources */,
 				725586102B4419AF005A37B9 /* UserProfile.swift in Sources */,
 				722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */,
+				721D0D622B546F2700095A97 /* ReviewCell.swift in Sources */,
 				7237A59A2B438E1C00ABF10F /* GetStartedStepView.swift in Sources */,
 				724C954F2B494C4500AD2CFC /* ExploreTopicsViewModel.swift in Sources */,
 				727BD7502B45519600D4279D /* CMPhotoCellView.swift in Sources */,
@@ -1483,6 +1509,7 @@
 				721D0D542B53328300095A97 /* EditTopicParams.swift in Sources */,
 				728499EF2B4587EE00C2826B /* ProfilePhotosGridView.swift in Sources */,
 				72774C452B48351900C5A248 /* CMXButton.swift in Sources */,
+				721D0D662B547AF600095A97 /* HostAccountViewModel.swift in Sources */,
 				72064F312B46ECBF00BB9ECC /* MyBookingsView.swift in Sources */,
 				725586352B452E8B005A37B9 /* MultiSelectionView.swift in Sources */,
 				72774C372B47F73C00C5A248 /* UserDetailsViewModel.swift in Sources */,
@@ -1518,6 +1545,7 @@
 				721D0D2F2B51A13900095A97 /* BlockReason.swift in Sources */,
 				7255860E2B44197E005A37B9 /* LoginResponse.swift in Sources */,
 				721D0D582B543C4800095A97 /* HostStatusViewModel.swift in Sources */,
+				721D0D602B546C8700095A97 /* ReviewsViewModel.swift in Sources */,
 				7237A5962B43829500ABF10F /* LoginInitialView.swift in Sources */,
 				72064F362B470B7200BB9ECC /* ExploreViewModel.swift in Sources */,
 				720B604A2B4A584E00CF716E /* InboxViewModel.swift in Sources */,

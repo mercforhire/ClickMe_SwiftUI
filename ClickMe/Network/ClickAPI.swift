@@ -684,9 +684,9 @@ class ClickAPI {
     
     func getReviewsByUser(userId: String) async throws -> GetReviewsResponse {
         let parameters = ["userId": userId]
-        let url = baseURL + APIRequestURLs.getReviewsByUser.rawValue
+        let url = baseURL + APIRequestURLs.getReviewsAboutUser.rawValue
         let response: GetReviewsResponse = try await service.httpRequest(url: url,
-                                                                         method: APIRequestURLs.getReviewsByUser.getHTTPMethod(),
+                                                                         method: APIRequestURLs.getReviewsAboutUser.getHTTPMethod(),
                                                                          parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
@@ -700,7 +700,7 @@ class ClickAPI {
         let parameters = ["userId": userId]
         let url = baseURL + APIRequestURLs.getUserRatings.rawValue
         let response: GetUserRatingsResponse = try await service.httpRequest(url: url,
-                                                                             method: APIRequestURLs.getReviewsByUser.getHTTPMethod(),
+                                                                             method: APIRequestURLs.getReviewsAboutUser.getHTTPMethod(),
                                                                              parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey

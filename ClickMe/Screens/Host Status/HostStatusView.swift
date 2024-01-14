@@ -16,13 +16,13 @@ struct HostStatusView: View {
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             ScrollView(.vertical) {
                 VStack(alignment: .leading) {
                     Text("Earnings")
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundColor(.yellow)
+                        .foregroundColor(Color(.systemYellow))
                         .padding(.all, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
@@ -84,7 +84,7 @@ struct HostStatusView: View {
                     Text("Reviews")
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundColor(.yellow)
+                        .foregroundColor(Color(.systemYellow))
                         .padding(.all, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
@@ -99,12 +99,14 @@ struct HostStatusView: View {
                                 .font(.body)
                                 .fontWeight(.medium)
                                 .foregroundColor(.secondary)
-                            
                         }
                         .padding(.all, 5)
                         .frame(width: 140, height: 200)
                         .background(Color(.systemBackground))
                         .clipShape(RoundedRectangle(cornerRadius: 5))
+                        .onTapGesture {
+                            navigationPath.append(.reviews(viewModel.myProfile))
+                        }
                         
                         VStack(spacing: 5) {
                             Text(viewModel.overallRating)
@@ -133,6 +135,14 @@ struct HostStatusView: View {
             }
             .onAppear {
                 viewModel.fetchData()
+            }
+            .navigationDestination(for: ScreenNames.self) { screenName in
+                switch screenName {
+                case ScreenNames.reviews(let user):
+                    ReviewsView(user: user)
+                default:
+                    fatalError()
+                }
             }
         }
     }

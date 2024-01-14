@@ -12,6 +12,8 @@ import Cosmos
 // A SwiftUI wrapper for Cosmos view
 struct MyCosmosView: UIViewRepresentable {
     @Binding var rating: Double
+    var tintColor: UIColor = .white
+    var starSize: CGFloat = 30
     
     func makeUIView(context: Context) -> CosmosView {
         CosmosView()
@@ -25,11 +27,11 @@ struct MyCosmosView: UIViewRepresentable {
         uiView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         // Change Cosmos view settings here
-        uiView.settings.starSize = 30
-        uiView.settings.filledColor = .white
+        uiView.settings.starSize = starSize
+        uiView.settings.filledColor = tintColor
         uiView.settings.emptyColor = .clear
-        uiView.settings.emptyBorderColor = .white
-        uiView.settings.filledBorderColor = .white
+        uiView.settings.emptyBorderColor = tintColor
+        uiView.settings.filledBorderColor = tintColor
         uiView.settings.emptyBorderWidth = 1
     }
 }
@@ -39,7 +41,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            MyCosmosView(rating: $rating)
+            MyCosmosView(rating: $rating, tintColor: .white, starSize: 20)
         }
         .frame(
             minWidth: 0,

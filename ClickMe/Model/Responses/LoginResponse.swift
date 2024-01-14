@@ -14,6 +14,6 @@ struct LoginResponse: Codable {
 }
 
 struct LoginData: Codable {
-    let user: User?
-    let profile: UserProfile?
+    let user: User
+    let profile: UserProfile
 }

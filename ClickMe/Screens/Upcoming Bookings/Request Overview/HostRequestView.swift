@@ -169,13 +169,7 @@ struct HostRequestView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.all, 10)
                     } else if viewModel.request.status == .FINISHED {
-                        Button {
-                            
-                        } label: {
-                            CMButton(title: "Write review", fullWidth: true)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.all, 10)
+                        // display review
                     }
                 }
                 .background(Color(.systemBackground))
