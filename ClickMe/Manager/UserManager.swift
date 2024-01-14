@@ -62,6 +62,7 @@ class UserManager {
         self.profile = nil
         api.apiKey = nil
         saveAPIKey()
+        UserDefaults.standard.resetDefaults()
     }
     
     func isLoggedIn() -> Bool {

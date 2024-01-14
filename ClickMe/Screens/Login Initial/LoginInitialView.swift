@@ -13,8 +13,8 @@ struct LoginInitialView: View {
     @State private var navigationPath: [ScreenNames] = []
     
     var body: some View {
-        if viewModel.loggedIn {
-            HomeTabView()
+        if viewModel.loggedIn, let userProfile = viewModel.userProfile {
+            HomeTabView(myProfile: userProfile)
         } else {
             NavigationStack(path: $navigationPath) {
                 ZStack {

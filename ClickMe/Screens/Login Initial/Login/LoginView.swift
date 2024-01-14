@@ -92,5 +92,7 @@ struct LoginView: View {
     var viewModel = LoginViewModel()
     viewModel.emailAddress = "feiyangca@yahoo.ca"
     viewModel.code = "6174"
-    return LoginView(navigationPath: .constant([ScreenNames.login]), viewModel: viewModel)
+    return NavigationStack {
+        LoginView(navigationPath: .constant([ScreenNames.login]), viewModel: viewModel)
+    }
 }

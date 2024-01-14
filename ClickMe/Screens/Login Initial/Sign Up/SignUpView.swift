@@ -109,7 +109,9 @@ struct SignUpView: View {
 #Preview {
     var viewModel = SignUpViewModel()
     viewModel.emailAddress = "feiyangca@yahoo.ca"
-    return SignUpView(navigationPath: .constant([ScreenNames.register]), viewModel: viewModel)
+    return NavigationStack {
+        SignUpView(navigationPath: .constant([ScreenNames.register]), viewModel: viewModel)
+    }
 }
 
 struct CheckboxView: View {

@@ -10,12 +10,14 @@ import SwiftUI
 
 @MainActor
 final class HostTabViewModel: ObservableObject {
-    @Published var tabSelection: HostTabs = .inbox
+    var myProfile: UserProfile
+    
+    @Published var tabSelection: HostTabs = .upcoming
     @Published var talkTo: UserProfile?
     @Published var shouldPresentGetStartedView = false
     
-    func getCurrentUser() -> UserProfile {
-        return UserManager.shared.profile!
+    init(myProfile: UserProfile) {
+        self.myProfile = myProfile
     }
     
     func handleSwitchToChatNotification(notification: NotificationCenter.Publisher.Output) {

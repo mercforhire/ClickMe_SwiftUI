@@ -18,31 +18,39 @@ enum HostTabs: Hashable {
 struct HostTabView: View {
     @AppStorage("hasShownGetStartedScreen") private var hasShownGetStartedScreen = false
     
-    @StateObject var viewModel = HostTabViewModel()
+    @StateObject var viewModel: HostTabViewModel
+    
+    init(myProfile: UserProfile) {
+        _viewModel = StateObject(wrappedValue: HostTabViewModel(myProfile: myProfile))
+    }
     
     var body: some View {
         TabView(selection: $viewModel.tabSelection) {
-            InboxView(myProfile: viewModel.getCurrentUser(), talkTo: $viewModel.talkTo)
-                .tabItem {
-                    Label("Inbox", systemImage: "bubble.left.and.text.bubble.right")
-                }
-                .tag(HostTabs.inbox)
-            HostCalenderView(myUserId: viewModel.getCurrentUser().userId)
-                .tabItem {
-                    Label("Calender", systemImage: "clock")
-                }
-                .tag(HostTabs.calendar)
-            HostUpcomingBookingsView(myProfile: viewModel.getCurrentUser())
+            HostUpcomingBookingsView(myProfile: viewModel.myProfile)
                 .tabItem {
                     Label("Upcoming", systemImage: "calendar.badge.exclamationmark")
                 }
                 .tag(HostTabs.upcoming)
-            HostTopicsView(myProfile: viewModel.getCurrentUser())
+        
+            HostCalenderView(myUserId: viewModel.myProfile.userId)
+                .tabItem {
+                    Label("Calender", systemImage: "clock")
+                }
+                .tag(HostTabs.calendar)
+            
+            HostTopicsView(myProfile: viewModel.myProfile)
                 .tabItem {
                     Label("Topics", systemImage: "lightbulb")
                 }
                 .tag(HostTabs.topics)
-            AccountView(myProfile: viewModel.getCurrentUser())
+            
+            InboxView(myProfile: viewModel.myProfile, talkTo: $viewModel.talkTo)
+                .tabItem {
+                    Label("Inbox", systemImage: "bubble.left.and.text.bubble.right")
+                }
+                .tag(HostTabs.inbox)
+            
+            HostAccountView(myProfile: viewModel.myProfile)
                 .tabItem {
                     Label("Account", systemImage: "person")
                 }
@@ -63,6 +71,7 @@ struct HostTabView: View {
 }
 
 #Preview {
-    ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
-    return HostTabView()
+    UserManager.shared.set(user: MockData.mockUser2(), profile: MockData.mockProfile2())
+    
+    return HostTabView(myProfile: MockData.mockProfile2())
 }

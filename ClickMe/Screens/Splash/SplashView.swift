@@ -14,13 +14,12 @@ struct SplashView: View {
     var body: some View {
         ZStack {
             if viewModel.appIsActive && !viewModel.loginInProgress {
-                if viewModel.loggedIn {
+                if viewModel.loggedIn, let userProfile = viewModel.userProfile {
                     if startinHostMode {
-                        HostTabView()
+                        HostTabView(myProfile: userProfile)
                     } else {
-                        HomeTabView()
+                        HomeTabView(myProfile: userProfile)
                     }
-                    
                 } else {
                     GetStartedView()
                 }
@@ -49,5 +48,7 @@ struct SplashView: View {
 }
 
 #Preview {
-    SplashView()
+    UserManager.shared.logout()
+    
+    return SplashView()
 }
