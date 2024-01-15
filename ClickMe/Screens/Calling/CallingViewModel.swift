@@ -20,44 +20,48 @@ final class CallingViewModel: ObservableObject {
     var talkingTo: UserProfile
     var topic: Topic
     var request: Request
-    var token: String
     
     @Published var meetingState: MeetingState = .connecting
-    @Published var micState: MicState = .speaking
-    @Published var speakerState: SpeakerState = .speaker
-    @Published var talkingToMicState: MicState?
-    @Published var otherPersonIsConnected: Bool = false
     
     var meetingEndTime: String {
         return DateUtil.convert(input: request.endTime, outputFormat: .format8)!
     }
-    
-    var micIconName: String {
-        switch micState {
-        case .muted:
-            return "mic.slash.fill"
-        case .speaking:
-            return "mic.fill"
-        }
+    var minutesLeft: Int {
+        guard Date() < request.endTime else { return 0 }
+        
+        let difference = Calendar.current.dateComponents([.minute], from: Date(), to: request.endTime).minute
+        return difference ?? 0
     }
+    private var refreshTimer: Timer?
     
-    var speakerIconName: String {
-        switch speakerState {
-        case .muted:
-            return "speaker.slash.fill"
-        case .ear:
-            return "ear"
-        case .speaker:
-            return "speaker.wave.3.fill"
-        }
-    }
-    
-    init(myProfile: UserProfile, talkingTo: UserProfile, topic: Topic, request: Request, token: String) {
+    init(myProfile: UserProfile, talkingTo: UserProfile, topic: Topic, request: Request) {
         self.myProfile = myProfile
         self.talkingTo = talkingTo
         self.topic = topic
         self.request = request
-        self.token = token
     }
     
+    func startRefreshTimer() {
+        refreshTimer = Timer.scheduledTimer(timeInterval: 5,
+                                            target: self,
+                                            selector: #selector(timerFunction),
+                                            userInfo: nil,
+                                            repeats: true)
+        refreshTimer?.fire()
+    }
+    
+    @objc func timerFunction() {
+        if Date() >= request.endTime {
+            meetingState = .ended
+        } else if Date() > request.endTime.getPastOrFutureDate(minute: -5) {
+            meetingState = .almostOver
+        } else {
+            meetingState = .ongoing
+        }
+    }
+    
+    func stopRefreshTime() {
+        refreshTimer?.invalidate()
+        refreshTimer = nil
+    }
 }

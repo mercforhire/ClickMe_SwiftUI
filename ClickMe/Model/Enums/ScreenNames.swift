@@ -23,7 +23,7 @@ enum ScreenNames: Hashable {
     case hostPastBookings
     case bookingDetails(Request)
     case editProfile
-    case usersList(UsersListTypes, String)
+    case usersList(UsersListTypes)
     case topicDetails(Topic)
     case selectTime(Topic, UserProfile)
     case confirmBooking(Topic, UserProfile, Date, Date)

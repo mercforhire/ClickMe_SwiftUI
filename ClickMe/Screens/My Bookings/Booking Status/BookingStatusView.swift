@@ -196,7 +196,8 @@ struct BookingStatusView: View {
         .navigationTitle("Booking with \(viewModel.host.firstName ?? "")")
         .background(Color(.systemGray6))
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
-            UserDetailsView(profile: viewModel.host,
+            UserDetailsView(myProfile: viewModel.myProfile,
+                            profile: viewModel.host,
                             isShowingProfile: $viewModel.isShowingProfile,
                             loadTopics: false)
         }

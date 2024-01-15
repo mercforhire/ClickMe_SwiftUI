@@ -64,7 +64,8 @@ struct ExploreView: View {
                 .environmentObject(filterViewModel)
         }
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
-            UserDetailsView(profile: viewModel.selectedProfile!,
+            UserDetailsView(myProfile: viewModel.myProfile,
+                            profile: viewModel.selectedProfile!,
                             isShowingProfile: $viewModel.isShowingProfile,
                             loadTopics: true)
         }
@@ -74,11 +75,10 @@ struct ExploreView: View {
         .onChange(of: viewModel.searchText) { searchText in
             viewModel.searchUsers()
         }
-        .onChange(of: filterViewModel.fields) { _ in
-            fetchUsers()
-        }
-        .onChange(of: filterViewModel.languages) { _ in
-            fetchUsers()
+        .onChange(of: viewModel.isPresentingFilter) { _ in
+            if !viewModel.isPresentingFilter {
+                fetchUsers()
+            }
         }
     }
     

@@ -26,17 +26,17 @@ enum UsersListTypes {
 
 @MainActor
 final class UsersListViewModel: ObservableObject {
+    var myProfile: UserProfile
     var type: UsersListTypes
-    var myUserId: String
     
     @Published var isLoading = false
     @Published var users: [UserProfile] = []
     @Published var isShowingProfile = false
     @Published var selectedProfile: UserProfile?
     
-    init(type: UsersListTypes, myUserId: String) {
+    init(myProfile: UserProfile, type: UsersListTypes) {
+        self.myProfile = myProfile
         self.type = type
-        self.myUserId = myUserId
     }
     
     func fetchUsers() {
@@ -44,7 +44,7 @@ final class UsersListViewModel: ObservableObject {
         switch type {
         case .following:
             Task {
-                let response = try? await ClickAPI.shared.getFollowingUsers(userId: myUserId)
+                let response = try? await ClickAPI.shared.getFollowingUsers(userId: myProfile.userId)
                 if let profiles = response?.data?.profiles {
                     self.users = profiles
                 }
@@ -52,7 +52,7 @@ final class UsersListViewModel: ObservableObject {
             }
         case .followers:
             Task {
-                let response = try? await ClickAPI.shared.getFollowers(userId: myUserId)
+                let response = try? await ClickAPI.shared.getFollowers(userId: myProfile.userId)
                 if let profiles = response?.data?.profiles {
                     self.users = profiles
                 }
@@ -60,7 +60,7 @@ final class UsersListViewModel: ObservableObject {
             }
         case .blockedUsers:
             Task {
-                let response = try? await ClickAPI.shared.getBlockedUsers(userId: myUserId)
+                let response = try? await ClickAPI.shared.getBlockedUsers(userId: myProfile.userId)
                 if let profiles = response?.data?.profiles {
                     self.users = profiles
                 }

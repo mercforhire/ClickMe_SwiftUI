@@ -17,6 +17,7 @@ enum HomeTabs: Hashable {
 
 struct HomeTabView: View {
     @StateObject var viewModel: HomeTabViewModel
+    @EnvironmentObject var agora: AgoraManager
     
     init(myProfile: UserProfile) {
         _viewModel = StateObject(wrappedValue: HomeTabViewModel(myProfile: myProfile))
@@ -59,14 +60,14 @@ struct HomeTabView: View {
         .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat)) { notification in
             viewModel.handleSwitchToChatNotification(notification: notification)
         }
-        .overlay(alignment: .bottom) {
-            Button(action: {
-                viewModel.isShowingCallView = true
-            }, label: {
-                CallingButtonView()
-            })
-            .padding([.bottom], 70)
-        }
+//        .overlay(alignment: .bottom) {
+//            Button(action: {
+//                viewModel.isShowingCallView = true
+//            }, label: {
+//                CallingButtonView()
+//            })
+//            .padding([.bottom], 70)
+//        }
     }
 }
 

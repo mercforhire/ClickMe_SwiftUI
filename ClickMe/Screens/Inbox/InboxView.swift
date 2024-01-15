@@ -50,15 +50,15 @@ struct InboxView: View {
                     } else if let talkingTo = viewModel.getOtherConversationParticipant() {
                         ChatView(myProfile: viewModel.myProfile, talkingTo: talkingTo)
                     }
-                case ScreenNames.usersList(let type, let myUserId):
-                    UsersListView(type: type, myUserId: myUserId)
+                case ScreenNames.usersList(let type):
+                    UsersListView(myProfile: viewModel.myProfile, type: type)
                 default:
                     fatalError()
                 }
             }
             .toolbar {
                 Button("", systemImage: "person.slash.fill") {
-                    navigationPath.append(.usersList(.blockedUsers, viewModel.myProfile.userId))
+                    navigationPath.append(.usersList(.blockedUsers))
                 }
             }
             .onChange(of: newPerson) { userToTalkTo in

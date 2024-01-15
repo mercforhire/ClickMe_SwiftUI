@@ -21,7 +21,9 @@ struct WriteReviewView: View {
             VStack(spacing: 20) {
                 Spacer()
                 
-                SpeakerAvatarView(user: viewModel.reviewing, micState: .constant(nil), connected: .constant(true))
+                SpeakerAvatarView(user: viewModel.reviewing, 
+                                  micState: .constant(nil),
+                                  state: .constant(.ready))
                     .frame(width: 130, height: 180)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 20)

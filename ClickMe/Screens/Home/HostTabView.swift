@@ -16,9 +16,8 @@ enum HostTabs: Hashable {
 }
 
 struct HostTabView: View {
-    @AppStorage("hasShownGetStartedScreen") private var hasShownGetStartedScreen = false
-    
     @StateObject var viewModel: HostTabViewModel
+    @EnvironmentObject var agora: AgoraManager
     
     init(myProfile: UserProfile) {
         _viewModel = StateObject(wrappedValue: HostTabViewModel(myProfile: myProfile))
@@ -56,25 +55,20 @@ struct HostTabView: View {
                 }
                 .tag(HostTabs.account)
         }
-        .onAppear {
-            if !hasShownGetStartedScreen {
-                viewModel.shouldPresentGetStartedView = true
-            }
-        }
         .fullScreenCover(isPresented: $viewModel.shouldPresentGetStartedView) {
             HostGetStartedView(isShowingGetStarted: $viewModel.shouldPresentGetStartedView)
         }
         .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat)) { notification in
             viewModel.handleSwitchToChatNotification(notification: notification)
         }
-        .overlay(alignment: .bottom) {
-            Button(action: {
-
-            }, label: {
-                CallingButtonView()
-            })
-            .padding([.bottom], 70)
-        }
+//        .overlay(alignment: .bottom) {
+//            Button(action: {
+//
+//            }, label: {
+//                CallingButtonView()
+//            })
+//            .padding([.bottom], 70)
+//        }
     }
 }
 

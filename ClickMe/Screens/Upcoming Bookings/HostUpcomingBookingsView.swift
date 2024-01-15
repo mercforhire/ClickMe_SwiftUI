@@ -34,10 +34,10 @@ struct HostUpcomingBookingsView: View {
                                 
                                 Text("Pending")
                                     .font(.title3)
-                                    .fontWeight(.bold)
+                                    .fontWeight(.medium)
                                     .foregroundColor(.primary)
                             }
-                            .padding(.all, 5)
+                            .padding(.all, 10)
                             .background(Color(.systemBackground))
                             .clipShape(RoundedRectangle(cornerRadius: 5))
                             
@@ -49,10 +49,10 @@ struct HostUpcomingBookingsView: View {
                                 
                                 Text("Today")
                                     .font(.title3)
-                                    .fontWeight(.bold)
+                                    .fontWeight(.medium)
                                     .foregroundColor(.primary)
                             }
-                            .padding(.all, 5)
+                            .padding(.all, 10)
                             .background(Color(.systemBackground))
                             .clipShape(RoundedRectangle(cornerRadius: 5))
                         }
@@ -118,6 +118,6 @@ struct HostUpcomingBookingsView: View {
 }
 
 #Preview {
-    ClickAPI.shared.apiKey = "00bdda2d44401b66b309bec2ec3d7e4ae6b975b2824fd4f814f11023369886cb83e005e5a1fc97b783bd4110e948bd345053c364b50a84cc48245d4d0de380a8"
+    ClickAPI.shared.apiKey = MockData.mockUser2().apiKey
     return HostUpcomingBookingsView(myProfile: MockData.mockProfile2())
 }

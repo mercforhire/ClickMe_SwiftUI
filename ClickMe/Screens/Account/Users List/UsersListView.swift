@@ -10,8 +10,8 @@ import SwiftUI
 struct UsersListView: View {
     @StateObject var viewModel: UsersListViewModel
     
-    init(type: UsersListTypes, myUserId: String) {
-        _viewModel = StateObject(wrappedValue: UsersListViewModel(type: type, myUserId: myUserId))
+    init(myProfile: UserProfile, type: UsersListTypes) {
+        _viewModel = StateObject(wrappedValue: UsersListViewModel(myProfile: myProfile, type: type))
     }
     
     var body: some View {
@@ -55,7 +55,8 @@ struct UsersListView: View {
         }
         .navigationTitle(viewModel.type.title())
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
-            UserDetailsView(profile: viewModel.selectedProfile!,
+            UserDetailsView(myProfile: viewModel.myProfile,
+                            profile: viewModel.selectedProfile!,
                             isShowingProfile: $viewModel.isShowingProfile,
                             loadTopics: true)
         }
@@ -67,5 +68,5 @@ struct UsersListView: View {
 
 #Preview {
     ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
-    return UsersListView(type: .following, myUserId: MockData.mockProfile().userId)
+    return UsersListView(myProfile: MockData.mockProfile(), type: .following)
 }

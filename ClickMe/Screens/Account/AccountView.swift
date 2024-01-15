@@ -121,7 +121,7 @@ struct AccountView: View {
                             }
                             .onTapGesture {
                                 print("Go to following screen")
-                                navigationPath.append(.usersList(.following, viewModel.myProfile.userId))
+                                navigationPath.append(.usersList(.following))
                             }
                             
                             Divider()
@@ -139,23 +139,25 @@ struct AccountView: View {
                             }
                             .onTapGesture {
                                 print("Go to followers screen")
-                                navigationPath.append(.usersList(.followers, viewModel.myProfile.userId))
+                                navigationPath.append(.usersList(.followers))
                             }
                         }
                         .frame(height: 50)
                         
-                        HStack(spacing: 10) {
+                        HStack(spacing: 20) {
                             Button {
                                 viewModel.isShowingProfile = true
                             } label: {
                                 CMButton(title: "View profile")
                             }
+                            .buttonStyle(BorderlessButtonStyle())
                             
                             Button {
                                 navigationPath.append(.editProfile)
                             } label: {
                                 CMButton(title: "Edit profile")
                             }
+                            .buttonStyle(BorderlessButtonStyle())
                         }
                     }
                     
@@ -244,8 +246,8 @@ struct AccountView: View {
                     MyPastBookingsView(myProfile: viewModel.myProfile, navigationPath: $navigationPath)
                 case ScreenNames.editProfile:
                     EditProfileView(myProfile: viewModel.myProfile, navigationPath: $navigationPath)
-                case ScreenNames.usersList(let type, let myUserId):
-                    UsersListView(type: type, myUserId: myUserId)
+                case ScreenNames.usersList(let type):
+                    UsersListView(myProfile: viewModel.myProfile, type: type)
                 default:
                     fatalError()
                 }
@@ -255,13 +257,14 @@ struct AccountView: View {
             viewModel.refreshData()
         }
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
-            UserDetailsView(profile: viewModel.myProfile,
+            UserDetailsView(myProfile: viewModel.myProfile,
+                            profile: viewModel.myProfile,
                             isShowingProfile: $viewModel.isShowingProfile,
                             loadTopics: false)
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notifications.RefreshProfile), perform: { notification in
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.RefreshProfile)) { notification in
             viewModel.refreshData()
-        })
+        }
     }
 }
 

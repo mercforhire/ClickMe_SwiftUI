@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HostGetStartedView: View {
     @Binding var isShowingGetStarted: Bool
-    @AppStorage("hasShownGetStartedScreen") private var hasShownGetStartedScreen = false
+    @AppStorage("hasShownGetStartedScreen") var hasShownGetStartedScreen = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -32,6 +32,7 @@ struct HostGetStartedView: View {
             Spacer()
             Button {
                 isShowingGetStarted = false
+                hasShownGetStartedScreen = true
             } label: {
                 CMButton(title: "Get started", fullWidth: true)
             }
@@ -46,9 +47,6 @@ struct HostGetStartedView: View {
                 CMXButton()
             })
             .padding([.top, .trailing], 10)
-        }
-        .onAppear() {
-            hasShownGetStartedScreen = true
         }
     }
 }

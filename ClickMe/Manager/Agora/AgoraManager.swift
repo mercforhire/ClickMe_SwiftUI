@@ -19,6 +19,17 @@ enum SpeakerState {
     case muted
     case ear
     case speaker
+    
+    func iconName() -> String {
+        switch self {
+        case .muted:
+            return "speaker.slash.fill"
+        case .ear:
+            return "ear"
+        case .speaker:
+            return "speaker.wave.3.fill"
+        }
+    }
 }
 
 enum MicState {
@@ -35,33 +46,28 @@ enum MicState {
     }
 }
 
-/// ``AgoraManager`` is a class that provides an interface to the Agora RTC Engine Kit.
-/// It conforms to the `ObservableObject` and `AgoraRtcEngineDelegate` protocols.
-///
-/// Use AgoraManager to set up and manage Agora RTC sessions, manage the client's role,
-/// and control the client's connection to the Agora RTC server.
-class AgoraManager: NSObject, ObservableObject {
-    static let shared = AgoraManager()
-
-    private(set) var callingUser: UserProfile?
-    private(set) var request: Request?
-    private(set) var topic: Topic?
-    private(set) var token: String?
-    private(set) var channelId: String?
-    
+@MainActor
+final class AgoraManager: NSObject, ObservableObject {
+    @Published var isPresentingCallScreen: Bool = false
     @Published var inInACall: Bool = false
-    @Published var connectionState: ConnectionState?
+    @Published var remoteConnectionState: ConnectionState?
     @Published var speakerState: SpeakerState?
     @Published var myMicState: MicState?
     @Published var remoteMicState: MicState?
     @Published var agoraError: String?
+    
+    private var callingUser: UserProfile?
+    private var request: Request?
+    private var topic: Topic?
+    private var token: String?
+    private var channelId: String?
     
     private var agoraKit: AgoraRtcEngineKit!
     private var audioProfile: AgoraAudioProfile = .default
     private var audioScenario: AgoraAudioScenario = .default
     
     static func checkForPermissions() async -> Bool {
-        var hasPermissions = await self.avAuthorization(mediaType: .audio)
+        let hasPermissions = await self.avAuthorization(mediaType: .audio)
         return hasPermissions
     }
     
@@ -128,7 +134,7 @@ class AgoraManager: NSObject, ObservableObject {
         // the token has to match the ones used for channel join
         agoraKit.joinChannel(byToken: token, channelId: request._id, info: nil, uid: 0) { sid, uid, elapsed in
             print("AgoraManager: joinChannel: \(sid), \(uid), \(elapsed)")
-            self.connectionState = .waiting
+            self.remoteConnectionState = .waiting
             self.inInACall = true
             self.speakerState = .speaker
             self.myMicState = .speaking
@@ -191,7 +197,7 @@ class AgoraManager: NSObject, ObservableObject {
         topic = nil
         token = nil
         channelId = nil
-        connectionState = nil
+        remoteConnectionState = nil
         speakerState = nil
         myMicState = nil
         remoteMicState = nil
@@ -240,7 +246,7 @@ extension AgoraManager: AgoraRtcEngineDelegate {
     /// @param elapsed time elapse since current sdk instance join the channel in ms
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
         print("AgoraManager remote user join: \(uid) \(elapsed)ms")
-        connectionState = .ready
+        remoteConnectionState = .ready
     }
     
     /// callback when a remote user is leaving the channel, note audience in live broadcast mode will NOT trigger this event
@@ -249,7 +255,7 @@ extension AgoraManager: AgoraRtcEngineDelegate {
     /// become an audience in live broadcasting profile
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         print("AgoraManager remote user left: \(uid) reason \(reason)")
-        connectionState = .disconnected
+        remoteConnectionState = .disconnected
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didAudioMuted muted: Bool, byUid uid: UInt) {

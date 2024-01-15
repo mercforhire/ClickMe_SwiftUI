@@ -123,7 +123,8 @@ struct TopicDetailsView: View {
         }
         .background(Color(.systemGray6))
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
-            UserDetailsView(profile: viewModel.topic.userProfile!,
+            UserDetailsView(myProfile: UserManager.shared.profile!,
+                            profile: viewModel.topic.userProfile!,
                             isShowingProfile: $viewModel.isShowingProfile,
                             loadTopics: false)
         }

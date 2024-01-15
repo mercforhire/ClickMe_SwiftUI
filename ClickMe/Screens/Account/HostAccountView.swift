@@ -105,12 +105,14 @@ struct HostAccountView: View {
                             } label: {
                                 CMButton(title: "View profile")
                             }
+                            .buttonStyle(BorderlessButtonStyle())
                             
                             Button {
                                 navigationPath.append(.editProfile)
                             } label: {
                                 CMButton(title: "Edit profile")
                             }
+                            .buttonStyle(BorderlessButtonStyle())
                         }
                     }
                     
@@ -182,7 +184,8 @@ struct HostAccountView: View {
             viewModel.refreshData()
         }
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
-            UserDetailsView(profile: viewModel.myProfile,
+            UserDetailsView(myProfile: viewModel.myProfile,
+                            profile: viewModel.myProfile,
                             isShowingProfile: $viewModel.isShowingProfile,
                             loadTopics: false)
         }

@@ -10,6 +10,7 @@ import SwiftUI
 struct SplashView: View {
     @AppStorage("startinHostMode") private var startinHostMode = false
     @StateObject var viewModel = SplashViewModel()
+    @StateObject var agora = AgoraManager()
     
     var body: some View {
         ZStack {
@@ -17,8 +18,10 @@ struct SplashView: View {
                 if viewModel.loggedIn, let userProfile = viewModel.userProfile {
                     if startinHostMode {
                         HostTabView(myProfile: userProfile)
+                            .environmentObject(agora)
                     } else {
                         HomeTabView(myProfile: userProfile)
+                            .environmentObject(agora)
                     }
                 } else {
                     GetStartedView()

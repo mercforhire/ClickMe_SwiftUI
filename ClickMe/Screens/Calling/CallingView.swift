@@ -10,15 +10,14 @@ import SwiftUI
 struct CallingView: View {
     @Binding var isShowingCallScreen: Bool
     @StateObject var viewModel: CallingViewModel
+    @EnvironmentObject var agora: AgoraManager
     
-    init(agoraAppId: String, 
-         myProfile: UserProfile,
+    init(myProfile: UserProfile,
          talkingTo: UserProfile,
          topic: Topic,
          request: Request,
-         token: String,
          isShowingCallScreen: Binding<Bool>) {
-        _viewModel = StateObject(wrappedValue: CallingViewModel(myProfile: myProfile, talkingTo: talkingTo, topic: topic, request: request, token: token))
+        _viewModel = StateObject(wrappedValue: CallingViewModel(myProfile: myProfile, talkingTo: talkingTo, topic: topic, request: request))
         _isShowingCallScreen = isShowingCallScreen
     }
     
@@ -28,12 +27,12 @@ struct CallingView: View {
             
             HStack(alignment: .top) {
                 SpeakerAvatarView(user: viewModel.myProfile, 
-                                  micState: .constant(nil),
-                                  connected: .constant(true))
+                                  micState: $agora.myMicState,
+                                  state: .constant(nil))
                     .frame(width: 130, height: 180)
                 SpeakerAvatarView(user: viewModel.talkingTo, 
-                                  micState: $viewModel.talkingToMicState,
-                                  connected: $viewModel.otherPersonIsConnected)
+                                  micState: $agora.remoteMicState,
+                                  state: $agora.remoteConnectionState)
                     .frame(width: 130, height: 180)
             }
             .padding(.horizontal, 20)
@@ -55,7 +54,7 @@ struct CallingView: View {
             Spacer()
             
             if viewModel.meetingState == .almostOver {
-                Text("You have 5 minutes left in this booking")
+                Text("You have \(viewModel.minutesLeft) minutes left in this booking")
                     .font(.body)
                     .fontWeight(.medium)
                     .foregroundColor(.white)
@@ -76,13 +75,13 @@ struct CallingView: View {
                 Button(action: {
                     
                 }, label: {
-                    CMRoundButton(iconName: viewModel.micIconName)
+                    CMRoundButton(iconName: agora.myMicState?.iconName() ?? "")
                 })
                 
                 Button(action: {
                     
                 }, label: {
-                    CMRoundButton(iconName: viewModel.speakerIconName)
+                    CMRoundButton(iconName: agora.speakerState?.iconName() ?? "")
                 })
             }
             
@@ -120,19 +119,17 @@ struct CallingView: View {
 
 #Preview {
     UserManager.shared.set(user: MockData.mockUser(), profile: MockData.mockProfile())
-    return CallingView(agoraAppId: "5ccb9d5f8b7f40f8a704ee0a73bb6735",
-                       myProfile: MockData.mockProfile(),
+    return CallingView(myProfile: MockData.mockProfile(),
                        talkingTo: MockData.mockProfile2(),
                        topic: MockData.mockTopic(),
                        request: MockData.mockRequest(),
-                       token: "abc",
                        isShowingCallScreen: .constant(true))
 }
 
 struct SpeakerAvatarView: View {
     var user: UserProfile
     @Binding var micState: MicState?
-    @Binding var connected: Bool
+    @Binding var state: ConnectionState?
     
     var body: some View {
         ZStack {
@@ -177,7 +174,7 @@ struct SpeakerAvatarView: View {
                 }
             }
             
-            if !connected {
+            if state == .waiting {
                 Text("Waiting")
                     .font(.body)
                     .fontWeight(.medium)

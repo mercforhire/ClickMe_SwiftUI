@@ -216,7 +216,8 @@ struct HostRequestView: View {
         .navigationTitle("Booking with \(viewModel.booker.firstName ?? "")")
         .background(Color(.systemGray6))
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
-            UserDetailsView(profile: viewModel.booker,
+            UserDetailsView(myProfile: UserManager.shared.profile!,
+                            profile: viewModel.booker,
                             isShowingProfile: $viewModel.isShowingProfile,
                             loadTopics: false)
         }

@@ -10,12 +10,18 @@ import SwiftUI
 
 @MainActor
 final class UserDetailsViewModel: ObservableObject {
+    var myProfile: UserProfile
     @Published var profile: UserProfile
     @Published var tabSelection = 0
     @Published var following = false
     @Published var topics: [Topic] = []
     
-    init(profile: UserProfile) {
+    var lookingAtMySelf: Bool {
+        return myProfile.userId == profile.userId
+    }
+    
+    init(myProfile: UserProfile, profile: UserProfile) {
+        self.myProfile = profile
         self.profile = profile
     }
     
@@ -29,18 +35,18 @@ final class UserDetailsViewModel: ObservableObject {
     }
     
     func getFollowStatus() {
-        guard let myUserId = UserManager.shared.user?._id else {
-            return
-        }
-        
         Task {
-            let response = try? await ClickAPI.shared.getFollowStatus(followerUserId: myUserId, followingUserId: profile.id)
+            let response = try? await ClickAPI.shared.getFollowStatus(followerUserId: myProfile.userId, followingUserId: profile.id)
             if let message = response?.message, message == "FOLLOW_RECORD_EXIST" {
                 following = true
             } else {
                 following = false
             }
         }
+    }
+    
+    func getRatings() {
+        
     }
     
     func handleChatButton() {

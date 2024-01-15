@@ -14,8 +14,8 @@ struct UserDetailsView: View {
     
     private let screenWidth = UIScreen.main.bounds.size.width
     
-    init(profile: UserProfile, isShowingProfile: Binding<Bool>, loadTopics: Bool) {
-        _viewModel = StateObject(wrappedValue: UserDetailsViewModel(profile: profile))
+    init(myProfile: UserProfile, profile: UserProfile, isShowingProfile: Binding<Bool>, loadTopics: Bool) {
+        _viewModel = StateObject(wrappedValue: UserDetailsViewModel(myProfile: myProfile, profile: profile))
         self._isShowingProfile = isShowingProfile
         self.loadTopics = loadTopics
     }
@@ -40,20 +40,22 @@ struct UserDetailsView: View {
                 // https://stackoverflow.com/questions/61827496/swiftui-how-to-animate-a-tabview-selection
                 .animation(.easeOut(duration: 0.2), value: viewModel.tabSelection)
                 .overlay(alignment: .bottomTrailing) {
-                    VStack {
-                        Button {
-                            viewModel.handleFollowButton()
-                        } label: {
-                            CMFollowButton(following: viewModel.following)
+                    if !viewModel.lookingAtMySelf {
+                        VStack {
+                            Button {
+                                viewModel.handleFollowButton()
+                            } label: {
+                                CMFollowButton(following: viewModel.following)
+                            }
+                            Button {
+                                isShowingProfile = false
+                                viewModel.handleChatButton()
+                            } label: {
+                                CMChatButton()
+                            }
                         }
-                        Button {
-                            isShowingProfile = false
-                            viewModel.handleChatButton()
-                        } label: {
-                            CMChatButton()
-                        }
+                        .padding([.bottom, .trailing], screenWidth / 25)
                     }
-                    .padding([.bottom, .trailing], screenWidth / 25)
                 }
                 
                 Text("\(viewModel.profile.firstName ?? "") \(viewModel.profile.lastName ?? "")")
@@ -177,5 +179,5 @@ struct UserDetailsView: View {
 }
 
 #Preview {
-    UserDetailsView(profile: MockData.mockProfile(), isShowingProfile: .constant(true), loadTopics: true)
+    UserDetailsView(myProfile: MockData.mockProfile(), profile: MockData.mockProfile2(), isShowingProfile: .constant(true), loadTopics: true)
 }

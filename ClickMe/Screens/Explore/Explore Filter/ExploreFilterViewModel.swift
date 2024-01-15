@@ -10,6 +10,7 @@ import Foundation
 final class ExploreFilterViewModel: ObservableObject, Equatable {
     @Published var fields: Set<Field> = []
     @Published var languages: Set<Language> = []
+    @Published var triggerSearch = false
     
     static func == (lhs: ExploreFilterViewModel, rhs: ExploreFilterViewModel) -> Bool {
         return lhs.fields == rhs.fields && lhs.languages == rhs.languages
