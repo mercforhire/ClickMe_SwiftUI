@@ -100,4 +100,10 @@ final class BookingStatusViewModel: ObservableObject {
     func handleChatButton() {
         NotificationCenter.default.post(name: Notifications.SwitchToChat, object: nil, userInfo: ["user": host])
     }
+    
+    func handleRefreshBookingRequest(notification: NotificationCenter.Publisher.Output) {
+        if let request = notification.userInfo?["request"] as? Request, request._id == self.request._id {
+            fetchData()
+        }
+    }
 }

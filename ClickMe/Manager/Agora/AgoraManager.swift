@@ -9,46 +9,59 @@ import AgoraRtcKit
 import SwiftUI
 import AVFoundation
 
+enum ConnectionState {
+    case waiting
+    case ready
+    case disconnected
+}
+
+enum SpeakerState {
+    case muted
+    case ear
+    case speaker
+}
+
+enum MicState {
+    case muted
+    case speaking
+    
+    func iconName() -> String {
+        switch self {
+        case .muted:
+            return "mic.slash.fill"
+        case .speaking:
+            return "mic.fill"
+        }
+    }
+}
+
 /// ``AgoraManager`` is a class that provides an interface to the Agora RTC Engine Kit.
 /// It conforms to the `ObservableObject` and `AgoraRtcEngineDelegate` protocols.
 ///
 /// Use AgoraManager to set up and manage Agora RTC sessions, manage the client's role,
 /// and control the client's connection to the Agora RTC server.
-open class AgoraManager: NSObject, ObservableObject {
+class AgoraManager: NSObject, ObservableObject {
+    static let shared = AgoraManager()
+
+    private(set) var callingUser: UserProfile?
+    private(set) var request: Request?
+    private(set) var topic: Topic?
+    private(set) var token: String?
+    private(set) var channelId: String?
     
-    // MARK: - Properties
+    @Published var inInACall: Bool = false
+    @Published var connectionState: ConnectionState?
+    @Published var speakerState: SpeakerState?
+    @Published var myMicState: MicState?
+    @Published var remoteMicState: MicState?
+    @Published var agoraError: String?
     
-    /// The Agora App ID for the session.
-    public let appId: String
-    /// The client's role in the session.
-    public var role: AgoraClientRole = .audience {
-        didSet { agoraEngine.setClientRole(role) }
-    }
-    
-    /// The set of all users in the channel.
-    @Published public var allUsers: Set<UInt> = []
-    
-    @Published var label: String?
-    
-    /// Integer ID of the local user.
-    @Published public var localUserId: UInt = 0
-    
-    // MARK: - Agora Engine Functions
-    
-    private var engine: AgoraRtcEngineKit?
-    /// The Agora RTC Engine Kit for the session.
-    public var agoraEngine: AgoraRtcEngineKit {
-        if let engine { return engine }
-        let engine = setupEngine()
-        self.engine = engine
-        return engine
-    }
+    private var agoraKit: AgoraRtcEngineKit!
+    private var audioProfile: AgoraAudioProfile = .default
+    private var audioScenario: AgoraAudioScenario = .default
     
     static func checkForPermissions() async -> Bool {
-        var hasPermissions = await self.avAuthorization(mediaType: .video)
-        // Break out, because camera permissions have been denied or restricted.
-        if !hasPermissions { return false }
-        hasPermissions = await self.avAuthorization(mediaType: .audio)
+        var hasPermissions = await self.avAuthorization(mediaType: .audio)
         return hasPermissions
     }
     
@@ -67,211 +80,182 @@ open class AgoraManager: NSObject, ObservableObject {
         }
     }
     
-    open func setupEngine() -> AgoraRtcEngineKit {
-        let eng = AgoraRtcEngineKit.sharedEngine(withAppId: appId, delegate: self)
-        eng.enableAudio()
-        eng.setClientRole(role)
-        return eng
+    func initializeAgora(appId: String) {
+        guard agoraKit == nil else { return }
+        
+        // initialize Agora Engine
+        agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: appId, delegate: self)
+            
+        agoraKit.setChannelProfile(.communication)
+        agoraKit.setClientRole(.broadcaster)
+        
+        // disable video module
+        agoraKit.disableVideo()
+        
+        // set audio profile/audio scenario
+        agoraKit.setAudioProfile(.speechStandard)
+        
+        // Set audio route to speaker
+        agoraKit.setDefaultAudioRouteToSpeakerphone(true)
+        
+        // enable volume indicator
+        agoraKit.enableAudioVolumeIndication(200, smooth: 3, reportVad: false)
+        
+        agoraKit.setEnableSpeakerphone(true)
     }
     
-    /// Joins a channel, starting the connection to an RTC session.
-    /// - Parameters:
-    ///   - channel: Name of the channel to join.
-    ///   - token: Token to join the channel, this can be nil for an weak security testing session.
-    ///   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
-    ///   - mediaOptions: AgoraRtcChannelMediaOptions object for join settings
-    /// - Returns: Error code, 0 = success, &lt; 0 = failure.
-    @discardableResult
-    open func joinChannel(
-        _ channel: String, token: String? = nil, uid: UInt = 0,
-        mediaOptions: AgoraRtcChannelMediaOptions? = nil
-    ) async -> Int32 {
-        if await !AgoraManager.checkForPermissions() {
-            await self.updateLabel(key: "invalid-permissions")
-            return -3
+    func joinChannel(callingUser: UserProfile,
+                     request: Request,
+                     topic: Topic,
+                     token: String,
+                     completion: (() -> Void)? = nil) {
+        self.callingUser = callingUser
+        self.request = request
+        self.topic = topic
+        self.token = token
+        self.channelId = request._id
+        
+        if inInACall {
+            print("AgoraManager: can't join channel, already in a call.")
+            return
         }
         
-        if let mediaOptions {
-            return self.agoraEngine.joinChannel(
-                byToken: token, channelId: channel,
-                uid: uid, mediaOptions: mediaOptions
-            )
+        // start joining channel
+        // 1. Users can only see each other after they join the
+        // same channel successfully using the same app id.
+        // 2. If app certificate is turned on at dashboard, token is needed
+        // when joining channel. The channel name and uid used to calculate
+        // the token has to match the ones used for channel join
+        agoraKit.joinChannel(byToken: token, channelId: request._id, info: nil, uid: 0) { sid, uid, elapsed in
+            print("AgoraManager: joinChannel: \(sid), \(uid), \(elapsed)")
+            self.connectionState = .waiting
+            self.inInACall = true
+            self.speakerState = .speaker
+            self.myMicState = .speaking
+            self.remoteMicState = .speaking
+            completion?()
         }
-        return self.agoraEngine.joinChannel(
-            byToken: token, channelId: channel,
-            info: nil, uid: uid
-        )
     }
     
-    /// Joins a video call, establishing a connection for video communication.
-    /// - Parameters:
-    ///   - channel: Name of the channel to join.
-    ///   - token: Token to join the channel, this can be nil for a weak security testing session.
-    ///   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
-    /// - Returns: Error code, 0 = success, &lt; 0 = failure.
-    @discardableResult
-    func joinVideoCall(
-        _ channel: String, token: String? = nil, uid: UInt = 0
-    ) async -> Int32 {
-        /// See ``AgoraManager/checkForPermissions()``, or Apple's docs for details of this method.
-        if await !AgoraManager.checkForPermissions() {
-            await self.updateLabel(key: "invalid-permissions")
-            return -3
+    func mutedMic() {
+        guard inInACall else { return }
+        
+        agoraKit.muteLocalAudioStream(true)
+        myMicState = .muted
+    }
+    
+    func unmutedMic() {
+        guard inInACall else { return }
+        
+        agoraKit.muteLocalAudioStream(false)
+        myMicState = .speaking
+    }
+    
+    func mutedSpeaker() {
+        guard inInACall else { return }
+        
+        agoraKit.adjustPlaybackSignalVolume(0)
+        speakerState = .muted
+    }
+    
+    func useEar() {
+        guard inInACall else { return }
+        
+        agoraKit.setEnableSpeakerphone(false)
+        agoraKit.adjustPlaybackSignalVolume(100)
+        speakerState = .ear
+    }
+    
+    func useSpeaker() {
+        guard inInACall else { return }
+        
+        agoraKit.setEnableSpeakerphone(true)
+        agoraKit.adjustPlaybackSignalVolume(100)
+        speakerState = .speaker
+    }
+    
+    func leaveChannel(completion: (() -> Void)? = nil) {
+        guard inInACall else { return }
+        
+        agoraKit.leaveChannel { stats in
+            print("AgoraManager leaveChannel:\(stats)")
+            self.inInACall = false
+            completion?()
         }
-        
-        let opt = AgoraRtcChannelMediaOptions()
-        opt.channelProfile = .communication
-        
-        return self.agoraEngine.joinChannel(
-            byToken: token, channelId: channel,
-            uid: uid, mediaOptions: opt
-        )
     }
     
-    /// Joins a voice call, establishing a connection for audio communication.
-    /// - Parameters:
-    ///   - channel: Name of the channel to join.
-    ///   - token: Token to join the channel, this can be nil for a weak security testing session.
-    ///   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
-    /// - Returns: Error code, 0 = success, &lt; 0 = failure.
-    @discardableResult
-    func joinVoiceCall(_ channel: String, token: String? = nil, uid: UInt = 0) async -> Int32 {
-        /// See ``AgoraManager/checkForPermissions()``, or Apple's docs for details of this method.
-        if await !AgoraManager.checkForPermissions() {
-            await self.updateLabel(key: "invalid-permissions")
-            return -3
-        }
-        
-        let opt = AgoraRtcChannelMediaOptions()
-        opt.channelProfile = .communication
-        
-        return self.agoraEngine.joinChannel(
-            byToken: token, channelId: channel,
-            uid: uid, mediaOptions: opt
-        )
-    }
-    
-    /// Joins a broadcast stream, enabling broadcasting or audience mode.
-    /// - Parameters:
-    ///   - channel: Name of the channel to join.
-    ///   - token: Token to join the channel, this can be nil for a weak security testing session.
-    ///   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
-    ///   - isBroadcaster: Flag to indicate if the user is joining as a broadcaster (true) or audience (false).
-    ///                    Defaults to true.
-    /// - Returns: Error code, 0 = success, &lt; 0 = failure.
-    @discardableResult
-    func joinBroadcastStream(_ channel: String, token: String? = nil, uid: UInt = 0, isBroadcaster: Bool = true) async -> Int32 {
-        /// See ``AgoraManager/checkForPermissions()``, or Apple's docs for details of this method.
-        if isBroadcaster, await !AgoraManager.checkForPermissions() {
-            await self.updateLabel(key: "invalid-permissions")
-            return -3
-        }
-        
-        let opt = AgoraRtcChannelMediaOptions()
-        opt.channelProfile = .liveBroadcasting
-        opt.clientRoleType = isBroadcaster ? .broadcaster : .audience
-        opt.audienceLatencyLevel = isBroadcaster ? .ultraLowLatency : .lowLatency
-        
-        return self.agoraEngine.joinChannel(
-            byToken: token, channelId: channel,
-            uid: uid, mediaOptions: opt
-        )
-    }
-    
-    /// This method is used by this app specifically. If there is a tokenURL,
-    /// it will attempt to retrieve a token from there.
-    /// Otherwise it will simply apply the provided token in config.json or nil.
-    ///
-    /// - Parameters:
-    ///   - channel: Name of the channel to join.
-    ///   - uid: User ID of the local user. This can be 0 to allow the engine to automatically assign an ID.
-    /// - Returns: Error code, 0 = success, &lt; 0 = failure.
-    @discardableResult
-    internal func joinChannel(_ rtcToken: String, channel: String, uid: UInt = 0, mediaOptions: AgoraRtcChannelMediaOptions? = nil) async -> Int32 {
-        let userId = uid
-        var token = rtcToken
-        return await self.joinChannel(channel, token: token, uid: uid, mediaOptions: mediaOptions)
-    }
-    
-    /// Leaves the channel and stops the preview for the session.
-    ///
-    /// - Parameter leaveChannelBlock: An optional closure that will be called when the client leaves the channel.
-    ///      The closure takes an `AgoraChannelStats` object as its parameter.
-    ///
-    ///
-    /// This method also empties all entries in ``allUsers``,
-    @discardableResult
-    open func leaveChannel(leaveChannelBlock: ((AgoraChannelStats) -> Void)? = nil, destroyInstance: Bool = true) -> Int32 {
-        let leaveErr = self.agoraEngine.leaveChannel(leaveChannelBlock)
-        self.agoraEngine.stopPreview()
-        defer { if destroyInstance { AgoraRtcEngineKit.destroy() } }
-        self.allUsers.removeAll()
-        return leaveErr
-    }
-    
-    // MARK: - Setup
-    
-    /// Initializes a new instance of `AgoraManager` with the specified app ID and client role.
-    ///
-    /// - Parameters:
-    ///   - appId: The Agora App ID for the session.
-    ///   - role: The client's role in the session. The default value is `.audience`.
-    public init(appId: String, role: AgoraClientRole = .audience) {
-        self.appId = appId
-        self.role = role
-    }
-    
-    @MainActor
-    func updateLabel(to message: String) {
-        self.label = message
-    }
-    
-    @MainActor
-    func updateLabel(key: String, comment: String = "") {
-        self.label = NSLocalizedString(key, comment: comment)
+    func resetValues() {
+        inInACall = false
+        callingUser = nil
+        request = nil
+        topic = nil
+        token = nil
+        channelId = nil
+        connectionState = nil
+        speakerState = nil
+        myMicState = nil
+        remoteMicState = nil
     }
 }
 
 // MARK: - Delegate Methods
 
 extension AgoraManager: AgoraRtcEngineDelegate {
-    /// The delegate is telling us that the local user has successfully joined the channel.
-    /// - Parameters:
-    ///    - engine: The Agora RTC engine kit object.
-    ///    - channel: The channel name.
-    ///    - uid: The ID of the user joining the channel.
-    ///    - elapsed: The time elapsed (ms) from the user calling `joinChannel` until this method is called.
-    ///
-    /// If the client's role is `.broadcaster`, this method also adds the broadcaster's
-    /// userId (``localUserId``) to the ``allUsers`` set.
-    open func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
-        self.localUserId = uid
-        if self.role == .broadcaster {
-            self.allUsers.insert(uid)
+    /// callback when warning occured for agora sdk, warning can usually be ignored, still it's nice to check out
+    /// what is happening
+    /// Warning code description can be found at:
+    /// en: https://docs.agora.io/en/Voice/API%20Reference/oc/Constants/AgoraWarningCode.html
+    /// cn: https://docs.agora.io/cn/Voice/API%20Reference/oc/Constants/AgoraWarningCode.html
+    /// @param warningCode warning code of the problem
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurWarning warningCode: AgoraWarningCode) {
+        print("AgoraManager warning: \(warningCode)")
+    }
+    
+    /// callback when error occured for agora sdk, you are recommended to display the error descriptions on demand
+    /// to let user know something wrong is happening
+    /// Error code description can be found at:
+    /// en: https://docs.agora.io/en/Voice/API%20Reference/oc/Constants/AgoraErrorCode.html
+    /// cn: https://docs.agora.io/cn/Voice/API%20Reference/oc/Constants/AgoraErrorCode.html
+    /// @param errorCode error code of the problem
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurError errorCode: AgoraErrorCode) {
+        print("AgoraManager rtcEngine error: \(errorCode)")
+        
+        if errorCode == AgoraErrorCode.tokenExpired {
+            agoraError = "TOKEN_EXPIRED"
+        } else if errorCode == AgoraErrorCode.invalidToken {
+            agoraError = "INVALID_TOKEN"
         }
     }
     
-    /// The delegate is telling us that a remote user has joined the channel.
-    ///
-    /// - Parameters:
-    /// - engine: The Agora RTC engine kit object.
-    /// - uid: The ID of the user joining the channel.
-    /// - elapsed: The time elapsed (ms) from the user calling `joinChannel` until this method is called.
-    ///
-    /// This method adds the remote user to the `allUsers` set.
-    open func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
-        self.allUsers.insert(uid)
+    /// callback when the local user joins a specified channel.
+    /// @param channel
+    /// @param uid uid of local user
+    /// @param elapsed time elapse since current sdk instance join the channel in ms
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
+        print("AgoraManager join \(channel) with uid \(uid) elapsed \(elapsed)ms")
     }
     
-    /// The delegate is telling us that a remote user has left the channel.
-    ///
-    /// - Parameters:
-    ///     - engine: The Agora RTC engine kit object.
-    ///     - uid: The ID of the user who left the channel.
-    ///     - reason: The reason why the user left the channel.
-    ///
-    /// This method removes the remote user from the `allUsers` set.
-    open func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
-        self.allUsers.remove(uid)
+    /// callback when a remote user is joinning the channel, note audience in live broadcast mode will NOT trigger this event
+    /// @param uid uid of remote joined user
+    /// @param elapsed time elapse since current sdk instance join the channel in ms
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
+        print("AgoraManager remote user join: \(uid) \(elapsed)ms")
+        connectionState = .ready
+    }
+    
+    /// callback when a remote user is leaving the channel, note audience in live broadcast mode will NOT trigger this event
+    /// @param uid uid of remote joined user
+    /// @param reason reason why this user left, note this event may be triggered when the remote user
+    /// become an audience in live broadcasting profile
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
+        print("AgoraManager remote user left: \(uid) reason \(reason)")
+        connectionState = .disconnected
+    }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didAudioMuted muted: Bool, byUid uid: UInt) {
+        if uid != 0 {
+            remoteMicState = muted ? .muted : .speaking
+        }
+        print("AgoraManager uid\(uid) muted \(muted ? "muted" : "unmuted")")
     }
 }

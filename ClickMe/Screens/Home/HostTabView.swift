@@ -67,6 +67,14 @@ struct HostTabView: View {
         .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat)) { notification in
             viewModel.handleSwitchToChatNotification(notification: notification)
         }
+        .overlay(alignment: .bottom) {
+            Button(action: {
+
+            }, label: {
+                CallingButtonView()
+            })
+            .padding([.bottom], 70)
+        }
     }
 }
 

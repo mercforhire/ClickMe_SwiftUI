@@ -42,16 +42,19 @@ struct WriteReviewView: View {
                         .foregroundStyle(.white)
                         .padding(.horizontal, 20)
                         .lineLimit(8)
+                        .onTapGesture {
+                            viewModel.isShowingCommentModal = true
+                        }
+                } else {
+                    Button(action: {
+                        viewModel.isShowingCommentModal = true
+                    }, label: {
+                        Text("Add a review")
+                            .font(.title3)
+                            .fontWeight(.medium)
+                            .foregroundStyle(.white)
+                    })
                 }
-                
-                Button(action: {
-                    viewModel.isShowingCommentModal = true
-                }, label: {
-                    Text(viewModel.writtenReview.isEmpty ? "Add a review" : "Edit review")
-                        .font(.title3)
-                        .fontWeight(.medium)
-                        .foregroundStyle(.white)
-                })
                 
                 Spacer()
                 
@@ -116,6 +119,8 @@ struct WriteReviewView: View {
         }
         .onChange(of: viewModel.reviewSubmitSuccess) { success in
             if success {
+                NotificationCenter.default.post(name: Notifications.RefreshBookingRequest, object: nil, userInfo: ["request": viewModel.request])
+                
                 isShowingReview = false
             }
         }

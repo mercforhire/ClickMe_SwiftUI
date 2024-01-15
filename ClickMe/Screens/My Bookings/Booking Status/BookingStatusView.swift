@@ -211,12 +211,15 @@ struct BookingStatusView: View {
         .onAppear() {
             viewModel.fetchData()
         }
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.RefreshBookingRequest)) { notification in
+            viewModel.handleRefreshBookingRequest(notification: notification)
+        }
     }
 }
 
 #Preview {
     ClickAPI.shared.apiKey = MockData.mockUser().apiKey
     return BookingStatusView(myProfile: MockData.mockProfile(),
-                             request: MockData.mockRequest2(),
+                             request: MockData.mockRequest3(),
                              navigationPath: .constant([]))
 }

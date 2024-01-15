@@ -56,9 +56,17 @@ struct HomeTabView: View {
         .fullScreenCover(isPresented: $viewModel.shouldPresentSetupProfileFlow) {
             SetupBasicInfoView(shouldPresentSetupProfileFlow: $viewModel.shouldPresentSetupProfileFlow)
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat), perform: { notification in
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat)) { notification in
             viewModel.handleSwitchToChatNotification(notification: notification)
-        })
+        }
+        .overlay(alignment: .bottom) {
+            Button(action: {
+                viewModel.isShowingCallView = true
+            }, label: {
+                CallingButtonView()
+            })
+            .padding([.bottom], 70)
+        }
     }
 }
 

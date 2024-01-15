@@ -111,6 +111,7 @@
 		721D0D642B547AEA00095A97 /* HostAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D632B547AEA00095A97 /* HostAccountView.swift */; };
 		721D0D662B547AF600095A97 /* HostAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D652B547AF600095A97 /* HostAccountViewModel.swift */; };
 		721D0D682B547BD800095A97 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D672B547BD800095A97 /* UserDefaults+Ext.swift */; };
+		721D0D6B2B54AA6000095A97 /* CallingButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D6A2B54AA6000095A97 /* CallingButtonView.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -324,6 +325,7 @@
 		721D0D652B547AF600095A97 /* HostAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostAccountViewModel.swift; sourceTree = "<group>"; };
 		721D0D672B547BD800095A97 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		721D0D692B54892300095A97 /* ClickMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClickMe.entitlements; sourceTree = "<group>"; };
+		721D0D6A2B54AA6000095A97 /* CallingButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallingButtonView.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -839,8 +841,9 @@
 				725586342B452E8B005A37B9 /* MultiSelectionView.swift */,
 				727BD7482B45310100D4279D /* MultiSelector.swift */,
 				728499EE2B4587EE00C2826B /* ProfilePhotosGridView.swift */,
-				721D0D432B51E8FB00095A97 /* UIViewRepresentable */,
 				721905372B50BBD8000516CA /* TextFieldActionView.swift */,
+				721D0D6A2B54AA6000095A97 /* CallingButtonView.swift */,
+				721D0D432B51E8FB00095A97 /* UIViewRepresentable */,
 				721D0D392B51CDD000095A97 /* Buttons */,
 				721D0D3B2B51CE1300095A97 /* Cells */,
 				721D0D3A2B51CDF100095A97 /* Full size views */,
@@ -1489,6 +1492,7 @@
 				720B604C2B4A5F2300CF716E /* Message.swift in Sources */,
 				725586102B4419AF005A37B9 /* UserProfile.swift in Sources */,
 				722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */,
+				721D0D6B2B54AA6000095A97 /* CallingButtonView.swift in Sources */,
 				721D0D622B546F2700095A97 /* ReviewCell.swift in Sources */,
 				7237A59A2B438E1C00ABF10F /* GetStartedStepView.swift in Sources */,
 				724C954F2B494C4500AD2CFC /* ExploreTopicsViewModel.swift in Sources */,
@@ -1711,12 +1715,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ClickMe/ClickMe.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ClickMe/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = NT385FNA76;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1734,7 +1737,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ByteraInc.ClickMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "pass-provisioning entitlement profile";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1751,12 +1753,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ClickMe/ClickMe.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ClickMe/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = NT385FNA76;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1774,7 +1775,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ByteraInc.ClickMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "pass-provisioning entitlement profile";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

@@ -14,23 +14,6 @@ enum MeetingState {
     case ended
 }
 
-enum ConnectionState {
-    case waiting
-    case ready
-    case disconnected
-}
-
-enum SpeakerState {
-    case muted
-    case ear
-    case speaker
-}
-
-enum MicState {
-    case muted
-    case speaking
-}
-
 @MainActor
 final class CallingViewModel: ObservableObject {
     var myProfile: UserProfile
@@ -76,6 +59,5 @@ final class CallingViewModel: ObservableObject {
         self.request = request
         self.token = token
     }
-    
     
 }

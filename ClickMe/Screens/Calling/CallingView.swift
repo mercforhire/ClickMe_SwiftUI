@@ -11,13 +11,14 @@ struct CallingView: View {
     @Binding var isShowingCallScreen: Bool
     @StateObject var viewModel: CallingViewModel
     
-    init(myProfile: UserProfile, talkingTo: UserProfile, topic: Topic, request: Request, token: String, isShowingCallScreen: Binding<Bool>) {
+    init(agoraAppId: String, 
+         myProfile: UserProfile,
+         talkingTo: UserProfile,
+         topic: Topic,
+         request: Request,
+         token: String,
+         isShowingCallScreen: Binding<Bool>) {
         _viewModel = StateObject(wrappedValue: CallingViewModel(myProfile: myProfile, talkingTo: talkingTo, topic: topic, request: request, token: token))
-        _isShowingCallScreen = isShowingCallScreen
-    }
-    
-    init(viewModel: CallingViewModel, isShowingCallScreen: Binding<Bool>) {
-        _viewModel = StateObject(wrappedValue: viewModel)
         _isShowingCallScreen = isShowingCallScreen
     }
     
@@ -111,31 +112,27 @@ struct CallingView: View {
             })
             .padding([.top, .trailing], 10)
         }
+        .onAppear {
+            
+        }
     }
 }
 
 #Preview {
-    let vm = CallingViewModel(myProfile: MockData.mockProfile(), talkingTo: MockData.mockProfile2(), topic: MockData
-        .mockTopic(), request: MockData.mockRequest(), token: "abc")
-    vm.meetingState = .almostOver
-    return CallingView(viewModel: vm, isShowingCallScreen: .constant(true))
+    UserManager.shared.set(user: MockData.mockUser(), profile: MockData.mockProfile())
+    return CallingView(agoraAppId: "5ccb9d5f8b7f40f8a704ee0a73bb6735",
+                       myProfile: MockData.mockProfile(),
+                       talkingTo: MockData.mockProfile2(),
+                       topic: MockData.mockTopic(),
+                       request: MockData.mockRequest(),
+                       token: "abc",
+                       isShowingCallScreen: .constant(true))
 }
 
 struct SpeakerAvatarView: View {
     var user: UserProfile
     @Binding var micState: MicState?
     @Binding var connected: Bool
-    
-    var micStateIconName: String {
-        switch micState {
-        case .muted:
-            return "mic.slash.fill"
-        case .speaking:
-            return "mic.fill"
-        default:
-            return ""
-        }
-    }
     
     var body: some View {
         ZStack {
@@ -174,7 +171,7 @@ struct SpeakerAvatarView: View {
             }
             .overlay(alignment: .topTrailing) {
                 if let micState = micState {
-                    Image(systemName: micStateIconName)
+                    Image(systemName: micState.iconName())
                         .imageScale(.medium)
                         .foregroundColor(.white)
                 }
