@@ -595,13 +595,13 @@
 			path = "Booking Requested";
 			sourceTree = "<group>";
 		};
-		721905132B50419E000516CA /* Host Calender */ = {
+		721905132B50419E000516CA /* Calender */ = {
 			isa = PBXGroup;
 			children = (
 				721905142B5041B6000516CA /* HostCalenderView.swift */,
 				721905212B5067B9000516CA /* HostCalenderViewModel.swift */,
 			);
-			path = "Host Calender";
+			path = Calender;
 			sourceTree = "<group>";
 		};
 		721905162B5041C4000516CA /* Host Topics */ = {
@@ -609,6 +609,7 @@
 			children = (
 				721905172B5041D5000516CA /* HostTopicsView.swift */,
 				721D0D4A2B5316ED00095A97 /* HostTopicsViewModel.swift */,
+				721905132B50419E000516CA /* Calender */,
 				721D0D4C2B531BEF00095A97 /* Edit Topic */,
 			);
 			path = "Host Topics";
@@ -814,7 +815,6 @@
 				721905282B506B32000516CA /* Upcoming Bookings */,
 				721905192B50424B000516CA /* Host Status */,
 				721905162B5041C4000516CA /* Host Topics */,
-				721905132B50419E000516CA /* Host Calender */,
 				72064F322B47078F00BB9ECC /* Account */,
 				72064F292B46EC1100BB9ECC /* Explore */,
 				724C954B2B4946CC00AD2CFC /* Explore Topics */,

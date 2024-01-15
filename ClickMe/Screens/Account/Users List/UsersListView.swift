@@ -18,6 +18,7 @@ struct UsersListView: View {
         ZStack {
             List(viewModel.users, id: \.id) { user in
                 SimpleUserCell(profile: user)
+                    .listRowSeparator(.hidden)
                     .onTapGesture {
                         viewModel.selectedProfile = user
                         viewModel.isShowingProfile = true

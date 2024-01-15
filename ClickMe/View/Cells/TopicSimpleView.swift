@@ -9,8 +9,6 @@ import SwiftUI
 
 struct TopicSimpleView: View {
     var topic: Topic
-    var width: CGFloat
-    var height: CGFloat
     
     var body: some View {
         ZStack {
@@ -32,23 +30,20 @@ struct TopicSimpleView: View {
                     .font(.title2)
                     .fontWeight(.medium)
                     .foregroundColor(.white)
-                
-                Spacer()
+                    .padding(.bottom, 20)
                 
                 Text(topic.displayablePrice)
                     .font(.title3)
                     .fontWeight(.medium)
                     .foregroundColor(.white)
-                
             }
-            .frame(width: width, height: height)
-            .padding(.all, 20)
         }
+        .padding(.all, 20)
         .background(Color.accentColor)
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 
 #Preview {
-    TopicSimpleView(topic: MockData.mockTopic(), width: 250, height: 200)
+    TopicSimpleView(topic: MockData.mockTopic())
 }

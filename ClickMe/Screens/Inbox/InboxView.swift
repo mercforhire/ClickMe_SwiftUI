@@ -55,8 +55,10 @@ struct InboxView: View {
                 }
             }
             .toolbar {
-                Button("", systemImage: "person.slash.fill") {
-                    navigationPath.append(.usersList(.blockedUsers))
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("", systemImage: "person.fill.xmark") {
+                        navigationPath.append(.usersList(.blockedUsers))
+                    }
                 }
             }
             .onChange(of: newPerson) { userToTalkTo in

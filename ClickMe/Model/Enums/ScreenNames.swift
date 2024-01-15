@@ -32,4 +32,5 @@ enum ScreenNames: Hashable {
     case editTopic(Topic?)
     case reviews(UserProfile)
     case following
+    case hostCalendar
 }

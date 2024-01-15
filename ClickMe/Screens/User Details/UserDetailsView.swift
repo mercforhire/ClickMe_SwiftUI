@@ -149,8 +149,8 @@ struct UserDetailsView: View {
                         .padding(.vertical, 10)
                     
                     ForEach(viewModel.topics) { topic in
-                        TopicView(topic: topic, hideHost: true)
-                            .frame(height: 300)
+                        TopicSimpleView(topic: topic)
+                            .padding(.horizontal, 20)
                             .onTapGesture {
                                 isShowingProfile = false
                                 viewModel.handleOpenTopic(topic: topic)

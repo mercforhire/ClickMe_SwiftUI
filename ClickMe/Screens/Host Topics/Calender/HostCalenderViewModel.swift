@@ -10,7 +10,7 @@ import SwiftUI
 
 @MainActor
 final class HostCalenderViewModel: ObservableObject {
-    var myUserId: String
+    var myProfile: UserProfile
     var timezone: TimeZone = Calendar.current.timeZone
     var scrollViewProxy: ScrollViewProxy?
     
@@ -29,14 +29,14 @@ final class HostCalenderViewModel: ObservableObject {
         Date.buildDateFrom(day: selectedDay, time: selectedEndTime)
     }
     
-    init(myUserId: String) {
-        self.myUserId = myUserId
+    init(myProfile: UserProfile) {
+        self.myProfile = myProfile
     }
     
     func fetchTimesAvailable() {
         Task {
             isLoading = true
-            let response = try? await ClickAPI.shared.getAvailability(userId: myUserId)
+            let response = try? await ClickAPI.shared.getAvailability(userId: myProfile.userId)
             if let timesAvailable = response?.data?.timesAvailable {
                 self.timesAvailable = timesAvailable.filter { timeslot in
                     return timeslot.start > Date()
@@ -77,7 +77,6 @@ final class HostCalenderViewModel: ObservableObject {
     }
     
     func saveAvailablity(scrollToBottom: Bool) {
-        isLoading = true
         let params = SetAvailabilityParams(timezone: timezone.identifier, timesAvailable: timesAvailable)
         
         Task {
@@ -90,7 +89,6 @@ final class HostCalenderViewModel: ObservableObject {
             } else {
                 addTimeslotError = "Error saving available timeslots"
             }
-            isLoading = false
         }
     }
 }

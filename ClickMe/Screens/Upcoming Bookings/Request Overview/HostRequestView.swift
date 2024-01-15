@@ -182,11 +182,13 @@ struct HostRequestView: View {
                             VStack(alignment: .center, spacing: 10) {
                                 MyCosmosView(rating: .constant(review.rating),
                                              tintColor: .systemYellow)
+                                .disabled(true)
                                 
                                 Text(review.comment)
                                     .font(.body)
                                     .fontWeight(.regular)
                                     .foregroundColor(.primary)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
                             .padding(.all, 10)
                         }

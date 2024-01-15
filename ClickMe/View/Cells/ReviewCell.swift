@@ -40,6 +40,7 @@ struct ReviewCell: View {
                              tintColor: .systemYellow,
                              starSize: 20)
                     .frame(height: 20)
+                    .disabled(true)
             }
             
             Divider()

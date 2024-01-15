@@ -34,7 +34,7 @@ final class ConfirmBookingViewModel: ObservableObject {
             return "FREE"
         }
         let dollarAmount: Double = Double(amount) / 100.0
-        return "\(dollarAmount.formatted(.currency(code: currency.rawValue)))"
+        return "$\(String(format: "%.2f", dollarAmount)) \(currency.text())"
     }
     
     init(topic: Topic, host: UserProfile, startTime: Date, endTime: Date) {

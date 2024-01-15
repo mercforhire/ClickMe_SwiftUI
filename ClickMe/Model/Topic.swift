@@ -25,7 +25,7 @@ struct Topic: Codable, Identifiable, Hashable {
         if priceHour == 0 {
             return "FREE"
         }
-        let amount: Double = Double(priceHour) / 100.0
-        return "\(amount.formatted(.currency(code: currency.rawValue))) / hour"
+        let dollarAmount: Double = Double(priceHour) / 100.0
+        return "$\(String(format: "%.2f", dollarAmount)) \(currency.text()) / hour"
     }
 }

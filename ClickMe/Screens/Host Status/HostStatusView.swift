@@ -136,6 +136,7 @@ struct HostStatusView: View {
             .onAppear {
                 viewModel.fetchData()
             }
+            .navigationTitle("Hosting status")
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
                 case ScreenNames.reviews(let user):

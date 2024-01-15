@@ -173,6 +173,7 @@ struct BookingStatusView: View {
                                     .font(.body)
                                     .fontWeight(.regular)
                                     .foregroundColor(.primary)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
                             .padding(.all, 10)
                         }

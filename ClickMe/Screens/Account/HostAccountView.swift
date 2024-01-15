@@ -23,7 +23,7 @@ enum HostAccountMenu: Int, Identifiable {
     func text() -> String {
         switch self {
         case .switchMode:
-            return "Switch to host"
+            return "Switch to guest"
         case .wallet:
             return "My wallet"
         case .support:

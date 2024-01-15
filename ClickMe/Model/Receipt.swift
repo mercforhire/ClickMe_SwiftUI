@@ -23,7 +23,7 @@ struct Receipt: Codable, Identifiable {
         if amount == 0 {
             return "FREE"
         }
-        let amount: Double = Double(amount) / 100.0
-        return "\(amount.formatted(.currency(code: currency.rawValue)))"
+        let dollarAmount: Double = Double(amount) / 100.0
+        return "$\(String(format: "%.2f", dollarAmount)) \(currency.text())"
     }
 }

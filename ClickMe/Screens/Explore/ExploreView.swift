@@ -28,24 +28,6 @@ struct ExploreView: View {
                         .listRowSeparator(.hidden)
                 }
                 .listStyle(.plain)
-                .toolbar {
-                    ToolbarItemGroup(placement: .topBarTrailing) {
-                        Button("", systemImage: "person") {
-                            navigationPath.append(.following)
-                        }
-                        .tint(Color.accentColor)
-                        
-                        Button("", systemImage: filterViewModel.filterButtonImageName) {
-                            viewModel.isPresentingFilter = true
-                        }
-                        .tint(filterViewModel.hasFilters ? Color.red : Color.accentColor)
-                        
-                        Button("", systemImage: "magnifyingglass") {
-                            viewModel.toggleSearchIsActive()
-                        }
-                        .tint(viewModel.searchIsActive ? Color.red : Color.accentColor)
-                    }
-                }
                 .refreshable {
                     if !viewModel.searchIsActive {
                         fetchUsers(forceRefresh: true)
@@ -62,6 +44,24 @@ struct ExploreView: View {
                     FollowingView(myProfile: viewModel.myProfile)
                 default:
                     fatalError()
+                }
+            }
+            .toolbar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("", systemImage: "person") {
+                        navigationPath.append(.following)
+                    }
+                    .tint(Color.accentColor)
+                    
+                    Button("", systemImage: filterViewModel.filterButtonImageName) {
+                        viewModel.isPresentingFilter = true
+                    }
+                    .tint(filterViewModel.hasFilters ? Color.red : Color.accentColor)
+                    
+                    Button("", systemImage: "magnifyingglass") {
+                        viewModel.toggleSearchIsActive()
+                    }
+                    .tint(viewModel.searchIsActive ? Color.red : Color.accentColor)
                 }
             }
             .popover(isPresented: $viewModel.isPresentingFilter) {

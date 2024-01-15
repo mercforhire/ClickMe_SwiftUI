@@ -13,7 +13,7 @@ struct CMChatButton: View {
             RoundedRectangle(cornerRadius: 10)
                 .frame(width: 50, height: 50)
                 .foregroundColor(.accentColor)
-            Image(systemName: "bubble")
+            Image(systemName: "bubble.left")
                 .imageScale(.large)
                 .foregroundColor(.white)
         }

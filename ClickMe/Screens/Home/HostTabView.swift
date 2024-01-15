@@ -9,9 +9,9 @@ import SwiftUI
 
 enum HostTabs: Hashable {
     case inbox
-    case calendar
     case topics
     case upcoming
+    case status
     case account
 }
 
@@ -30,12 +30,6 @@ struct HostTabView: View {
                     Label("Upcoming", systemImage: "calendar.badge.exclamationmark")
                 }
                 .tag(HostTabs.upcoming)
-        
-            HostCalenderView(myUserId: viewModel.myProfile.userId)
-                .tabItem {
-                    Label("Calender", systemImage: "clock")
-                }
-                .tag(HostTabs.calendar)
             
             HostTopicsView(myProfile: viewModel.myProfile)
                 .tabItem {
@@ -48,6 +42,12 @@ struct HostTabView: View {
                     Label("Inbox", systemImage: "text.bubble")
                 }
                 .tag(HostTabs.inbox)
+            
+            HostStatusView(myProfile: viewModel.myProfile)
+                .tabItem {
+                    Label("Status", systemImage: "chart.bar")
+                }
+                .tag(HostTabs.status)
             
             HostAccountView(myProfile: viewModel.myProfile)
                 .tabItem {

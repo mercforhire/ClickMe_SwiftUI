@@ -21,7 +21,6 @@ struct HostTopicsView: View {
                 List {
                     ForEach(viewModel.topics) { topic in
                         TopicView(topic: topic)
-                            .frame(height: 320)
                             .listRowSeparator(.hidden)
                             .onTapGesture {
                                 navigationPath.append(.editTopic(topic))
@@ -40,6 +39,10 @@ struct HostTopicsView: View {
             .navigationTitle("My topics")
             .toolbar() {
                 ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("", systemImage: "clock") {
+                        navigationPath.append(.hostCalendar)
+                    }
+                    
                     Button("", systemImage: "plus") {
                         navigationPath.append(.editTopic(nil))
                     }
@@ -49,6 +52,8 @@ struct HostTopicsView: View {
                 switch screenName {
                 case ScreenNames.editTopic(let topic):
                     EditTopicView(myProfile: viewModel.myProfile, topic: topic, navigationPath: $navigationPath)
+                case ScreenNames.hostCalendar:
+                    HostCalenderView(myProfile: viewModel.myProfile)
                 default:
                     fatalError()
                 }
