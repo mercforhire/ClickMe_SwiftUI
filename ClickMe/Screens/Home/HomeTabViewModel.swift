@@ -15,7 +15,7 @@ final class HomeTabViewModel: ObservableObject {
     @Published var shouldPresentSetupProfileFlow = false
     @Published var tabSelection: HomeTabs = .explore
     @Published var talkTo: UserProfile?
-    
+    @Published var openTopic: Topic?
     
     init(myProfile: UserProfile) {
         self.myProfile = myProfile
@@ -34,5 +34,10 @@ final class HomeTabViewModel: ObservableObject {
         }
     }
     
-    
+    func handleSwitchToTopicNotification(notification: NotificationCenter.Publisher.Output) {
+        if let topic = notification.userInfo?["topic"] as? Topic {
+            openTopic = topic
+            tabSelection = .topics
+        }
+    }
 }

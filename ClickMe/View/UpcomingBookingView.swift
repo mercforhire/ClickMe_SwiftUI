@@ -1,20 +1,19 @@
 //
-//  TopicView.swift
+//  UpcomingBookingView.swift
 //  ClickMe
 //
-//  Created by Leon Chen on 2024-01-05.
+//  Created by Leon Chen on 2024-01-15.
 //
 
 import SwiftUI
 
-struct TopicView: View {
-    var topic: Topic
-    var hideHost = false
+struct UpcomingBookingView: View {
+    var request: Request
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack(alignment: .center, spacing: 10) {
-                if let profile = topic.userProfile, let urlString = profile.avatarThumbnailUrl, !hideHost {
+            HStack(alignment: .top, spacing: 20) {
+                if let urlString = request.bookingUser?.avatarThumbnailUrl {
                     AsyncImage(url: URL(string: urlString)) { image in
                         image
                             .resizable()
@@ -25,30 +24,21 @@ struct TopicView: View {
                             .scaledToFill()
                             .opacity(0.5)
                     }
-                    .frame(width: 80, height: 80)
+                    .frame(width: 50, height: 50)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
+                    .clipped()
                     VStack(alignment: .leading) {
-                        Text("\(profile.firstName ?? "") \(profile.lastName ?? "")")
+                        Text("\(request.bookingUser?.firstName ?? "") \(request.bookingUser?.lastName ?? "")")
                             .font(.body)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
-                            .lineLimit(1)
-                        
-                        Text(profile.jobTitle ?? "")
+                        Text(request.bookingUser?.jobTitle ?? "")
                             .font(.subheadline)
                             .foregroundColor(.primary)
-                            .lineLimit(2)
-                            .fixedSize(horizontal: false, vertical: true)
                     }
-                } else {
-                    Text("\(topic.mood.text())")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
                 }
                 Spacer()
-                Image(topic.mood.imageName(), bundle: nil)
+                Image(request.topic?.mood.imageName() ?? "field_other", bundle: nil)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 50, height: 50)
@@ -58,27 +48,24 @@ struct TopicView: View {
                 .frame(height: 1)
                 .overlay(.primary)
             
-            Text(topic.title)
+            Text(request.timeAndDuration)
+                .font(.body)
+                .fontWeight(.medium)
+                .foregroundColor(.secondary)
+            
+            Text(request.topic?.title ?? "")
                 .font(.title3)
                 .fontWeight(.medium)
                 .foregroundColor(.primary)
                 .padding(.vertical, 5)
-                .lineLimit(2)
-                .fixedSize(horizontal: false, vertical: true)
-            
-            Text(topic.description)
-                .font(.body)
-                .fontWeight(.regular)
-                .foregroundColor(.primary)
-                .lineLimit(4)
-                .fixedSize(horizontal: false, vertical: true)
             
             Spacer()
             
-            Text(topic.displayablePrice)
-                .font(.title3)
-                .fontWeight(.medium)
-                .foregroundColor(.primary)
+            Text(request.status.text())
+                .font(.body)
+                .fontWeight(.bold)
+                .foregroundColor(request.status == .DECLINED ? .red : .accent)
+                .frame(maxWidth: .infinity, alignment: .trailing)
 
         }
         .padding(.all, 20)
@@ -88,5 +75,5 @@ struct TopicView: View {
 }
 
 #Preview {
-    TopicView(topic: MockData.mockTopic())
+    UpcomingBookingView(request: MockData.mockRequest())
 }

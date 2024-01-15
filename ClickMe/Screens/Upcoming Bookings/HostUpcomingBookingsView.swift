@@ -63,7 +63,7 @@ struct HostUpcomingBookingsView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                     
                     ForEach(viewModel.requests) { request in
-                        BookingRequestView(request: request)
+                        UpcomingBookingView(request: request)
                             .frame(height: 300)
                             .listRowSeparator(.hidden)
                             .onTapGesture {

@@ -30,7 +30,7 @@ struct HomeTabView: View {
                     Label("Explore", systemImage: "globe")
                 }
                 .tag(HomeTabs.explore)
-            ExploreTopicsView()
+            ExploreTopicsView(openTopic: $viewModel.openTopic)
                 .tabItem {
                     Label("Topics", systemImage: "lightbulb")
                 }
@@ -60,6 +60,9 @@ struct HomeTabView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat)) { notification in
             viewModel.handleSwitchToChatNotification(notification: notification)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToTopic)) { notification in
+            viewModel.handleSwitchToTopicNotification(notification: notification)
         }
     }
 }

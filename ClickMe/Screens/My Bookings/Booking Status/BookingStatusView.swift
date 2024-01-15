@@ -146,6 +146,14 @@ struct BookingStatusView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.all, 10)
+                    } else if viewModel.request.status == .AWAITING_PAYMENT || viewModel.request.status == .PENDING_APPROVAL {
+                        Button {
+                            viewModel.isShowingCancelModal = true
+                        } label: {
+                            CMButton(title: "Cancel request", fullWidth: true)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.all, 10)
                     } else if viewModel.request.status == .FINISHED {
                         if let review = viewModel.review {
                             VStack(alignment: .center, spacing: 10) {

@@ -90,7 +90,6 @@ struct MessagesListView: View {
     var talkingTo: UserProfile
     @Binding var scrollToBottom: Bool
     var scrollViewProxy: ScrollViewProxy
-    
     var refreshHandler: () -> Void
     
     private var participants: [UserProfile] {

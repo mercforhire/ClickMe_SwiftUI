@@ -14,13 +14,14 @@ final class UserDetailsViewModel: ObservableObject {
     @Published var profile: UserProfile
     @Published var following = false
     @Published var topics: [Topic] = []
+    @Published var ratings: Double?
     
     var lookingAtMySelf: Bool {
         return myProfile.userId == profile.userId
     }
     
     init(myProfile: UserProfile, profile: UserProfile) {
-        self.myProfile = profile
+        self.myProfile = myProfile
         self.profile = profile
     }
     
@@ -45,7 +46,12 @@ final class UserDetailsViewModel: ObservableObject {
     }
     
     func getRatings() {
-        
+        Task {
+            let response = try? await ClickAPI.shared.getUserRatings(userId: profile.id)
+            if let ratings = response?.data?.avgRatings {
+                self.ratings = ratings
+            }
+        }
     }
     
     func handleChatButton() {
@@ -87,5 +93,9 @@ final class UserDetailsViewModel: ObservableObject {
                 self.profile = profile
             }
         }
+    }
+    
+    func handleOpenTopic(topic: Topic) {
+        NotificationCenter.default.post(name: Notifications.SwitchToTopic, object: nil, userInfo: ["topic": topic])
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ExploreTopicsView: View {
+    @Binding var openTopic: Topic?
     @StateObject var viewModel = ExploreTopicsViewModel()
     @State private var navigationPath: [ScreenNames] = []
     
@@ -20,6 +21,10 @@ struct ExploreTopicsView: View {
         return (screenWidth - padding * 5) / 2
     }
     private let gridColumns: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
+    
+    init(openTopic: Binding<Topic?>) {
+        self._openTopic = openTopic
+    }
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -57,6 +62,10 @@ struct ExploreTopicsView: View {
                 if viewModel.topics.isEmpty {
                     CMEmptyView(imageName: "bad", message: "No topics of this category")
                 }
+                
+                if viewModel.isLoading {
+                    LoadingView()
+                }
             }
             .navigationTitle("Topics")
             .navigationDestination(for: ScreenNames.self) { screenName in
@@ -73,14 +82,25 @@ struct ExploreTopicsView: View {
                     fatalError()
                 }
             }
+            .onChange(of: openTopic) { topic in
+                if let topic {
+                    navigationPath.removeAll()
+                    navigationPath.append(.topicDetails(topic))
+                }
+            }
         }
         .onAppear() {
             viewModel.fetchTopics()
+            
+            if viewModel.firstTime, let openTopic = openTopic {
+                navigationPath.append(.topicDetails(openTopic))
+            }
+            viewModel.firstTime = false
         }
     }
 }
 
 #Preview {
     ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
-    return ExploreTopicsView()
+    return ExploreTopicsView(openTopic: .constant(nil))
 }

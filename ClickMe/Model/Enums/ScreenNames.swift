@@ -16,9 +16,9 @@ enum ScreenNames: Hashable {
          setupBasicInfo,
          setupDetailInfo,
          inbox,
-         chat,
          myBookings,
          bookingRequested
+    case chat(UserProfile)
     case myPastBookings
     case hostPastBookings
     case bookingDetails(Request)
@@ -31,4 +31,5 @@ enum ScreenNames: Hashable {
     case hostBookingFinal(BookingAction)
     case editTopic(Topic?)
     case reviews(UserProfile)
+    case following
 }

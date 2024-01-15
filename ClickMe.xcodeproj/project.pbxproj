@@ -140,6 +140,9 @@
 		724C954D2B4946E800AD2CFC /* ExploreTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724C954C2B4946E800AD2CFC /* ExploreTopicsView.swift */; };
 		724C954F2B494C4500AD2CFC /* ExploreTopicsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724C954E2B494C4500AD2CFC /* ExploreTopicsViewModel.swift */; };
 		724C95512B49508200AD2CFC /* MoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724C95502B49508200AD2CFC /* MoodView.swift */; };
+		725248572B55B384000D3FCB /* UpcomingBookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725248562B55B383000D3FCB /* UpcomingBookingView.swift */; };
+		7252485A2B55C924000D3FCB /* FollowingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725248592B55C924000D3FCB /* FollowingView.swift */; };
+		7252485C2B55C931000D3FCB /* FollowingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7252485B2B55C931000D3FCB /* FollowingViewModel.swift */; };
 		7255860E2B44197E005A37B9 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7255860D2B44197E005A37B9 /* LoginResponse.swift */; };
 		725586102B4419AF005A37B9 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7255860F2B4419AF005A37B9 /* UserProfile.swift */; };
 		725586132B442625005A37B9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725586122B442625005A37B9 /* LoginView.swift */; };
@@ -354,6 +357,9 @@
 		724C954C2B4946E800AD2CFC /* ExploreTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTopicsView.swift; sourceTree = "<group>"; };
 		724C954E2B494C4500AD2CFC /* ExploreTopicsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTopicsViewModel.swift; sourceTree = "<group>"; };
 		724C95502B49508200AD2CFC /* MoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodView.swift; sourceTree = "<group>"; };
+		725248562B55B383000D3FCB /* UpcomingBookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingBookingView.swift; sourceTree = "<group>"; };
+		725248592B55C924000D3FCB /* FollowingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingView.swift; sourceTree = "<group>"; };
+		7252485B2B55C931000D3FCB /* FollowingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingViewModel.swift; sourceTree = "<group>"; };
 		7255860D2B44197E005A37B9 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		7255860F2B4419AF005A37B9 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		725586122B442625005A37B9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -501,6 +507,7 @@
 			children = (
 				72064F2A2B46EC2C00BB9ECC /* ExploreView.swift */,
 				72064F352B470B7200BB9ECC /* ExploreViewModel.swift */,
+				725248582B55C8B2000D3FCB /* Following */,
 				72774C282B47B23300C5A248 /* Explore Filter */,
 			);
 			path = Explore;
@@ -833,6 +840,7 @@
 			isa = PBXGroup;
 			children = (
 				720B60682B4C414C00CF716E /* BookingRequestView.swift */,
+				725248562B55B383000D3FCB /* UpcomingBookingView.swift */,
 				7255861A2B44CCE9005A37B9 /* CMEmailTextField.swift */,
 				725586182B44CC1B005A37B9 /* CMErrorLabel.swift */,
 				728499F52B4657E900C2826B /* CMPhotoPicker.swift */,
@@ -948,6 +956,15 @@
 				724C95422B48FFB300AD2CFC /* Topic Details */,
 			);
 			path = "Explore Topics";
+			sourceTree = "<group>";
+		};
+		725248582B55C8B2000D3FCB /* Following */ = {
+			isa = PBXGroup;
+			children = (
+				725248592B55C924000D3FCB /* FollowingView.swift */,
+				7252485B2B55C931000D3FCB /* FollowingViewModel.swift */,
+			);
+			path = Following;
 			sourceTree = "<group>";
 		};
 		725586112B442604005A37B9 /* Login */ = {
@@ -1408,6 +1425,7 @@
 				721D0D642B547AEA00095A97 /* HostAccountView.swift in Sources */,
 				72774C492B48812700C5A248 /* GetUsersResponse.swift in Sources */,
 				721D0D562B5344C200095A97 /* TopicLengthChoice.swift in Sources */,
+				725248572B55B384000D3FCB /* UpcomingBookingView.swift in Sources */,
 				721905352B50B4C6000516CA /* PastHostingsViewModel.swift in Sources */,
 				721D0D4E2B531C1800095A97 /* EditTopicView.swift in Sources */,
 				722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */,
@@ -1431,6 +1449,7 @@
 				725586312B452910005A37B9 /* SetupDetailInfoView.swift in Sources */,
 				728499ED2B45867300C2826B /* SplashViewModel.swift in Sources */,
 				720087C32B4EF4530020633F /* SelectTimeView.swift in Sources */,
+				7252485C2B55C931000D3FCB /* FollowingViewModel.swift in Sources */,
 				721905332B50B4A7000516CA /* PastHostingsView.swift in Sources */,
 				727BD7492B45310100D4279D /* MultiSelector.swift in Sources */,
 				7255862A2B44F80D005A37B9 /* GetUserProfileResponse.swift in Sources */,
@@ -1488,6 +1507,7 @@
 				7237A5882B42E4F800ABF10F /* GetStartedView.swift in Sources */,
 				722C59E02B43FA7600EBA081 /* DefaultResponse.swift in Sources */,
 				721D0D402B51DAAD00095A97 /* WriteReviewViewModel.swift in Sources */,
+				7252485A2B55C924000D3FCB /* FollowingView.swift in Sources */,
 				720B605D2B4ADAE700CF716E /* MockData.swift in Sources */,
 				720B604C2B4A5F2300CF716E /* Message.swift in Sources */,
 				725586102B4419AF005A37B9 /* UserProfile.swift in Sources */,

@@ -26,7 +26,9 @@ struct InboxView: View {
                         .onTapGesture {
                             newPerson = nil
                             viewModel.selectedConversation = conversation
-                            navigationPath.append(.chat)
+                            if let userToTalkTo = viewModel.getOtherConversationParticipant() {
+                                navigationPath.append(.chat(userToTalkTo))
+                            }
                         }
                 }
                 .listStyle(PlainListStyle())
@@ -44,12 +46,8 @@ struct InboxView: View {
             .navigationTitle("Chat")
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
-                case ScreenNames.chat:
-                    if let newPerson = newPerson {
-                        ChatView(myProfile: viewModel.myProfile, talkingTo: newPerson)
-                    } else if let talkingTo = viewModel.getOtherConversationParticipant() {
-                        ChatView(myProfile: viewModel.myProfile, talkingTo: talkingTo)
-                    }
+                case ScreenNames.chat(let userToTalkTo):
+                    ChatView(myProfile: viewModel.myProfile, talkingTo: userToTalkTo)
                 case ScreenNames.usersList(let type):
                     UsersListView(myProfile: viewModel.myProfile, type: type)
                 default:
@@ -62,14 +60,16 @@ struct InboxView: View {
                 }
             }
             .onChange(of: newPerson) { userToTalkTo in
-                navigationPath.removeAll()
-                navigationPath.append(.chat)
+                if let userToTalkTo {
+                    navigationPath.removeAll()
+                    navigationPath.append(.chat(userToTalkTo))
+                }
             }
             .onAppear {
                 viewModel.fetchConversations()
                 
-                if viewModel.firstTime, newPerson != nil {
-                    navigationPath.append(.chat)
+                if viewModel.firstTime, let userToTalkTo = newPerson {
+                    navigationPath.append(.chat(userToTalkTo))
                 }
                 viewModel.firstTime = false
             }
@@ -78,6 +78,6 @@ struct InboxView: View {
 }
 
 #Preview {
-    ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
+    ClickAPI.shared.apiKey = MockData.mockUser().apiKey
     return InboxView(myProfile: MockData.mockProfile(), talkTo: .constant(nil))
 }

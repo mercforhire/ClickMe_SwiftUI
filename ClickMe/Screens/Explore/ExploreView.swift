@@ -10,13 +10,14 @@ import SwiftUI
 struct ExploreView: View {
     @StateObject var viewModel: ExploreViewModel
     @StateObject var filterViewModel = ExploreFilterViewModel()
+    @State private var navigationPath: [ScreenNames] = []
     
     init(myProfile: UserProfile) {
         _viewModel = StateObject(wrappedValue: ExploreViewModel(myProfile: myProfile))
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             ZStack {
                 List(viewModel.showUsers, id: \.id) { profile in
                     ExploreCell(profile: profile, imageHeight: 200)
@@ -29,10 +30,10 @@ struct ExploreView: View {
                 .listStyle(.plain)
                 .toolbar {
                     ToolbarItemGroup(placement: .topBarTrailing) {
-                        Button("", systemImage: viewModel.followingButtonImageName) {
-                            viewModel.isShowingFollowing.toggle()
+                        Button("", systemImage: "person") {
+                            navigationPath.append(.following)
                         }
-                        .tint(viewModel.isShowingFollowing ? Color.red : Color.accentColor)
+                        .tint(Color.accentColor)
                         
                         Button("", systemImage: filterViewModel.filterButtonImageName) {
                             viewModel.isPresentingFilter = true
@@ -47,48 +48,55 @@ struct ExploreView: View {
                 }
                 .refreshable {
                     if !viewModel.searchIsActive {
-                        viewModel.fetchUsers(filter: filterViewModel.toExploreUsersParams())
+                        fetchUsers(forceRefresh: true)
                     }
                 }
                 if viewModel.searchIsActive, viewModel.showUsers.isEmpty {
                     CMEmptyView()
                 }
             }
-            .navigationTitle(viewModel.isShowingFollowing ? "Following" : "Explore")
+            .navigationTitle("Explore")
+            .navigationDestination(for: ScreenNames.self) { screenName in
+                switch screenName {
+                case ScreenNames.following:
+                    FollowingView(myProfile: viewModel.myProfile)
+                default:
+                    fatalError()
+                }
+            }
+            .popover(isPresented: $viewModel.isPresentingFilter) {
+                ExploreFilterView(isPresentingFilter: $viewModel.isPresentingFilter)
+                    .environmentObject(filterViewModel)
+            }
+            .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
+                UserDetailsView(myProfile: viewModel.myProfile,
+                                profile: viewModel.selectedProfile!,
+                                isShowingProfile: $viewModel.isShowingProfile,
+                                loadTopics: true)
+            }
+            .onAppear() {
+                fetchUsers(forceRefresh: false)
+            }
+            .onChange(of: viewModel.searchText) { searchText in
+                viewModel.searchUsers()
+            }
+            .onChange(of: viewModel.isPresentingFilter) { _ in
+                if !viewModel.isPresentingFilter {
+                    fetchUsers(forceRefresh: true)
+                }
+            }
         }
         .if(viewModel.searchIsActive) { navigationView in
             navigationView.searchable(text: $viewModel.searchText)
         }
-        .popover(isPresented: $viewModel.isPresentingFilter) {
-            ExploreFilterView(isPresentingFilter: $viewModel.isPresentingFilter)
-                .environmentObject(filterViewModel)
-        }
-        .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
-            UserDetailsView(myProfile: viewModel.myProfile,
-                            profile: viewModel.selectedProfile!,
-                            isShowingProfile: $viewModel.isShowingProfile,
-                            loadTopics: true)
-        }
-        .onAppear() {
-            fetchUsers()
-        }
-        .onChange(of: viewModel.searchText) { searchText in
-            viewModel.searchUsers()
-        }
-        .onChange(of: viewModel.isPresentingFilter) { _ in
-            if !viewModel.isPresentingFilter {
-                fetchUsers()
-            }
-        }
     }
     
-    func fetchUsers() {
-        viewModel.fetchUsers(filter: filterViewModel.toExploreUsersParams())
-        viewModel.fetchFollowingUsers()
+    func fetchUsers(forceRefresh: Bool) {
+        viewModel.fetchUsers(filter: filterViewModel.toExploreUsersParams(), forceRefresh: forceRefresh)
     }
 }
 
 #Preview {
-    ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
+    ClickAPI.shared.apiKey = MockData.mockUser().apiKey
     return ExploreView(myProfile: MockData.mockProfile())
 }

@@ -95,7 +95,7 @@ struct UserDetailsView: View {
                             .foregroundColor(Color(.systemGray))
                     }
                     VStack {
-                        Text("\(4.5, specifier: "%.1f")")
+                        Text(viewModel.ratings != nil ? "\(viewModel.ratings!, specifier: "%.1f")" : "--")
                             .font(.body)
                             .fontWeight(.medium)
                             .foregroundColor(.primary)
@@ -142,18 +142,20 @@ struct UserDetailsView: View {
                 
                 if !viewModel.topics.isEmpty {
                     Text("My topics")
-                        .font(.title3)
+                        .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 10)
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(viewModel.topics) { topic in
-                                TopicSimpleView(topic: topic, width: screenWidth * 0.6, height: 170)
-                                    .padding(.leading, 20)
+                    
+                    ForEach(viewModel.topics) { topic in
+                        TopicView(topic: topic, hideHost: true)
+                            .frame(height: 300)
+                            .onTapGesture {
+                                isShowingProfile = false
+                                viewModel.handleOpenTopic(topic: topic)
                             }
-                        }
+                        Divider()
                     }
                 }
             }
@@ -164,6 +166,7 @@ struct UserDetailsView: View {
                 viewModel.getUserTopics()
             }
             viewModel.getFollowStatus()
+            viewModel.getRatings()
         }
         .overlay(alignment: .topTrailing) {
             Button(action: {
@@ -177,5 +180,6 @@ struct UserDetailsView: View {
 }
 
 #Preview {
-    UserDetailsView(myProfile: MockData.mockProfile(), profile: MockData.mockProfile2(), isShowingProfile: .constant(true), loadTopics: true)
+    ClickAPI.shared.apiKey = MockData.mockUser().apiKey
+    return UserDetailsView(myProfile: MockData.mockProfile(), profile: MockData.mockProfile2(), isShowingProfile: .constant(true), loadTopics: true)
 }
