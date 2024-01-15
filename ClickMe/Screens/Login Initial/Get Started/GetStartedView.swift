@@ -9,12 +9,15 @@ import SwiftUI
 
 struct GetStartedView: View {
     @StateObject var viewModel = GetStartedViewModel()
+    @EnvironmentObject var agora: AgoraManager
+    
     private let screenWidth = UIScreen.main.bounds.size.width
     private let padding: CGFloat = 40
     
     var body: some View {
-        if (viewModel.shouldGoToNextScreen) {
+        if viewModel.shouldGoToNextScreen {
             LoginInitialView()
+                .environmentObject(agora)
                 .transition(.slide)
         } else {
             ZStack(content: {

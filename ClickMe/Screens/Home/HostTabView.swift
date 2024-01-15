@@ -54,6 +54,7 @@ struct HostTabView: View {
                     Label("Account", systemImage: "person")
                 }
                 .tag(HostTabs.account)
+                .environmentObject(agora)
         }
         .fullScreenCover(isPresented: $viewModel.shouldPresentGetStartedView) {
             HostGetStartedView(isShowingGetStarted: $viewModel.shouldPresentGetStartedView)
@@ -61,14 +62,6 @@ struct HostTabView: View {
         .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat)) { notification in
             viewModel.handleSwitchToChatNotification(notification: notification)
         }
-//        .overlay(alignment: .bottom) {
-//            Button(action: {
-//
-//            }, label: {
-//                CallingButtonView()
-//            })
-//            .padding([.bottom], 70)
-//        }
     }
 }
 
@@ -76,4 +69,8 @@ struct HostTabView: View {
     UserManager.shared.set(user: MockData.mockUser2(), profile: MockData.mockProfile2())
     
     return HostTabView(myProfile: MockData.mockProfile2())
+        .environmentObject({() -> AgoraManager in
+            let agora = AgoraManager()
+            return agora
+        }())
 }

@@ -7,13 +7,11 @@
 
 import Foundation
 
-struct CallSession: Codable, Identifiable {
-    var id: String { return _id }
+struct CallSession: Codable, Identifiable, Hashable {
+    var id: String { return token }
     
-    let _id: String
-    let createdDate: Date
-    let requestId: String
-    let token: String
-    let expireTime: Date
-    
+    var token: String
+    var callingUser: UserProfile
+    var request: Request
+    var topic: Topic
 }

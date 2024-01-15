@@ -50,8 +50,9 @@ enum MicState {
 final class AgoraManager: NSObject, ObservableObject {
     @Published var isPresentingCallScreen: Bool = false
     @Published var inInACall: Bool = false
-    @Published var remoteConnectionState: ConnectionState?
-    @Published var speakerState: SpeakerState?
+    @Published var myConnectionState: ConnectionState = .waiting
+    @Published var remoteConnectionState: ConnectionState = .waiting
+    @Published var mySpeakerState: SpeakerState?
     @Published var myMicState: MicState?
     @Published var remoteMicState: MicState?
     @Published var agoraError: String?
@@ -113,8 +114,7 @@ final class AgoraManager: NSObject, ObservableObject {
     func joinChannel(callingUser: UserProfile,
                      request: Request,
                      topic: Topic,
-                     token: String,
-                     completion: (() -> Void)? = nil) {
+                     token: String) async -> Void {
         self.callingUser = callingUser
         self.request = request
         self.topic = topic
@@ -126,20 +126,21 @@ final class AgoraManager: NSObject, ObservableObject {
             return
         }
         
-        // start joining channel
-        // 1. Users can only see each other after they join the
-        // same channel successfully using the same app id.
-        // 2. If app certificate is turned on at dashboard, token is needed
-        // when joining channel. The channel name and uid used to calculate
-        // the token has to match the ones used for channel join
-        agoraKit.joinChannel(byToken: token, channelId: request._id, info: nil, uid: 0) { sid, uid, elapsed in
-            print("AgoraManager: joinChannel: \(sid), \(uid), \(elapsed)")
-            self.remoteConnectionState = .waiting
-            self.inInACall = true
-            self.speakerState = .speaker
-            self.myMicState = .speaking
-            self.remoteMicState = .speaking
-            completion?()
+        return await withCheckedContinuation { continuation in
+            // start joining channel
+            // 1. Users can only see each other after they join the
+            // same channel successfully using the same app id.
+            // 2. If app certificate is turned on at dashboard, token is needed
+            // when joining channel. The channel name and uid used to calculate
+            // the token has to match the ones used for channel join
+            agoraKit.joinChannel(byToken: token, channelId: request._id, info: nil, uid: 0) { sid, uid, elapsed in
+                print("AgoraManager: joinChannel: \(sid), \(uid), \(elapsed)")
+                self.inInACall = true
+                self.myConnectionState = .ready
+                self.mySpeakerState = .speaker
+                self.myMicState = .speaking
+                continuation.resume()
+            }
         }
     }
     
@@ -161,7 +162,7 @@ final class AgoraManager: NSObject, ObservableObject {
         guard inInACall else { return }
         
         agoraKit.adjustPlaybackSignalVolume(0)
-        speakerState = .muted
+        mySpeakerState = .muted
     }
     
     func useEar() {
@@ -169,7 +170,7 @@ final class AgoraManager: NSObject, ObservableObject {
         
         agoraKit.setEnableSpeakerphone(false)
         agoraKit.adjustPlaybackSignalVolume(100)
-        speakerState = .ear
+        mySpeakerState = .ear
     }
     
     func useSpeaker() {
@@ -177,16 +178,18 @@ final class AgoraManager: NSObject, ObservableObject {
         
         agoraKit.setEnableSpeakerphone(true)
         agoraKit.adjustPlaybackSignalVolume(100)
-        speakerState = .speaker
+        mySpeakerState = .speaker
     }
     
-    func leaveChannel(completion: (() -> Void)? = nil) {
+    func leaveChannel() async -> Void {
         guard inInACall else { return }
         
-        agoraKit.leaveChannel { stats in
-            print("AgoraManager leaveChannel:\(stats)")
-            self.inInACall = false
-            completion?()
+        return await withCheckedContinuation { continuation in
+            agoraKit.leaveChannel { stats in
+                print("AgoraManager leaveChannel:\(stats)")
+                self.inInACall = false
+                continuation.resume()
+            }
         }
     }
     
@@ -197,10 +200,15 @@ final class AgoraManager: NSObject, ObservableObject {
         topic = nil
         token = nil
         channelId = nil
-        remoteConnectionState = nil
-        speakerState = nil
+        myConnectionState = .waiting
+        remoteConnectionState = .waiting
+        mySpeakerState = nil
         myMicState = nil
         remoteMicState = nil
+    }
+        
+    func destroyAgoraEngine() {
+        AgoraRtcEngineKit.destroy()
     }
 }
 
@@ -239,6 +247,7 @@ extension AgoraManager: AgoraRtcEngineDelegate {
     /// @param elapsed time elapse since current sdk instance join the channel in ms
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
         print("AgoraManager join \(channel) with uid \(uid) elapsed \(elapsed)ms")
+        myConnectionState = .ready
     }
     
     /// callback when a remote user is joinning the channel, note audience in live broadcast mode will NOT trigger this event
@@ -249,13 +258,46 @@ extension AgoraManager: AgoraRtcEngineDelegate {
         remoteConnectionState = .ready
     }
     
-    /// callback when a remote user is leaving the channel, note audience in live broadcast mode will NOT trigger this event
-    /// @param uid uid of remote joined user
-    /// @param reason reason why this user left, note this event may be triggered when the remote user
-    /// become an audience in live broadcasting profile
+    /**
+     * Occurs when a remote user or host goes offline.
+     *
+     * There are two reasons for a user to go offline:
+     * - Leave the channel: When the user leaves the channel, the user sends a
+     * goodbye message. When this message is received, the SDK determines that the
+     * user leaves the channel.
+     * - Drop offline: When no data packet of the user is received for a certain
+     * period of time, the SDK assumes that the user drops offline. A poor network
+     * connection may lead to false detection, so we recommend using
+     * the RTM SDK for reliable offline detection.
+     *
+     * @param engine The AgoraRtcEngineKit object.
+     * @param uid The ID of the user who goes offline.
+     * @param reason The reason why the user goes offline: #AgoraUserOfflineReason.
+     */
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         print("AgoraManager remote user left: \(uid) reason \(reason)")
-        remoteConnectionState = .disconnected
+        if uid == 0 {
+            myConnectionState = .disconnected
+        } else {
+            remoteConnectionState = .disconnected
+        }
+    }
+    
+    /**
+     * Occurs when the local user rejoins a channel.
+     *
+     * If the client loses connection with the server because of network problems,
+     * the SDK automatically attempts to reconnect and then triggers this callback
+     * upon reconnection, indicating that the user rejoins the channel with the
+     * assigned channel ID and user ID.
+     *
+     * @param engine  The AgoraRtcEngineKit object.
+     * @param channel The channel name.
+     * @param uid     The user ID.
+     * @param elapsed Time elapsed (ms) from the local user calling `joinChannelByToken` until this event occurs.
+     */
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didRejoinChannel channel: String, withUid uid: UInt, elapsed: Int) {
+        myConnectionState = .ready
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didAudioMuted muted: Bool, byUid uid: UInt) {

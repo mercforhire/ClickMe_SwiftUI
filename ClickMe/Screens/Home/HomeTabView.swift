@@ -50,9 +50,10 @@ struct HomeTabView: View {
                     Label("Account", systemImage: "person")
                 }
                 .tag(HomeTabs.account)
+                .environmentObject(agora)
         }
         .onAppear {
-                viewModel.checkProfileCompletion()
+            viewModel.checkProfileCompletion()
         }
         .fullScreenCover(isPresented: $viewModel.shouldPresentSetupProfileFlow) {
             SetupBasicInfoView(shouldPresentSetupProfileFlow: $viewModel.shouldPresentSetupProfileFlow)
@@ -60,14 +61,6 @@ struct HomeTabView: View {
         .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat)) { notification in
             viewModel.handleSwitchToChatNotification(notification: notification)
         }
-//        .overlay(alignment: .bottom) {
-//            Button(action: {
-//                viewModel.isShowingCallView = true
-//            }, label: {
-//                CallingButtonView()
-//            })
-//            .padding([.bottom], 70)
-//        }
     }
 }
 
@@ -75,4 +68,8 @@ struct HomeTabView: View {
     UserManager.shared.set(user: MockData.mockUser(), profile: MockData.mockProfile())
     
     return HomeTabView(myProfile: MockData.mockProfile())
+        .environmentObject({() -> AgoraManager in
+            let agora = AgoraManager()
+            return agora
+        }())
 }

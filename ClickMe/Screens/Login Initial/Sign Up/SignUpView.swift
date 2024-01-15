@@ -48,7 +48,7 @@ struct SignUpView: View {
                         TextField("Verification code", text: $viewModel.code)
                             .keyboardType(.numberPad)
                             .focused($focusedTextField, equals: .code)
-                            .padding(EdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6))
+                            .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                             .frame(height: 50)
                             .border(.secondary)
                         Button {

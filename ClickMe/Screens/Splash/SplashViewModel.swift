@@ -13,6 +13,7 @@ final class SplashViewModel: ObservableObject {
     @Published var appIsActive = false
     @Published var loginInProgress = false
     @Published var loggedIn = false
+    @Published var callSession: CallSession?
     
     var userProfile: UserProfile? {
         return UserManager.shared.profile
@@ -49,5 +50,11 @@ final class SplashViewModel: ObservableObject {
     
     func logOut() {
         UserManager.shared.logout()
+    }
+    
+    func handleJoinACall(notification: NotificationCenter.Publisher.Output) {
+        if let session = notification.userInfo?["session"] as? CallSession {
+            callSession = session
+        }
     }
 }

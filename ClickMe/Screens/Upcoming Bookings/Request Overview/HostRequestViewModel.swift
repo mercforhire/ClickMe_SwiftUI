@@ -15,7 +15,6 @@ final class HostRequestViewModel: ObservableObject {
     
     @Published var isLoading = false
     @Published var isShowingProfile = false
-    @Published var callSession: CallSession?
     @Published var isShowingAcceptModal = false
     @Published var isShowingDeclineModal = false
     @Published var isShowingCancelModal = false
@@ -121,12 +120,13 @@ final class HostRequestViewModel: ObservableObject {
         Task {
             do {
                 let response = try await ClickAPI.shared.startCallingSession(requestId: request._id)
-                if let callSession = response.data?.session {
-                    self.callSession = callSession
+                if let token = response.data?.token {
+                    let callSession = CallSession(token: token, callingUser: booker, request: request, topic: topic)
                     actionError = nil
-                                        goToCallScreen = true
+                    goToCallScreen = true
                     print("go to calling screen using session:")
                     print(callSession)
+                    NotificationCenter.default.post(name: Notifications.JoinACall, object: nil, userInfo: ["session": callSession])
                 } else {
                     actionError = "Unknown error"
                 }

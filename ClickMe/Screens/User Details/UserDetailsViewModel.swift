@@ -12,7 +12,6 @@ import SwiftUI
 final class UserDetailsViewModel: ObservableObject {
     var myProfile: UserProfile
     @Published var profile: UserProfile
-    @Published var tabSelection = 0
     @Published var following = false
     @Published var topics: [Topic] = []
     

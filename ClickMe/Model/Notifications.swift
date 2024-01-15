@@ -15,4 +15,6 @@ class Notifications {
     static let APIKeyInvalid: Notification.Name = Notification.Name("APIKeyInvalid")
     static let RefreshMyTopics: Notification.Name = Notification.Name("RefreshMyTopics")
     static let RefreshBookingRequest: Notification.Name = Notification.Name("RefreshBookingRequest")
+    
+    static let JoinACall: Notification.Name = Notification.Name("JoinACall")
 }

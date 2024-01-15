@@ -25,6 +25,7 @@ struct SplashView: View {
                     }
                 } else {
                     GetStartedView()
+                        .environmentObject(agora)
                 }
             } else {
                 Image("background", bundle: nil)
@@ -47,6 +48,40 @@ struct SplashView: View {
         .onReceive(NotificationCenter.default.publisher(for: Notifications.ToggleGuestHostMode), perform: { _ in
             startinHostMode.toggle()
         })
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.JoinACall)) { notification in
+            viewModel.handleJoinACall(notification: notification)
+        }
+        .fullScreenCover(isPresented: $agora.isPresentingCallScreen) {
+            if let callSession = viewModel.callSession, 
+                let myProfile = viewModel.userProfile {
+                CallingView(myProfile: myProfile,
+                            talkingTo: callSession.callingUser,
+                            topic: callSession.topic,
+                            request: callSession.request,
+                            isShowingCallScreen: $agora.isPresentingCallScreen)
+                .environmentObject(agora)
+            }
+        }
+        .onChange(of: viewModel.callSession) { callSession in
+            if let callSession = callSession {
+                Task {
+                    await agora.joinChannel(callingUser: callSession.callingUser,
+                                            request: callSession.request,
+                                            topic: callSession.topic,
+                                            token: callSession.token)
+                }
+            }
+        }
+        .overlay(alignment: .bottom) {
+            if agora.inInACall {
+                Button(action: {
+                    agora.isPresentingCallScreen = true
+                }, label: {
+                    CallingButtonView()
+                })
+                .padding([.bottom], 70)
+            }
+        }
     }
 }
 

@@ -9,12 +9,13 @@ import SwiftUI
 
 struct LoginInitialView: View {
     @StateObject var viewModel = LoginInitialViewModel()
-    
     @State private var navigationPath: [ScreenNames] = []
+    @EnvironmentObject var agora: AgoraManager
     
     var body: some View {
         if viewModel.loggedIn, let userProfile = viewModel.userProfile {
             HomeTabView(myProfile: userProfile)
+                .environmentObject(agora)
         } else {
             NavigationStack(path: $navigationPath) {
                 ZStack {

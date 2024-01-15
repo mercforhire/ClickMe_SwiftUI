@@ -15,7 +15,7 @@ final class HomeTabViewModel: ObservableObject {
     @Published var shouldPresentSetupProfileFlow = false
     @Published var tabSelection: HomeTabs = .explore
     @Published var talkTo: UserProfile?
-    @Published var isShowingCallView = false
+    
     
     init(myProfile: UserProfile) {
         self.myProfile = myProfile
@@ -33,4 +33,6 @@ final class HomeTabViewModel: ObservableObject {
             tabSelection = .inbox
         }
     }
+    
+    
 }

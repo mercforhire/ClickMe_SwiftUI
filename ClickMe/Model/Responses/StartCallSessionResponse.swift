@@ -16,5 +16,4 @@ struct StartCallSessionResponse: Codable {
 struct StartCallSessionData: Codable {
     var token: String?
     var request: Request?
-    var session: CallSession?
 }

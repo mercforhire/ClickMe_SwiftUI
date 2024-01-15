@@ -23,22 +23,20 @@ struct UserDetailsView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack(alignment: .leading, spacing: 5) {
-                TabView(selection: $viewModel.tabSelection) {
+                TabView() {
                     ForEach(viewModel.profile.userPhotos ?? []) { photo in
                         AsyncImage(url: URL(string: photo.url)) { image in
                             image
                                 .resizable()
                                 .scaledToFill()
+                                .clipped()
                         } placeholder: {
-                            Color.accentColor
+                            LoadingView()
                         }
-                        .clipped()
                     }
                 }
                 .frame(width: screenWidth, height: screenWidth * 1.2)
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                // https://stackoverflow.com/questions/61827496/swiftui-how-to-animate-a-tabview-selection
-                .animation(.easeOut(duration: 0.2), value: viewModel.tabSelection)
+                .tabViewStyle(.page(indexDisplayMode: .never))
                 .overlay(alignment: .bottomTrailing) {
                     if !viewModel.lookingAtMySelf {
                         VStack {

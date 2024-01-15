@@ -28,7 +28,7 @@ struct CallingView: View {
             HStack(alignment: .top) {
                 SpeakerAvatarView(user: viewModel.myProfile, 
                                   micState: $agora.myMicState,
-                                  state: .constant(nil))
+                                  state: .constant(ConnectionState.ready))
                     .frame(width: 130, height: 180)
                 SpeakerAvatarView(user: viewModel.talkingTo, 
                                   micState: $agora.remoteMicState,
@@ -71,29 +71,35 @@ struct CallingView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 5))
             }
             
-            HStack(spacing: 30) {
-                Button(action: {
+            if agora.inInACall {
+                HStack(spacing: 30) {
+                    Button(action: {
+                        
+                    }, label: {
+                        CMRoundButton(iconName: agora.myMicState?.iconName() ?? "")
+                    })
                     
-                }, label: {
-                    CMRoundButton(iconName: agora.myMicState?.iconName() ?? "")
-                })
+                    Button(action: {
+                        
+                    }, label: {
+                        CMRoundButton(iconName: agora.mySpeakerState?.iconName() ?? "")
+                    })
+                }
+                
+                Spacer()
                 
                 Button(action: {
-                    
+                    Task {
+                        await agora.leaveChannel()
+                    }
                 }, label: {
-                    CMRoundButton(iconName: agora.speakerState?.iconName() ?? "")
+                    HangUpButton()
                 })
+                .padding(.horizontal, 40)
+                .padding(.bottom, 20)
+            } else {
+                Spacer()
             }
-            
-            Spacer()
-            
-            Button(action: {
-                
-            }, label: {
-                HangUpButton()
-            })
-            .padding(.horizontal, 40)
-            .padding(.bottom, 20)
         }
         .frame(
             minWidth: 0,
@@ -111,9 +117,6 @@ struct CallingView: View {
             })
             .padding([.top, .trailing], 10)
         }
-        .onAppear {
-            
-        }
     }
 }
 
@@ -124,12 +127,16 @@ struct CallingView: View {
                        topic: MockData.mockTopic(),
                        request: MockData.mockRequest(),
                        isShowingCallScreen: .constant(true))
+    .environmentObject({() -> AgoraManager in
+        let agora = AgoraManager()
+        return agora
+    }())
 }
 
 struct SpeakerAvatarView: View {
     var user: UserProfile
     @Binding var micState: MicState?
-    @Binding var state: ConnectionState?
+    @Binding var state: ConnectionState
     
     var body: some View {
         ZStack {
