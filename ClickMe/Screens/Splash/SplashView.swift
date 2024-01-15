@@ -15,7 +15,7 @@ struct SplashView: View {
     var body: some View {
         ZStack {
             if viewModel.appIsActive && !viewModel.loginInProgress {
-                if viewModel.loggedIn, let userProfile = viewModel.userProfile {
+                if viewModel.isLoggedIn, let userProfile = viewModel.userProfile {
                     if startinHostMode {
                         HostTabView(myProfile: userProfile)
                             .environmentObject(agora)
@@ -42,12 +42,12 @@ struct SplashView: View {
             viewModel.prepareToLogin()
             viewModel.startSplashCountdown()
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToGetStarted), perform: { _ in
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToGetStarted)) { _ in
             viewModel.handleSwitchToGetStartedNotification()
-        })
-        .onReceive(NotificationCenter.default.publisher(for: Notifications.ToggleGuestHostMode), perform: { _ in
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.ToggleGuestHostMode)) { _ in
             startinHostMode.toggle()
-        })
+        }
         .onReceive(NotificationCenter.default.publisher(for: Notifications.JoinACall)) { notification in
             viewModel.handleJoinACall(notification: notification)
         }
@@ -63,13 +63,20 @@ struct SplashView: View {
             }
         }
         .onChange(of: viewModel.callSession) { callSession in
-            if let callSession = callSession {
+            if let callSession = callSession, let agoraAppId = UserManager.shared.agoraAppId {
+                agora.initializeAgora(appId: agoraAppId)
                 Task {
                     await agora.joinChannel(callingUser: callSession.callingUser,
                                             request: callSession.request,
                                             topic: callSession.topic,
                                             token: callSession.token)
+                    agora.isPresentingCallScreen = true
                 }
+            }
+        }
+        .onChange(of: viewModel.isLoggedIn) { isLoggedIn in
+            if !isLoggedIn {
+                agora.destroyAgoraEngine()
             }
         }
         .overlay(alignment: .bottom) {

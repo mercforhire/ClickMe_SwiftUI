@@ -45,7 +45,7 @@ struct HostTabView: View {
             
             InboxView(myProfile: viewModel.myProfile, talkTo: $viewModel.talkTo)
                 .tabItem {
-                    Label("Inbox", systemImage: "bubble.left.and.text.bubble.right")
+                    Label("Inbox", systemImage: "text.bubble")
                 }
                 .tag(HostTabs.inbox)
             

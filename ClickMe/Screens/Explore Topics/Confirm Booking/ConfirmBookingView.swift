@@ -85,6 +85,12 @@ struct ConfirmBookingView: View {
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
                     
+                    Text(viewModel.timeAndDuration)
+                        .font(.body)
+                        .fontWeight(.medium)
+                        .foregroundColor(.primary)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    
                     Text(viewModel.displayablePrice)
                         .font(.body)
                         .fontWeight(.medium)

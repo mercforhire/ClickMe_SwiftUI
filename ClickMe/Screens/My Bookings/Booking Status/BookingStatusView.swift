@@ -130,9 +130,17 @@ struct BookingStatusView: View {
                             .padding(.horizontal, 10)
                     }
                     
-                    if viewModel.request.status == .APPROVED {
+                    if viewModel.request.status == .STARTED {
                         Button {
-                            
+                            viewModel.handleStartAction()
+                        } label: {
+                            CMButton(title: "Start call", fullWidth: true)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.all, 10)
+                    } else if viewModel.request.status == .APPROVED {
+                        Button {
+                            viewModel.handleStartAction()
                         } label: {
                             CMButton(title: "Start call", fullWidth: true)
                         }

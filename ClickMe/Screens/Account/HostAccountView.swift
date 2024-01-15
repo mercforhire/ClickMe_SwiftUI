@@ -119,20 +119,21 @@ struct HostAccountView: View {
                     Section {
                         ForEach(HostAccountMenu.list(), id: \.self) { row in
                             Label(row.text(), systemImage: row.iconName())
-                            .onTapGesture {
-                                switch row {
-                                case .wallet:
-                                    break
-                                case .switchMode:
-                                    viewModel.handleSwitchMode()
-                                case .support:
-                                    break
-                                case .feedback:
-                                    viewModel.isPostingFeedback = true
-                                case .signOut:
-                                    viewModel.handleLogOut()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .onTapGesture {
+                                    switch row {
+                                    case .wallet:
+                                        break
+                                    case .switchMode:
+                                        viewModel.handleSwitchMode()
+                                    case .support:
+                                        break
+                                    case .feedback:
+                                        viewModel.isPostingFeedback = true
+                                    case .signOut:
+                                        viewModel.handleLogOut()
+                                    }
                                 }
-                            }
                         }
                     }
                 }

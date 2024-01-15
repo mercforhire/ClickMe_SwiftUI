@@ -20,6 +20,13 @@ final class ConfirmBookingViewModel: ObservableObject {
     @Published var bookingError: String?
     @Published var bookingSuccess = false
     
+    var timeAndDuration: String {
+        let date = DateUtil.convert(input: startTime, outputFormat: .format15)!
+        let startTime = DateUtil.convert(input: startTime, outputFormat: .format8)!
+        let endTime = DateUtil.convert(input: endTime, outputFormat: .format8)!
+        return "\(date), \(startTime) - \(endTime)"
+    }
+    
     var displayablePrice: String {
         guard let amount, let currency else { return "" }
         

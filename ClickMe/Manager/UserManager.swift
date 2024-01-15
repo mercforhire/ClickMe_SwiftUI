@@ -38,26 +38,26 @@ class UserManager {
         self.profile = profile
         api.apiKey = user.apiKey
         saveAPIKey()
-        fetchAppKeys()
+        Task {
+            await fetchAppKeys()
+        }
     }
     
     func set(profile: UserProfile) {
         self.profile = profile
     }
     
-    func fetchAppKeys() {
-        Task {
-            do {
-                let response = try await api.getAppKeys()
-                if let appKeys = response.data {
-                    api.initializeS3(bucketName: appKeys.buckName,
-                                     s3Key: appKeys.s3Key,
-                                     accessKey: appKeys.s3AccessKey)
-                    agoraAppId = appKeys.agoraAppId
-                }
-            } catch {
-                print("getAppKeys error:", error)
+    func fetchAppKeys() async {
+        do {
+            let response = try await api.getAppKeys()
+            if let appKeys = response.data {
+                api.initializeS3(bucketName: appKeys.buckName,
+                                 s3Key: appKeys.s3Key,
+                                 accessKey: appKeys.s3AccessKey)
+                agoraAppId = appKeys.agoraAppId
             }
+        } catch {
+            print("getAppKeys error:", error)
         }
     }
     

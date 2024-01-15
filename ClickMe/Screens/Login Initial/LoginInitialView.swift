@@ -71,6 +71,8 @@ struct LoginInitialView: View {
 }
 
 struct ImageLogosView: View {
+    private let screenWidth = UIScreen.main.bounds.size.width
+    
     var body: some View {
         VStack {
             Image("logotype", bundle: nil)
@@ -85,7 +87,7 @@ struct ImageLogosView: View {
             Image("click", bundle: nil)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 300, height: 275, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .frame(width: screenWidth * 0.8, height: screenWidth * 0.6, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 .padding(.horizontal, 30)
         }
     }

@@ -42,7 +42,7 @@ struct HomeTabView: View {
                 .tag(HomeTabs.bookings)
             InboxView(myProfile: viewModel.myProfile, talkTo: $viewModel.talkTo)
                 .tabItem {
-                    Label("Inbox", systemImage: "bubble.left.and.text.bubble.right")
+                    Label("Inbox", systemImage: "text.bubble")
                 }
                 .tag(HomeTabs.inbox)
             AccountView(myProfile: viewModel.myProfile)

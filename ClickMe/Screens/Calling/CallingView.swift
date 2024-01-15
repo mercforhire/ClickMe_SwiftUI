@@ -74,13 +74,26 @@ struct CallingView: View {
             if agora.inInACall {
                 HStack(spacing: 30) {
                     Button(action: {
-                        
+                        if agora.myMicState == .speaking {
+                            agora.mutedMic()
+                        } else {
+                            agora.unmutedMic()
+                        }
                     }, label: {
                         CMRoundButton(iconName: agora.myMicState?.iconName() ?? "")
                     })
                     
                     Button(action: {
-                        
+                        switch agora.mySpeakerState {
+                        case .muted:
+                            agora.useEar()
+                        case .ear:
+                            agora.useSpeaker()
+                        case .speaker:
+                            agora.mutedSpeaker()
+                        default:
+                            break
+                        }
                     }, label: {
                         CMRoundButton(iconName: agora.mySpeakerState?.iconName() ?? "")
                     })
@@ -91,6 +104,8 @@ struct CallingView: View {
                 Button(action: {
                     Task {
                         await agora.leaveChannel()
+                        agora.isPresentingCallScreen = false
+                        agora.resetValues()
                     }
                 }, label: {
                     HangUpButton()

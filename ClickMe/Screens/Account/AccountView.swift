@@ -164,24 +164,25 @@ struct AccountView: View {
                     Section {
                         ForEach(AccountMenu.list(), id: \.self) { row in
                             Label(row.text(), systemImage: row.iconName())
-                            .onTapGesture {
-                                switch row {
-                                case .wallet:
-                                    break
-                                case .history:
-                                    navigationPath.append(.myPastBookings)
-                                case .switchMode:
-                                    viewModel.handleSwitchMode()
-                                case .support:
-                                    break
-                                case .feedback:
-                                    viewModel.isPostingFeedback = true
-                                case .signOut:
-                                    viewModel.handleLogOut()
-                                case .deleteAccount:
-                                    viewModel.isShowingDeleteAccountDialog = true
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .onTapGesture {
+                                    switch row {
+                                    case .wallet:
+                                        break
+                                    case .history:
+                                        navigationPath.append(.myPastBookings)
+                                    case .switchMode:
+                                        viewModel.handleSwitchMode()
+                                    case .support:
+                                        break
+                                    case .feedback:
+                                        viewModel.isPostingFeedback = true
+                                    case .signOut:
+                                        viewModel.handleLogOut()
+                                    case .deleteAccount:
+                                        viewModel.isShowingDeleteAccountDialog = true
+                                    }
                                 }
-                            }
                         }
                     }
                 }

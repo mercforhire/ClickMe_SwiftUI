@@ -116,8 +116,13 @@ final class HostRequestViewModel: ObservableObject {
     }
     
     func handleStartAction() {
-        isLoading = true
         Task {
+            let microphonePermission = await AgoraManager.checkForPermissions()
+            if !microphonePermission {
+                return
+            }
+            
+            isLoading = true
             do {
                 let response = try await ClickAPI.shared.startCallingSession(requestId: request._id)
                 if let token = response.data?.token {

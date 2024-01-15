@@ -12,7 +12,7 @@ import SwiftUI
 final class SplashViewModel: ObservableObject {
     @Published var appIsActive = false
     @Published var loginInProgress = false
-    @Published var loggedIn = false
+    @Published var isLoggedIn = false
     @Published var callSession: CallSession?
     
     var userProfile: UserProfile? {
@@ -25,8 +25,8 @@ final class SplashViewModel: ObservableObject {
                 loginInProgress = true
                 let loginResponse = try? await ClickAPI.shared.loginUsingAPIKey(apiKey: apiKey)
                 if let user = loginResponse?.data?.user, let profile = loginResponse?.data?.profile {
-                    UserManager.shared.set(user: user, profile: profile)
-                    loggedIn = true
+                    await UserManager.shared.set(user: user, profile: profile)
+                    isLoggedIn = true
                 } else {
                     logOut()
                 }
@@ -44,7 +44,7 @@ final class SplashViewModel: ObservableObject {
     }
     
     func handleSwitchToGetStartedNotification() {
-        loggedIn = false
+        isLoggedIn = false
         prepareToLogin()
     }
     

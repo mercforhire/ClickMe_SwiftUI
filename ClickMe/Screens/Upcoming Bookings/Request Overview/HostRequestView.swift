@@ -169,6 +169,14 @@ struct HostRequestView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.all, 10)
+                    } else if viewModel.request.status == .STARTED {
+                        Button {
+                            viewModel.handleStartAction()
+                        } label: {
+                            CMButton(title: "Start call", fullWidth: true)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.all, 10)
                     } else if viewModel.request.status == .FINISHED {
                         if let review = viewModel.review {
                             VStack(alignment: .center, spacing: 10) {

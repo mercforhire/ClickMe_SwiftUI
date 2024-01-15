@@ -109,12 +109,19 @@ final class AgoraManager: NSObject, ObservableObject {
         agoraKit.enableAudioVolumeIndication(200, smooth: 3, reportVad: false)
         
         agoraKit.setEnableSpeakerphone(true)
+        
+        print("AgoraManager: agoraKit initialized.")
     }
     
     func joinChannel(callingUser: UserProfile,
                      request: Request,
                      topic: Topic,
                      token: String) async -> Void {
+        guard agoraKit != nil else {
+            print("AgoraManager: agoraKit is not initialized!")
+            return
+        }
+        
         self.callingUser = callingUser
         self.request = request
         self.topic = topic
@@ -126,14 +133,16 @@ final class AgoraManager: NSObject, ObservableObject {
             return
         }
         
-        return await withCheckedContinuation { continuation in
+        return await withCheckedContinuation { [weak self] continuation in
+            guard let self else { return }
+            
             // start joining channel
             // 1. Users can only see each other after they join the
             // same channel successfully using the same app id.
             // 2. If app certificate is turned on at dashboard, token is needed
             // when joining channel. The channel name and uid used to calculate
             // the token has to match the ones used for channel join
-            agoraKit.joinChannel(byToken: token, channelId: request._id, info: nil, uid: 0) { sid, uid, elapsed in
+            self.agoraKit.joinChannel(byToken: token, channelId: request._id, info: nil, uid: 0) { sid, uid, elapsed in
                 print("AgoraManager: joinChannel: \(sid), \(uid), \(elapsed)")
                 self.inInACall = true
                 self.myConnectionState = .ready
@@ -184,8 +193,10 @@ final class AgoraManager: NSObject, ObservableObject {
     func leaveChannel() async -> Void {
         guard inInACall else { return }
         
-        return await withCheckedContinuation { continuation in
-            agoraKit.leaveChannel { stats in
+        return await withCheckedContinuation { [weak self] continuation in
+            guard let self else { return }
+            
+            self.agoraKit.leaveChannel { stats in
                 print("AgoraManager leaveChannel:\(stats)")
                 self.inInACall = false
                 continuation.resume()
@@ -209,6 +220,7 @@ final class AgoraManager: NSObject, ObservableObject {
         
     func destroyAgoraEngine() {
         AgoraRtcEngineKit.destroy()
+        print("AgoraManager: agoraKit destroyed.")
     }
 }
 
