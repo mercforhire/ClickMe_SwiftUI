@@ -85,9 +85,7 @@ struct EditPhotosView: View {
                   message: Text("Something went wrong while uploading to S3"),
                   dismissButton: .default(Text("Ok")))
         }
-        .popover(isPresented: $viewModel.isPresentingPhotoPicker) {
-            PhotosPicker("Select a photo", selection: $viewModel.pickerItem, matching: .images)
-        }
+        .photosPicker(isPresented: $viewModel.isPresentingPhotoPicker, selection: $viewModel.pickerItem)
         .task(id: viewModel.pickerItem) {
             viewModel.handleReceivedPickerItem()
         }
@@ -96,4 +94,8 @@ struct EditPhotosView: View {
 
 #Preview {
     EditPhotosView(isPresentingEditPhotosScreen: .constant(true))
+        .environmentObject({() -> EditProfileViewModel in
+            let vm = EditProfileViewModel(myProfile: MockData.mockProfile())
+            return vm
+        }())
 }

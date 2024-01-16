@@ -135,6 +135,11 @@ struct ConfirmBookingView: View {
                 viewModel.bookingSuccess = false
             }
         }
+        .onChange(of: viewModel.stripeData) { stripeData in
+            if let stripeData = stripeData {
+                navigationPath.append(.checkOut(stripeData))
+            }
+        }
     }
 }
 

@@ -18,6 +18,7 @@ final class BookingStatusViewModel: ObservableObject {
     @Published var isShowingCancelModal = false
     @Published var isShowingReview = false
     @Published var actionError: String?
+    @Published var stripeData: StripeData?
     
     var host: UserProfile {
         return request.hostUser!
@@ -94,6 +95,34 @@ final class BookingStatusViewModel: ObservableObject {
                     actionError = "Too early to start the voice session, wait within 5 minutes of start time"
                 case CMError.alreadyPastSessionEndTime:
                     actionError = "Already past the end of session, too late to start now"
+                default:
+                    actionError = "Unknown error"
+                }
+            }
+            isLoading = false
+        }
+    }
+    
+    func handleCompletePayment() {
+        isLoading = true
+        Task {
+            do {
+                let response = try await ClickAPI.shared.getStripePaymentDetails(requestId: request._id)
+                if response.success {
+                    actionError = nil
+                    if let stripeData = response.data {
+                        self.stripeData = stripeData
+                        actionError = nil
+                    } else {
+                        actionError = "Unknown error"
+                    }
+                } else {
+                    actionError = "Unknown error"
+                }
+            } catch {
+                switch error {
+                case CMError.receiptDoesntExist:
+                    actionError = "Receipt is not found"
                 default:
                     actionError = "Unknown error"
                 }

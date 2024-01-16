@@ -33,4 +33,5 @@ enum ScreenNames: Hashable {
     case reviews(UserProfile)
     case following
     case hostCalendar
+    case checkOut(StripeData)
 }

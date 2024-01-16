@@ -39,4 +39,5 @@ enum CMError: Error {
     case canNotReviewSelf
     case reviewMustContainComment
     case topicHasOngoingBookings
+    case receiptDoesntExist
 }

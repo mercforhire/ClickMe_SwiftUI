@@ -69,6 +69,11 @@ final class LoginViewModel: ObservableObject {
             isLoading = true
             do {
                 let response = try await ClickAPI.shared.sendCodeToEmail(email: emailAddress)
+                if response.success {
+                    codeError = nil
+                } else {
+                    codeError = "Error with email sending service, please contact support"
+                }
             } catch {
                 switch error {
                 case CMError.sendCodeToEmailCalledTooFrequently:

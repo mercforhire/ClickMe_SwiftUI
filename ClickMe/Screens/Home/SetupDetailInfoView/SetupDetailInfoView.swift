@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct SetupDetailInfoView: View {
     let basicInfo: SetupBasicInfoViewModel
@@ -32,6 +33,7 @@ struct SetupDetailInfoView: View {
                 } handlePhotoPicker: {
                     viewModel.handlePhotoPicker()
                 }
+                
                 if let photosError = viewModel.photosError, !photosError.isEmpty {
                     CMErrorLabel(photosError)
                 }
@@ -71,9 +73,7 @@ struct SetupDetailInfoView: View {
                 viewModel.updateProfile(basicInfo: basicInfo)
             }
         }
-        .popover(isPresented: $viewModel.isPresentingPhotoPicker) {
-            CMPhotoPicker(avatarItem: $viewModel.pickerItem)
-        }
+        .photosPicker(isPresented: $viewModel.isPresentingPhotoPicker, selection: $viewModel.pickerItem)
         .task(id: viewModel.pickerItem) {
             viewModel.handleReceivedPickerItem()
         }

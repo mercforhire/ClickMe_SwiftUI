@@ -7,6 +7,10 @@
 
 import Foundation
 
-struct StripeData: Codable {
-    var paymentIntentId: String?
+struct StripeData: Codable, Identifiable, Hashable {
+    var id: String { return paymentIntentId }
+    
+    var paymentIntentId: String
+    var paymentIntentClientKey: String
+    var publishableKey: String
 }

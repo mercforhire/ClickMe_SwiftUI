@@ -775,4 +775,20 @@ class ClickAPI {
         }
         return response
     }
+    
+    func getStripePaymentDetails(requestId: String) async throws -> GetStripePaymentDetailsResponse {
+        let url = baseURL + APIRequestURLs.getStripePaymentDetails.rawValue
+        let response: GetStripePaymentDetailsResponse =
+        try await service.httpRequest(url: url,
+                                      method: APIRequestURLs.getStripePaymentDetails.getHTTPMethod(),
+                                      parameters: nil)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "RECEIPT_NOT_FOUND" {
+            throw CMError.receiptDoesntExist
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
 }

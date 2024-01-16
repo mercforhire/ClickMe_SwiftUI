@@ -154,7 +154,23 @@ struct BookingStatusView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.all, 10)
-                    } else if viewModel.request.status == .AWAITING_PAYMENT || viewModel.request.status == .PENDING_APPROVAL {
+                    } else if viewModel.request.status == .AWAITING_PAYMENT {
+                        Button {
+                            viewModel.handleCompletePayment()
+                        } label: {
+                            CMButton(title: "Complete prepayment", fullWidth: true)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.all, 10)
+                        
+                        Button {
+                            viewModel.isShowingCancelModal = true
+                        } label: {
+                            CMButton(title: "Cancel request", fullWidth: true)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.all, 10)
+                    } else if viewModel.request.status == .PENDING_APPROVAL {
                         Button {
                             viewModel.isShowingCancelModal = true
                         } label: {
@@ -231,6 +247,11 @@ struct BookingStatusView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: Notifications.RefreshBookingRequest)) { notification in
             viewModel.handleRefreshBookingRequest(notification: notification)
+        }
+        .onChange(of: viewModel.stripeData) { stripeData in
+            if let stripeData = stripeData {
+                navigationPath.append(.checkOut(stripeData))
+            }
         }
     }
 }

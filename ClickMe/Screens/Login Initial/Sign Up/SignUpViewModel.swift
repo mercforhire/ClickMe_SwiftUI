@@ -32,7 +32,11 @@ final class SignUpViewModel: ObservableObject {
         Task {
             do {
                 let response = try await ClickAPI.shared.checkRegisterEmail(email: emailAddress)
-                emailAddressError = nil
+                if response.success {
+                    emailAddressError = nil
+                } else {
+                    emailAddressError = "Email is already taken by another user"
+                }
             } catch {
                 switch error {
                 case CMError.emailAlreadyTaken:
@@ -62,6 +66,11 @@ final class SignUpViewModel: ObservableObject {
         Task {
             do {
                 let response = try await ClickAPI.shared.sendCodeToEmail(email: emailAddress)
+                if response.success {
+                    codeError = nil
+                } else {
+                    codeError = "Error with email sending service, please contact support"
+                }
             } catch {
                 switch error {
                 case CMError.sendCodeToEmailCalledTooFrequently:

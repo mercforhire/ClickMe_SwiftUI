@@ -6,12 +6,14 @@ target 'ClickMe' do
   use_frameworks!
 
   # Pods for ClickMe
-  pod 'Alamofire'
-  pod 'AWSS3'
-  pod 'AWSCore'
+  pod 'Alamofire', '5.8.1'
+  pod 'AWSS3', '2.33.8'
+  pod 'AWSCore', '2.33.8'
   pod 'Valet'
   pod 'AgoraRtcEngine_iOS', '4.2.6'
   pod 'Cosmos'
+#  pod 'Stripe', '~> 23.20.0'
+  pod 'StripePaymentSheet'
   
   target 'ClickMeTests' do
     inherit! :search_paths

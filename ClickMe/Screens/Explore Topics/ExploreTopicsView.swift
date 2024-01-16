@@ -78,6 +78,8 @@ struct ExploreTopicsView: View {
                     ConfirmBookingView(topic: topic, host: host, startTime: startTime, endTime: endTime, navigationPath: $navigationPath)
                 case ScreenNames.bookingRequested:
                     BookingRequestedView(navigationPath: $navigationPath)
+                case ScreenNames.checkOut(let stripeData):
+                    CheckOutView(stripeData: stripeData)
                 default:
                     fatalError()
                 }

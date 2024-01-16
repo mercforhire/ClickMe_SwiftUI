@@ -19,6 +19,7 @@ final class ConfirmBookingViewModel: ObservableObject {
     @Published var amount: Double?
     @Published var bookingError: String?
     @Published var bookingSuccess = false
+    @Published var stripeData: StripeData?
     
     var timeAndDuration: String {
         let date = DateUtil.convert(input: startTime, outputFormat: .format15)!
@@ -65,7 +66,11 @@ final class ConfirmBookingViewModel: ObservableObject {
                 let response = try await ClickAPI.shared.requestBooking(params: params)
                 if response.success {
                     bookingError = nil
-                    bookingSuccess = true
+                    if let stripeData = response.data?.stripeData {
+                        self.stripeData = stripeData
+                    } else {
+                        bookingSuccess = true
+                    }
                 } else {
                     bookingError = "Unknown error"
                 }

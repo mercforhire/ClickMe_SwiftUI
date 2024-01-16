@@ -12,9 +12,9 @@ struct Receipt: Codable, Identifiable {
     
     let _id: String
     let createdDate: Date
-    let paymentIntentId: String
+    let paymentIntentId: String?
+    let paymentIntentClientKey: String?
     let requestId: String
-    let request: Request?
     let status: ReceiptStatus
     let amount: Double
     let currency: Currency
