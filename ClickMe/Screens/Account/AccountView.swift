@@ -64,6 +64,7 @@ enum AccountMenu: Int, Identifiable {
 struct AccountView: View {
     @StateObject var viewModel: AccountViewModel
     @State private var navigationPath: [ScreenNames] = []
+    @EnvironmentObject var agora: AgoraManager
     
     init(myProfile: UserProfile) {
         _viewModel = StateObject(wrappedValue: AccountViewModel(myProfile: myProfile))
@@ -172,15 +173,27 @@ struct AccountView: View {
                                     case .history:
                                         navigationPath.append(.myPastBookings)
                                     case .switchMode:
-                                        viewModel.handleSwitchMode()
+                                        if agora.inInACall {
+                                            viewModel.isShowingInACallDialog = true
+                                        } else {
+                                            viewModel.handleSwitchMode()
+                                        }
                                     case .support:
                                         break
                                     case .feedback:
                                         viewModel.isPostingFeedback = true
                                     case .signOut:
-                                        viewModel.handleLogOut()
+                                        if agora.inInACall {
+                                            viewModel.isShowingInACallDialog = true
+                                        } else {
+                                            viewModel.handleLogOut()
+                                        }
                                     case .deleteAccount:
-                                        viewModel.isShowingDeleteAccountDialog = true
+                                        if agora.inInACall {
+                                            viewModel.isShowingInACallDialog = true
+                                        } else {
+                                            viewModel.isShowingDeleteAccountDialog = true
+                                        }
                                     }
                                 }
                         }
@@ -211,7 +224,7 @@ struct AccountView: View {
                               message: Text("Thank you for your feedback"),
                               dismissButton: .default(Text("Ok")))
                     }
-                    
+                
                 Text("")
                     .alert(isPresented: $viewModel.postFeedbackError) {
                         Alert(title: Text("Feedback error"),
@@ -237,6 +250,11 @@ struct AccountView: View {
                         Alert(title: Text("Delete account error"),
                               message: Text("Invalid entry for confirmation"),
                               dismissButton: .default(Text("Ok")))
+                    }
+                
+                Text("")
+                    .alert("Sorry, can't perform this action during a call.", isPresented: $viewModel.isShowingInACallDialog) {
+                        Button("Dismiss") {}
                     }
             }
             .navigationTitle("My profile")
@@ -271,4 +289,8 @@ struct AccountView: View {
 
 #Preview {
     AccountView(myProfile: MockData.mockProfile())
+        .environmentObject({() -> AgoraManager in
+            let agora = AgoraManager()
+            return agora
+        }())
 }

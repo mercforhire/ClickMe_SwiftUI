@@ -19,6 +19,7 @@ final class AccountViewModel: ObservableObject {
     @Published var isShowingDeleteAccountDialog = false
     @Published var deleteDialogText: String = ""
     @Published var deleteAccountError = false
+    @Published var isShowingInACallDialog = false
     
     init(myProfile: UserProfile) {
         self.myProfile = myProfile

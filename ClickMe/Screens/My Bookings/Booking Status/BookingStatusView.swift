@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StripePaymentSheet
 
 struct BookingStatusView: View {
     @StateObject var viewModel: BookingStatusViewModel
@@ -155,13 +156,19 @@ struct BookingStatusView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.all, 10)
                     } else if viewModel.request.status == .AWAITING_PAYMENT {
-                        Button {
-                            viewModel.handleCompletePayment()
-                        } label: {
-                            CMButton(title: "Complete prepayment", fullWidth: true)
+                        
+                        if let paymentSheet = viewModel.paymentSheet {
+                            PaymentSheet.PaymentButton(
+                                paymentSheet: paymentSheet,
+                                onCompletion: { result in
+                                    viewModel.onPaymentCompletion(result: result)
+                                }
+                            ) {
+                                CMButton(title: "Complete prepayment", fullWidth: true)
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .padding(.all, 10)
+                            }
                         }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.all, 10)
                         
                         Button {
                             viewModel.isShowingCancelModal = true
@@ -179,6 +186,7 @@ struct BookingStatusView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.all, 10)
                     } else if viewModel.request.status == .FINISHED {
+                        
                         if let review = viewModel.review {
                             VStack(alignment: .center, spacing: 10) {
                                 MyCosmosView(rating: .constant(review.rating),
@@ -247,11 +255,6 @@ struct BookingStatusView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: Notifications.RefreshBookingRequest)) { notification in
             viewModel.handleRefreshBookingRequest(notification: notification)
-        }
-        .onChange(of: viewModel.stripeData) { stripeData in
-            if let stripeData = stripeData {
-                navigationPath.append(.checkOut(stripeData))
-            }
         }
     }
 }

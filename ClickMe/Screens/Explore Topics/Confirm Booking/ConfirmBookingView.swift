@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StripePaymentSheet
 
 struct ConfirmBookingView: View {
     @StateObject var viewModel: ConfirmBookingViewModel
@@ -106,13 +107,26 @@ struct ConfirmBookingView: View {
                             .padding(.horizontal, 10)
                     }
                     
-                    Button {
-                        viewModel.requestBooking()
-                    } label: {
-                        CMButton(title: "Confirm")
+                    if let paymentSheet = viewModel.paymentSheet {
+                        PaymentSheet.PaymentButton(
+                            paymentSheet: paymentSheet,
+                            onCompletion: { result in
+                                viewModel.onPaymentCompletion(result: result)
+                            }
+                        ) {
+                            CMButton(title: "Complete prepayment", fullWidth: true)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .padding(.all, 10)
+                        }
+                    } else {
+                        Button {
+                            viewModel.requestBooking()
+                        } label: {
+                            CMButton(title: "Confirm")
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.vertical, 20)
                     }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding(.vertical, 20)
                 }
                 .background(Color(.systemBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -133,11 +147,6 @@ struct ConfirmBookingView: View {
             if viewModel.bookingSuccess {
                 navigationPath.append(.bookingRequested)
                 viewModel.bookingSuccess = false
-            }
-        }
-        .onChange(of: viewModel.stripeData) { stripeData in
-            if let stripeData = stripeData {
-                navigationPath.append(.checkOut(stripeData))
             }
         }
     }

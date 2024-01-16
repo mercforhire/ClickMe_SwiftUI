@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import StripePaymentSheet
 
 @MainActor
 final class ConfirmBookingViewModel: ObservableObject {
@@ -20,6 +21,7 @@ final class ConfirmBookingViewModel: ObservableObject {
     @Published var bookingError: String?
     @Published var bookingSuccess = false
     @Published var stripeData: StripeData?
+    @Published var paymentSheet: PaymentSheet?
     
     var timeAndDuration: String {
         let date = DateUtil.convert(input: startTime, outputFormat: .format15)!
@@ -68,6 +70,7 @@ final class ConfirmBookingViewModel: ObservableObject {
                     bookingError = nil
                     if let stripeData = response.data?.stripeData {
                         self.stripeData = stripeData
+                        preparePaymentSheet()
                     } else {
                         bookingSuccess = true
                     }
@@ -91,6 +94,31 @@ final class ConfirmBookingViewModel: ObservableObject {
                 }
             }
             isLoading = false
+        }
+    }
+    
+    func preparePaymentSheet() {
+        guard let stripeData else { return }
+        
+        STPAPIClient.shared.publishableKey = stripeData.publishableKey
+        // MARK: Create a PaymentSheet instance
+        var configuration = PaymentSheet.Configuration()
+        configuration.merchantDisplayName = "Click Me"
+        // Set `allowsDelayedPaymentMethods` to true if your business handles
+        // delayed notification payment methods like US bank accounts.
+        configuration.allowsDelayedPaymentMethods = true
+        
+        paymentSheet = PaymentSheet(paymentIntentClientSecret: stripeData.paymentIntentClientKey, configuration: configuration)
+    }
+    
+    func onPaymentCompletion(result: PaymentSheetResult) {
+        switch result {
+        case .completed:
+            bookingSuccess = true
+        case .failed(let error):
+            break
+        case .canceled:
+            break
         }
     }
 }

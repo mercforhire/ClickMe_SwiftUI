@@ -54,6 +54,7 @@ enum HostAccountMenu: Int, Identifiable {
 struct HostAccountView: View {
     @StateObject var viewModel: HostAccountViewModel
     @State private var navigationPath: [ScreenNames] = []
+    @EnvironmentObject var agora: AgoraManager
     
     init(myProfile: UserProfile) {
         _viewModel = StateObject(wrappedValue: HostAccountViewModel(myProfile: myProfile))
@@ -125,13 +126,21 @@ struct HostAccountView: View {
                                     case .wallet:
                                         break
                                     case .switchMode:
-                                        viewModel.handleSwitchMode()
+                                        if agora.inInACall {
+                                            viewModel.isShowingInACallDialog = true
+                                        } else {
+                                            viewModel.handleSwitchMode()
+                                        }
                                     case .support:
                                         break
                                     case .feedback:
                                         viewModel.isPostingFeedback = true
                                     case .signOut:
-                                        viewModel.handleLogOut()
+                                        if agora.inInACall {
+                                            viewModel.isShowingInACallDialog = true
+                                        } else {
+                                            viewModel.handleLogOut()
+                                        }
                                     }
                                 }
                         }
@@ -169,6 +178,11 @@ struct HostAccountView: View {
                               message: Text("Failed to sent feedback"),
                               dismissButton: .default(Text("Ok")))
                     }
+                
+                Text("")
+                    .alert("Sorry, can't perform this action during a call.", isPresented: $viewModel.isShowingInACallDialog) {
+                        Button("Dismiss") {}
+                    }
             }
             .navigationTitle("My profile")
             .background(Color(.systemGray6))
@@ -199,4 +213,8 @@ struct HostAccountView: View {
 #Preview {
     ClickAPI.shared.apiKey = MockData.mockUser2().apiKey
     return HostAccountView(myProfile: MockData.mockProfile2())
+        .environmentObject({() -> AgoraManager in
+            let agora = AgoraManager()
+            return agora
+        }())
 }

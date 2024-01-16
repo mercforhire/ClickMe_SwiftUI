@@ -52,8 +52,6 @@ struct MyBookingsView: View {
                     BookingStatusView(myProfile: viewModel.myProfile, request: request, navigationPath: $navigationPath)
                 case ScreenNames.myPastBookings:
                     MyPastBookingsView(myProfile: viewModel.myProfile, navigationPath: $navigationPath)
-                case ScreenNames.checkOut(let stripeData):
-                    CheckOutView(stripeData: stripeData)
                 default:
                     fatalError()
                 }

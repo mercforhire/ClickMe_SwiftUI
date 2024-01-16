@@ -252,6 +252,17 @@ class ClickAPI {
         return response
     }
     
+    func getFollowingTopics() async throws -> TopicsResponse {
+        let url = baseURL + APIRequestURLs.getFollowingTopics.rawValue
+        let response: TopicsResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getFollowingTopics.getHTTPMethod(), parameters: nil)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func searchUsers(params: SearchUsersParams) async throws -> SearchUsersResponse {
         let parameters = params.params()
         let url = baseURL + APIRequestURLs.searchUser.rawValue
@@ -777,11 +788,11 @@ class ClickAPI {
     }
     
     func getStripePaymentDetails(requestId: String) async throws -> GetStripePaymentDetailsResponse {
+        let parameters = ["requestId": requestId]
         let url = baseURL + APIRequestURLs.getStripePaymentDetails.rawValue
-        let response: GetStripePaymentDetailsResponse =
-        try await service.httpRequest(url: url,
-                                      method: APIRequestURLs.getStripePaymentDetails.getHTTPMethod(),
-                                      parameters: nil)
+        let response: GetStripePaymentDetailsResponse = try await service.httpRequest(url: url,
+                                                                                      method: APIRequestURLs.getStripePaymentDetails.getHTTPMethod(),
+                                                                                      parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
         } else if !response.success, response.message == "RECEIPT_NOT_FOUND" {

@@ -78,10 +78,18 @@ struct ExploreTopicsView: View {
                     ConfirmBookingView(topic: topic, host: host, startTime: startTime, endTime: endTime, navigationPath: $navigationPath)
                 case ScreenNames.bookingRequested:
                     BookingRequestedView(navigationPath: $navigationPath)
-                case ScreenNames.checkOut(let stripeData):
-                    CheckOutView(stripeData: stripeData)
+                case ScreenNames.followingTopics:
+                    FollowingTopicsView(navigationPath: $navigationPath)
                 default:
                     fatalError()
+                }
+            }
+            .toolbar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("", systemImage: "heart") {
+                        navigationPath.append(.followingTopics)
+                    }
+                    .tint(Color.accentColor)
                 }
             }
             .onChange(of: openTopic) { topic in

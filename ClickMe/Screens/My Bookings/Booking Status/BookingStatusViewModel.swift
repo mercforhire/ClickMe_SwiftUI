@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import StripePaymentSheet
 
 @MainActor
 final class BookingStatusViewModel: ObservableObject {
     var myProfile: UserProfile
+    
     @Published var request: Request
     @Published var receipt: Receipt?
     @Published var review: Review?
@@ -19,6 +21,7 @@ final class BookingStatusViewModel: ObservableObject {
     @Published var isShowingReview = false
     @Published var actionError: String?
     @Published var stripeData: StripeData?
+    @Published var paymentSheet: PaymentSheet?
     
     var host: UserProfile {
         return request.hostUser!
@@ -41,6 +44,10 @@ final class BookingStatusViewModel: ObservableObject {
                 self.request = request
                 self.receipt = response?.data?.receipt
                 self.review = response?.data?.reviews?.first(where: { $0.reviewerId == myProfile.userId })
+                
+                if request.status == .AWAITING_PAYMENT {
+                    await fetchPaymentDetails()
+                }
             }
             isLoading = false
         }
@@ -103,31 +110,28 @@ final class BookingStatusViewModel: ObservableObject {
         }
     }
     
-    func handleCompletePayment() {
-        isLoading = true
-        Task {
-            do {
-                let response = try await ClickAPI.shared.getStripePaymentDetails(requestId: request._id)
-                if response.success {
+    func fetchPaymentDetails() async {
+        do {
+            let response = try await ClickAPI.shared.getStripePaymentDetails(requestId: request._id)
+            if response.success {
+                actionError = nil
+                if let stripeData = response.data {
+                    self.stripeData = stripeData
+                    preparePaymentSheet()
                     actionError = nil
-                    if let stripeData = response.data {
-                        self.stripeData = stripeData
-                        actionError = nil
-                    } else {
-                        actionError = "Unknown error"
-                    }
                 } else {
                     actionError = "Unknown error"
                 }
-            } catch {
-                switch error {
-                case CMError.receiptDoesntExist:
-                    actionError = "Receipt is not found"
-                default:
-                    actionError = "Unknown error"
-                }
+            } else {
+                actionError = "Unknown error"
             }
-            isLoading = false
+        } catch {
+            switch error {
+            case CMError.receiptDoesntExist:
+                actionError = "Receipt is not found"
+            default:
+                actionError = "Unknown error"
+            }
         }
     }
     
@@ -138,6 +142,31 @@ final class BookingStatusViewModel: ObservableObject {
     func handleRefreshBookingRequest(notification: NotificationCenter.Publisher.Output) {
         if let request = notification.userInfo?["request"] as? Request, request._id == self.request._id {
             fetchData()
+        }
+    }
+    
+    func preparePaymentSheet() {
+        guard let stripeData else { return }
+        
+        STPAPIClient.shared.publishableKey = stripeData.publishableKey
+        // MARK: Create a PaymentSheet instance
+        var configuration = PaymentSheet.Configuration()
+        configuration.merchantDisplayName = "Click Me"
+        // Set `allowsDelayedPaymentMethods` to true if your business handles
+        // delayed notification payment methods like US bank accounts.
+        configuration.allowsDelayedPaymentMethods = true
+        
+        paymentSheet = PaymentSheet(paymentIntentClientSecret: stripeData.paymentIntentClientKey, configuration: configuration)
+    }
+    
+    func onPaymentCompletion(result: PaymentSheetResult) {
+        switch result {
+        case .completed:
+            fetchData()
+        case .failed(let error):
+            break
+        case .canceled:
+            break
         }
     }
 }

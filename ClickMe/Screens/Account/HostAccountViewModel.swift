@@ -16,6 +16,7 @@ final class HostAccountViewModel: ObservableObject {
     @Published var feedback: String = ""
     @Published var postFeedbackSuccess = false
     @Published var postFeedbackError = false
+    @Published var isShowingInACallDialog = false
     
     init(myProfile: UserProfile) {
         self.myProfile = myProfile
