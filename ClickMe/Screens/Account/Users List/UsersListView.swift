@@ -16,7 +16,7 @@ struct UsersListView: View {
     
     var body: some View {
         ZStack {
-            List(viewModel.users, id: \.id) { user in
+            List(viewModel.users, id: \.self) { user in
                 SimpleUserCell(profile: user)
                     .listRowSeparator(.hidden)
                     .onTapGesture {

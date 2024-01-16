@@ -16,7 +16,7 @@ struct ReviewsView: View {
     
     var body: some View {
         ZStack {
-            List(viewModel.reviews, id: \.id) { review in
+            List(viewModel.reviews, id: \.self) { review in
                 ReviewCell(review: review)
                     .listRowSeparator(.hidden)
             }

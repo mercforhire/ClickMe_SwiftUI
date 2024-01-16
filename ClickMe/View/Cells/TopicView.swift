@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TopicView: View {
-    var topic: Topic
-    var hideHost = false
+    @State var topic: Topic
+    @State var hideHost = false
     
     var body: some View {
         VStack(alignment: .leading) {

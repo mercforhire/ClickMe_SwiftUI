@@ -21,7 +21,7 @@ struct InboxView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             ZStack {
-                List(viewModel.conversations, id: \.id) { conversation in
+                List(viewModel.conversations, id: \.self) { conversation in
                     ChatConversationView(conversation: conversation, 
                                          currentUserId: viewModel.myProfile.userId)
                         .onTapGesture {

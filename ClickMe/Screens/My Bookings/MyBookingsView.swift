@@ -18,7 +18,7 @@ struct MyBookingsView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             ZStack {
-                List(viewModel.requests, id: \.id) { request in
+                List(viewModel.requests, id: \.self) { request in
                     BookingRequestView(request: request)
                         .listRowSeparator(.hidden)
                         .onTapGesture {

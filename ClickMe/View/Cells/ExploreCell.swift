@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ExploreCell: View {
-    var profile: UserProfile
-    var imageHeight: CGFloat
+    @State var profile: UserProfile
+    @State var imageHeight: CGFloat
     
     var body: some View {
         VStack(alignment: .leading) {

@@ -9,10 +9,10 @@ import Foundation
 import SwiftUI
 
 struct ChatMessageLeftView: View {
-    var message: String
-    var createdDate: Date
-    var userProfile: UserProfile
-    var showTimeStamp: Bool
+    @State var message: String
+    @State var createdDate: Date
+    @State var userProfile: UserProfile
+    @State var showTimeStamp: Bool
     
     var body: some View {
         HStack(alignment: .top) {

@@ -18,7 +18,7 @@ struct MyPastBookingsView: View {
     
     var body: some View {
         ZStack {
-            List(viewModel.requests, id: \.id) { request in
+            List(viewModel.requests, id: \.self) { request in
                 BookingRequestView(request: request)
                     .frame(height: 300)
                     .listRowSeparator(.hidden)

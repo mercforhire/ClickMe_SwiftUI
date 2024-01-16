@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct CMPhotoCellView: View {
-    var photo: Photo?
-    var width: CGFloat
-    var height: CGFloat
+    @State var photo: Photo?
+    @State var width: CGFloat
+    @State var height: CGFloat
     
     var body: some View {
         ZStack {

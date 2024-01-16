@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Message: Codable, Identifiable, Equatable {
+struct Message: Codable, Identifiable, Hashable {
     var id: String { return _id }
+    
     let _id: String
     let createdDate: Date
     let fromUserId: String

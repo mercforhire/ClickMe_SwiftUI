@@ -19,7 +19,7 @@ struct ExploreView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             ZStack {
-                List(viewModel.showUsers, id: \.id) { profile in
+                List(viewModel.showUsers, id: \.self) { profile in
                     ExploreCell(profile: profile, imageHeight: 200)
                         .onTapGesture {
                             viewModel.selectedProfile = profile

@@ -9,6 +9,7 @@ import Foundation
 
 struct Request: Codable, Identifiable, Hashable {
     var id: String { return _id }
+    
     let _id: String
     let createdDate: Date
     let bookingUserId: String
@@ -29,6 +30,6 @@ struct Request: Codable, Identifiable, Hashable {
     }
     
     static func == (lhs: Request, rhs: Request) -> Bool {
-        lhs._id == rhs._id
+        return lhs._id == rhs._id && lhs.status == rhs.status
     }
 }

@@ -107,7 +107,7 @@ final class ChatViewModel: ObservableObject {
     }
     
     func scheduleScrollToBottom() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.scrollToBottom.toggle()
         }
     }

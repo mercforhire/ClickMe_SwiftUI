@@ -41,8 +41,8 @@ struct ChatView: View {
                         .textInputAutocapitalization(.sentences)
                         .lineLimit(4)
                         .keyboardType(.default)
-                        .frame(minHeight: CGFloat(40))
-                        .disabled(viewModel.otherPersonBlockedMe)
+                        .frame(minHeight: CGFloat(50))
+                        .disabled(viewModel.otherPersonBlockedMe || viewModel.isSending)
                     
                     Button {
                         viewModel.sendChatMessage()
@@ -52,7 +52,7 @@ struct ChatView: View {
                     }
                     .disabled(viewModel.typingMessage.isEmpty || viewModel.isSending || viewModel.otherPersonBlockedMe)
                     .opacity((viewModel.typingMessage.isEmpty || viewModel.isSending) ? 0.5 : 1)
-                    .frame(height: 30)
+                    .frame(height: 50)
                 }
                 .frame(minHeight: CGFloat(50))
                 .padding(.horizontal, 20)
@@ -97,7 +97,7 @@ struct MessagesListView: View {
     }
     
     var body: some View {
-        List(messages, id: \.id) { message in
+        List(messages, id: \.self) { message in
             let messageString = message.getDisplayMessage(participants: participants)
             let showTimeStamp = message == messages.last
             
@@ -121,7 +121,7 @@ struct MessagesListView: View {
         })
         .onChange(of: scrollToBottom) { _ in
             if let last = messages.last {
-                scrollViewProxy.scrollTo(last.id, anchor: .top)
+                scrollViewProxy.scrollTo(last, anchor: .center)
             }
         }
     }

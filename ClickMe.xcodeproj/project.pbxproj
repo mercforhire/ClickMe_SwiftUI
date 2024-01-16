@@ -722,6 +722,8 @@
 		721D0D3B2B51CE1300095A97 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				720B60682B4C414C00CF716E /* BookingRequestView.swift */,
+				725248562B55B383000D3FCB /* UpcomingBookingView.swift */,
 				7237A5992B438E1C00ABF10F /* GetStartedStepView.swift */,
 				727BD74F2B45519600D4279D /* CMPhotoCellView.swift */,
 				721D0D612B546F2700095A97 /* ReviewCell.swift */,
@@ -846,8 +848,6 @@
 		7237A5832B42E4A000ABF10F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				720B60682B4C414C00CF716E /* BookingRequestView.swift */,
-				725248562B55B383000D3FCB /* UpcomingBookingView.swift */,
 				7255861A2B44CCE9005A37B9 /* CMEmailTextField.swift */,
 				725586182B44CC1B005A37B9 /* CMErrorLabel.swift */,
 				721905392B50BC07000516CA /* CustomModifiers.swift */,

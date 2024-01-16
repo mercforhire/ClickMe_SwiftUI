@@ -28,4 +28,8 @@ struct Topic: Codable, Identifiable, Hashable {
         let dollarAmount: Double = Double(priceHour) / 100.0
         return "$\(String(format: "%.2f", dollarAmount)) \(currency.text()) / hour"
     }
+    
+    static func == (lhs: Topic, rhs: Topic) -> Bool {
+        return lhs._id == rhs._id
+    }
 }

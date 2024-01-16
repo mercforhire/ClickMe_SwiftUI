@@ -1,19 +1,19 @@
 //
-//  UpcomingBookingView.swift
+//  BookingRequestView.swift
 //  ClickMe
 //
-//  Created by Leon Chen on 2024-01-15.
+//  Created by Leon Chen on 2024-01-08.
 //
 
 import SwiftUI
 
-struct UpcomingBookingView: View {
-    var request: Request
+struct BookingRequestView: View {
+    @State var request: Request
     
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .top, spacing: 20) {
-                if let urlString = request.bookingUser?.avatarThumbnailUrl {
+                if let urlString = request.hostUser?.avatarThumbnailUrl {
                     AsyncImage(url: URL(string: urlString)) { image in
                         image
                             .resizable()
@@ -28,11 +28,11 @@ struct UpcomingBookingView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .clipped()
                     VStack(alignment: .leading) {
-                        Text("\(request.bookingUser?.firstName ?? "") \(request.bookingUser?.lastName ?? "")")
+                        Text("\(request.hostUser?.firstName ?? "") \(request.hostUser?.lastName ?? "")")
                             .font(.body)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
-                        Text(request.bookingUser?.jobTitle ?? "")
+                        Text(request.hostUser?.jobTitle ?? "")
                             .font(.subheadline)
                             .foregroundColor(.primary)
                     }
@@ -75,5 +75,5 @@ struct UpcomingBookingView: View {
 }
 
 #Preview {
-    UpcomingBookingView(request: MockData.mockRequest())
+    BookingRequestView(request: MockData.mockRequest())
 }

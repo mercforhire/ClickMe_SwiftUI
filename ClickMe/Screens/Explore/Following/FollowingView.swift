@@ -16,7 +16,7 @@ struct FollowingView: View {
     
     var body: some View {
         ZStack {
-            List(viewModel.profiles, id: \.id) { profile in
+            List(viewModel.profiles, id: \.self) { profile in
                 ExploreCell(profile: profile, imageHeight: 200)
                     .onTapGesture {
                         viewModel.selectedProfile = profile

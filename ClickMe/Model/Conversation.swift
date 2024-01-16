@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Conversation: Codable, Identifiable {
+struct Conversation: Codable, Identifiable, Hashable {
     var id: String { return _id }
     
     let _id: String
@@ -15,4 +15,8 @@ struct Conversation: Codable, Identifiable {
     let participants: [UserProfile]
     let lastMessage: Message
     let lastMessageDate: Date
+    
+    static func == (lhs: Conversation, rhs: Conversation) -> Bool {
+        return lhs._id == rhs._id && lhs.lastMessage == rhs.lastMessage
+    }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserProfile: Codable, Identifiable, Equatable, Hashable {
+struct UserProfile: Codable, Identifiable, Hashable {
     var id: String { return userId }
     let userId: String
     let screenId: String
@@ -32,10 +32,6 @@ struct UserProfile: Codable, Identifiable, Equatable, Hashable {
     
     var avatarUrl: String? {
         userPhotos?.first?.url
-    }
-    
-    static func == (lhs: UserProfile, rhs: UserProfile) -> Bool {
-        lhs.userId == rhs.userId
     }
     
     static func getUser(from participants: [UserProfile], of userId: String) -> UserProfile? {

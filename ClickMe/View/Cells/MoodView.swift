@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct MoodView: View {
-    var mood: Mood
-    var width: CGFloat
-    var height: CGFloat
-    var selected: Bool
+    @State var mood: Mood
+    @State var width: CGFloat
+    @State var height: CGFloat
+    @State var selected: Bool
     
     var body: some View {
         ZStack {

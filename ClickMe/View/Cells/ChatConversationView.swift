@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ChatConversationView: View {
-    var conversation: Conversation
-    var currentUserId: String
+    @State var conversation: Conversation
+    @State var currentUserId: String
     @State var theOtherUser: UserProfile?
     
     var body: some View {

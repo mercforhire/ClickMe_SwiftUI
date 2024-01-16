@@ -22,7 +22,7 @@ struct EditPhotosView: View {
         NavigationView {
             ZStack {
                 Form {
-                    ForEach(viewModel.userPhotos, id: \.id) { photo in
+                    ForEach(viewModel.userPhotos, id: \.self) { photo in
                         HStack(alignment: .center) {
                             AsyncImage(url: URL(string: photo.thumbnail)) { image in
                                 image
