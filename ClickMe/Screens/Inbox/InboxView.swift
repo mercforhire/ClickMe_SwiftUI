@@ -22,7 +22,8 @@ struct InboxView: View {
         NavigationStack(path: $navigationPath) {
             ZStack {
                 List(viewModel.conversations, id: \.id) { conversation in
-                    ChatConversationView(conversation: conversation, currentUserId: viewModel.myProfile.userId)
+                    ChatConversationView(conversation: conversation, 
+                                         currentUserId: viewModel.myProfile.userId)
                         .onTapGesture {
                             newPerson = nil
                             viewModel.selectedConversation = conversation

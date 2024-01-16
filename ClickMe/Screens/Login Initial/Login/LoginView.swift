@@ -89,7 +89,7 @@ struct LoginView: View {
 }
 
 #Preview {
-    var viewModel = LoginViewModel()
+    let viewModel = LoginViewModel()
     viewModel.emailAddress = "feiyangca@yahoo.ca"
     viewModel.code = "6174"
     return NavigationStack {

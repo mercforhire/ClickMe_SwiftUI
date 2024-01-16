@@ -132,6 +132,12 @@ struct CallingView: View {
             })
             .padding([.top, .trailing], 10)
         }
+        onAppear() {
+            viewModel.startRefreshTimer()
+        }
+        onDisappear() {
+            viewModel.stopRefreshTime()
+        }
     }
 }
 

@@ -35,7 +35,11 @@ final class LoginViewModel: ObservableObject {
         Task {
             do {
                 let response = try await ClickAPI.shared.checkLoginEmail(email: emailAddress)
-                emailAddressError = nil
+                if response.success {
+                    emailAddressError = nil
+                } else {
+                    emailAddressError = "Unknown error"
+                }
             } catch {
                 switch error {
                 case CMError.userDoesntExist:
@@ -94,7 +98,7 @@ final class LoginViewModel: ObservableObject {
         do {
             let loginResponse = try await ClickAPI.shared.login(email: emailAddress, code: code)
             if let user = loginResponse.data?.user, let profile = loginResponse.data?.profile {
-                await UserManager.shared.set(user: user, profile: profile)
+                UserManager.shared.set(user: user, profile: profile)
                 loginComplete = true
             }
         } catch {
@@ -112,17 +116,23 @@ final class LoginViewModel: ObservableObject {
         isLoading = false
     }
     
-    private func startCountdown() {
+    func startCountdown() {
         secondsUntilAllowedSendAgain = 60
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] timer in
-            guard let self else { return }
-            
-            if self.secondsUntilAllowedSendAgain == 0 {
-                self.timer?.invalidate()
-                return
-            }
-            
-            self.secondsUntilAllowedSendAgain = self.secondsUntilAllowedSendAgain - 1
-        })
+        timer = Timer.scheduledTimer(timeInterval: 1,
+                                     target: self,
+                                     selector: #selector(timerFunction),
+                                     userInfo: nil,
+                                     repeats: true)
+        timer?.fire()
+    }
+    
+    @objc func timerFunction() {
+        if secondsUntilAllowedSendAgain == 0 {
+            timer?.invalidate()
+            timer = nil
+            return
+        }
+        
+        secondsUntilAllowedSendAgain = secondsUntilAllowedSendAgain - 1
     }
 }

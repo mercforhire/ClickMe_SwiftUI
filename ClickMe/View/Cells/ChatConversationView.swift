@@ -68,12 +68,7 @@ struct ChatConversationView: View {
     }
     
     func getTheOtherUser() -> UserProfile? {
-        for participant in conversation.participants {
-            if participant.userId != currentUserId {
-                return participant
-            }
-        }
-        return nil
+        return conversation.participants.first(where: { $0.userId != currentUserId })
     }
 }
 

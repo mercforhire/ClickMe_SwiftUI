@@ -15,6 +15,7 @@ final class ChatViewModel: ObservableObject {
     var participants: [UserProfile] {
         return [myProfile, talkingTo]
     }
+    
     @Published var isLoading = false
     @Published var isSending = false
     @Published var messages: [Message] = []
@@ -34,7 +35,7 @@ final class ChatViewModel: ObservableObject {
             let response = try? await ClickAPI.shared.getChatMessages(with: talkingTo.userId)
             if let messages = response?.data?.messages {
                 self.messages = messages
-                scrollToBottom.toggle()
+                scheduleScrollToBottom()
             }
             isLoading = false
         }
@@ -48,7 +49,7 @@ final class ChatViewModel: ObservableObject {
             let response = try? await ClickAPI.shared.sendChatMessage(toUserId: talkingTo.userId, message: typingMessage)
             if let newMessage = response?.data?.message {
                 self.messages.append(newMessage)
-                scrollToBottom.toggle()
+                scheduleScrollToBottom()
                 typingMessage = ""
             }
             isSending = false
@@ -84,20 +85,30 @@ final class ChatViewModel: ObservableObject {
     }
     
     func blockUser() {
+        isLoading = true
         Task {
             let response = try? await ClickAPI.shared.block(blockUserId: talkingTo.userId, reason: "")
             if response?.success ?? false {
                 blocked = true
             }
+            isLoading = false
         }
     }
     
     func unblockUser() {
+        isLoading = true
         Task {
             let response = try? await ClickAPI.shared.unblock(blockUserId: talkingTo.userId)
             if response?.success ?? false {
                 blocked = false
             }
+            isLoading = false
+        }
+    }
+    
+    func scheduleScrollToBottom() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.scrollToBottom.toggle()
         }
     }
 }

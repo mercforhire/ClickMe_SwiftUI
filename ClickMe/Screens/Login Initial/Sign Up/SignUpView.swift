@@ -107,7 +107,7 @@ struct SignUpView: View {
 }
 
 #Preview {
-    var viewModel = SignUpViewModel()
+    let viewModel = SignUpViewModel()
     viewModel.emailAddress = "feiyangca@yahoo.ca"
     return NavigationStack {
         SignUpView(navigationPath: .constant([ScreenNames.register]), viewModel: viewModel)

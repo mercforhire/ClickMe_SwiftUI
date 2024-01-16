@@ -91,7 +91,7 @@ struct SetupDetailInfoView: View {
 }
 
 #Preview {
-    var vm = SetupDetailInfoViewModel()
+    let vm = SetupDetailInfoViewModel()
     return SetupDetailInfoView(basicInfo: SetupBasicInfoViewModel(), 
                                shouldPresentSetupProfileFlow: .constant(true),
                                navigationPath: .constant([.setupDetailInfo]),

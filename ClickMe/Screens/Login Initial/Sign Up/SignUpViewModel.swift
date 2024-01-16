@@ -109,18 +109,23 @@ final class SignUpViewModel: ObservableObject {
         isLoading = false
     }
     
-    private func startCountdown() {
+    func startCountdown() {
         secondsUntilAllowedSendAgain = 60
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { [weak self] timer in
-            guard let self else { return }
-            
-            if self.secondsUntilAllowedSendAgain == 0 {
-                timer.invalidate()
-                self.timer = nil
-                return
-            }
-            
-            self.secondsUntilAllowedSendAgain = self.secondsUntilAllowedSendAgain - 1
-        })
+        timer = Timer.scheduledTimer(timeInterval: 1,
+                                     target: self,
+                                     selector: #selector(timerFunction),
+                                     userInfo: nil,
+                                     repeats: true)
+        timer?.fire()
+    }
+    
+    @objc func timerFunction() {
+        if secondsUntilAllowedSendAgain == 0 {
+            timer?.invalidate()
+            timer = nil
+            return
+        }
+        
+        secondsUntilAllowedSendAgain = secondsUntilAllowedSendAgain - 1
     }
 }
