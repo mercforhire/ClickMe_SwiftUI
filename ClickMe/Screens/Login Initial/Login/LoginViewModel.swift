@@ -16,7 +16,6 @@ final class LoginViewModel: ObservableObject {
     @Published var code = ""
     @Published var codeError: String?
     @Published var secondsUntilAllowedSendAgain = 0
-    @Published var loginComplete = false
     
     var timer: Timer?
     
@@ -88,7 +87,7 @@ final class LoginViewModel: ObservableObject {
         startCountdown()
     }
     
-    func login() async {
+    func login() {
         guard !emailAddress.isEmpty, emailAddress.isValidEmail else {
             return
         }
@@ -100,25 +99,30 @@ final class LoginViewModel: ObservableObject {
         codeError = nil
         
         isLoading = true
-        do {
-            let loginResponse = try await ClickAPI.shared.login(email: emailAddress, code: code)
-            if let user = loginResponse.data?.user, let profile = loginResponse.data?.profile {
-                UserManager.shared.set(user: user, profile: profile)
-                loginComplete = true
+        Task {
+            do {
+                let loginResponse = try await ClickAPI.shared.login(email: emailAddress, code: code)
+                if let user = loginResponse.data?.user, let profile = loginResponse.data?.profile {
+                    await UserManager.shared.fetchAppKeys()
+                    UserManager.shared.set(user: user, profile: profile)
+                    
+                    NotificationCenter.default.post(name: Notifications.RefreshLoginStatus, object: nil, userInfo: nil)
+                    print("go back to initial screen and go to home screen")
+                }
+            } catch {
+                switch error {
+                case CMError.userDoesntExist:
+                    emailAddressError = "User doesn't exist"
+                case CMError.verifyCodeInvalid:
+                    codeError = "Verification code is invalid"
+                case CMError.userDeletedAccount:
+                    codeError = "This user already deleted his/her account"
+                default:
+                    codeError = "Unknown error"
+                }
             }
-        } catch {
-            switch error {
-            case CMError.userDoesntExist:
-                emailAddressError = "User doesn't exist"
-            case CMError.verifyCodeInvalid:
-                codeError = "Verification code is invalid"
-            case CMError.userDeletedAccount:
-                codeError = "This user already deleted his/her account"
-            default:
-                codeError = "Unknown error"
-            }
+            isLoading = false
         }
-        isLoading = false
     }
     
     func startCountdown() {

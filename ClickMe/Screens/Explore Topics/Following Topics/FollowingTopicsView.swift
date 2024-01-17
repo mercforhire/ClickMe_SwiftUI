@@ -40,7 +40,7 @@ struct FollowingTopicsView: View {
                 LoadingView()
             }
         }
-        .navigationTitle("Following users topics")
+        .navigationTitle("Following topics")
         .onAppear() {
             viewModel.fetchTopics()
         }

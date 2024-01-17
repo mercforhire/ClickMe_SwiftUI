@@ -29,7 +29,7 @@ struct TopicView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     
                     VStack(alignment: .leading) {
-                        Text("\(profile.firstName ?? "") \(profile.lastName ?? "")")
+                        Text(profile.fullName)
                             .font(.body)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)

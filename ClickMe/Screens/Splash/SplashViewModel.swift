@@ -25,6 +25,7 @@ final class SplashViewModel: ObservableObject {
                 loginInProgress = true
                 let loginResponse = try? await ClickAPI.shared.loginUsingAPIKey(apiKey: apiKey)
                 if let user = loginResponse?.data?.user, let profile = loginResponse?.data?.profile {
+                    await UserManager.shared.fetchAppKeys()
                     UserManager.shared.set(user: user, profile: profile)
                     isLoggedIn = true
                 } else {
@@ -43,9 +44,8 @@ final class SplashViewModel: ObservableObject {
         }
     }
     
-    func handleSwitchToGetStartedNotification() {
-        isLoggedIn = false
-        prepareToLogin()
+    func handleRefreshLoginStatus() {
+        isLoggedIn = UserManager.shared.isLoggedIn()
     }
     
     func logOut() {

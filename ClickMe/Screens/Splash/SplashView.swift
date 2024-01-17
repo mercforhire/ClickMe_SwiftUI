@@ -42,8 +42,8 @@ struct SplashView: View {
             viewModel.prepareToLogin()
             viewModel.startSplashCountdown()
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToGetStarted)) { _ in
-            viewModel.handleSwitchToGetStartedNotification()
+        .onReceive(NotificationCenter.default.publisher(for: Notifications.RefreshLoginStatus)) { _ in
+            viewModel.handleRefreshLoginStatus()
         }
         .onReceive(NotificationCenter.default.publisher(for: Notifications.ToggleGuestHostMode)) { _ in
             startinHostMode.toggle()

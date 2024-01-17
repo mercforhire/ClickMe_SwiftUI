@@ -38,9 +38,6 @@ class UserManager {
         self.profile = profile
         api.apiKey = user.apiKey
         saveAPIKey()
-        Task {
-            await fetchAppKeys()
-        }
     }
     
     func set(profile: UserProfile) {
@@ -70,7 +67,7 @@ class UserManager {
     }
     
     func isLoggedIn() -> Bool {
-        return user != nil && profile != nil
+        return user != nil && profile != nil && agoraAppId != nil
     }
     
     func saveAPIKey() {

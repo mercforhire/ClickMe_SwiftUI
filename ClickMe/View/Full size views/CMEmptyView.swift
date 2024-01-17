@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CMEmptyView: View {
-    var imageName: String = "404"
-    var message: String = "No search results"
+    @State var imageName: String = "404"
+    @State var message: String = "No search results"
     
     var body: some View {
         ZStack {

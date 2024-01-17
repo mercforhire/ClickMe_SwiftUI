@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CMButton: View {
-    var title: LocalizedStringKey
+    @State var title: LocalizedStringKey
     var fullWidth: Bool = false
     
     var body: some View {
@@ -17,7 +17,7 @@ struct CMButton: View {
                 .font(.title3)
                 .fontWeight(.semibold)
                 .frame(height: 50)
-                .foregroundStyle(.white)
+                .foregroundStyle(Color(.systemBackground))
                 .padding(.horizontal, 20)
         }
         .frame(maxWidth: fullWidth ? .infinity : nil)

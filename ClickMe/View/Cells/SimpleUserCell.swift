@@ -35,7 +35,7 @@ struct SimpleUserCell: View {
             }
             
             VStack(alignment: .leading) {
-                Text("\(profile.firstName ?? "") \(profile.lastName ?? "")")
+                Text(profile.fullName)
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)

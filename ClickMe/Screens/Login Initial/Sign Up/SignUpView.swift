@@ -69,12 +69,7 @@ struct SignUpView: View {
                 }
                 Spacer()
                 Button {
-                    Task {
-                        await viewModel.register()
-                        if viewModel.registerComplete {
-                            navigationPath.removeLast()
-                        }
-                    }
+                    viewModel.register()
                 } label: {
                     CMButton(title: "Register")
                 }

@@ -22,48 +22,54 @@ struct SetupDetailInfoView: View {
     private let gridMatrix: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
-        Form {
-            Section(header: Text("Upload photos")) {
-                ProfilePhotosGridView(photos: $viewModel.userPhotos,
-                                      width: photoCellWidth, 
-                                      maxPhotos: 4,
-                                      gridMatrix: gridMatrix)
-                { index in
-                    viewModel.handleDeletePhoto(index: index)
-                } handlePhotoPicker: {
-                    viewModel.handlePhotoPicker()
+        ZStack {
+            Form {
+                Section(header: Text("Upload photos")) {
+                    ProfilePhotosGridView(photos: $viewModel.userPhotos,
+                                          width: photoCellWidth,
+                                          maxPhotos: 4,
+                                          gridMatrix: gridMatrix)
+                    { index in
+                        viewModel.handleDeletePhoto(index: index)
+                    } handlePhotoPicker: {
+                        viewModel.handlePhotoPicker()
+                    }
+                    
+                    if let photosError = viewModel.photosError, !photosError.isEmpty {
+                        CMErrorLabel(photosError)
+                    }
+                }
+                .alert(isPresented: $viewModel.s3UploadError) {
+                    Alert(title: Text("Upload error"),
+                          message: Text("Something went wrong while uploading to S3"),
+                          dismissButton: .default(Text("Ok")))
                 }
                 
-                if let photosError = viewModel.photosError, !photosError.isEmpty {
-                    CMErrorLabel(photosError)
+                Section(header: Text("About me")) {
+                    TextEditor(text: $viewModel.aboutMe)
+                        .foregroundStyle(.primary)
+                        .frame(height: 200)
+                        .keyboardType(.alphabet)
+                    if let aboutMeError = viewModel.aboutMeError, !aboutMeError.isEmpty {
+                        CMErrorLabel(aboutMeError)
+                    }
                 }
-            }
-            .alert(isPresented: $viewModel.s3UploadError) {
-                Alert(title: Text("Upload error"),
-                      message: Text("Something went wrong while uploading to S3"),
-                      dismissButton: .default(Text("Ok")))
+                
+                Section(header: Text("I speak")) {
+                    MultiSelector(
+                        label: Text("Languages"),
+                        options: Language.list(),
+                        optionToString: { $0.text() },
+                        selected: $viewModel.languages
+                    )
+                    if let languagesError = viewModel.languagesError, !languagesError.isEmpty {
+                        CMErrorLabel(languagesError)
+                    }
+                }
             }
             
-            Section(header: Text("About me")) {
-                TextEditor(text: $viewModel.aboutMe)
-                    .foregroundStyle(.primary)
-                    .frame(height: 200)
-                    .keyboardType(.alphabet)
-                if let aboutMeError = viewModel.aboutMeError, !aboutMeError.isEmpty {
-                    CMErrorLabel(aboutMeError)
-                }
-            }
-            
-            Section(header: Text("I speak")) {
-                MultiSelector(
-                    label: Text("Languages"),
-                    options: Language.list(),
-                    optionToString: { $0.text() },
-                    selected: $viewModel.languages
-                )
-                if let languagesError = viewModel.languagesError, !languagesError.isEmpty {
-                    CMErrorLabel(languagesError)
-                }
+            if viewModel.isLoading {
+                LoadingView()
             }
         }
         .navigationTitle("Setup profile")
@@ -91,8 +97,9 @@ struct SetupDetailInfoView: View {
 }
 
 #Preview {
+    ClickAPI.shared.apiKey = "e3d6c1c2f32107b28e6234aa8a5248b81a7aa9e6749d08c73d95a5d18cbe95fe33b79ba0fc06233306b1622167e458118c9ed696c351a665a92500895f822b36"
     let vm = SetupDetailInfoViewModel()
-    return SetupDetailInfoView(basicInfo: SetupBasicInfoViewModel(), 
+    return SetupDetailInfoView(basicInfo: SetupBasicInfoViewModel(),
                                shouldPresentSetupProfileFlow: .constant(true),
                                navigationPath: .constant([.setupDetailInfo]),
                                viewModel: vm)

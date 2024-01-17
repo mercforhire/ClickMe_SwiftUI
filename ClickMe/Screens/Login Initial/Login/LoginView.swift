@@ -56,12 +56,7 @@ struct LoginView: View {
                     }
                 }
                 Button {
-                    Task {
-                        await viewModel.login()
-                        if viewModel.loginComplete {
-                            navigationPath.removeLast()
-                        }
-                    }
+                    viewModel.login()
                 } label: {
                     CMButton(title: "Login")
                 }

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TextFieldActionView: View {
-    let buttonText: String
-    var placeholder: String = "Send a message along with the action"
+    @State var buttonText: String
+    @State var placeholder: String = "Send a message along with the action"
     @Binding var isShowingView: Bool
     @State var initialMessage: String = ""
     var actionHandler: ((String) -> Void)?

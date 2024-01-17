@@ -25,6 +25,7 @@ final class SetupDetailInfoViewModel: ObservableObject {
     @Published var s3UploadError = false
     @Published var updateProfileError = false
     @Published var updateProfileFinished = false
+    @Published var isLoading = false
     
     var isValidForm: Bool {
         guard !userPhotos.isEmpty else {
@@ -49,6 +50,7 @@ final class SetupDetailInfoViewModel: ObservableObject {
     }
     
     func handleDeletePhoto(index: Int) {
+        isLoading = true
         Task {
             let photo = userPhotos[index]
             do {
@@ -63,6 +65,7 @@ final class SetupDetailInfoViewModel: ObservableObject {
                 }
             }
             userPhotos.remove(at: index)
+            isLoading = false
         }
     }
     
@@ -73,6 +76,7 @@ final class SetupDetailInfoViewModel: ObservableObject {
     func handleReceivedPickerItem() {
         guard let pickerItem else { return }
         
+        isLoading = true
         Task {
             if let data = try? await pickerItem.loadTransferable(type: Data.self) {
                 print("successfully loaded image")
@@ -94,12 +98,14 @@ final class SetupDetailInfoViewModel: ObservableObject {
             } else {
                 print("failed to load image")
             }
+            isLoading = false
         }
     }
     
     func updateProfile(basicInfo: SetupBasicInfoViewModel) {
         guard isValidForm else { return }
         
+        isLoading = true
         Task {
             let updateProfileParams = UpdateProfileParams(firstName: basicInfo.firstName,
                                                           lastName: basicInfo.lastName,
@@ -123,5 +129,6 @@ final class SetupDetailInfoViewModel: ObservableObject {
                 updateProfileError = true
             }
         }
+        isLoading = false
     }
 }

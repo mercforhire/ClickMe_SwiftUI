@@ -41,6 +41,7 @@ final class SetupBasicInfoViewModel: ObservableObject {
     
     func handleLogOut() {
         UserManager.shared.logout()
-        NotificationCenter.default.post(name: Notifications.SwitchToGetStarted, object: nil, userInfo: nil)
+        NotificationCenter.default.post(name: Notifications.RefreshLoginStatus, object: nil, userInfo: nil)
+        print("log out and go back to initial screen")
     }
 }

@@ -91,7 +91,7 @@ struct AccountView: View {
                             .clipped()
                         }
                         
-                        Text("\(viewModel.myProfile.firstName ?? "") \(viewModel.myProfile.lastName ?? "")")
+                        Text(viewModel.myProfile.fullName)
                             .font(.title3)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)

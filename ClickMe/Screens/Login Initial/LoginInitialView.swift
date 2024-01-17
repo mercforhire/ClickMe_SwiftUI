@@ -10,57 +10,48 @@ import SwiftUI
 struct LoginInitialView: View {
     @StateObject var viewModel = LoginInitialViewModel()
     @State private var navigationPath: [ScreenNames] = []
-    @EnvironmentObject var agora: AgoraManager
     
     var body: some View {
-        if viewModel.loggedIn, let userProfile = viewModel.userProfile {
-            HomeTabView(myProfile: userProfile)
-                .environmentObject(agora)
-        } else {
-            NavigationStack(path: $navigationPath) {
-                ZStack {
-                    Image("background", bundle: nil)
-                        .resizable()
-                        .ignoresSafeArea()
-                    VStack(spacing: 10) {
-                        Spacer()
-                        ImageLogosView()
-                        ButtonsSectionView(loginHandler: {
-                            navigationPath.append(ScreenNames.login)
-                        }, signUpHandler: {
-                            navigationPath.append(ScreenNames.register)
-                        })
-                        Spacer()
-                        FooterView(termsOfUseHandler: {
-                            viewModel.isPresentingTermsOfUse = true
-                        }, privacyHandler: {
-                            viewModel.isPresentingPrivacy = true
-                        })
-                        .padding(.bottom, 10)
+        NavigationStack(path: $navigationPath) {
+            ZStack {
+                Image("background", bundle: nil)
+                    .resizable()
+                    .ignoresSafeArea()
+                VStack(spacing: 10) {
+                    Spacer()
+                    ImageLogosView()
+                    ButtonsSectionView(loginHandler: {
+                        navigationPath.append(ScreenNames.login)
+                    }, signUpHandler: {
+                        navigationPath.append(ScreenNames.register)
+                    })
+                    Spacer()
+                    FooterView(termsOfUseHandler: {
+                        viewModel.isPresentingTermsOfUse = true
+                    }, privacyHandler: {
+                        viewModel.isPresentingPrivacy = true
+                    })
+                    .padding(.bottom, 10)
 
-                    }
                 }
-                .navigationDestination(for: ScreenNames.self) { screenName in
-                    switch screenName {
-                    case ScreenNames.login:
-                        LoginView(navigationPath: $navigationPath)
-                    case ScreenNames.register:
-                        SignUpView(navigationPath: $navigationPath)
-                    default:
-                        fatalError()
-                    }
+            }
+            .navigationDestination(for: ScreenNames.self) { screenName in
+                switch screenName {
+                case ScreenNames.login:
+                    LoginView(navigationPath: $navigationPath)
+                case ScreenNames.register:
+                    SignUpView(navigationPath: $navigationPath)
+                default:
+                    fatalError()
                 }
-                .fullScreenCover(isPresented: $viewModel.isPresentingTermsOfUse) {
-                    SafariView(url: URL(string: "https://www.google.com")!)
-                        .ignoresSafeArea()
-                }
-                .fullScreenCover(isPresented: $viewModel.isPresentingPrivacy) {
-                    SafariView(url: URL(string: "https://www.yahoo.com")!)
-                        .ignoresSafeArea()
-                }
-                .onAppear {
-                    viewModel.checkIfAppIsLoggedIn()
-                }
+            }
+            .fullScreenCover(isPresented: $viewModel.isPresentingTermsOfUse) {
+                SafariView(url: URL(string: "https://www.google.com")!)
+                    .ignoresSafeArea()
+            }
+            .fullScreenCover(isPresented: $viewModel.isPresentingPrivacy) {
+                SafariView(url: URL(string: "https://www.yahoo.com")!)
+                    .ignoresSafeArea()
             }
         }
     }

@@ -34,6 +34,10 @@ struct UserProfile: Codable, Identifiable, Hashable {
         userPhotos?.first?.url
     }
     
+    var fullName: String {
+        "\(firstName ?? "") \(lastName ?? "")"
+    }
+    
     static func getUser(from participants: [UserProfile], of userId: String) -> UserProfile? {
         return participants.first(where: { $0.userId == userId })
     }

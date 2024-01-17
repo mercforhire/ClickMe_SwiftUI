@@ -17,17 +17,19 @@ struct ProfilePhotosGridView: View {
     
     var body: some View {
         LazyVGrid(columns: gridMatrix) {
-            ForEach((0..<maxPhotos), id: \.self) { index in
+            ForEach(0..<maxPhotos) { index in
                 if index < photos.count {
                     CMPhotoCellView(photo: photos[index], width: width, height: width)
-                    .onTapGesture {
-                        handleDeletePhoto(index)
-                    }
+                        .onTapGesture {
+                            handleDeletePhoto(index)
+                        }
+                        .id(UUID())
                 } else {
                     CMPhotoCellView(width: width, height: width)
                         .onTapGesture {
                             handlePhotoPicker()
                         }
+                        .id(UUID())
                 }
             }
         }

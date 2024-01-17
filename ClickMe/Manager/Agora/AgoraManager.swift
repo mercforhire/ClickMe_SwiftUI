@@ -46,6 +46,7 @@ enum MicState {
     }
 }
 
+@MainActor
 final class AgoraManager: NSObject, ObservableObject {
     @Published var isPresentingCallScreen: Bool = false
     @Published var inInACall: Bool = false
@@ -215,6 +216,7 @@ final class AgoraManager: NSObject, ObservableObject {
         mySpeakerState = nil
         myMicState = nil
         remoteMicState = nil
+        agoraError = nil
     }
         
     func destroyAgoraEngine() {

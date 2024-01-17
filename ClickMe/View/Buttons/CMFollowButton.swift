@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CMFollowButton: View {
-    var following: Bool
+    @State var following: Bool
     
     var body: some View {
         ZStack {

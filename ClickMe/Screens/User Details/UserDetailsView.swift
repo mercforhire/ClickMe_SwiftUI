@@ -56,7 +56,7 @@ struct UserDetailsView: View {
                     }
                 }
                 
-                Text("\(viewModel.profile.firstName ?? "") \(viewModel.profile.lastName ?? "")")
+                Text(viewModel.profile.fullName)
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
@@ -155,7 +155,6 @@ struct UserDetailsView: View {
                                 isShowingProfile = false
                                 viewModel.handleOpenTopic(topic: topic)
                             }
-                        Divider()
                     }
                 }
             }
