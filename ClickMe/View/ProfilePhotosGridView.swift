@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ProfilePhotosGridView: View {
     @Binding var photos: [Photo]
-    var width: CGFloat
-    var maxPhotos: Int
+    let width: CGFloat
+    let maxPhotos: Int
     let gridMatrix: [GridItem]
-    var handleDeletePhoto: (Int) -> Void
-    var handlePhotoPicker: () -> Void
+    let handleDeletePhoto: (Int) -> Void
+    let handlePhotoPicker: () -> Void
     
     var body: some View {
         LazyVGrid(columns: gridMatrix) {

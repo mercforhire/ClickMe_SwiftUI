@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Receipt: Codable, Identifiable {
+struct Receipt: Codable, Identifiable, Hashable {
     var id: String { return _id }
     
     let _id: String
@@ -18,6 +18,9 @@ struct Receipt: Codable, Identifiable {
     let status: ReceiptStatus
     let amount: Double
     let currency: Currency
+    var request: Request?
+    var topic: Topic?
+    var bookingUser: UserProfile?
     
     var displayablePrice: String {
         if amount == 0 {
@@ -25,5 +28,9 @@ struct Receipt: Codable, Identifiable {
         }
         let dollarAmount: Double = Double(amount) / 100.0
         return "$\(String(format: "%.2f", dollarAmount)) \(currency.text())"
+    }
+    
+    static func == (lhs: Receipt, rhs: Receipt) -> Bool {
+        return lhs._id == rhs._id && lhs.status == rhs.status
     }
 }

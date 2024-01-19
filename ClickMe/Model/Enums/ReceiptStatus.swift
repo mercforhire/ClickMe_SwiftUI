@@ -10,7 +10,9 @@ import Foundation
 enum ReceiptStatus: String, Codable, Identifiable {
     case UNPAID
     case AUTHORIZED
+    case CANCELLED
     case PAID
+    case PAID_OUT
     case unknown
     
     var id: ReceiptStatus { self }
@@ -21,8 +23,12 @@ enum ReceiptStatus: String, Codable, Identifiable {
             return "Unpaid"
         case .AUTHORIZED:
             return "Authorized"
+        case .CANCELLED:
+            return "Cancelled"
         case .PAID:
             return "Paid"
+        case .PAID_OUT:
+            return "Paid out"
         case .unknown:
             return "Unknown"
         }

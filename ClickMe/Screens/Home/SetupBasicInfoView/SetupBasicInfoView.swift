@@ -9,14 +9,18 @@ import SwiftUI
 
 struct SetupBasicInfoView: View {
     @Binding var shouldPresentSetupProfileFlow: Bool
+    @StateObject var viewModel: SetupBasicInfoViewModel
     
-    @StateObject var viewModel = SetupBasicInfoViewModel()
     @FocusState private var focusedTextField: FormTextField?
-    
     @State private var navigationPath: [ScreenNames] = []
     
     private enum FormTextField {
         case firstName, lastName, city, state, jobTitle, company, degree
+    }
+    
+    init(myProfile: UserProfile, shouldPresentSetupProfileFlow: Binding<Bool>) {
+        _shouldPresentSetupProfileFlow = shouldPresentSetupProfileFlow
+        _viewModel = StateObject(wrappedValue: SetupBasicInfoViewModel(myProfile: myProfile))
     }
     
     var body: some View {
@@ -99,7 +103,10 @@ struct SetupBasicInfoView: View {
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
                 case ScreenNames.setupDetailInfo:
-                    SetupDetailInfoView(basicInfo: viewModel, shouldPresentSetupProfileFlow: $shouldPresentSetupProfileFlow, navigationPath: $navigationPath)
+                    SetupDetailInfoView(myProfile: viewModel.myProfile,
+                                        basicInfo: viewModel,
+                                        shouldPresentSetupProfileFlow: $shouldPresentSetupProfileFlow,
+                                        navigationPath: $navigationPath)
                 default:
                     fatalError()
                 }
@@ -133,5 +140,5 @@ struct SetupBasicInfoView: View {
 }
 
 #Preview {
-    SetupBasicInfoView(shouldPresentSetupProfileFlow: .constant(true))
+    SetupBasicInfoView(myProfile: MockData.mockProfile(), shouldPresentSetupProfileFlow: .constant(true))
 }

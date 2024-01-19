@@ -56,7 +56,8 @@ struct HomeTabView: View {
             viewModel.checkProfileCompletion()
         }
         .fullScreenCover(isPresented: $viewModel.shouldPresentSetupProfileFlow) {
-            SetupBasicInfoView(shouldPresentSetupProfileFlow: $viewModel.shouldPresentSetupProfileFlow)
+            SetupBasicInfoView(myProfile: viewModel.myProfile,
+                               shouldPresentSetupProfileFlow: $viewModel.shouldPresentSetupProfileFlow)
         }
         .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat)) { notification in
             viewModel.handleSwitchToChatNotification(notification: notification)

@@ -203,6 +203,12 @@
 		728499F92B466B0400C2826B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499F82B466B0400C2826B /* Utils.swift */; };
 		728499FC2B46C06D00C2826B /* UpdateProfileParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499FB2B46C06C00C2826B /* UpdateProfileParams.swift */; };
 		728499FE2B46C2AE00C2826B /* UpdateUserProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */; };
+		72AD85192B59819000EBE632 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85182B59819000EBE632 /* WalletView.swift */; };
+		72AD851B2B5981BD00EBE632 /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD851A2B5981BD00EBE632 /* WalletViewModel.swift */; };
+		72AD851D2B59ED8700EBE632 /* ConnectAccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD851C2B59ED8700EBE632 /* ConnectAccountResponse.swift */; };
+		72AD851F2B59EDA800EBE632 /* StripeAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD851E2B59EDA800EBE632 /* StripeAccount.swift */; };
+		72AD85212B5A27FE00EBE632 /* AccountLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85202B5A27FE00EBE632 /* AccountLink.swift */; };
+		72AD85232B5A285200EBE632 /* OnboardingLinkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85222B5A285200EBE632 /* OnboardingLinkResponse.swift */; };
 		72B49AF22B56FEE100138AD4 /* GetStripePaymentDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B49AF12B56FEE100138AD4 /* GetStripePaymentDetailsResponse.swift */; };
 /* End PBXBuildFile section */
 
@@ -425,6 +431,12 @@
 		728499F82B466B0400C2826B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		728499FB2B46C06C00C2826B /* UpdateProfileParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateProfileParams.swift; sourceTree = "<group>"; };
 		728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileResponse.swift; sourceTree = "<group>"; };
+		72AD85182B59819000EBE632 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
+		72AD851A2B5981BD00EBE632 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
+		72AD851C2B59ED8700EBE632 /* ConnectAccountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectAccountResponse.swift; sourceTree = "<group>"; };
+		72AD851E2B59EDA800EBE632 /* StripeAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeAccount.swift; sourceTree = "<group>"; };
+		72AD85202B5A27FE00EBE632 /* AccountLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLink.swift; sourceTree = "<group>"; };
+		72AD85222B5A285200EBE632 /* OnboardingLinkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLinkResponse.swift; sourceTree = "<group>"; };
 		72B49AF12B56FEE100138AD4 /* GetStripePaymentDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStripePaymentDetailsResponse.swift; sourceTree = "<group>"; };
 		7C52A32A88EB630420360EC8 /* Pods-ClickMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMeTests.debug.xcconfig"; path = "Target Support Files/Pods-ClickMeTests/Pods-ClickMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		953EFE63C1B45C26F2F6A760 /* Pods_ClickMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClickMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -536,6 +548,7 @@
 				720B607D2B4D5BE300CF716E /* AccountViewModel.swift */,
 				721D0D632B547AEA00095A97 /* HostAccountView.swift */,
 				721D0D652B547AF600095A97 /* HostAccountViewModel.swift */,
+				72AD85172B58EFCA00EBE632 /* Wallet */,
 				720087BA2B4EDBAD0020633F /* Users List */,
 				720087A82B4DAB3C0020633F /* Edit Profile */,
 				720087B72B4E1E2F0020633F /* Edit Photos */,
@@ -684,17 +697,10 @@
 			path = Calling;
 			sourceTree = "<group>";
 		};
-		721D0D342B51CC0D00095A97 /* Agora */ = {
-			isa = PBXGroup;
-			children = (
-				721D0D352B51CC0D00095A97 /* AgoraManager.swift */,
-			);
-			path = Agora;
-			sourceTree = "<group>";
-		};
 		721D0D392B51CDD000095A97 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				721D0D6A2B54AA6000095A97 /* CallingButtonView.swift */,
 				7237A58D2B43016100ABF10F /* CMButton.swift */,
 				722DD67E2B45578400AD8401 /* CMPlusButton.swift */,
 				728499E82B45650300C2826B /* CMMinusButton.swift */,
@@ -710,6 +716,8 @@
 		721D0D3A2B51CDF100095A97 /* Full size views */ = {
 			isa = PBXGroup;
 			children = (
+				725586342B452E8B005A37B9 /* MultiSelectionView.swift */,
+				727BD7482B45310100D4279D /* MultiSelector.swift */,
 				721905372B50BBD8000516CA /* TextFieldActionView.swift */,
 				722C59E32B44009B00EBA081 /* LoadingView.swift */,
 				7219052F2B50A2AD000516CA /* ErrorView.swift */,
@@ -810,6 +818,8 @@
 				721D0D482B520D3B00095A97 /* GetUserRatingsResponse.swift */,
 				721D0D5A2B54610100095A97 /* GetHostStatisticsResponse.swift */,
 				72B49AF12B56FEE100138AD4 /* GetStripePaymentDetailsResponse.swift */,
+				72AD851C2B59ED8700EBE632 /* ConnectAccountResponse.swift */,
+				72AD85222B5A285200EBE632 /* OnboardingLinkResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -839,7 +849,7 @@
 			isa = PBXGroup;
 			children = (
 				725586232B44EF5E005A37B9 /* UserManager.swift */,
-				721D0D342B51CC0D00095A97 /* Agora */,
+				721D0D352B51CC0D00095A97 /* AgoraManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -851,10 +861,7 @@
 				725586182B44CC1B005A37B9 /* CMErrorLabel.swift */,
 				721905392B50BC07000516CA /* CustomModifiers.swift */,
 				722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */,
-				725586342B452E8B005A37B9 /* MultiSelectionView.swift */,
-				727BD7482B45310100D4279D /* MultiSelector.swift */,
 				728499EE2B4587EE00C2826B /* ProfilePhotosGridView.swift */,
-				721D0D6A2B54AA6000095A97 /* CallingButtonView.swift */,
 				721D0D432B51E8FB00095A97 /* UIViewRepresentable */,
 				721D0D392B51CDD000095A97 /* Buttons */,
 				721D0D3B2B51CE1300095A97 /* Cells */,
@@ -894,6 +901,8 @@
 				720B60712B4C7E2500CF716E /* Receipt.swift */,
 				721D0D442B52087800095A97 /* Review.swift */,
 				7219050C2B501AEB000516CA /* StripeData.swift */,
+				72AD851E2B59EDA800EBE632 /* StripeAccount.swift */,
+				72AD85202B5A27FE00EBE632 /* AccountLink.swift */,
 				720B605C2B4ADAE700CF716E /* MockData.swift */,
 				720B60622B4B19F100CF716E /* Notifications.swift */,
 				721905442B518232000516CA /* CallSession.swift */,
@@ -1034,8 +1043,8 @@
 			isa = PBXGroup;
 			children = (
 				721D0D692B54892300095A97 /* ClickMe.entitlements */,
-				728499F72B466AF600C2826B /* Utils */,
 				725B99EB2B4169220066D240 /* ClickMeApp.swift */,
+				728499F72B466AF600C2826B /* Utils */,
 				722C59D12B43EDE900EBA081 /* Network */,
 				7237A5822B42E49300ABF10F /* Manager */,
 				7237A5812B42E47B00ABF10F /* Screens */,
@@ -1147,6 +1156,15 @@
 				721D0D532B53328300095A97 /* EditTopicParams.swift */,
 			);
 			path = Params;
+			sourceTree = "<group>";
+		};
+		72AD85172B58EFCA00EBE632 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				72AD85182B59819000EBE632 /* WalletView.swift */,
+				72AD851A2B5981BD00EBE632 /* WalletViewModel.swift */,
+			);
+			path = Wallet;
 			sourceTree = "<group>";
 		};
 		9BC2AD1CDE0BB1459C84106B /* Pods */ = {
@@ -1423,12 +1441,14 @@
 				720087B02B4DDA4C0020633F /* View+Ext.swift in Sources */,
 				724C95512B49508200AD2CFC /* MoodView.swift in Sources */,
 				724C95482B4902A000AD2CFC /* TopicResponse.swift in Sources */,
+				72AD85212B5A27FE00EBE632 /* AccountLink.swift in Sources */,
 				720B60422B49D42A00CF716E /* ChatConversationView.swift in Sources */,
 				7219052C2B506B61000516CA /* HostUpcomingBookingsViewModel.swift in Sources */,
 				72064F342B4707A200BB9ECC /* AccountView.swift in Sources */,
 				721905122B504167000516CA /* HostTabView.swift in Sources */,
 				7237A58E2B43016100ABF10F /* CMButton.swift in Sources */,
 				724C95462B48FFEE00AD2CFC /* TopicDetailsViewModel.swift in Sources */,
+				72AD851D2B59ED8700EBE632 /* ConnectAccountResponse.swift in Sources */,
 				721D0D492B520D3B00095A97 /* GetUserRatingsResponse.swift in Sources */,
 				72774C2C2B47C43C00C5A248 /* ExploreFilterViewModel.swift in Sources */,
 				720B60762B4D1B8700CF716E /* ReceiptStatus.swift in Sources */,
@@ -1441,6 +1461,7 @@
 				721D0D562B5344C200095A97 /* TopicLengthChoice.swift in Sources */,
 				725248572B55B384000D3FCB /* UpcomingBookingView.swift in Sources */,
 				721905352B50B4C6000516CA /* PastHostingsViewModel.swift in Sources */,
+				72AD85192B59819000EBE632 /* WalletView.swift in Sources */,
 				721D0D4E2B531C1800095A97 /* EditTopicView.swift in Sources */,
 				722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */,
 				720B60652B4C3AE900CF716E /* GetBookingRequestsResponse.swift in Sources */,
@@ -1563,6 +1584,7 @@
 				7275920F2B4F6BC80071ABA5 /* ConfirmBookingViewModel.swift in Sources */,
 				72774C3F2B4828F500C5A248 /* TopicsResponse.swift in Sources */,
 				722C59E22B43FE6400EBA081 /* String+Ext.swift in Sources */,
+				72AD851B2B5981BD00EBE632 /* WalletViewModel.swift in Sources */,
 				725586192B44CC1B005A37B9 /* CMErrorLabel.swift in Sources */,
 				725586262B44F201005A37B9 /* AppKeysResponse.swift in Sources */,
 				720087B62B4E1E210020633F /* EditPhotosView.swift in Sources */,
@@ -1579,12 +1601,14 @@
 				72064F362B470B7200BB9ECC /* ExploreViewModel.swift in Sources */,
 				720B604A2B4A584E00CF716E /* InboxViewModel.swift in Sources */,
 				721D0D472B520B5D00095A97 /* GetReviewsResponse.swift in Sources */,
+				72AD85232B5A285200EBE632 /* OnboardingLinkResponse.swift in Sources */,
 				721905272B506997000516CA /* HostRequestViewModel.swift in Sources */,
 				721D0D502B531C2800095A97 /* EditTopicViewModel.swift in Sources */,
 				720087AA2B4DAB4E0020633F /* EditProfileView.swift in Sources */,
 				720B60542B4ABD7500CF716E /* ChatMessageLeftView.swift in Sources */,
 				7219051B2B50425B000516CA /* HostStatusView.swift in Sources */,
 				722DD67F2B45578400AD8401 /* CMPlusButton.swift in Sources */,
+				72AD851F2B59EDA800EBE632 /* StripeAccount.swift in Sources */,
 				720B60672B4C3D9300CF716E /* RequestStatus.swift in Sources */,
 				72774C3B2B47FC4900C5A248 /* CMChatButton.swift in Sources */,
 				7256EC292B574145000F2B23 /* FollowingTopicsView.swift in Sources */,

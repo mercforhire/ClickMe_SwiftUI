@@ -22,7 +22,7 @@ final class HomeTabViewModel: ObservableObject {
     }
     
     func checkProfileCompletion() {
-        if UserManager.shared.profile?.firstName?.isEmpty ?? true {
+        if myProfile.firstName?.isEmpty ?? true {
             shouldPresentSetupProfileFlow = true
         }
     }

@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 final class SetupBasicInfoViewModel: ObservableObject {
+    var myProfile: UserProfile
+    
     @Published var firstName = ""
     @Published var firstNameError: String?
     @Published var lastName = ""
@@ -37,6 +39,10 @@ final class SetupBasicInfoViewModel: ObservableObject {
         lastNameError = nil
         
         return true
+    }
+    
+    init(myProfile: UserProfile) {
+        self.myProfile = myProfile
     }
     
     func handleLogOut() {

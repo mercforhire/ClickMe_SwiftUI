@@ -94,6 +94,7 @@ struct UserDetailsView: View {
                             .fontWeight(.medium)
                             .foregroundColor(Color(.systemGray))
                     }
+                    
                     VStack {
                         Text(viewModel.ratings != nil ? "\(viewModel.ratings!, specifier: "%.1f")" : "--")
                             .font(.body)
@@ -103,6 +104,11 @@ struct UserDetailsView: View {
                             .font(.body)
                             .fontWeight(.medium)
                             .foregroundColor(Color(.systemGray))
+                    }
+                    .onTapGesture {
+                        if viewModel.ratings != nil {
+                            viewModel.isShowingUserReviews = true
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -175,10 +181,18 @@ struct UserDetailsView: View {
             })
             .padding([.top, .trailing], 10)
         }
+        .popover(isPresented: $viewModel.isShowingUserReviews) {
+            NavigationView {
+                ReviewsView(user: viewModel.profile)
+            }
+        }
     }
 }
 
 #Preview {
     ClickAPI.shared.apiKey = MockData.mockUser().apiKey
-    return UserDetailsView(myProfile: MockData.mockProfile(), profile: MockData.mockProfile2(), isShowingProfile: .constant(true), loadTopics: true)
+    return UserDetailsView(myProfile: MockData.mockProfile(), 
+                           profile: MockData.mockProfile2(),
+                           isShowingProfile: .constant(true),
+                           loadTopics: true)
 }

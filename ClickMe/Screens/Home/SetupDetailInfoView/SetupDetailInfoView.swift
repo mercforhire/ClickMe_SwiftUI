@@ -9,10 +9,10 @@ import SwiftUI
 import PhotosUI
 
 struct SetupDetailInfoView: View {
-    let basicInfo: SetupBasicInfoViewModel
+    var basicInfo: SetupBasicInfoViewModel
     @Binding var shouldPresentSetupProfileFlow: Bool
     @Binding var navigationPath: [ScreenNames]
-    @StateObject var viewModel: SetupDetailInfoViewModel = SetupDetailInfoViewModel()
+    @StateObject var viewModel: SetupDetailInfoViewModel
     
     private let screenWidth = UIScreen.main.bounds.size.width
     private let padding: CGFloat = 40
@@ -20,6 +20,16 @@ struct SetupDetailInfoView: View {
         return (screenWidth - padding * 2) / 2
     }
     private let gridMatrix: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
+    
+    init(myProfile: UserProfile,
+         basicInfo: SetupBasicInfoViewModel,
+         shouldPresentSetupProfileFlow: Binding<Bool>,
+         navigationPath: Binding<[ScreenNames]>) {
+        self.basicInfo = basicInfo
+        _shouldPresentSetupProfileFlow = shouldPresentSetupProfileFlow
+        _navigationPath = navigationPath
+        _viewModel = StateObject(wrappedValue: SetupDetailInfoViewModel(myProfile: myProfile))
+    }
     
     var body: some View {
         ZStack {
@@ -97,10 +107,9 @@ struct SetupDetailInfoView: View {
 }
 
 #Preview {
-    ClickAPI.shared.apiKey = "e3d6c1c2f32107b28e6234aa8a5248b81a7aa9e6749d08c73d95a5d18cbe95fe33b79ba0fc06233306b1622167e458118c9ed696c351a665a92500895f822b36"
-    let vm = SetupDetailInfoViewModel()
-    return SetupDetailInfoView(basicInfo: SetupBasicInfoViewModel(),
+    ClickAPI.shared.apiKey = MockData.mockUser().apiKey
+    return SetupDetailInfoView(myProfile: MockData.mockProfile(),
+                               basicInfo: SetupBasicInfoViewModel(myProfile: MockData.mockProfile()),
                                shouldPresentSetupProfileFlow: .constant(true),
-                               navigationPath: .constant([.setupDetailInfo]),
-                               viewModel: vm)
+                               navigationPath: .constant([]))
 }

@@ -15,6 +15,7 @@ final class UserDetailsViewModel: ObservableObject {
     @Published var following = false
     @Published var topics: [Topic] = []
     @Published var ratings: Double?
+    @Published var isShowingUserReviews = false
     
     var lookingAtMySelf: Bool {
         return myProfile.userId == profile.userId

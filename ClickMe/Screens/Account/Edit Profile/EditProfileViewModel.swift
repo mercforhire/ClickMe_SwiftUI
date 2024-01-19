@@ -133,10 +133,10 @@ final class EditProfileViewModel: ObservableObject {
         Task {
             if let data = try? await pickerItem.loadTransferable(type: Data.self) {
                 print("successfully loaded image")
-                if let originalImage = UIImage(data: data), let userId = UserManager.shared.user?._id {
+                if let originalImage = UIImage(data: data) {
                     isLoading = true
                     do {
-                        if let photo = try await ClickAPI.shared.uploadPhoto(userId: userId, photo: originalImage) {
+                        if let photo = try await ClickAPI.shared.uploadPhoto(userId: myProfile.userId, photo: originalImage) {
                             userPhotos.append(photo)
                             isPresentingPhotoPicker = false
                         }

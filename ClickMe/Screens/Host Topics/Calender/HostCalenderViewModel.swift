@@ -39,7 +39,7 @@ final class HostCalenderViewModel: ObservableObject {
             let response = try? await ClickAPI.shared.getAvailability(userId: myProfile.userId)
             if let timesAvailable = response?.data?.timesAvailable {
                 self.timesAvailable = timesAvailable.filter { timeslot in
-                    return timeslot.start > Date()
+                    return timeslot.end > Date()
                 }
             }
             isLoading = false

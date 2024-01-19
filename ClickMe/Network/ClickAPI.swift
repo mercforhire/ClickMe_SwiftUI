@@ -776,9 +776,9 @@ class ClickAPI {
     func getHostStatistics() async throws -> GetHostStatisticsResponse {
         let url = baseURL + APIRequestURLs.getHostStatistics.rawValue
         let response: GetHostStatisticsResponse =
-            try await service.httpRequest(url: url,
-                                          method: APIRequestURLs.getHostStatistics.getHTTPMethod(),
-                                          parameters: nil)
+        try await service.httpRequest(url: url,
+                                      method: APIRequestURLs.getHostStatistics.getHTTPMethod(),
+                                      parameters: nil)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
         } else if !response.success {
@@ -797,6 +797,36 @@ class ClickAPI {
             throw CMError.invalidApiKey
         } else if !response.success, response.message == "RECEIPT_NOT_FOUND" {
             throw CMError.receiptDoesntExist
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func retrieveConnectAccount() async throws -> ConnectAccountResponse {
+        let url = baseURL + APIRequestURLs.retrieveConnectAccount.rawValue
+        let response: ConnectAccountResponse = try await service.httpRequest(url: url,
+                                                                             method: APIRequestURLs.getStripePaymentDetails.getHTTPMethod(),
+                                                                             parameters: nil)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "USER_HAS_NO_STRIPE_ACCOUNT_SETUP" || response.message.contains("account does not exist") {
+            throw CMError.stripeAccountNotSetup
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func getStripeOnboardingLink() async throws -> OnboardingLinkResponse {
+        let url = baseURL + APIRequestURLs.getStripeOnboardingLink.rawValue
+        let response: OnboardingLinkResponse = try await service.httpRequest(url: url,
+                                                                             method: APIRequestURLs.getStripeOnboardingLink.getHTTPMethod(),
+                                                                             parameters: nil)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success, response.message == "STRIPE_ACCOUNT_DOES_NOT_EXIST" || response.message.contains("No such account") {
+            throw CMError.stripeAccountNotSetup
         } else if !response.success {
             throw CMError.unableToComplete
         }

@@ -40,4 +40,5 @@ enum CMError: Error {
     case reviewMustContainComment
     case topicHasOngoingBookings
     case receiptDoesntExist
+    case stripeAccountNotSetup
 }
