@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum AccountMenu: Int, Identifiable {
-    case wallet
+    case payments
     case history
     case switchMode
     case support
@@ -19,15 +19,15 @@ enum AccountMenu: Int, Identifiable {
     var id: AccountMenu { self }
     
     static func list() -> [AccountMenu] {
-        return [.switchMode, .wallet, .history, .support, .feedback, .signOut, .deleteAccount]
+        return [.switchMode, .payments, .history, .support, .feedback, .signOut, .deleteAccount]
     }
     
     func text() -> String {
         switch self {
         case .switchMode:
             return "Switch to host"
-        case .wallet:
-            return "My wallet"
+        case .payments:
+            return "My payments"
         case .history:
             return "Booking history"
         case .support:
@@ -43,7 +43,7 @@ enum AccountMenu: Int, Identifiable {
     
     func iconName() -> String {
         switch self {
-        case .wallet:
+        case .payments:
             return "dollarsign.circle"
         case .history:
             return "clock.arrow.circlepath"
@@ -168,7 +168,7 @@ struct AccountView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .onTapGesture {
                                     switch row {
-                                    case .wallet:
+                                    case .payments:
                                         break
                                     case .history:
                                         navigationPath.append(.myPastBookings)

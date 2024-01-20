@@ -18,6 +18,8 @@ class UserManager {
         return api.apiKey
     }
     var agoraAppId: String?
+    var stripeRefreshUrl: String?
+    var stripeReturnUrl: String?
     
     private var api: ClickAPI {
         return ClickAPI.shared
@@ -52,6 +54,8 @@ class UserManager {
                                  s3Key: appKeys.s3Key,
                                  accessKey: appKeys.s3AccessKey)
                 agoraAppId = appKeys.agoraAppId
+                stripeRefreshUrl = appKeys.stripeRefreshUrl
+                stripeReturnUrl = appKeys.stripeReturnUrl
             }
         } catch {
             print("getAppKeys error:", error)

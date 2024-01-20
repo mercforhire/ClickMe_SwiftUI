@@ -34,4 +34,6 @@ enum ScreenNames: Hashable {
     case following
     case hostCalendar
     case followingTopics
+    case wallet
+    case receiptDetails(Receipt)
 }

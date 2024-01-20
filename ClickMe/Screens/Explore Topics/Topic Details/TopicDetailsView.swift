@@ -40,7 +40,7 @@ struct TopicDetailsView: View {
                     }
                     
                     VStack(alignment: .leading) {
-                        Text("\(viewModel.topic.userProfile?.firstName ?? "") \(viewModel.topic.userProfile?.lastName ?? "")")
+                        Text(viewModel.topic.userProfile?.fullName ?? "")
                             .font(.body)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)

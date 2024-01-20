@@ -21,12 +21,36 @@ struct Receipt: Codable, Identifiable, Hashable {
     var request: Request?
     var topic: Topic?
     var bookingUser: UserProfile?
+    var host: UserProfile?
+    var statusChangeDate: Date
+    var amountPaidOut: Int
+    var commission: Int
     
-    var displayablePrice: String {
+    var statusChangeDateDisplayable: String {
+        return DateUtil.convert(input: statusChangeDate, outputFormat: .format11)!
+    }
+    
+    var amountDisplayable: String {
         if amount == 0 {
             return "FREE"
         }
         let dollarAmount: Double = Double(amount) / 100.0
+        return "$\(String(format: "%.2f", dollarAmount)) \(currency.text())"
+    }
+    
+    var amountPaidOutDisplayable: String {
+        if amountPaidOut == 0 {
+            return "--"
+        }
+        let dollarAmount: Double = Double(amountPaidOut) / 100.0
+        return "$\(String(format: "%.2f", dollarAmount)) \(currency.text())"
+    }
+    
+    var commissionDisplayable: String {
+        if commission == 0 {
+            return "--"
+        }
+        let dollarAmount: Double = Double(commission) / 100.0
         return "$\(String(format: "%.2f", dollarAmount)) \(currency.text())"
     }
     

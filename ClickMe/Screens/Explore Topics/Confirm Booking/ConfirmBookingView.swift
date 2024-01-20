@@ -39,7 +39,7 @@ struct ConfirmBookingView: View {
                         }
                         
                         VStack(alignment: .leading) {
-                            Text("\(viewModel.host.firstName ?? "") \(viewModel.host.lastName ?? "")")
+                            Text(viewModel.host.fullName)
                                 .font(.body)
                                 .fontWeight(.bold)
                                 .foregroundColor(.primary)

@@ -832,4 +832,17 @@ class ClickAPI {
         }
         return response
     }
+    
+    func getHostBookingReceipts() async throws -> ReceiptsResponse {
+        let url = baseURL + APIRequestURLs.getHostBookingReceipts.rawValue
+        let response: ReceiptsResponse = try await service.httpRequest(url: url,
+                                                                       method: APIRequestURLs.getHostBookingReceipts.getHTTPMethod(),
+                                                                       parameters: nil)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
 }

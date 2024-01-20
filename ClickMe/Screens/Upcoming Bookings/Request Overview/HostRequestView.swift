@@ -38,7 +38,7 @@ struct HostRequestView: View {
                         }
                         
                         VStack(alignment: .leading) {
-                            Text("\(viewModel.booker.firstName ?? "") \(viewModel.booker.lastName ?? "")")
+                            Text(viewModel.booker.fullName)
                                 .font(.body)
                                 .fontWeight(.bold)
                                 .foregroundColor(.primary)
@@ -115,7 +115,7 @@ struct HostRequestView: View {
                     
                     if let receipt = viewModel.receipt {
                         HStack {
-                            Text(receipt.displayablePrice)
+                            Text(receipt.amountDisplayable)
                                 .font(.body)
                                 .fontWeight(.medium)
                                 .foregroundColor(.secondary)

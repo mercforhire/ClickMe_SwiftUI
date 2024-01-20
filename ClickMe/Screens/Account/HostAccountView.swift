@@ -124,7 +124,7 @@ struct HostAccountView: View {
                                 .onTapGesture {
                                     switch row {
                                     case .wallet:
-                                        break
+                                        navigationPath.append(.wallet)
                                     case .switchMode:
                                         if agora.inInACall {
                                             viewModel.isShowingInACallDialog = true
@@ -190,6 +190,10 @@ struct HostAccountView: View {
                 switch screenName {
                 case ScreenNames.editProfile:
                     EditProfileView(myProfile: viewModel.myProfile, navigationPath: $navigationPath)
+                case ScreenNames.wallet:
+                    WalletView(myProfile: viewModel.myProfile, navigationPath: $navigationPath)
+                case ScreenNames.receiptDetails(let receipt):
+                    ReceiptDetailsView(myProfile: viewModel.myProfile, receipt: receipt)
                 default:
                     fatalError()
                 }

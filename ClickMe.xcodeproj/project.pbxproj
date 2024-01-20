@@ -209,6 +209,9 @@
 		72AD851F2B59EDA800EBE632 /* StripeAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD851E2B59EDA800EBE632 /* StripeAccount.swift */; };
 		72AD85212B5A27FE00EBE632 /* AccountLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85202B5A27FE00EBE632 /* AccountLink.swift */; };
 		72AD85232B5A285200EBE632 /* OnboardingLinkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85222B5A285200EBE632 /* OnboardingLinkResponse.swift */; };
+		72AD85252B5A47D700EBE632 /* ReceiptsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85242B5A47D700EBE632 /* ReceiptsResponse.swift */; };
+		72AD85282B5B26E800EBE632 /* ReceiptDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85272B5B26E800EBE632 /* ReceiptDetailsView.swift */; };
+		72AD852A2B5B26FD00EBE632 /* ReceiptDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85292B5B26FD00EBE632 /* ReceiptDetailsViewModel.swift */; };
 		72B49AF22B56FEE100138AD4 /* GetStripePaymentDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B49AF12B56FEE100138AD4 /* GetStripePaymentDetailsResponse.swift */; };
 /* End PBXBuildFile section */
 
@@ -437,6 +440,9 @@
 		72AD851E2B59EDA800EBE632 /* StripeAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeAccount.swift; sourceTree = "<group>"; };
 		72AD85202B5A27FE00EBE632 /* AccountLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountLink.swift; sourceTree = "<group>"; };
 		72AD85222B5A285200EBE632 /* OnboardingLinkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLinkResponse.swift; sourceTree = "<group>"; };
+		72AD85242B5A47D700EBE632 /* ReceiptsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptsResponse.swift; sourceTree = "<group>"; };
+		72AD85272B5B26E800EBE632 /* ReceiptDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptDetailsView.swift; sourceTree = "<group>"; };
+		72AD85292B5B26FD00EBE632 /* ReceiptDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptDetailsViewModel.swift; sourceTree = "<group>"; };
 		72B49AF12B56FEE100138AD4 /* GetStripePaymentDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStripePaymentDetailsResponse.swift; sourceTree = "<group>"; };
 		7C52A32A88EB630420360EC8 /* Pods-ClickMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMeTests.debug.xcconfig"; path = "Target Support Files/Pods-ClickMeTests/Pods-ClickMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		953EFE63C1B45C26F2F6A760 /* Pods_ClickMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClickMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -548,6 +554,7 @@
 				720B607D2B4D5BE300CF716E /* AccountViewModel.swift */,
 				721D0D632B547AEA00095A97 /* HostAccountView.swift */,
 				721D0D652B547AF600095A97 /* HostAccountViewModel.swift */,
+				72AD85262B5B25D300EBE632 /* Receipt Details */,
 				72AD85172B58EFCA00EBE632 /* Wallet */,
 				720087BA2B4EDBAD0020633F /* Users List */,
 				720087A82B4DAB3C0020633F /* Edit Profile */,
@@ -820,6 +827,7 @@
 				72B49AF12B56FEE100138AD4 /* GetStripePaymentDetailsResponse.swift */,
 				72AD851C2B59ED8700EBE632 /* ConnectAccountResponse.swift */,
 				72AD85222B5A285200EBE632 /* OnboardingLinkResponse.swift */,
+				72AD85242B5A47D700EBE632 /* ReceiptsResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -1167,6 +1175,15 @@
 			path = Wallet;
 			sourceTree = "<group>";
 		};
+		72AD85262B5B25D300EBE632 /* Receipt Details */ = {
+			isa = PBXGroup;
+			children = (
+				72AD85272B5B26E800EBE632 /* ReceiptDetailsView.swift */,
+				72AD85292B5B26FD00EBE632 /* ReceiptDetailsViewModel.swift */,
+			);
+			path = "Receipt Details";
+			sourceTree = "<group>";
+		};
 		9BC2AD1CDE0BB1459C84106B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1502,6 +1519,7 @@
 				721D0D4B2B5316ED00095A97 /* HostTopicsViewModel.swift in Sources */,
 				720B60612B4B033400CF716E /* MyBookingsViewModel.swift in Sources */,
 				725586172B44CA07005A37B9 /* ScreenNames.swift in Sources */,
+				72AD852A2B5B26FD00EBE632 /* ReceiptDetailsViewModel.swift in Sources */,
 				7219053A2B50BC07000516CA /* CustomModifiers.swift in Sources */,
 				721D0D682B547BD800095A97 /* UserDefaults+Ext.swift in Sources */,
 				720B60792B4D1C1E00CF716E /* MyPastBookingsView.swift in Sources */,
@@ -1547,6 +1565,7 @@
 				720B605D2B4ADAE700CF716E /* MockData.swift in Sources */,
 				720B604C2B4A5F2300CF716E /* Message.swift in Sources */,
 				725586102B4419AF005A37B9 /* UserProfile.swift in Sources */,
+				72AD85282B5B26E800EBE632 /* ReceiptDetailsView.swift in Sources */,
 				722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */,
 				721D0D6B2B54AA6000095A97 /* CallingButtonView.swift in Sources */,
 				721D0D622B546F2700095A97 /* ReviewCell.swift in Sources */,
@@ -1573,6 +1592,7 @@
 				724C954A2B4903F800AD2CFC /* TopicView.swift in Sources */,
 				725B99EC2B4169220066D240 /* ClickMeApp.swift in Sources */,
 				72774C352B47F6D100C5A248 /* UserDetailsView.swift in Sources */,
+				72AD85252B5A47D700EBE632 /* ReceiptsResponse.swift in Sources */,
 				720B606E2B4C6CB200CF716E /* BookingStatusView.swift in Sources */,
 				724C954D2B4946E800AD2CFC /* ExploreTopicsView.swift in Sources */,
 				720B60502B4A5FF000CF716E /* Request.swift in Sources */,

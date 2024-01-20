@@ -68,6 +68,6 @@ struct UsersListView: View {
 }
 
 #Preview {
-    ClickAPI.shared.apiKey = "aeea2aee5e942ae7b2ce2618d9bce36b7d4f4cac868bf34df9bfd7dc2279acce69c03ca34570d42cc1a668e3aa7359a7784979938fead2052d31c6a110e94c7e"
+    ClickAPI.shared.apiKey = MockData.mockUser().apiKey
     return UsersListView(myProfile: MockData.mockProfile(), type: .following)
 }

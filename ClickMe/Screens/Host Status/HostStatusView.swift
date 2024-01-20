@@ -39,7 +39,7 @@ struct HostStatusView: View {
                                 .frame(width: 120)
                                 .padding(.horizontal, 10)
                             
-                            Text(viewModel.totalEarnings)
+                            Text(viewModel.statistics?.totalEarningsDisplayable ?? "")
                                 .font(.title3)
                                 .fontWeight(.medium)
                                 .foregroundColor(Color.accentColor)
@@ -109,7 +109,7 @@ struct HostStatusView: View {
                         }
                         
                         VStack(spacing: 5) {
-                            Text(viewModel.overallRating)
+                            Text(viewModel.statistics?.ratingDisplayable ?? "")
                                 .font(.title)
                                 .fontWeight(.medium)
                                 .foregroundColor(.accentColor)
@@ -118,7 +118,6 @@ struct HostStatusView: View {
                                 .font(.body)
                                 .fontWeight(.medium)
                                 .foregroundColor(.secondary)
-                            
                         }
                         .padding(.all, 5)
                         .frame(width: 120, height: 200)

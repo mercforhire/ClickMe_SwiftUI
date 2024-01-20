@@ -184,7 +184,7 @@ struct SpeakerAvatarView: View {
                         .clipped()
                 }
                 
-                Text("\(user.firstName ?? "") \(user.lastName ?? "")")
+                Text(user.fullName)
                     .font(.body)
                     .fontWeight(.bold)
                     .foregroundColor(.white)

@@ -80,11 +80,24 @@ class MockData {
     }
     
     static func mockReceipt() -> Receipt {
-        return Receipt(_id: "659c46599cf786482795c34b", createdDate: Date(timeIntervalSince1970: 1704568893224 / 1000), paymentIntentId: "pi_3OWO3wE0XSqZ8pU20SZchr6c", paymentIntentClientKey: "", requestId: "659bb0700c47d17cc781f078", status: .UNPAID, amount: 2000, currency: .USD)
+        return Receipt(_id: "65a6e049e7775b49c5acc1ca",
+                       createdDate: DateUtil.produceDate(dateString: "2024-01-16T20:00:09.667Z", dateFormat: DateUtil.AppDateFormat.format7.rawValue)!,
+                       paymentIntentId: "pi_3OZIntE0XSqZ8pU21Jkbsou7",
+                       paymentIntentClientKey: "pi_3OZIntE0XSqZ8pU21Jkbsou7_secret_Cp1YWdMpbIqrip12n7KH8SOF7",
+                       requestId: "65a6e049c27b1a49f5713b46",
+                       status: .PAID,
+                       amount: 2000,
+                       currency: .CAD,
+                       request: mockRequest(),
+                       topic: mockTopic(),
+                       bookingUser: mockProfile(),
+                       statusChangeDate: DateUtil.produceDate(dateString: "2024-01-16T20:00:09.667Z", dateFormat: DateUtil.AppDateFormat.format7.rawValue)!,
+                       amountPaidOut: 1600,
+                       commission: 400)
     }
     
     static func mockReview() -> Review {
-        return Review(_id: "65a1c929c692e4f102cb7cc0", 
+        return Review(_id: "65a1c929c692e4f102cb7cc0",
                       createdDate: DateUtil.produceDate(dateString: "2024-01-12T23:00:14.985+00:00", dateFormat: DateUtil.AppDateFormat.format7.rawValue)!,
                       reviewerId: mockUser()._id,
                       revieweeId: mockUser2()._id,

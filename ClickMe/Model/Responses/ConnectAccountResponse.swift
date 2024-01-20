@@ -13,7 +13,6 @@ struct ConnectAccountResponse: Codable {
     var data: ConnectAccountData?
 }
 
-
 struct ConnectAccountData: Codable {
     var account: StripeAccount
 }

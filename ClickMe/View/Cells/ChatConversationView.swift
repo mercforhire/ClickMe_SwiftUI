@@ -38,7 +38,7 @@ struct ChatConversationView: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("\(theOtherUser.firstName ?? "") \(theOtherUser.lastName ?? "")")
+                        Text(theOtherUser.firstName ?? "")
                             .font(.body)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)

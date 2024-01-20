@@ -29,6 +29,10 @@ struct Request: Codable, Identifiable, Hashable {
         return "\(date), \(startTime) - \(endTime)"
     }
     
+    var createdDateDisplayable: String {
+        DateUtil.convert(input: createdDate, outputFormat: .format5)!
+    }
+    
     static func == (lhs: Request, rhs: Request) -> Bool {
         return lhs._id == rhs._id && lhs.status == rhs.status
     }

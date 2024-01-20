@@ -18,4 +18,6 @@ struct AppKeysData: Codable {
     let s3Key: String
     let s3AccessKey: String
     let agoraAppId: String
+    let stripeRefreshUrl: String
+    let stripeReturnUrl: String
 }

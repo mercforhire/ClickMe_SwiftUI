@@ -39,7 +39,7 @@ struct BookingStatusView: View {
                         }
                         
                         VStack(alignment: .leading) {
-                            Text("\(viewModel.host.firstName ?? "") \(viewModel.host.lastName ?? "")")
+                            Text(viewModel.host.fullName)
                                 .font(.body)
                                 .fontWeight(.bold)
                                 .foregroundColor(.primary)
@@ -115,7 +115,7 @@ struct BookingStatusView: View {
                         .padding(.all, 10)
                     
                     if let receipt = viewModel.receipt {
-                        Text(receipt.displayablePrice)
+                        Text(receipt.amountDisplayable)
                             .font(.body)
                             .fontWeight(.medium)
                             .foregroundColor(.secondary)

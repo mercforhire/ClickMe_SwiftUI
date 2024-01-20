@@ -23,20 +23,18 @@ enum APIRequestURLs: String {
     case updateUserProfile = "/api/users/account_update/update"
     
     case exploreUsers = "/api/users/exploreUsers"
-    case exploreTopics = "/api/topics/exploreTopics"
-    
     case searchUser = "/api/users/searchUser"
+    case getFollowingUsers = "/api/users/getFollowingUsers"
+    case getFollowers = "/api/users/getFollowers"
     
+    case exploreTopics = "/api/topics/exploreTopics"
+    case getFollowingTopics = "/api/topics/getFollowingTopics"
     case getUserTopics = "/api/topics/getUserTopics"
+    case getTopic = "/api/topics/getTopic"
     
     case getFollowStatus = "/api/users/getFollowStatus"
     case followUser = "/api/users/followUser"
     case unfollowUser = "/api/users/unfollowUser"
-    
-    case getFollowingUsers = "/api/users/getFollowingUsers"
-    case getFollowers = "/api/users/getFollowers"
-    
-    case getTopic = "/api/topics/getTopic"
     
     case getConversations = "/api/chat/getConversations"
     case getChatMessages = "/api/chat/getChatMessages"
@@ -73,7 +71,7 @@ enum APIRequestURLs: String {
     case deleteTopic = "/api/topics/deleteTopic"
     
     case getHostStatistics = "/api/users/getHostStatistics"
-    case getFollowingTopics = "/api/topics/getFollowingTopics"
+    case getHostBookingReceipts = "/api/receipts/getHostBookingReceipts"
     
     case addDeviceToken = "/api/users/account_update/addDeviceToken"
     case removeDeviceToken = "/api/users/account_update/removeDeviceToken"
@@ -194,6 +192,8 @@ enum APIRequestURLs: String {
         case .setupConnectAccount:
             return .post
         case .getStripeOnboardingLink:
+            return .get
+        case .getHostBookingReceipts:
             return .get
         }
     }

@@ -28,7 +28,7 @@ struct BookingRequestView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .clipped()
                     VStack(alignment: .leading) {
-                        Text("\(request.hostUser?.firstName ?? "") \(request.hostUser?.lastName ?? "")")
+                        Text(request.hostUser?.fullName ?? "")
                             .font(.body)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
