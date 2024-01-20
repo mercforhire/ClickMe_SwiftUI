@@ -66,8 +66,8 @@ struct AccountView: View {
     @State private var navigationPath: [ScreenNames] = []
     @EnvironmentObject var agora: AgoraManager
     
-    init(myProfile: UserProfile) {
-        _viewModel = StateObject(wrappedValue: AccountViewModel(myProfile: myProfile))
+    init(myUser: User, myProfile: UserProfile) {
+        _viewModel = StateObject(wrappedValue: AccountViewModel(myUser: myUser, myProfile: myProfile))
     }
     
     var body: some View {
@@ -166,6 +166,7 @@ struct AccountView: View {
                         ForEach(AccountMenu.list(), id: \.self) { row in
                             Label(row.text(), systemImage: row.iconName())
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .contentShape(Rectangle())
                                 .onTapGesture {
                                     switch row {
                                     case .payments:
@@ -267,6 +268,8 @@ struct AccountView: View {
                     EditProfileView(myProfile: viewModel.myProfile, navigationPath: $navigationPath)
                 case ScreenNames.usersList(let type):
                     UsersListView(myProfile: viewModel.myProfile, type: type)
+                case ScreenNames.stripeCustomerSetup:
+                    StripeCustomerSetupView(myUser: viewModel.myUser, navigationPath: $navigationPath)
                 default:
                     fatalError()
                 }
@@ -288,7 +291,7 @@ struct AccountView: View {
 }
 
 #Preview {
-    AccountView(myProfile: MockData.mockProfile())
+    AccountView(myUser: MockData.mockUser(), myProfile: MockData.mockProfile())
         .environmentObject({() -> AgoraManager in
             let agora = AgoraManager()
             return agora

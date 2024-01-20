@@ -41,4 +41,5 @@ enum CMError: Error {
     case topicHasOngoingBookings
     case receiptDoesntExist
     case stripeAccountNotSetup
+    case userHasNoWallet
 }

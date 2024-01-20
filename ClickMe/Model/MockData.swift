@@ -81,7 +81,8 @@ class MockData {
     
     static func mockReceipt() -> Receipt {
         return Receipt(_id: "65a6e049e7775b49c5acc1ca",
-                       createdDate: DateUtil.produceDate(dateString: "2024-01-16T20:00:09.667Z", dateFormat: DateUtil.AppDateFormat.format7.rawValue)!,
+                       createdDate: DateUtil.produceDate(dateString: "2024-01-16T20:00:09.667Z", dateFormat: DateUtil.AppDateFormat.format7.rawValue)!, 
+                       stripeCustomerId: "cus_PPZJLAOV7kdoSc",
                        paymentIntentId: "pi_3OZIntE0XSqZ8pU21Jkbsou7",
                        paymentIntentClientKey: "pi_3OZIntE0XSqZ8pU21Jkbsou7_secret_Cp1YWdMpbIqrip12n7KH8SOF7",
                        requestId: "65a6e049c27b1a49f5713b46",

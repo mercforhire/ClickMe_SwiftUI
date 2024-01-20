@@ -149,12 +149,10 @@ final class BookingStatusViewModel: ObservableObject {
         guard let stripeData else { return }
         
         STPAPIClient.shared.publishableKey = stripeData.publishableKey
-        // MARK: Create a PaymentSheet instance
+
         var configuration = PaymentSheet.Configuration()
         configuration.merchantDisplayName = "Click Me"
-        // Set `allowsDelayedPaymentMethods` to true if your business handles
-        // delayed notification payment methods like US bank accounts.
-        configuration.allowsDelayedPaymentMethods = true
+        configuration.customer = .init(id: stripeData.customerId, ephemeralKeySecret: stripeData.ephemeralKey)
         
         paymentSheet = PaymentSheet(paymentIntentClientSecret: stripeData.paymentIntentClientKey, configuration: configuration)
     }

@@ -170,6 +170,8 @@
 		725B99FD2B4169250066D240 /* ClickMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B99FC2B4169250066D240 /* ClickMeTests.swift */; };
 		725B9A072B4169250066D240 /* ClickMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B9A062B4169250066D240 /* ClickMeUITests.swift */; };
 		725B9A092B4169250066D240 /* ClickMeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B9A082B4169250066D240 /* ClickMeUITestsLaunchTests.swift */; };
+		726928EB2B5BB36400148081 /* StripeCustomerSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726928EA2B5BB36400148081 /* StripeCustomerSetupView.swift */; };
+		726928ED2B5BB37A00148081 /* StripeCustomerSetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726928EC2B5BB37A00148081 /* StripeCustomerSetupViewModel.swift */; };
 		7275920D2B4F6BBC0071ABA5 /* ConfirmBookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7275920C2B4F6BBC0071ABA5 /* ConfirmBookingView.swift */; };
 		7275920F2B4F6BC80071ABA5 /* ConfirmBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7275920E2B4F6BC80071ABA5 /* ConfirmBookingViewModel.swift */; };
 		727592112B4F7EBD0071ABA5 /* GetBookingPriceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727592102B4F7EBC0071ABA5 /* GetBookingPriceResponse.swift */; };
@@ -213,6 +215,7 @@
 		72AD85282B5B26E800EBE632 /* ReceiptDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85272B5B26E800EBE632 /* ReceiptDetailsView.swift */; };
 		72AD852A2B5B26FD00EBE632 /* ReceiptDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85292B5B26FD00EBE632 /* ReceiptDetailsViewModel.swift */; };
 		72B49AF22B56FEE100138AD4 /* GetStripePaymentDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B49AF12B56FEE100138AD4 /* GetStripePaymentDetailsResponse.swift */; };
+		72F49C332B5C5F790051BEDE /* StripeCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F49C322B5C5F790051BEDE /* StripeCustomer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -401,6 +404,8 @@
 		725B9A022B4169250066D240 /* ClickMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClickMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		725B9A062B4169250066D240 /* ClickMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMeUITests.swift; sourceTree = "<group>"; };
 		725B9A082B4169250066D240 /* ClickMeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		726928EA2B5BB36400148081 /* StripeCustomerSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeCustomerSetupView.swift; sourceTree = "<group>"; };
+		726928EC2B5BB37A00148081 /* StripeCustomerSetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeCustomerSetupViewModel.swift; sourceTree = "<group>"; };
 		7275920C2B4F6BBC0071ABA5 /* ConfirmBookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBookingView.swift; sourceTree = "<group>"; };
 		7275920E2B4F6BC80071ABA5 /* ConfirmBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBookingViewModel.swift; sourceTree = "<group>"; };
 		727592102B4F7EBC0071ABA5 /* GetBookingPriceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookingPriceResponse.swift; sourceTree = "<group>"; };
@@ -444,6 +449,7 @@
 		72AD85272B5B26E800EBE632 /* ReceiptDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptDetailsView.swift; sourceTree = "<group>"; };
 		72AD85292B5B26FD00EBE632 /* ReceiptDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptDetailsViewModel.swift; sourceTree = "<group>"; };
 		72B49AF12B56FEE100138AD4 /* GetStripePaymentDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStripePaymentDetailsResponse.swift; sourceTree = "<group>"; };
+		72F49C322B5C5F790051BEDE /* StripeCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeCustomer.swift; sourceTree = "<group>"; };
 		7C52A32A88EB630420360EC8 /* Pods-ClickMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClickMeTests.debug.xcconfig"; path = "Target Support Files/Pods-ClickMeTests/Pods-ClickMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		953EFE63C1B45C26F2F6A760 /* Pods_ClickMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClickMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B096689CA93AFFDF059A141E /* Pods_ClickMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClickMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -554,6 +560,7 @@
 				720B607D2B4D5BE300CF716E /* AccountViewModel.swift */,
 				721D0D632B547AEA00095A97 /* HostAccountView.swift */,
 				721D0D652B547AF600095A97 /* HostAccountViewModel.swift */,
+				726928E92B5BB29200148081 /* Stripe */,
 				72AD85262B5B25D300EBE632 /* Receipt Details */,
 				72AD85172B58EFCA00EBE632 /* Wallet */,
 				720087BA2B4EDBAD0020633F /* Users List */,
@@ -909,6 +916,7 @@
 				720B60712B4C7E2500CF716E /* Receipt.swift */,
 				721D0D442B52087800095A97 /* Review.swift */,
 				7219050C2B501AEB000516CA /* StripeData.swift */,
+				72F49C322B5C5F790051BEDE /* StripeCustomer.swift */,
 				72AD851E2B59EDA800EBE632 /* StripeAccount.swift */,
 				72AD85202B5A27FE00EBE632 /* AccountLink.swift */,
 				720B605C2B4ADAE700CF716E /* MockData.swift */,
@@ -1088,6 +1096,15 @@
 				725B9A082B4169250066D240 /* ClickMeUITestsLaunchTests.swift */,
 			);
 			path = ClickMeUITests;
+			sourceTree = "<group>";
+		};
+		726928E92B5BB29200148081 /* Stripe */ = {
+			isa = PBXGroup;
+			children = (
+				726928EA2B5BB36400148081 /* StripeCustomerSetupView.swift */,
+				726928EC2B5BB37A00148081 /* StripeCustomerSetupViewModel.swift */,
+			);
+			path = Stripe;
 			sourceTree = "<group>";
 		};
 		7275920B2B4F6BA80071ABA5 /* Confirm Booking */ = {
@@ -1523,6 +1540,7 @@
 				7219053A2B50BC07000516CA /* CustomModifiers.swift in Sources */,
 				721D0D682B547BD800095A97 /* UserDefaults+Ext.swift in Sources */,
 				720B60792B4D1C1E00CF716E /* MyPastBookingsView.swift in Sources */,
+				72F49C332B5C5F790051BEDE /* StripeCustomer.swift in Sources */,
 				721D0D422B51E6B900095A97 /* MyCosmosView.swift in Sources */,
 				72774C322B47D70000C5A248 /* SearchUsersResponse.swift in Sources */,
 				720B60522B4ABBAB00CF716E /* GetChatMessagesResponse.swift in Sources */,
@@ -1557,12 +1575,14 @@
 				727592112B4F7EBD0071ABA5 /* GetBookingPriceResponse.swift in Sources */,
 				728499F92B466B0400C2826B /* Utils.swift in Sources */,
 				721905432B5181E2000516CA /* StartCallSessionResponse.swift in Sources */,
+				726928EB2B5BB36400148081 /* StripeCustomerSetupView.swift in Sources */,
 				728499F22B45A56200C2826B /* HomeTabView.swift in Sources */,
 				7237A5882B42E4F800ABF10F /* GetStartedView.swift in Sources */,
 				722C59E02B43FA7600EBA081 /* DefaultResponse.swift in Sources */,
 				721D0D402B51DAAD00095A97 /* WriteReviewViewModel.swift in Sources */,
 				7252485A2B55C924000D3FCB /* FollowingView.swift in Sources */,
 				720B605D2B4ADAE700CF716E /* MockData.swift in Sources */,
+				726928ED2B5BB37A00148081 /* StripeCustomerSetupViewModel.swift in Sources */,
 				720B604C2B4A5F2300CF716E /* Message.swift in Sources */,
 				725586102B4419AF005A37B9 /* UserProfile.swift in Sources */,
 				72AD85282B5B26E800EBE632 /* ReceiptDetailsView.swift in Sources */,

@@ -20,7 +20,7 @@ enum APIRequestURLs: String {
     case getAppKeys = "/api/config/getAppKeys"
     
     case getUserProfile = "/api/users/getUserProfile"
-    case updateUserProfile = "/api/users/account_update/update"
+    case updateUserProfile = "/api/users/update"
     
     case exploreUsers = "/api/users/exploreUsers"
     case searchUser = "/api/users/searchUser"
@@ -73,12 +73,13 @@ enum APIRequestURLs: String {
     case getHostStatistics = "/api/users/getHostStatistics"
     case getHostBookingReceipts = "/api/receipts/getHostBookingReceipts"
     
-    case addDeviceToken = "/api/users/account_update/addDeviceToken"
-    case removeDeviceToken = "/api/users/account_update/removeDeviceToken"
+    case addDeviceToken = "/api/users/addDeviceToken"
+    case removeDeviceToken = "/api/users/removeDeviceToken"
     
-    case retrieveConnectAccount = "/api/users/account_update/retrieveConnectAccount"
-    case setupConnectAccount = "/api/users/account_update/setupConnectAccount"
-    case getStripeOnboardingLink = "/api/users/account_update/getStripeOnboardingLink"
+    case getWalletDetails = "/api/wallet/getWalletDetails"
+    case setupStripeCustomer = "/api/wallet/setupStripeCustomer"
+    case setupConnectAccount = "/api/wallet/setupConnectAccount"
+    case getStripeOnboardingLink = "/api/wallet/getStripeOnboardingLink"
     
     case postFeedback = "/api/feedback/postFeedback"
     case deleteAccount = "/api/users/deleteAccount"
@@ -187,7 +188,7 @@ enum APIRequestURLs: String {
             return .post
         case .removeDeviceToken:
             return .post
-        case .retrieveConnectAccount:
+        case .getWalletDetails:
             return .get
         case .setupConnectAccount:
             return .post
@@ -195,6 +196,8 @@ enum APIRequestURLs: String {
             return .get
         case .getHostBookingReceipts:
             return .get
+        case .setupStripeCustomer:
+            return .post
         }
     }
     

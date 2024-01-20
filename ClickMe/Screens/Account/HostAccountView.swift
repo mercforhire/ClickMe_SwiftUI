@@ -121,6 +121,7 @@ struct HostAccountView: View {
                         ForEach(HostAccountMenu.list(), id: \.self) { row in
                             Label(row.text(), systemImage: row.iconName())
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .contentShape(Rectangle())
                                 .onTapGesture {
                                     switch row {
                                     case .wallet:

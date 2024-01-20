@@ -89,6 +89,8 @@ final class ConfirmBookingViewModel: ObservableObject {
                     bookingError = "Time is not within host's time slots"
                 case CMError.timeslotConflict:
                     bookingError = "Time is in conflict with an existing booking"
+                case CMError.stripeAccountNotSetup:
+                    bookingError = "Stripe is not setup yet, please go to Accounts screen to quickly set it up."
                 default:
                     bookingError = "Unknown error"
                 }
@@ -101,12 +103,10 @@ final class ConfirmBookingViewModel: ObservableObject {
         guard let stripeData else { return }
         
         STPAPIClient.shared.publishableKey = stripeData.publishableKey
-        // MARK: Create a PaymentSheet instance
+
         var configuration = PaymentSheet.Configuration()
         configuration.merchantDisplayName = "Click Me"
-        // Set `allowsDelayedPaymentMethods` to true if your business handles
-        // delayed notification payment methods like US bank accounts.
-        configuration.allowsDelayedPaymentMethods = true
+        configuration.customer = .init(id: stripeData.customerId, ephemeralKeySecret: stripeData.ephemeralKey)
         
         paymentSheet = PaymentSheet(paymentIntentClientSecret: stripeData.paymentIntentClientKey, configuration: configuration)
     }

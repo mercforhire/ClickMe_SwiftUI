@@ -7,12 +7,13 @@
 
 import Foundation
 
-struct ConnectAccountResponse: Codable {
+struct WalletDetailsResponse: Codable {
     let success: Bool
     let message: String
-    var data: ConnectAccountData?
+    var data: WalletData?
 }
 
-struct ConnectAccountData: Codable {
-    var account: StripeAccount
+struct WalletData: Codable {
+    var customer: StripeCustomer?
+    var connectedAccount: StripeAccount?
 }

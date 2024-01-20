@@ -15,6 +15,10 @@ final class SplashViewModel: ObservableObject {
     @Published var isLoggedIn = false
     @Published var callSession: CallSession?
     
+    var user: User? {
+        return UserManager.shared.user
+    }
+    
     var userProfile: UserProfile? {
         return UserManager.shared.profile
     }

@@ -11,6 +11,8 @@ struct StripeData: Codable, Identifiable, Hashable {
     var id: String { return paymentIntentId }
     
     var paymentIntentId: String
+    var customerId: String
+    var ephemeralKey: String
     var paymentIntentClientKey: String
     var publishableKey: String
 }

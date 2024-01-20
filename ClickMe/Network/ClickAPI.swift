@@ -563,6 +563,8 @@ class ClickAPI {
             throw CMError.invalidTimeSlot
         } else if !response.success, response.message == "TIME_SLOT_IN_CONFLICT_WITH_EXISTING_BOOKING" {
             throw CMError.timeslotConflict
+        } else if !response.success, response.message == "STRIPE_CUSTOMER_NOT_SETUP" {
+            throw CMError.stripeAccountNotSetup
         } else if !response.success {
             throw CMError.unableToComplete
         }
@@ -803,15 +805,15 @@ class ClickAPI {
         return response
     }
     
-    func retrieveConnectAccount() async throws -> ConnectAccountResponse {
-        let url = baseURL + APIRequestURLs.retrieveConnectAccount.rawValue
-        let response: ConnectAccountResponse = try await service.httpRequest(url: url,
-                                                                             method: APIRequestURLs.getStripePaymentDetails.getHTTPMethod(),
-                                                                             parameters: nil)
+    func getWalletDetails() async throws -> WalletDetailsResponse {
+        let url = baseURL + APIRequestURLs.getWalletDetails.rawValue
+        let response: WalletDetailsResponse = try await service.httpRequest(url: url,
+                                                                            method: APIRequestURLs.getWalletDetails.getHTTPMethod(),
+                                                                            parameters: nil)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
-        } else if !response.success, response.message == "USER_HAS_NO_STRIPE_ACCOUNT_SETUP" || response.message.contains("account does not exist") {
-            throw CMError.stripeAccountNotSetup
+        } else if !response.success, response.message == "WALLET_DOES_NOT_EXIST" || response.message.contains("account does not exist") {
+            throw CMError.userHasNoWallet
         } else if !response.success {
             throw CMError.unableToComplete
         }
@@ -838,6 +840,20 @@ class ClickAPI {
         let response: ReceiptsResponse = try await service.httpRequest(url: url,
                                                                        method: APIRequestURLs.getHostBookingReceipts.getHTTPMethod(),
                                                                        parameters: nil)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func setupStripeCustomer(email: String, name: String, phone: String) async throws -> DefaultResponse {
+        let parameters = ["email": email, "name": name, "phone": phone]
+        let url = baseURL + APIRequestURLs.setupStripeCustomer.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url,
+                                                                      method: APIRequestURLs.setupStripeCustomer.getHTTPMethod(),
+                                                                      parameters: nil)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
         } else if !response.success {

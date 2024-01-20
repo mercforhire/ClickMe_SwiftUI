@@ -136,6 +136,18 @@ struct ReceiptDetailsView: View {
                         .font(.subheadline)
                         .foregroundColor(.primary)
                 }
+                
+                HStack(alignment: .center, spacing: 10) {
+                    Text("Paid out date")
+                        .font(.subheadline)
+                        .foregroundColor(.primary)
+                    
+                    Spacer()
+                    
+                    Text(viewModel.receipt.statusChangeDateDisplayable)
+                        .font(.subheadline)
+                        .foregroundColor(.primary)
+                }
             }
         }
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {

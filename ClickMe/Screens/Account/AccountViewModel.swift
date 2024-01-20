@@ -9,6 +9,7 @@ import Foundation
 
 @MainActor
 final class AccountViewModel: ObservableObject {
+    @Published var myUser: User
     @Published var myProfile: UserProfile
     @Published var isLoading = false
     @Published var isShowingProfile = false
@@ -21,7 +22,8 @@ final class AccountViewModel: ObservableObject {
     @Published var deleteAccountError = false
     @Published var isShowingInACallDialog = false
     
-    init(myProfile: UserProfile) {
+    init(myUser: User, myProfile: UserProfile) {
+        self.myUser = myUser
         self.myProfile = myProfile
     }
     

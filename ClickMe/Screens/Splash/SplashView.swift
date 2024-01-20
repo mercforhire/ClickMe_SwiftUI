@@ -15,12 +15,12 @@ struct SplashView: View {
     var body: some View {
         ZStack {
             if viewModel.appIsActive && !viewModel.loginInProgress {
-                if viewModel.isLoggedIn, let userProfile = viewModel.userProfile {
+                if viewModel.isLoggedIn, let user = viewModel.user, let userProfile = viewModel.userProfile {
                     if startinHostMode {
                         HostTabView(myProfile: userProfile)
                             .environmentObject(agora)
                     } else {
-                        HomeTabView(myProfile: userProfile)
+                        HomeTabView(myUser: user, myProfile: userProfile)
                             .environmentObject(agora)
                     }
                 } else {

@@ -19,8 +19,8 @@ struct HomeTabView: View {
     @StateObject var viewModel: HomeTabViewModel
     @EnvironmentObject var agora: AgoraManager
     
-    init(myProfile: UserProfile) {
-        _viewModel = StateObject(wrappedValue: HomeTabViewModel(myProfile: myProfile))
+    init(myUser: User, myProfile: UserProfile) {
+        _viewModel = StateObject(wrappedValue: HomeTabViewModel(myUser: myUser, myProfile: myProfile))
     }
     
     var body: some View {
@@ -45,7 +45,7 @@ struct HomeTabView: View {
                     Label("Inbox", systemImage: "text.bubble")
                 }
                 .tag(HomeTabs.inbox)
-            AccountView(myProfile: viewModel.myProfile)
+            AccountView(myUser: viewModel.myUser, myProfile: viewModel.myProfile)
                 .tabItem {
                     Label("Account", systemImage: "person")
                 }
@@ -71,7 +71,7 @@ struct HomeTabView: View {
 #Preview {
     UserManager.shared.set(user: MockData.mockUser(), profile: MockData.mockProfile())
     
-    return HomeTabView(myProfile: MockData.mockProfile())
+    return HomeTabView(myUser: MockData.mockUser(), myProfile: MockData.mockProfile())
         .environmentObject({() -> AgoraManager in
             let agora = AgoraManager()
             return agora

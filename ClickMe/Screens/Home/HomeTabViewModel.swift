@@ -10,6 +10,7 @@ import SwiftUI
 
 @MainActor
 final class HomeTabViewModel: ObservableObject {
+    var myUser: User
     var myProfile: UserProfile
     
     @Published var shouldPresentSetupProfileFlow = false
@@ -17,7 +18,8 @@ final class HomeTabViewModel: ObservableObject {
     @Published var talkTo: UserProfile?
     @Published var openTopic: Topic?
     
-    init(myProfile: UserProfile) {
+    init(myUser: User, myProfile: UserProfile) {
+        self.myUser = myUser
         self.myProfile = myProfile
     }
     

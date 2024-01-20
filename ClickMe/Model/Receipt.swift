@@ -12,6 +12,7 @@ struct Receipt: Codable, Identifiable, Hashable {
     
     let _id: String
     let createdDate: Date
+    let stripeCustomerId: String?
     let paymentIntentId: String?
     let paymentIntentClientKey: String?
     let requestId: String
