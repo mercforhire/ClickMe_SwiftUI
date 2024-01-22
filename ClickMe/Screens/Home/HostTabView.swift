@@ -19,8 +19,8 @@ struct HostTabView: View {
     @StateObject var viewModel: HostTabViewModel
     @EnvironmentObject var agora: AgoraManager
     
-    init(myProfile: UserProfile) {
-        _viewModel = StateObject(wrappedValue: HostTabViewModel(myProfile: myProfile))
+    init(myUser: User, myProfile: UserProfile) {
+        _viewModel = StateObject(wrappedValue: HostTabViewModel(myUser: myUser, myProfile: myProfile))
     }
     
     var body: some View {
@@ -49,7 +49,7 @@ struct HostTabView: View {
                 }
                 .tag(HostTabs.status)
             
-            HostAccountView(myProfile: viewModel.myProfile)
+            HostAccountView(myUser: viewModel.myUser, myProfile: viewModel.myProfile)
                 .tabItem {
                     Label("Account", systemImage: "person")
                 }
@@ -68,7 +68,7 @@ struct HostTabView: View {
 #Preview {
     UserManager.shared.set(user: MockData.mockUser2(), profile: MockData.mockProfile2())
     
-    return HostTabView(myProfile: MockData.mockProfile2())
+    return HostTabView(myUser: MockData.mockUser2(), myProfile: MockData.mockProfile2())
         .environmentObject({() -> AgoraManager in
             let agora = AgoraManager()
             return agora

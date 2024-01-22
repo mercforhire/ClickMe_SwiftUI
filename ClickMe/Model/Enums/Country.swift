@@ -45,4 +45,15 @@ extension Country {
     init(from decoder: Decoder) throws {
         self = try Country(rawValue: decoder.singleValueContainer().decode(RawValue.self).lowercased()) ?? .other
     }
+    
+    init?(stripeValue: String) {
+        switch stripeValue {
+        case "CA":
+            self = Country.canada
+        case "USA":
+            self = Country.usa
+        default:
+            self = Country.other
+        }
+    }
 }

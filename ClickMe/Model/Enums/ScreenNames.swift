@@ -37,4 +37,5 @@ enum ScreenNames: Hashable {
     case wallet
     case receiptDetails(Receipt)
     case stripeCustomerSetup
+    case stripeConnectSetup
 }

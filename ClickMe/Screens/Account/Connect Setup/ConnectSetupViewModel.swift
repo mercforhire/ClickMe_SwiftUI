@@ -56,11 +56,13 @@ final class ConnectSetupViewModel: ObservableObject {
         }
         emailError = nil
         
-        guard country != .other else {
-            countryError = "Sorry, this app can only pay out to hosts in Canada or USA for now"
-            return false
+        if connectedAccount == nil {
+            guard country != .other else {
+                countryError = "Sorry, this app can only pay out to hosts in Canada or USA for now"
+                return false
+            }
+            countryError = nil
         }
-        countryError = nil
         
         return true
     }
@@ -75,19 +77,29 @@ final class ConnectSetupViewModel: ObservableObject {
             let response = try? await ClickAPI.shared.getWalletDetails()
             if let connectedAccount = response?.data?.connectedAccount {
                 self.connectedAccount = connectedAccount
+                initDataFromExistingCustomer()
+            } else {
+                initDataFromUser()
             }
             isLoading = false
         }
+    }
+    
+    func initDataFromExistingCustomer() {
+        guard let connectedAccount else { return }
+        
+        email = connectedAccount.email
+        country = Country(stripeValue: connectedAccount.country) ?? .other
+    }
+    
+    func initDataFromUser() {
+        email = myUser.email
     }
     
     func checkForAccountCompletion() -> Bool {
         guard let connectedAccount else { return false }
         
         return connectedAccount.payouts_enabled
-    }
-    
-    func handleTopRightButton() {
-        setupConnectAccount()
     }
     
     func setupConnectAccount() {
@@ -118,5 +130,16 @@ final class ConnectSetupViewModel: ObservableObject {
             }
             isLoading = false
         }
+    }
+    
+    func urlChangeHandler(_ url: String) -> Bool {
+        guard let stripeReturnUrl = UserManager.shared.stripeReturnUrl else { return false }
+        
+        if url.contains(stripeReturnUrl) {
+            fetchData()
+            return true
+        }
+        
+        return false
     }
 }

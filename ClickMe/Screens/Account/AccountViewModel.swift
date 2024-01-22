@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 final class AccountViewModel: ObservableObject {
-    @Published var myUser: User
+    var myUser: User
     @Published var myProfile: UserProfile
     @Published var isLoading = false
     @Published var isShowingProfile = false

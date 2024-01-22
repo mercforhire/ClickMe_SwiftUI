@@ -161,6 +161,7 @@ struct AccountView: View {
                             .buttonStyle(BorderlessButtonStyle())
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .center)
                     
                     Section {
                         ForEach(AccountMenu.list(), id: \.self) { row in

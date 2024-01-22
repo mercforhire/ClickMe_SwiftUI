@@ -10,13 +10,16 @@ import SwiftUI
 
 @MainActor
 final class HostTabViewModel: ObservableObject {
+    var myUser: User
     var myProfile: UserProfile
+    
     @AppStorage("hasShownGetStartedScreen") var hasShownGetStartedScreen = false
     @Published var tabSelection: HostTabs = .upcoming
     @Published var talkTo: UserProfile?
     @Published var shouldPresentGetStartedView = false
     
-    init(myProfile: UserProfile) {
+    init(myUser: User, myProfile: UserProfile) {
+        self.myUser = myUser
         self.myProfile = myProfile
         
         if !hasShownGetStartedScreen {

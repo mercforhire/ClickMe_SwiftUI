@@ -10,14 +10,25 @@ import SwiftUI
 struct SafariView: View {
     var url: URL
     @Binding var isShowWebView: Bool
+    var urlChangeHandler: ((String) -> Void)? = nil
     
     var body: some View {
         NavigationView {
-            MyWebView(url: url)
+            MyWebView(url: url, urlChangeHandler: urlChangeHandler)
+                .toolbar() {
+                    ToolbarItemGroup(placement: .topBarLeading) {
+                        Button("Close") {
+                            isShowWebView = false
+                        }
+                    }
+                }
         }
     }
 }
 
 #Preview {
-    SafariView(url: URL(string: "www.yahoo.com")!, isShowWebView: .constant(true))
+    SafariView(url: URL(string: "https://ca.yahoo.com/")!, 
+               isShowWebView: .constant(true)) { url in
+        print("SafariView url changed to: ", url)
+    }
 }

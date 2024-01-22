@@ -28,21 +28,25 @@ struct ConnectSetupView: View {
                     Section("Connected Account ID") {
                         Text("\(connectedAccount.id)")
                             .textSelection(.enabled)
-                    }
-                    HStack {
-                        Text("Payout enabled")
-                            .foregroundColor(.primary)
                         
-                        Spacer()
-                        
-                        Text(connectedAccount.payouts_enabled ? "True" : "False")
-                            .foregroundColor(connectedAccount.payouts_enabled ? .primary : .red)
-                    }
-                    Text("Onboard Stripe Connect Account")
-                        .foregroundStyle(Color(.link))
-                        .onTapGesture {
-                            viewModel.getOnboardLink()
+                        HStack {
+                            Text("Payout enabled")
+                                .foregroundColor(.primary)
+                            
+                            Spacer()
+                            
+                            Text(connectedAccount.payouts_enabled ? "True" : "False")
+                                .foregroundColor(connectedAccount.payouts_enabled ? .primary : .red)
                         }
+                        
+                        if !connectedAccount.payouts_enabled {
+                            Text("Onboard Stripe Connect Account")
+                                .foregroundStyle(Color(.link))
+                                .onTapGesture {
+                                    viewModel.getOnboardLink()
+                                }
+                        }
+                    }
                 }
                 
                 Section("Account info") {
@@ -59,13 +63,15 @@ struct ConnectSetupView: View {
                         }
                     }
                     
-                    Picker(selection: $viewModel.type, label: Text("Business type")) {
-                        ForEach(ConnectAccountTypes.allCases, id: \.self) { type in
-                            Text(type.text())
-                                .tag(type as ConnectAccountTypes?)
+                    if viewModel.connectedAccount == nil {
+                        Picker(selection: $viewModel.type, label: Text("Business type")) {
+                            ForEach(ConnectAccountTypes.allCases, id: \.self) { type in
+                                Text(type.text())
+                                    .tag(type as ConnectAccountTypes?)
+                            }
                         }
+                        .focused($focusedTextField, equals: .type)
                     }
-                    .focused($focusedTextField, equals: .type)
                     
                     VStack(alignment: .leading) {
                         Picker("Country", selection: $viewModel.country) {
@@ -75,6 +81,8 @@ struct ConnectSetupView: View {
                             }
                         }
                         .focused($focusedTextField, equals: .country)
+                        .disabled(viewModel.connectedAccount != nil)
+                        
                         if let countryError = viewModel.countryError, !countryError.isEmpty {
                             CMErrorLabel(countryError)
                         }
@@ -96,16 +104,23 @@ struct ConnectSetupView: View {
             viewModel.fetchData()
         }
         .toolbar() {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button("Save") {
-                    viewModel.handleTopRightButton()
+            if viewModel.connectedAccount == nil {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Save") {
+                        viewModel.setupConnectAccount()
+                    }
                 }
             }
         }
         .fullScreenCover(isPresented: $viewModel.isPresentingAccountLink) {
-            SafariView(url: URL(string: viewModel.accountLink!.url)!, 
-                       isShowWebView: $viewModel.isPresentingAccountLink)
-                .ignoresSafeArea()
+            SafariView(url: URL(string: viewModel.accountLink!.url)!,
+                       isShowWebView: $viewModel.isPresentingAccountLink,
+                       urlChangeHandler: { url in
+                if viewModel.urlChangeHandler(url) {
+                    viewModel.isPresentingAccountLink = false
+                }
+            })
+            .ignoresSafeArea()
         }
     }
 }
@@ -113,7 +128,7 @@ struct ConnectSetupView: View {
 #Preview {
     ClickAPI.shared.apiKey = MockData.mockUser().apiKey
     return NavigationView {
-        ConnectSetupView(myUser: MockData.mockUser(), 
+        ConnectSetupView(myUser: MockData.mockUser(),
                          myProfile: MockData.mockProfile(),
                          navigationPath: .constant([]))
     }

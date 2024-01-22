@@ -8,6 +8,7 @@
 import SwiftUI
 
 enum HostAccountMenu: Int, Identifiable {
+    case payout
     case wallet
     case switchMode
     case support
@@ -17,11 +18,13 @@ enum HostAccountMenu: Int, Identifiable {
     var id: HostAccountMenu { self }
     
     static func list() -> [HostAccountMenu] {
-        return [.switchMode, .wallet, .support, .feedback, .signOut]
+        return [.switchMode, .payout, .wallet, .support, .feedback, .signOut]
     }
     
     func text() -> String {
         switch self {
+        case .payout:
+            return "Payout setup"
         case .switchMode:
             return "Switch to guest"
         case .wallet:
@@ -37,6 +40,8 @@ enum HostAccountMenu: Int, Identifiable {
     
     func iconName() -> String {
         switch self {
+        case .payout:
+            return "creditcard"
         case .wallet:
             return "dollarsign.circle"
         case .switchMode:
@@ -56,8 +61,8 @@ struct HostAccountView: View {
     @State private var navigationPath: [ScreenNames] = []
     @EnvironmentObject var agora: AgoraManager
     
-    init(myProfile: UserProfile) {
-        _viewModel = StateObject(wrappedValue: HostAccountViewModel(myProfile: myProfile))
+    init(myUser: User, myProfile: UserProfile) {
+        _viewModel = StateObject(wrappedValue: HostAccountViewModel(myUser: myUser, myProfile: myProfile))
     }
     
     var body: some View {
@@ -116,6 +121,7 @@ struct HostAccountView: View {
                             .buttonStyle(BorderlessButtonStyle())
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .center)
                     
                     Section {
                         ForEach(HostAccountMenu.list(), id: \.self) { row in
@@ -124,6 +130,8 @@ struct HostAccountView: View {
                                 .contentShape(Rectangle())
                                 .onTapGesture {
                                     switch row {
+                                    case .payout:
+                                        navigationPath.append(.stripeConnectSetup)
                                     case .wallet:
                                         navigationPath.append(.wallet)
                                     case .switchMode:
@@ -195,6 +203,8 @@ struct HostAccountView: View {
                     WalletView(myProfile: viewModel.myProfile, navigationPath: $navigationPath)
                 case ScreenNames.receiptDetails(let receipt):
                     ReceiptDetailsView(myProfile: viewModel.myProfile, receipt: receipt)
+                case ScreenNames.stripeConnectSetup:
+                    ConnectSetupView(myUser: viewModel.myUser, myProfile: viewModel.myProfile, navigationPath: $navigationPath)
                 default:
                     fatalError()
                 }
@@ -217,7 +227,7 @@ struct HostAccountView: View {
 
 #Preview {
     ClickAPI.shared.apiKey = MockData.mockUser2().apiKey
-    return HostAccountView(myProfile: MockData.mockProfile2())
+    return HostAccountView(myUser: MockData.mockUser2(), myProfile: MockData.mockProfile2())
         .environmentObject({() -> AgoraManager in
             let agora = AgoraManager()
             return agora

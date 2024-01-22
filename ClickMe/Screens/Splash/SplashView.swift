@@ -17,7 +17,7 @@ struct SplashView: View {
             if viewModel.appIsActive && !viewModel.loginInProgress {
                 if viewModel.isLoggedIn, let user = viewModel.user, let userProfile = viewModel.userProfile {
                     if startinHostMode {
-                        HostTabView(myProfile: userProfile)
+                        HostTabView(myUser: user, myProfile: userProfile)
                             .environmentObject(agora)
                     } else {
                         HomeTabView(myUser: user, myProfile: userProfile)

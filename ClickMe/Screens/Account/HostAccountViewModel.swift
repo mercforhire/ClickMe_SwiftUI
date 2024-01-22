@@ -9,6 +9,7 @@ import Foundation
 
 @MainActor
 final class HostAccountViewModel: ObservableObject {
+    var myUser: User
     @Published var myProfile: UserProfile
     @Published var isLoading = false
     @Published var isShowingProfile = false
@@ -18,7 +19,8 @@ final class HostAccountViewModel: ObservableObject {
     @Published var postFeedbackError = false
     @Published var isShowingInACallDialog = false
     
-    init(myProfile: UserProfile) {
+    init(myUser: User, myProfile: UserProfile) {
+        self.myUser = myUser
         self.myProfile = myProfile
     }
     
