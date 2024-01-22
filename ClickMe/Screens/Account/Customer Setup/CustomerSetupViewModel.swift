@@ -1,5 +1,5 @@
 //
-//  StripeCustomerSetupViewModel.swift
+//  CustomerSetupViewModel.swift
 //  ClickMe
 //
 //  Created by Leon Chen on 2024-01-20.
@@ -8,8 +8,9 @@
 import Foundation
 
 @MainActor
-final class StripeCustomerSetupViewModel: ObservableObject {
+final class CustomerSetupViewModel: ObservableObject {
     var myUser: User
+    var myProfile: UserProfile
     
     @Published var isLoading = false
     @Published var customer: StripeCustomer?
@@ -38,8 +39,8 @@ final class StripeCustomerSetupViewModel: ObservableObject {
         }
         emailError = nil
         
-        guard !email.isValidEmail else {
-            emailError = "Email must be filled"
+        guard email.isValidEmail else {
+            emailError = "Email invalid"
             return false
         }
         emailError = nil
@@ -47,8 +48,9 @@ final class StripeCustomerSetupViewModel: ObservableObject {
         return true
     }
     
-    init(myUser: User) {
+    init(myUser: User, myProfile: UserProfile) {
         self.myUser = myUser
+        self.myProfile = myProfile
     }
     
     func fetchData() {
@@ -57,9 +59,25 @@ final class StripeCustomerSetupViewModel: ObservableObject {
             let response = try? await ClickAPI.shared.getWalletDetails()
             if let customer = response?.data?.customer {
                 self.customer = customer
+                initDataFromExistingCustomer()
+            } else {
+                initDataFromUser()
             }
             isLoading = false
         }
+    }
+    
+    func initDataFromExistingCustomer() {
+        guard let customer else { return }
+        
+        fullName = customer.name
+        email = customer.email
+        phone = customer.phone
+    }
+    
+    func initDataFromUser() {
+        fullName = myProfile.fullName
+        email = myUser.email
     }
     
     func submitData() {

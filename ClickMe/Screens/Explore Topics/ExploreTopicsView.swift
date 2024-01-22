@@ -13,6 +13,7 @@ struct ExploreTopicsView: View {
     @State private var navigationPath: [ScreenNames] = []
     
     private let screenWidth = UIScreen.main.bounds.size.width
+    private let screenHeight = UIScreen.main.bounds.size.height
     private let padding: CGFloat = 40
     private var cellWidth: CGFloat {
         return screenWidth - padding * 2
@@ -40,18 +41,25 @@ struct ExploreTopicsView: View {
                                 .onTapGesture {
                                     viewModel.handleMoodClicked(mood: mood)
                                 }
+                                .id("\(mood.id)_\(viewModel.mood == mood ? "selected" : "")")
                             }
                         }
                         .frame(height: 150)
                     }
                     
-                    ForEach(viewModel.topics) { topic in
-                        TopicView(topic: topic)
-                            .frame(height: 320)
-                            .listRowSeparator(.hidden)
-                            .onTapGesture {
-                                navigationPath.append(.topicDetails(topic))
-                            }
+                    if viewModel.topics.isEmpty {
+                        CMEmptyView(imageName: "bad",
+                                    message: "No topics of this category")
+                        .padding(.top, screenHeight * 0.1)
+                    } else {
+                        ForEach(viewModel.topics) { topic in
+                            TopicView(topic: topic)
+                                .frame(height: 320)
+                                .listRowSeparator(.hidden)
+                                .onTapGesture {
+                                    navigationPath.append(.topicDetails(topic))
+                                }
+                        }
                     }
                 }
                 .listStyle(.plain)
@@ -59,13 +67,7 @@ struct ExploreTopicsView: View {
                     viewModel.fetchTopics()
                 }
                 
-                if viewModel.topics.isEmpty {
-                    CMEmptyView(imageName: "bad", message: "No topics of this category")
-                }
                 
-                if viewModel.isLoading {
-                    LoadingView()
-                }
             }
             .navigationTitle("Topics")
             .navigationDestination(for: ScreenNames.self) { screenName in

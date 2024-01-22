@@ -25,6 +25,17 @@ enum Country: String, Codable, Identifiable, Hashable {
         }
     }
     
+    func stripeValue() -> String {
+        switch self {
+        case .canada:
+            return "CA"
+        case .usa:
+            return "USA"
+        case .other:
+            fatalError()
+        }
+    }
+    
     static func list() -> [Country] {
         return [.canada, .usa, .other]
     }

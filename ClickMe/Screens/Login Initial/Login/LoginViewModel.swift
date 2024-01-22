@@ -103,8 +103,8 @@ final class LoginViewModel: ObservableObject {
             do {
                 let loginResponse = try await ClickAPI.shared.login(email: emailAddress, code: code)
                 if let user = loginResponse.data?.user, let profile = loginResponse.data?.profile {
-                    await UserManager.shared.fetchAppKeys()
                     UserManager.shared.set(user: user, profile: profile)
+                    await UserManager.shared.fetchAppKeys()
                     
                     NotificationCenter.default.post(name: Notifications.RefreshLoginStatus, object: nil, userInfo: nil)
                     print("go back to initial screen and go to home screen")

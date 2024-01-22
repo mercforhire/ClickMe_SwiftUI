@@ -10,7 +10,7 @@ import Foundation
 struct StripeCustomer: Codable, Identifiable, Hashable {
     var id: String
     var object: String
-    var email: Bool
+    var email: String
     var name: String
     var phone: String
 }

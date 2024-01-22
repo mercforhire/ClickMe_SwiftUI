@@ -112,6 +112,9 @@
 		721D0D662B547AF600095A97 /* HostAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D652B547AF600095A97 /* HostAccountViewModel.swift */; };
 		721D0D682B547BD800095A97 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D672B547BD800095A97 /* UserDefaults+Ext.swift */; };
 		721D0D6B2B54AA6000095A97 /* CallingButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721D0D6A2B54AA6000095A97 /* CallingButtonView.swift */; };
+		7225B4472B5C8D6900B51CA0 /* ConnectSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7225B4462B5C8D6900B51CA0 /* ConnectSetupView.swift */; };
+		7225B4492B5C8D7300B51CA0 /* ConnectSetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7225B4482B5C8D7300B51CA0 /* ConnectSetupViewModel.swift */; };
+		7225B44B2B5DEA8B00B51CA0 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7225B44A2B5DEA8A00B51CA0 /* SafariView.swift */; };
 		722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */; };
 		722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */; };
 		722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722C59D42B43EF0F00EBA081 /* NetworkService.swift */; };
@@ -131,7 +134,7 @@
 		7237A5962B43829500ABF10F /* LoginInitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A5952B43829500ABF10F /* LoginInitialView.swift */; };
 		7237A5982B438C3D00ABF10F /* LoginInitialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A5972B438C3D00ABF10F /* LoginInitialViewModel.swift */; };
 		7237A59A2B438E1C00ABF10F /* GetStartedStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A5992B438E1C00ABF10F /* GetStartedStepView.swift */; };
-		7237A59C2B439BD800ABF10F /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A59B2B439BD800ABF10F /* SafariView.swift */; };
+		7237A59C2B439BD800ABF10F /* MyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A59B2B439BD800ABF10F /* MyWebView.swift */; };
 		7237A59F2B43A62100ABF10F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7237A59E2B43A62100ABF10F /* SignUpView.swift */; };
 		724C95442B48FFCB00AD2CFC /* TopicDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724C95432B48FFCB00AD2CFC /* TopicDetailsView.swift */; };
 		724C95462B48FFEE00AD2CFC /* TopicDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724C95452B48FFEE00AD2CFC /* TopicDetailsViewModel.swift */; };
@@ -170,8 +173,8 @@
 		725B99FD2B4169250066D240 /* ClickMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B99FC2B4169250066D240 /* ClickMeTests.swift */; };
 		725B9A072B4169250066D240 /* ClickMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B9A062B4169250066D240 /* ClickMeUITests.swift */; };
 		725B9A092B4169250066D240 /* ClickMeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725B9A082B4169250066D240 /* ClickMeUITestsLaunchTests.swift */; };
-		726928EB2B5BB36400148081 /* StripeCustomerSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726928EA2B5BB36400148081 /* StripeCustomerSetupView.swift */; };
-		726928ED2B5BB37A00148081 /* StripeCustomerSetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726928EC2B5BB37A00148081 /* StripeCustomerSetupViewModel.swift */; };
+		726928EB2B5BB36400148081 /* CustomerSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726928EA2B5BB36400148081 /* CustomerSetupView.swift */; };
+		726928ED2B5BB37A00148081 /* CustomerSetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726928EC2B5BB37A00148081 /* CustomerSetupViewModel.swift */; };
 		7275920D2B4F6BBC0071ABA5 /* ConfirmBookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7275920C2B4F6BBC0071ABA5 /* ConfirmBookingView.swift */; };
 		7275920F2B4F6BC80071ABA5 /* ConfirmBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7275920E2B4F6BC80071ABA5 /* ConfirmBookingViewModel.swift */; };
 		727592112B4F7EBD0071ABA5 /* GetBookingPriceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727592102B4F7EBC0071ABA5 /* GetBookingPriceResponse.swift */; };
@@ -343,6 +346,9 @@
 		721D0D672B547BD800095A97 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		721D0D692B54892300095A97 /* ClickMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClickMe.entitlements; sourceTree = "<group>"; };
 		721D0D6A2B54AA6000095A97 /* CallingButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallingButtonView.swift; sourceTree = "<group>"; };
+		7225B4462B5C8D6900B51CA0 /* ConnectSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectSetupView.swift; sourceTree = "<group>"; };
+		7225B4482B5C8D7300B51CA0 /* ConnectSetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectSetupViewModel.swift; sourceTree = "<group>"; };
+		7225B44A2B5DEA8A00B51CA0 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		722C59CD2B43A8DB00EBA081 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		722C59CF2B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSCheckboxToggleStyle.swift; sourceTree = "<group>"; };
 		722C59D42B43EF0F00EBA081 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
@@ -362,7 +368,7 @@
 		7237A5952B43829500ABF10F /* LoginInitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInitialView.swift; sourceTree = "<group>"; };
 		7237A5972B438C3D00ABF10F /* LoginInitialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInitialViewModel.swift; sourceTree = "<group>"; };
 		7237A5992B438E1C00ABF10F /* GetStartedStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedStepView.swift; sourceTree = "<group>"; };
-		7237A59B2B439BD800ABF10F /* SafariView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		7237A59B2B439BD800ABF10F /* MyWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWebView.swift; sourceTree = "<group>"; };
 		7237A59E2B43A62100ABF10F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		724C95432B48FFCB00AD2CFC /* TopicDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailsView.swift; sourceTree = "<group>"; };
 		724C95452B48FFEE00AD2CFC /* TopicDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -404,8 +410,8 @@
 		725B9A022B4169250066D240 /* ClickMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClickMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		725B9A062B4169250066D240 /* ClickMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMeUITests.swift; sourceTree = "<group>"; };
 		725B9A082B4169250066D240 /* ClickMeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickMeUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		726928EA2B5BB36400148081 /* StripeCustomerSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeCustomerSetupView.swift; sourceTree = "<group>"; };
-		726928EC2B5BB37A00148081 /* StripeCustomerSetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeCustomerSetupViewModel.swift; sourceTree = "<group>"; };
+		726928EA2B5BB36400148081 /* CustomerSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSetupView.swift; sourceTree = "<group>"; };
+		726928EC2B5BB37A00148081 /* CustomerSetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSetupViewModel.swift; sourceTree = "<group>"; };
 		7275920C2B4F6BBC0071ABA5 /* ConfirmBookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBookingView.swift; sourceTree = "<group>"; };
 		7275920E2B4F6BC80071ABA5 /* ConfirmBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmBookingViewModel.swift; sourceTree = "<group>"; };
 		727592102B4F7EBC0071ABA5 /* GetBookingPriceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBookingPriceResponse.swift; sourceTree = "<group>"; };
@@ -560,7 +566,8 @@
 				720B607D2B4D5BE300CF716E /* AccountViewModel.swift */,
 				721D0D632B547AEA00095A97 /* HostAccountView.swift */,
 				721D0D652B547AF600095A97 /* HostAccountViewModel.swift */,
-				726928E92B5BB29200148081 /* Stripe */,
+				7225B4452B5C8D3800B51CA0 /* Connect Setup */,
+				726928E92B5BB29200148081 /* Customer Setup */,
 				72AD85262B5B25D300EBE632 /* Receipt Details */,
 				72AD85172B58EFCA00EBE632 /* Wallet */,
 				720087BA2B4EDBAD0020633F /* Users List */,
@@ -731,6 +738,7 @@
 			isa = PBXGroup;
 			children = (
 				725586342B452E8B005A37B9 /* MultiSelectionView.swift */,
+				7225B44A2B5DEA8A00B51CA0 /* SafariView.swift */,
 				727BD7482B45310100D4279D /* MultiSelector.swift */,
 				721905372B50BBD8000516CA /* TextFieldActionView.swift */,
 				722C59E32B44009B00EBA081 /* LoadingView.swift */,
@@ -772,7 +780,7 @@
 		721D0D432B51E8FB00095A97 /* UIViewRepresentable */ = {
 			isa = PBXGroup;
 			children = (
-				7237A59B2B439BD800ABF10F /* SafariView.swift */,
+				7237A59B2B439BD800ABF10F /* MyWebView.swift */,
 				721D0D412B51E6B900095A97 /* MyCosmosView.swift */,
 			);
 			path = UIViewRepresentable;
@@ -794,6 +802,15 @@
 				721D0D5F2B546C8700095A97 /* ReviewsViewModel.swift */,
 			);
 			path = Reviews;
+			sourceTree = "<group>";
+		};
+		7225B4452B5C8D3800B51CA0 /* Connect Setup */ = {
+			isa = PBXGroup;
+			children = (
+				7225B4462B5C8D6900B51CA0 /* ConnectSetupView.swift */,
+				7225B4482B5C8D7300B51CA0 /* ConnectSetupViewModel.swift */,
+			);
+			path = "Connect Setup";
 			sourceTree = "<group>";
 		};
 		722C59D12B43EDE900EBA081 /* Network */ = {
@@ -1098,13 +1115,13 @@
 			path = ClickMeUITests;
 			sourceTree = "<group>";
 		};
-		726928E92B5BB29200148081 /* Stripe */ = {
+		726928E92B5BB29200148081 /* Customer Setup */ = {
 			isa = PBXGroup;
 			children = (
-				726928EA2B5BB36400148081 /* StripeCustomerSetupView.swift */,
-				726928EC2B5BB37A00148081 /* StripeCustomerSetupViewModel.swift */,
+				726928EA2B5BB36400148081 /* CustomerSetupView.swift */,
+				726928EC2B5BB37A00148081 /* CustomerSetupViewModel.swift */,
 			);
-			path = Stripe;
+			path = "Customer Setup";
 			sourceTree = "<group>";
 		};
 		7275920B2B4F6BA80071ABA5 /* Confirm Booking */ = {
@@ -1497,10 +1514,11 @@
 				721905352B50B4C6000516CA /* PastHostingsViewModel.swift in Sources */,
 				72AD85192B59819000EBE632 /* WalletView.swift in Sources */,
 				721D0D4E2B531C1800095A97 /* EditTopicView.swift in Sources */,
+				7225B4492B5C8D7300B51CA0 /* ConnectSetupViewModel.swift in Sources */,
 				722C59CE2B43A8DB00EBA081 /* SignUpViewModel.swift in Sources */,
 				720B60652B4C3AE900CF716E /* GetBookingRequestsResponse.swift in Sources */,
 				720087B42B4DFE200020633F /* DragRelocateDelegate.swift in Sources */,
-				7237A59C2B439BD800ABF10F /* SafariView.swift in Sources */,
+				7237A59C2B439BD800ABF10F /* MyWebView.swift in Sources */,
 				722C59DD2B43F8F900EBA081 /* ClickAPI.swift in Sources */,
 				721905302B50A2AD000516CA /* ErrorView.swift in Sources */,
 				725586242B44EF5E005A37B9 /* UserManager.swift in Sources */,
@@ -1575,14 +1593,15 @@
 				727592112B4F7EBD0071ABA5 /* GetBookingPriceResponse.swift in Sources */,
 				728499F92B466B0400C2826B /* Utils.swift in Sources */,
 				721905432B5181E2000516CA /* StartCallSessionResponse.swift in Sources */,
-				726928EB2B5BB36400148081 /* StripeCustomerSetupView.swift in Sources */,
+				7225B4472B5C8D6900B51CA0 /* ConnectSetupView.swift in Sources */,
+				726928EB2B5BB36400148081 /* CustomerSetupView.swift in Sources */,
 				728499F22B45A56200C2826B /* HomeTabView.swift in Sources */,
 				7237A5882B42E4F800ABF10F /* GetStartedView.swift in Sources */,
 				722C59E02B43FA7600EBA081 /* DefaultResponse.swift in Sources */,
 				721D0D402B51DAAD00095A97 /* WriteReviewViewModel.swift in Sources */,
 				7252485A2B55C924000D3FCB /* FollowingView.swift in Sources */,
 				720B605D2B4ADAE700CF716E /* MockData.swift in Sources */,
-				726928ED2B5BB37A00148081 /* StripeCustomerSetupViewModel.swift in Sources */,
+				726928ED2B5BB37A00148081 /* CustomerSetupViewModel.swift in Sources */,
 				720B604C2B4A5F2300CF716E /* Message.swift in Sources */,
 				725586102B4419AF005A37B9 /* UserProfile.swift in Sources */,
 				72AD85282B5B26E800EBE632 /* ReceiptDetailsView.swift in Sources */,
@@ -1598,6 +1617,7 @@
 				721D0D542B53328300095A97 /* EditTopicParams.swift in Sources */,
 				728499EF2B4587EE00C2826B /* ProfilePhotosGridView.swift in Sources */,
 				72774C452B48351900C5A248 /* CMXButton.swift in Sources */,
+				7225B44B2B5DEA8B00B51CA0 /* SafariView.swift in Sources */,
 				721D0D662B547AF600095A97 /* HostAccountViewModel.swift in Sources */,
 				72064F312B46ECBF00BB9ECC /* MyBookingsView.swift in Sources */,
 				725586352B452E8B005A37B9 /* MultiSelectionView.swift in Sources */,

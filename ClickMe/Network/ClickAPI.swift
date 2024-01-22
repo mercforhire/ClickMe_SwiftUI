@@ -853,7 +853,21 @@ class ClickAPI {
         let url = baseURL + APIRequestURLs.setupStripeCustomer.rawValue
         let response: DefaultResponse = try await service.httpRequest(url: url,
                                                                       method: APIRequestURLs.setupStripeCustomer.getHTTPMethod(),
-                                                                      parameters: nil)
+                                                                      parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func setupConnectAccount(email: String, businessType: ConnectAccountTypes, country: Country) async throws -> DefaultResponse {
+        let parameters = ["email": email, "businessType": businessType.rawValue, "country": country.stripeValue()]
+        let url = baseURL + APIRequestURLs.setupConnectAccount.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url,
+                                                                      method: APIRequestURLs.setupConnectAccount.getHTTPMethod(),
+                                                                      parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
         } else if !response.success {

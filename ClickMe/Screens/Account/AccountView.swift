@@ -27,7 +27,7 @@ enum AccountMenu: Int, Identifiable {
         case .switchMode:
             return "Switch to host"
         case .payments:
-            return "My payments"
+            return "Payment setup"
         case .history:
             return "Booking history"
         case .support:
@@ -170,7 +170,7 @@ struct AccountView: View {
                                 .onTapGesture {
                                     switch row {
                                     case .payments:
-                                        break
+                                        navigationPath.append(.stripeCustomerSetup)
                                     case .history:
                                         navigationPath.append(.myPastBookings)
                                     case .switchMode:
@@ -269,7 +269,7 @@ struct AccountView: View {
                 case ScreenNames.usersList(let type):
                     UsersListView(myProfile: viewModel.myProfile, type: type)
                 case ScreenNames.stripeCustomerSetup:
-                    StripeCustomerSetupView(myUser: viewModel.myUser, navigationPath: $navigationPath)
+                    CustomerSetupView(myUser: viewModel.myUser, myProfile: viewModel.myProfile, navigationPath: $navigationPath)
                 default:
                     fatalError()
                 }

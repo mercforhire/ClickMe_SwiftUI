@@ -29,8 +29,8 @@ final class SplashViewModel: ObservableObject {
                 loginInProgress = true
                 let loginResponse = try? await ClickAPI.shared.loginUsingAPIKey(apiKey: apiKey)
                 if let user = loginResponse?.data?.user, let profile = loginResponse?.data?.profile {
-                    await UserManager.shared.fetchAppKeys()
                     UserManager.shared.set(user: user, profile: profile)
+                    await UserManager.shared.fetchAppKeys()
                     isLoggedIn = true
                 } else {
                     logOut()
