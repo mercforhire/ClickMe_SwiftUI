@@ -152,7 +152,7 @@ final class BookingStatusViewModel: ObservableObject {
 
         var configuration = PaymentSheet.Configuration()
         configuration.merchantDisplayName = "Click Me"
-        configuration.customer = .init(id: stripeData.customerId, ephemeralKeySecret: stripeData.ephemeralKey)
+        configuration.customer = .init(id: stripeData.stripeCustomerId, ephemeralKeySecret: stripeData.ephemeralKey)
         
         paymentSheet = PaymentSheet(paymentIntentClientSecret: stripeData.paymentIntentClientKey, configuration: configuration)
     }

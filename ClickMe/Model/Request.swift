@@ -30,7 +30,7 @@ struct Request: Codable, Identifiable, Hashable {
     }
     
     var createdDateDisplayable: String {
-        DateUtil.convert(input: createdDate, outputFormat: .format5)!
+        return DateUtil.convert(input: createdDate, outputFormat: .format5)!
     }
     
     static func == (lhs: Request, rhs: Request) -> Bool {

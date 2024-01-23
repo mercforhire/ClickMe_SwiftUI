@@ -120,7 +120,6 @@ struct ConnectSetupView: View {
                     viewModel.isPresentingAccountLink = false
                 }
             })
-            .ignoresSafeArea()
         }
     }
 }

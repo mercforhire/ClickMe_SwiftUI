@@ -48,12 +48,10 @@ struct LoginInitialView: View {
             .fullScreenCover(isPresented: $viewModel.isPresentingTermsOfUse) {
                 SafariView(url: URL(string: "https://www.google.com")!, 
                            isShowWebView: $viewModel.isPresentingTermsOfUse)
-                    .ignoresSafeArea()
             }
             .fullScreenCover(isPresented: $viewModel.isPresentingPrivacy) {
                 SafariView(url: URL(string: "https://www.yahoo.com")!, 
                            isShowWebView: $viewModel.isPresentingPrivacy)
-                    .ignoresSafeArea()
             }
         }
     }
