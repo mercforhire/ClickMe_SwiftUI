@@ -12,7 +12,6 @@ target 'ClickMe' do
   pod 'Valet'
   pod 'AgoraRtcEngine_iOS', '4.2.6'
   pod 'Cosmos'
-#  pod 'Stripe', '~> 23.20.0'
   pod 'StripePaymentSheet'
   
   target 'ClickMeTests' do

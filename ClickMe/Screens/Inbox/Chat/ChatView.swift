@@ -65,8 +65,8 @@ struct ChatView: View {
         }
         .navigationTitle("\(viewModel.talkingTo.firstName ?? "Chat")" + (viewModel.blocked ? "-(Blocked)" : ""))
         .onAppear {
-            viewModel.fetchMessages()
             viewModel.getBlockStatus()
+            viewModel.startRefreshTimer()
         }
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
@@ -76,12 +76,20 @@ struct ChatView: View {
                 .tint(viewModel.blocked ? Color.green : Color.red)
             }
         }
+        .onDisappear {
+            viewModel.stopRefreshTime()
+        }
+        .onChange(of: viewModel.hash) { hash in
+            viewModel.fetchMessages()
+        }
     }
 }
 
 #Preview {
     ClickAPI.shared.apiKey = MockData.mockUser().apiKey
-    return ChatView(myProfile: MockData.mockProfile(), talkingTo: MockData.mockProfile2())
+    return NavigationView {
+        ChatView(myProfile: MockData.mockProfile(), talkingTo: MockData.mockProfile2())
+    }
 }
 
 struct MessagesListView: View {
@@ -121,7 +129,7 @@ struct MessagesListView: View {
         })
         .onChange(of: scrollToBottom) { _ in
             if let last = messages.last {
-                scrollViewProxy.scrollTo(last, anchor: .center)
+                scrollViewProxy.scrollTo(last, anchor: .bottom)
             }
         }
     }

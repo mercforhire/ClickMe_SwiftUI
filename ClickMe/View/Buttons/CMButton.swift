@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CMButton: View {
-    @State var title: LocalizedStringKey
+    var title: LocalizedStringKey
     var fullWidth: Bool = false
     
     var body: some View {

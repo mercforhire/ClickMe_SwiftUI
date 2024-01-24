@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct TextFieldActionView: View {
-    @State var buttonText: String
-    @State var placeholder: String = "Send a message along with the action"
+    var buttonText: String
+    var placeholder: String = "Send a message along with the action"
     @Binding var isShowingView: Bool
     @State var initialMessage: String = ""
+    var allowEmptyMessage: Bool = false
     var actionHandler: ((String) -> Void)?
     
     @State private var errorMessage: String?
@@ -35,7 +36,7 @@ struct TextFieldActionView: View {
             }
             
             Button(action: {
-                if initialMessage.isEmpty {
+                if !allowEmptyMessage, initialMessage.isEmpty {
                     errorMessage = "Please type a message"
                     return
                 }
@@ -70,7 +71,6 @@ struct TextFieldActionView: View {
     TextFieldActionView(buttonText: "Accept",
                         isShowingView: .constant(true),
                         actionHandler: { message in
-        
         print("message typed: \(message)")
     })
 }

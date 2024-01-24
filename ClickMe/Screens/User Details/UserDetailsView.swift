@@ -38,22 +38,20 @@ struct UserDetailsView: View {
                 .frame(width: screenWidth, height: screenWidth * 1.2)
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 .overlay(alignment: .bottomTrailing) {
-                    if !viewModel.lookingAtMySelf {
-                        VStack {
-                            Button {
-                                viewModel.handleFollowButton()
-                            } label: {
-                                CMFollowButton(following: viewModel.following)
-                            }
-                            Button {
-                                isShowingProfile = false
-                                viewModel.handleChatButton()
-                            } label: {
-                                CMChatButton()
-                            }
+                    VStack {
+                        Button {
+                            viewModel.handleFollowButton()
+                        } label: {
+                            CMFollowButton(following: viewModel.following)
                         }
-                        .padding([.bottom, .trailing], screenWidth / 25)
+                        Button {
+                            isShowingProfile = false
+                            viewModel.handleChatButton()
+                        } label: {
+                            CMChatButton()
+                        }
                     }
+                    .padding([.bottom, .trailing], screenWidth / 25)
                 }
                 
                 Text(viewModel.profile.fullName)

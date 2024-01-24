@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BookingRequestView: View {
-    @State var request: Request
+    var request: Request
     
     var body: some View {
         VStack(alignment: .leading) {

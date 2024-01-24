@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TopicSimpleView: View {
-    @State var topic: Topic
+    var topic: Topic
     
     var body: some View {
         ZStack {

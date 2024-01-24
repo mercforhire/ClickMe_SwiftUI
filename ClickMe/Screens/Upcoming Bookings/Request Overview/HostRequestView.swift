@@ -203,7 +203,8 @@ struct HostRequestView: View {
             
             if viewModel.isShowingAcceptModal {
                 TextFieldActionView(buttonText: BookingAction.accept.actionText(),
-                                    isShowingView: $viewModel.isShowingAcceptModal) { message in
+                                    isShowingView: $viewModel.isShowingAcceptModal,
+                                    initialMessage: "Accepting booking") { message in
                     viewModel.handleAcceptAction(message: message)
                 }
                 

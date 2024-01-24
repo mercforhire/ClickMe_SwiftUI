@@ -22,8 +22,7 @@ struct InboxView: View {
         NavigationStack(path: $navigationPath) {
             ZStack {
                 List(viewModel.conversations, id: \.self) { conversation in
-                    ChatConversationView(conversation: conversation, 
-                                         currentUserId: viewModel.myProfile.userId)
+                    ChatConversationView(currentUserId: viewModel.myProfile.userId, conversation: conversation)
                         .onTapGesture {
                             newPerson = nil
                             viewModel.selectedConversation = conversation
@@ -69,12 +68,17 @@ struct InboxView: View {
                 }
             }
             .onAppear {
-                viewModel.fetchConversations()
-                
+                viewModel.startRefreshTimer()
                 if viewModel.firstTime, let userToTalkTo = newPerson {
                     navigationPath.append(.chat(userToTalkTo))
                 }
                 viewModel.firstTime = false
+            }
+            .onDisappear {
+                viewModel.stopRefreshTime()
+            }
+            .onChange(of: viewModel.hash) { hash in
+                viewModel.fetchConversations()
             }
         }
     }

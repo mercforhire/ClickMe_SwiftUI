@@ -49,7 +49,7 @@ final class HostCalenderViewModel: ObservableObject {
     func addNewTimeSlot() {
         // check if the timeslot is already in the past
         if endTime < Date() {
-            addTimeslotError = "Timeslot is in the past"
+            addTimeslotError = "End time is in the past"
             return
         }
         

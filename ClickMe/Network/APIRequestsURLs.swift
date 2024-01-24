@@ -37,7 +37,9 @@ enum APIRequestURLs: String {
     case unfollowUser = "/api/users/unfollowUser"
     
     case getConversations = "/api/chat/getConversations"
+    case getConversationsHash = "/api/chat/getConversationsHash"
     case getChatMessages = "/api/chat/getChatMessages"
+    case getChatMessagesHash = "/api/chat/getChatMessagesHash"
     case sendChatMessage = "/api/chat/sendChatMessage"
     
     case getBlockedUsers = "/api/users/getBlockedUsers"
@@ -198,6 +200,10 @@ enum APIRequestURLs: String {
             return .get
         case .setupStripeCustomer:
             return .post
+        case .getConversationsHash:
+            return .get
+        case .getChatMessagesHash:
+            return .get
         }
     }
     

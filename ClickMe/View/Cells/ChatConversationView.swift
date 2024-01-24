@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ChatConversationView: View {
-    @State var conversation: Conversation
-    @State var currentUserId: String
+    var currentUserId: String
+    var conversation: Conversation
     @State var theOtherUser: UserProfile?
     
     var body: some View {
         HStack(alignment: .top) {
             if let theOtherUser = theOtherUser {
-                if let urlString = theOtherUser.avatarThumbnailUrl  {
+                if let urlString = theOtherUser.avatarThumbnailUrl {
                     AsyncImage(url: URL(string: urlString)) { image in
                         image
                             .resizable()
@@ -73,6 +73,6 @@ struct ChatConversationView: View {
 }
 
 #Preview {
-    ChatConversationView(conversation: MockData.mockConversation(),
-                         currentUserId: "65971589d4f4d7af9f97a3bc")
+    ChatConversationView(currentUserId: MockData.mockUser()._id,
+                         conversation: MockData.mockConversation())
 }

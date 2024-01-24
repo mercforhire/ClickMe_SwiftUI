@@ -208,6 +208,7 @@
 		728499F92B466B0400C2826B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499F82B466B0400C2826B /* Utils.swift */; };
 		728499FC2B46C06D00C2826B /* UpdateProfileParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499FB2B46C06C00C2826B /* UpdateProfileParams.swift */; };
 		728499FE2B46C2AE00C2826B /* UpdateUserProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */; };
+		729FDABB2B61AB4B007A0D7B /* HashResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729FDABA2B61AB4B007A0D7B /* HashResponse.swift */; };
 		72AD85192B59819000EBE632 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85182B59819000EBE632 /* WalletView.swift */; };
 		72AD851B2B5981BD00EBE632 /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD851A2B5981BD00EBE632 /* WalletViewModel.swift */; };
 		72AD851D2B59ED8700EBE632 /* ConnectAccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD851C2B59ED8700EBE632 /* ConnectAccountResponse.swift */; };
@@ -445,6 +446,7 @@
 		728499F82B466B0400C2826B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		728499FB2B46C06C00C2826B /* UpdateProfileParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateProfileParams.swift; sourceTree = "<group>"; };
 		728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileResponse.swift; sourceTree = "<group>"; };
+		729FDABA2B61AB4B007A0D7B /* HashResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashResponse.swift; sourceTree = "<group>"; };
 		72AD85182B59819000EBE632 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
 		72AD851A2B5981BD00EBE632 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
 		72AD851C2B59ED8700EBE632 /* ConnectAccountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectAccountResponse.swift; sourceTree = "<group>"; };
@@ -840,6 +842,7 @@
 				720B60432B49DF1900CF716E /* GetConversationsResponse.swift */,
 				720B60512B4ABBAA00CF716E /* GetChatMessagesResponse.swift */,
 				720B605E2B4AEF2B00CF716E /* SendChatMessageResponse.swift */,
+				729FDABA2B61AB4B007A0D7B /* HashResponse.swift */,
 				720B60642B4C3AE800CF716E /* GetBookingRequestsResponse.swift */,
 				720B60732B4C988600CF716E /* GetBookingDetailsResponse.swift */,
 				720087C42B4EFBE20020633F /* GetAvailabilityResponse.swift */,
@@ -1543,6 +1546,7 @@
 				720B60562B4AC29000CF716E /* ChatMessageRightView.swift in Sources */,
 				725586132B442625005A37B9 /* LoginView.swift in Sources */,
 				720B60702B4C740100CF716E /* BookingStatusViewModel.swift in Sources */,
+				729FDABB2B61AB4B007A0D7B /* HashResponse.swift in Sources */,
 				722C59D02B43E5DA00EBA081 /* iOSCheckboxToggleStyle.swift in Sources */,
 				7219052E2B509EE6000516CA /* SetAvailabilityParams.swift in Sources */,
 				7237A58C2B42E5AD00ABF10F /* Mood.swift in Sources */,

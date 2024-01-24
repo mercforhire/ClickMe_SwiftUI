@@ -11,6 +11,8 @@ struct HostUpcomingBookingsView: View {
     @StateObject var viewModel: HostUpcomingBookingsViewModel
     @State private var navigationPath: [ScreenNames] = []
     
+    private let screenHeight = UIScreen.main.bounds.size.height
+    
     init(myProfile: UserProfile) {
         _viewModel = StateObject(wrappedValue: HostUpcomingBookingsViewModel(myProfile: myProfile))
     }
@@ -62,7 +64,7 @@ struct HostUpcomingBookingsView: View {
                     .background(Color.accentColor)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                     
-                    ForEach(viewModel.requests) { request in
+                    ForEach(viewModel.requests, id: \.self) { request in
                         UpcomingBookingView(request: request)
                             .frame(height: 300)
                             .listRowSeparator(.hidden)
@@ -71,6 +73,11 @@ struct HostUpcomingBookingsView: View {
                             }
                     }
                     
+                    if viewModel.requests.isEmpty {
+                        CMEmptyView(imageName: "empty", message: "No booking requests")
+                            .padding(.top, screenHeight * 0.1)
+                            .listRowSeparator(.hidden)
+                    }
                 }
                 .listStyle(.plain)
                 .refreshable {
@@ -87,10 +94,6 @@ struct HostUpcomingBookingsView: View {
                                 .frame(width: 35, height: 35)
                         }
                     }
-                }
-                
-                if viewModel.requests.isEmpty {
-                    CMEmptyView(imageName: "empty", message: "No booking requests")
                 }
                 
                 if viewModel.isLoading {

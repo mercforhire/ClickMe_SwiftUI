@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct CMFollowButton: View {
-    @State var following: Bool
+    var following: Bool
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .frame(width: 50, height: 50)
                 .foregroundColor(.accentColor)
-            Image(systemName: following ? "person.badge.minus" : "person.badge.plus")
+            Image(systemName: following ? "person.2.slash.fill" : "person.line.dotted.person.fill")
                 .imageScale(.large)
                 .foregroundColor(.white)
         }

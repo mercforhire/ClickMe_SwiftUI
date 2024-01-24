@@ -18,11 +18,14 @@ final class ChatViewModel: ObservableObject {
     
     @Published var isLoading = false
     @Published var isSending = false
+    @Published var hash: String?
     @Published var messages: [Message] = []
     @Published var scrollToBottom: Bool = true // anytime this changes, trigger scroll to bottom
     @Published var typingMessage: String = ""
     @Published var blocked = false
     @Published var otherPersonBlockedMe = false
+    
+    private var refreshTimer: Timer?
     
     init(myProfile: UserProfile, talkingTo: UserProfile) {
         self.myProfile = myProfile
@@ -38,6 +41,16 @@ final class ChatViewModel: ObservableObject {
                 scheduleScrollToBottom()
             }
             isLoading = false
+        }
+    }
+    
+    func fetchMessagesHash() {
+        Task {
+            let response = try? await ClickAPI.shared.getChatMessagesHash(with: talkingTo.userId)
+            if let hash = response?.data?.hash {
+                self.hash != hash ? self.hash = hash : nil
+                print("getChatMessagesHash: ", hash)
+            }
         }
     }
     
@@ -110,5 +123,23 @@ final class ChatViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             self.scrollToBottom.toggle()
         }
+    }
+    
+    func startRefreshTimer() {
+        refreshTimer = Timer.scheduledTimer(timeInterval: 5,
+                                            target: self,
+                                            selector: #selector(timerFunction),
+                                            userInfo: nil,
+                                            repeats: true)
+        refreshTimer?.fire()
+    }
+    
+    @objc func timerFunction() {
+        fetchMessagesHash()
+    }
+    
+    func stopRefreshTime() {
+        refreshTimer?.invalidate()
+        refreshTimer = nil
     }
 }

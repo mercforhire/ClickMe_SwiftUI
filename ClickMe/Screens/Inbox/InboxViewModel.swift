@@ -12,8 +12,11 @@ final class InboxViewModel: ObservableObject {
     var myProfile: UserProfile
     @Published var firstTime = true
     @Published var isLoading = false
+    @Published var hash: String?
     @Published var conversations: [Conversation] = []
     @Published var selectedConversation: Conversation?
+    
+    private var refreshTimer: Timer?
     
     init(myProfile: UserProfile) {
         self.myProfile = myProfile
@@ -30,6 +33,16 @@ final class InboxViewModel: ObservableObject {
         }
     }
     
+    func fetchConversationsHash() {
+        Task {
+            let response = try? await ClickAPI.shared.getConversationsHash()
+            if let hash = response?.data?.hash {
+                self.hash != hash ? self.hash = hash : nil
+                print("getConversationsHash: ", hash)
+            }
+        }
+    }
+    
     func getOtherConversationParticipant() -> UserProfile? {
         guard let selectedConversation else { return nil }
         
@@ -39,5 +52,23 @@ final class InboxViewModel: ObservableObject {
             }
         }
         return nil
+    }
+    
+    func startRefreshTimer() {
+        refreshTimer = Timer.scheduledTimer(timeInterval: 10,
+                                            target: self,
+                                            selector: #selector(timerFunction),
+                                            userInfo: nil,
+                                            repeats: true)
+        refreshTimer?.fire()
+    }
+    
+    @objc func timerFunction() {
+        fetchConversationsHash()
+    }
+    
+    func stopRefreshTime() {
+        refreshTimer?.invalidate()
+        refreshTimer = nil
     }
 }

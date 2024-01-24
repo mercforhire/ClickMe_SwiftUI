@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CMRoundButton: View {
-    @State var iconName: String
+    var iconName: String
     
     var body: some View {
         ZStack{

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SimpleUserCell: View {
-    @State var profile: UserProfile
+    var profile: UserProfile
     
     var body: some View {
         HStack(alignment: .top, spacing: 10) {

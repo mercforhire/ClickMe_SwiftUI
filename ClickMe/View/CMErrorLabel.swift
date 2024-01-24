@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CMErrorLabel: View {
-    @State var text: String
+    var text: String
     
     var body: some View {
         Text("* \(text)")

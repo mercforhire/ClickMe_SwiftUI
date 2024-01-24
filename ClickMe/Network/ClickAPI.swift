@@ -386,10 +386,33 @@ class ClickAPI {
         return response
     }
     
+    func getConversationsHash() async throws -> HashResponse {
+        let url = baseURL + APIRequestURLs.getConversationsHash.rawValue
+        let response: HashResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getConversationsHash.getHTTPMethod(), parameters: nil)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func getChatMessages(with userId: String) async throws -> GetChatMessagesResponse {
         let parameters = ["withUserId": userId]
         let url = baseURL + APIRequestURLs.getChatMessages.rawValue
         let response: GetChatMessagesResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getChatMessages.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func getChatMessagesHash(with userId: String) async throws -> HashResponse {
+        let parameters = ["withUserId": userId]
+        let url = baseURL + APIRequestURLs.getChatMessagesHash.rawValue
+        let response: HashResponse = try await service.httpRequest(url: url, method: APIRequestURLs.getChatMessagesHash.getHTTPMethod(), parameters: parameters)
         if !response.success, response.message == "APIKEY_INVALID" {
             throw CMError.invalidApiKey
         } else if !response.success {

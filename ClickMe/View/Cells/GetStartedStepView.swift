@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GetStartedStepView: View {
-    @State var step: GetStartedSteps
+    var step: GetStartedSteps
     
     private let screenWidth = UIScreen.main.bounds.size.width
     
