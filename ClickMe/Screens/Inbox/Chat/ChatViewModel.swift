@@ -34,7 +34,7 @@ final class ChatViewModel: ObservableObject {
     
     func fetchMessages() {
         Task {
-            isLoading = true
+            messages.isEmpty ? isLoading = true : nil
             let response = try? await ClickAPI.shared.getChatMessages(with: talkingTo.userId)
             if let messages = response?.data?.messages {
                 self.messages = messages

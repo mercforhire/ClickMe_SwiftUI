@@ -133,9 +133,7 @@ final class AgoraManager: NSObject, ObservableObject {
             return
         }
         
-        return await withCheckedContinuation { [weak self] continuation in
-            guard let self else { return }
-            
+        return await withCheckedContinuation { continuation in
             // start joining channel
             // 1. Users can only see each other after they join the
             // same channel successfully using the same app id.
@@ -193,9 +191,7 @@ final class AgoraManager: NSObject, ObservableObject {
     func leaveChannel() async -> Void {
         guard inInACall else { return }
         
-        return await withCheckedContinuation { [weak self] continuation in
-            guard let self else { return }
-            
+        return await withCheckedContinuation { continuation in
             self.agoraKit.leaveChannel { stats in
                 print("AgoraManager leaveChannel:\(stats)")
                 self.inInACall = false

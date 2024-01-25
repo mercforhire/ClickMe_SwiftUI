@@ -23,7 +23,8 @@ struct HostStatusView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(Color(.systemYellow))
-                        .padding(.all, 20)
+                        .padding(.top, 20)
+                        .padding(.horizontal, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack(alignment: .center, spacing: 30) {
@@ -72,6 +73,7 @@ struct HostStatusView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     }
                     .padding(.all, 20)
+                    .frame(height: 200)
                     .frame(maxWidth: .infinity, alignment: .center)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -85,7 +87,8 @@ struct HostStatusView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(Color(.systemYellow))
-                        .padding(.all, 20)
+                        .padding(.top, 20)
+                        .padding(.horizontal, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack(alignment: .center, spacing: 30) {
@@ -101,7 +104,7 @@ struct HostStatusView: View {
                                 .foregroundColor(.secondary)
                         }
                         .padding(.all, 5)
-                        .frame(width: 140, height: 200)
+                        .frame(width: 140, height: 150)
                         .background(Color(.systemBackground))
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                         .onTapGesture {
@@ -120,7 +123,7 @@ struct HostStatusView: View {
                                 .foregroundColor(.secondary)
                         }
                         .padding(.all, 5)
-                        .frame(width: 120, height: 200)
+                        .frame(width: 120, height: 150)
                         .background(Color(.systemBackground))
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                     }

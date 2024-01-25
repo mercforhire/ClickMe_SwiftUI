@@ -209,6 +209,7 @@
 		728499FC2B46C06D00C2826B /* UpdateProfileParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499FB2B46C06C00C2826B /* UpdateProfileParams.swift */; };
 		728499FE2B46C2AE00C2826B /* UpdateUserProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */; };
 		729FDABB2B61AB4B007A0D7B /* HashResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729FDABA2B61AB4B007A0D7B /* HashResponse.swift */; };
+		729FDABD2B61DA0F007A0D7B /* AppRootManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729FDABC2B61DA0F007A0D7B /* AppRootManager.swift */; };
 		72AD85192B59819000EBE632 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD85182B59819000EBE632 /* WalletView.swift */; };
 		72AD851B2B5981BD00EBE632 /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD851A2B5981BD00EBE632 /* WalletViewModel.swift */; };
 		72AD851D2B59ED8700EBE632 /* ConnectAccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD851C2B59ED8700EBE632 /* ConnectAccountResponse.swift */; };
@@ -447,6 +448,7 @@
 		728499FB2B46C06C00C2826B /* UpdateProfileParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateProfileParams.swift; sourceTree = "<group>"; };
 		728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileResponse.swift; sourceTree = "<group>"; };
 		729FDABA2B61AB4B007A0D7B /* HashResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashResponse.swift; sourceTree = "<group>"; };
+		729FDABC2B61DA0F007A0D7B /* AppRootManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootManager.swift; sourceTree = "<group>"; };
 		72AD85182B59819000EBE632 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
 		72AD851A2B5981BD00EBE632 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
 		72AD851C2B59ED8700EBE632 /* ConnectAccountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectAccountResponse.swift; sourceTree = "<group>"; };
@@ -885,6 +887,7 @@
 			children = (
 				725586232B44EF5E005A37B9 /* UserManager.swift */,
 				721D0D352B51CC0D00095A97 /* AgoraManager.swift */,
+				729FDABC2B61DA0F007A0D7B /* AppRootManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1507,6 +1510,7 @@
 				72774C2C2B47C43C00C5A248 /* ExploreFilterViewModel.swift in Sources */,
 				720B60762B4D1B8700CF716E /* ReceiptStatus.swift in Sources */,
 				720B60462B49DF3400CF716E /* Conversation.swift in Sources */,
+				729FDABD2B61DA0F007A0D7B /* AppRootManager.swift in Sources */,
 				72064F382B471C6500BB9ECC /* ExploreUsersParams.swift in Sources */,
 				72774C4E2B48F6F800C5A248 /* InboxView.swift in Sources */,
 				721905152B5041B6000516CA /* HostCalenderView.swift in Sources */,

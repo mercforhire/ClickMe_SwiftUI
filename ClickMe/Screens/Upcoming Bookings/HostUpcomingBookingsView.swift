@@ -113,9 +113,9 @@ struct HostUpcomingBookingsView: View {
                     fatalError()
                 }
             }
-        }
-        .onAppear() {
-            viewModel.fetchRequests()
+            .onAppear() {
+                viewModel.fetchRequests()
+            }
         }
     }
 }

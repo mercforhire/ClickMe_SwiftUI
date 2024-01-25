@@ -49,6 +49,16 @@ final class SelectTimeViewModel: ObservableObject {
     }
     
     func checkBookingAvailability() {
+        if endTime < startTime {
+            availabilityError = "Invalid start and finish time"
+            return
+        }
+        
+        if endTime < startTime.getPastOrFutureDate(minute: 30) {
+            availabilityError = "Timeslot must be at least 30 minutes long."
+            return
+        }
+        
         let params = RequestBookingParams(topicId: topic.id, startTime: startTime, endTime: endTime)
             
         isLoading = true

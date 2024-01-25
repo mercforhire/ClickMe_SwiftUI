@@ -103,7 +103,6 @@ final class EditTopicViewModel: ObservableObject {
                 if response.success {
                     submissionError = nil
                     submissionComplete = true
-                    NotificationCenter.default.post(name: Notifications.RefreshMyTopics, object: nil, userInfo: nil)
                 }
             } catch {
                 submissionError = "Unknown error"
@@ -132,7 +131,6 @@ final class EditTopicViewModel: ObservableObject {
                 if response.success {
                     submissionError = nil
                     submissionComplete = true
-                    NotificationCenter.default.post(name: Notifications.RefreshMyTopics, object: nil, userInfo: nil)
                 }
             } catch {
                 switch error {
@@ -160,7 +158,6 @@ final class EditTopicViewModel: ObservableObject {
                 if response.success {
                     submissionError = nil
                     submissionComplete = true
-                    NotificationCenter.default.post(name: Notifications.RefreshMyTopics, object: nil, userInfo: nil)
                 }
             } catch {
                 switch error {

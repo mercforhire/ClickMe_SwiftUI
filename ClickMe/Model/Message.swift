@@ -53,5 +53,4 @@ struct Message: Codable, Identifiable, Hashable {
     static func == (lhs: Message, rhs: Message) -> Bool {
         lhs._id == rhs._id
     }
-    
 }

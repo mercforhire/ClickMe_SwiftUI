@@ -29,7 +29,7 @@ struct MyBookingsView: View {
                 }
                 if viewModel.requests.isEmpty {
                     CMEmptyView(imageName: "empty", message: "No booking requests")
-                        .padding(.top, screenHeight * 0.2)
+                        .padding(.top, screenHeight * 0.1)
                         .listRowSeparator(.hidden)
                 }
             }
@@ -60,9 +60,9 @@ struct MyBookingsView: View {
                     fatalError()
                 }
             }
-        }
-        .onAppear() {
-            viewModel.fetchRequests()
+            .onAppear() {
+                viewModel.fetchRequests()
+            }
         }
     }
 }

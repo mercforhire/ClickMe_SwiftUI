@@ -21,7 +21,7 @@ struct ExploreTopicsView: View {
     private var moodCellWidth: CGFloat {
         return (screenWidth - padding * 5) / 2
     }
-    private let gridColumns: [GridItem] = [GridItem(.flexible()), GridItem(.flexible())]
+    private let gridColumns: [GridItem] = [GridItem(.flexible())]
     
     init(openTopic: Binding<Topic?>) {
         self._openTopic = openTopic
@@ -41,10 +41,8 @@ struct ExploreTopicsView: View {
                                 .onTapGesture {
                                     viewModel.handleMoodClicked(mood: mood)
                                 }
-                                .id("\(mood.id)_\(viewModel.mood == mood ? "selected" : "")")
                             }
                         }
-                        .frame(height: 150)
                     }
                     
                     if viewModel.topics.isEmpty {

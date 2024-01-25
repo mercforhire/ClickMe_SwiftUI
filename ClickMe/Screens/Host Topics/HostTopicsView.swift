@@ -58,17 +58,14 @@ struct HostTopicsView: View {
                     fatalError()
                 }
             }
+            .onAppear() {
+                viewModel.fetchTopics()
+            }
         }
-        .onAppear() {
-            viewModel.fetchTopics()
-        }
-        .onReceive(NotificationCenter.default.publisher(for: Notifications.RefreshMyTopics), perform: { _ in
-            viewModel.fetchTopics()
-        })
     }
 }
 
 #Preview {
-    ClickAPI.shared.apiKey = MockData.mockUser2().apiKey
-    return HostTopicsView(myProfile: MockData.mockProfile2())
+    ClickAPI.shared.apiKey = MockData.mockUser().apiKey
+    return HostTopicsView(myProfile: MockData.mockProfile())
 }

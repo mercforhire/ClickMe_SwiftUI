@@ -10,6 +10,7 @@ import SwiftUI
 struct PastHostingsView: View {
     @StateObject var viewModel: PastHostingsViewModel
     @Binding private var navigationPath: [ScreenNames]
+    private let screenHeight = UIScreen.main.bounds.size.height
     
     init(myProfile: UserProfile, navigationPath: Binding<[ScreenNames]>) {
         _viewModel = StateObject(wrappedValue: PastHostingsViewModel(myProfile: myProfile))
@@ -18,21 +19,25 @@ struct PastHostingsView: View {
     
     var body: some View {
         ZStack {
-            List(viewModel.requests, id: \.self) { request in
-                BookingRequestView(request: request)
-                    .frame(height: 300)
-                    .listRowSeparator(.hidden)
-                    .onTapGesture {
-                        navigationPath.append(.hostRequestOverview(request))
-                    }
+            List {
+                ForEach(viewModel.requests, id: \.self) { request in
+                    BookingRequestView(request: request)
+                        .frame(height: 300)
+                        .listRowSeparator(.hidden)
+                        .onTapGesture {
+                            navigationPath.append(.hostRequestOverview(request))
+                        }
+                }
+                
+                if viewModel.requests.isEmpty {
+                    CMEmptyView(imageName: "empty", message: "No past hostings")
+                        .padding(.top, screenHeight * 0.1)
+                        .listRowSeparator(.hidden)
+                }
             }
             .listStyle(.plain)
             .refreshable {
                 viewModel.fetchRequests()
-            }
-            
-            if viewModel.requests.isEmpty {
-                CMEmptyView(imageName: "empty", message: "No past hostings")
             }
             
             if viewModel.isLoading {
@@ -47,7 +52,9 @@ struct PastHostingsView: View {
 }
 
 #Preview {
-    ClickAPI.shared.apiKey = "00bdda2d44401b66b309bec2ec3d7e4ae6b975b2824fd4f814f11023369886cb83e005e5a1fc97b783bd4110e948bd345053c364b50a84cc48245d4d0de380a8"
-    return PastHostingsView(myProfile: MockData.mockProfile2(),
-                            navigationPath: .constant([.hostPastBookings]))
+    ClickAPI.shared.apiKey = MockData.mockUser().apiKey
+    return NavigationView {
+        PastHostingsView(myProfile: MockData.mockProfile(),
+                         navigationPath: .constant([.hostPastBookings]))
+    }
 }

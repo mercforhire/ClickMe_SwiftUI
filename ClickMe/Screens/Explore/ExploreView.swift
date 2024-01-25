@@ -74,9 +74,6 @@ struct ExploreView: View {
                                 isShowingProfile: $viewModel.isShowingProfile,
                                 loadTopics: true)
             }
-            .onAppear() {
-                fetchUsers(forceRefresh: false)
-            }
             .onChange(of: viewModel.searchText) { searchText in
                 viewModel.searchUsers()
             }
@@ -88,6 +85,9 @@ struct ExploreView: View {
         }
         .if(viewModel.searchIsActive) { navigationView in
             navigationView.searchable(text: $viewModel.searchText)
+        }
+        .onAppear() {
+            fetchUsers(forceRefresh: false)
         }
     }
     
