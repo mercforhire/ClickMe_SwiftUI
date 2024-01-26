@@ -37,8 +37,10 @@ final class InboxViewModel: ObservableObject {
         Task {
             let response = try? await ClickAPI.shared.getConversationsHash()
             if let hash = response?.data?.hash {
-                self.hash != hash ? self.hash = hash : nil
-                print("getConversationsHash: ", hash)
+                if self.hash != hash {
+                    self.hash = hash
+                    fetchConversations()
+                }
             }
         }
     }

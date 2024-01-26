@@ -275,9 +275,9 @@ struct AccountView: View {
                     fatalError()
                 }
             }
-        }
-        .task {
-            viewModel.refreshData()
+            .onAppear {
+                viewModel.refreshData()
+            }
         }
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
             UserDetailsView(myProfile: viewModel.myProfile,
@@ -285,14 +285,12 @@ struct AccountView: View {
                             isShowingProfile: $viewModel.isShowingProfile,
                             loadTopics: false)
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notifications.RefreshProfile)) { notification in
-            viewModel.refreshData()
-        }
     }
 }
 
 #Preview {
-    AccountView(myUser: MockData.mockUser(), myProfile: MockData.mockProfile())
+    ClickAPI.shared.apiKey = MockData.mockUser().apiKey
+    return AccountView(myUser: MockData.mockUser(), myProfile: MockData.mockProfile())
         .environmentObject({() -> AgoraManager in
             let agora = AgoraManager()
             return agora

@@ -37,24 +37,25 @@ struct ChatView: View {
                     TextField(viewModel.otherPersonBlockedMe ? "Other person blocked you" : "Message...",
                               text: $viewModel.typingMessage,
                               axis: .vertical)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .textInputAutocapitalization(.sentences)
-                        .lineLimit(4)
-                        .keyboardType(.default)
-                        .frame(minHeight: CGFloat(50))
-                        .disabled(viewModel.otherPersonBlockedMe || viewModel.isSending)
+                    .font(.title3)
+                    .fontWeight(.light)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textInputAutocapitalization(.sentences)
+                    .lineLimit(5)
+                    .keyboardType(.default)
+                    .disabled(viewModel.otherPersonBlockedMe || viewModel.isSending)
                     
                     Button {
                         viewModel.sendChatMessage()
                     } label: {
                         Text(viewModel.isSending ? "Sending" : "Send")
+                            .font(.title3)
+                            .fontWeight(.bold)
                             .foregroundStyle(.accent)
                     }
                     .disabled(viewModel.typingMessage.isEmpty || viewModel.isSending || viewModel.otherPersonBlockedMe)
                     .opacity((viewModel.typingMessage.isEmpty || viewModel.isSending) ? 0.5 : 1)
-                    .frame(height: 50)
                 }
-                .frame(minHeight: CGFloat(50))
                 .padding(.horizontal, 20)
                 .padding(.top, -5)
             }
@@ -78,9 +79,6 @@ struct ChatView: View {
         }
         .onDisappear {
             viewModel.stopRefreshTime()
-        }
-        .onChange(of: viewModel.hash) { hash in
-            viewModel.fetchMessages()
         }
     }
 }

@@ -56,6 +56,7 @@ final class AgoraManager: NSObject, ObservableObject {
     @Published var myMicState: MicState?
     @Published var remoteMicState: MicState?
     @Published var agoraError: String?
+    @Published var joiningChannel: Bool = false
     
     private var callingUser: UserProfile?
     private var request: Request?
@@ -122,17 +123,17 @@ final class AgoraManager: NSObject, ObservableObject {
             return
         }
         
-        self.callingUser = callingUser
-        self.request = request
-        self.topic = topic
-        self.token = token
-        self.channelId = request._id
-        
         if inInACall {
             print("AgoraManager: can't join channel, already in a call.")
             return
         }
         
+        self.callingUser = callingUser
+        self.request = request
+        self.topic = topic
+        self.token = token
+        self.channelId = request._id
+        joiningChannel = true
         return await withCheckedContinuation { continuation in
             // start joining channel
             // 1. Users can only see each other after they join the
@@ -146,9 +147,16 @@ final class AgoraManager: NSObject, ObservableObject {
                 self.myConnectionState = .ready
                 self.mySpeakerState = .speaker
                 self.myMicState = .speaking
+                self.joiningChannel = false
                 continuation.resume()
             }
         }
+    }
+    
+    func sendJoinSessionAction() async {
+        guard let request else { return }
+        
+        _ = try? await ClickAPI.shared.sessionAction(requestId: request._id, action: "JOIN")
     }
     
     func mutedMic() {
@@ -193,9 +201,11 @@ final class AgoraManager: NSObject, ObservableObject {
         
         return await withCheckedContinuation { continuation in
             self.agoraKit.leaveChannel { stats in
-                print("AgoraManager leaveChannel:\(stats)")
-                self.inInACall = false
-                continuation.resume()
+                DispatchQueue.main.async {
+                    print("AgoraManager leaveChannel:\(stats)")
+                    self.inInACall = false
+                    continuation.resume()
+                }
             }
         }
     }

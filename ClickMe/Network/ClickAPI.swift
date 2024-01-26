@@ -898,4 +898,18 @@ class ClickAPI {
         }
         return response
     }
+    
+    func sessionAction(requestId: String, action: String) async throws -> DefaultResponse {
+        let parameters = ["requestId": requestId, "action": action]
+        let url = baseURL + APIRequestURLs.sessionAction.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url,
+                                                                      method: APIRequestURLs.sessionAction.getHTTPMethod(),
+                                                                      parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
 }

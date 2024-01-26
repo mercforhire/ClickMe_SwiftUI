@@ -253,9 +253,6 @@ struct BookingStatusView: View {
         .onAppear() {
             viewModel.fetchData()
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notifications.RefreshBookingRequest)) { notification in
-            viewModel.handleRefreshBookingRequest(notification: notification)
-        }
     }
 }
 

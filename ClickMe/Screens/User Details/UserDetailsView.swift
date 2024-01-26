@@ -165,6 +165,7 @@ struct UserDetailsView: View {
         }
         .background(Color(.systemGray6))
         .onAppear() {
+            viewModel.refreshProfile()
             if loadTopics {
                 viewModel.getUserTopics()
             }

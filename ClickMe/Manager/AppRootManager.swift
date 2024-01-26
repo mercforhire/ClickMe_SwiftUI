@@ -18,7 +18,7 @@ enum AppRoots {
 
 @MainActor
 final class AppRootManager: ObservableObject {
-    @AppStorage("startinHostMode") var startinHostMode = false
+    @PublishingAppStorage("startinHostMode") var startinHostMode = false
     @Published var loginInProgress = false
     @Published var callSession: CallSession?
     @Published var currentRoot: AppRoots = .splash
@@ -27,12 +27,15 @@ final class AppRootManager: ObservableObject {
     var user: User {
         return UserManager.shared.user!
     }
+    
     var userProfile: UserProfile {
         return UserManager.shared.profile!
     }
+    
     var toggleGuestHostModeNotification: AnyCancellable?
     var refreshLoginStatusNotification: AnyCancellable?
     var joinACallNotification: AnyCancellable?
+    var cancellables: [AnyCancellable] = []
     
     init() {
         toggleGuestHostModeNotification = NotificationCenter.default
@@ -44,14 +47,20 @@ final class AppRootManager: ObservableObject {
         refreshLoginStatusNotification = NotificationCenter.default
             .publisher(for: Notifications.RefreshLoginStatus)
             .sink { notification in
-                self.handleRefreshLoginStatus()
+                self.handleRefreshLoginStatus(hostMode: self.startinHostMode)
             }
         
-        joinACallNotification  = NotificationCenter.default
+        joinACallNotification = NotificationCenter.default
             .publisher(for: Notifications.JoinACall)
             .sink { notification in
                 self.handleJoinACall(notification: notification)
             }
+        
+        $startinHostMode
+            .publisher
+            .sink { startinHostMode in
+                self.handleRefreshLoginStatus(hostMode: startinHostMode)
+            }.store(in: &cancellables)
     }
     
     deinit {
@@ -60,9 +69,9 @@ final class AppRootManager: ObservableObject {
         joinACallNotification?.cancel()
     }
     
-    func handleRefreshLoginStatus() {
+    func handleRefreshLoginStatus(hostMode: Bool) {
         if UserManager.shared.isLoggedIn() {
-            if startinHostMode {
+            if hostMode {
                 currentRoot = .homeHost
             } else {
                 currentRoot = .homeGuest
@@ -92,7 +101,7 @@ final class AppRootManager: ObservableObject {
                 if let user = loginResponse?.data?.user, let profile = loginResponse?.data?.profile {
                     UserManager.shared.set(user: user, profile: profile)
                     await UserManager.shared.fetchAppKeys()
-                    handleRefreshLoginStatus()
+                    handleRefreshLoginStatus(hostMode: startinHostMode)
                 } else {
                     logOut()
                 }

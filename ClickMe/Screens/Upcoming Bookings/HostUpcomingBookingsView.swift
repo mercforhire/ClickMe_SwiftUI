@@ -75,7 +75,7 @@ struct HostUpcomingBookingsView: View {
                     
                     if viewModel.requests.isEmpty {
                         CMEmptyView(imageName: "empty", message: "No booking requests")
-                            .padding(.top, screenHeight * 0.1)
+                            .padding(.top, screenHeight * 0.05)
                             .listRowSeparator(.hidden)
                     }
                 }

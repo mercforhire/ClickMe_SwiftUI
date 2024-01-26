@@ -77,9 +77,6 @@ struct InboxView: View {
             .onDisappear {
                 viewModel.stopRefreshTime()
             }
-            .onChange(of: viewModel.hash) { hash in
-                viewModel.fetchConversations()
-            }
         }
     }
 }

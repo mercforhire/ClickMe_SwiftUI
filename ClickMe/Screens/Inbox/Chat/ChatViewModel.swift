@@ -48,8 +48,10 @@ final class ChatViewModel: ObservableObject {
         Task {
             let response = try? await ClickAPI.shared.getChatMessagesHash(with: talkingTo.userId)
             if let hash = response?.data?.hash {
-                self.hash != hash ? self.hash = hash : nil
-                print("getChatMessagesHash: ", hash)
+                if self.hash != hash  {
+                    self.hash = hash
+                    fetchMessages()
+                }
             }
         }
     }

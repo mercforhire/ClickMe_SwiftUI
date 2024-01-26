@@ -59,9 +59,6 @@ struct HostTabView: View {
         .fullScreenCover(isPresented: $viewModel.shouldPresentGetStartedView) {
             HostGetStartedView(isShowingGetStarted: $viewModel.shouldPresentGetStartedView)
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat)) { notification in
-            viewModel.handleSwitchToChatNotification(notification: notification)
-        }
     }
 }
 

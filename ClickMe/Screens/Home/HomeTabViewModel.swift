@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 @MainActor
 final class HomeTabViewModel: ObservableObject {
@@ -18,9 +19,25 @@ final class HomeTabViewModel: ObservableObject {
     @Published var talkTo: UserProfile?
     @Published var openTopic: Topic?
     
+    var switchToChatNotification: AnyCancellable?
+    var switchToTopicNotification: AnyCancellable?
+    
     init(myUser: User, myProfile: UserProfile) {
         self.myUser = myUser
         self.myProfile = myProfile
+        
+        switchToChatNotification = NotificationCenter.default
+            .publisher(for: Notifications.SwitchToChat)
+            .sink(receiveValue: handleSwitchToChatNotification)
+        
+        switchToTopicNotification = NotificationCenter.default
+            .publisher(for: Notifications.SwitchToTopic)
+            .sink(receiveValue: handleSwitchToTopicNotification)
+    }
+    
+    deinit {
+        switchToChatNotification?.cancel()
+        switchToTopicNotification?.cancel()
     }
     
     func checkProfileCompletion() {
@@ -29,14 +46,14 @@ final class HomeTabViewModel: ObservableObject {
         }
     }
     
-    func handleSwitchToChatNotification(notification: NotificationCenter.Publisher.Output) {
+    func handleSwitchToChatNotification(_ notification: NotificationCenter.Publisher.Output) {
         if let user = notification.userInfo?["user"] as? UserProfile {
             talkTo = user
             tabSelection = .inbox
         }
     }
     
-    func handleSwitchToTopicNotification(notification: NotificationCenter.Publisher.Output) {
+    func handleSwitchToTopicNotification(_ notification: NotificationCenter.Publisher.Output) {
         if let topic = notification.userInfo?["topic"] as? Topic {
             openTopic = topic
             tabSelection = .topics

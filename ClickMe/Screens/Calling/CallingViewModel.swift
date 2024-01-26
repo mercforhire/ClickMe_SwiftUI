@@ -64,4 +64,8 @@ final class CallingViewModel: ObservableObject {
         refreshTimer?.invalidate()
         refreshTimer = nil
     }
+    
+    func sendLeaveSessionAction() async {
+        try? await ClickAPI.shared.sessionAction(requestId: request._id, action: "LEAVE")
+    }
 }

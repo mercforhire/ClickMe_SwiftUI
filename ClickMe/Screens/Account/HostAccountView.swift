@@ -209,9 +209,9 @@ struct HostAccountView: View {
                     fatalError()
                 }
             }
-        }
-        .task {
-            viewModel.refreshData()
+            .onAppear {
+                viewModel.refreshData()
+            }
         }
         .fullScreenCover(isPresented: $viewModel.isShowingProfile) {
             UserDetailsView(myProfile: viewModel.myProfile,
@@ -219,9 +219,6 @@ struct HostAccountView: View {
                             isShowingProfile: $viewModel.isShowingProfile,
                             loadTopics: false)
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notifications.RefreshProfile), perform: { notification in
-            viewModel.refreshData()
-        })
     }
 }
 

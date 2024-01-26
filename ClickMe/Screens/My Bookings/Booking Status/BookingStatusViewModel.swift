@@ -7,6 +7,7 @@
 
 import Foundation
 import StripePaymentSheet
+import Combine
 
 @MainActor
 final class BookingStatusViewModel: ObservableObject {
@@ -31,9 +32,19 @@ final class BookingStatusViewModel: ObservableObject {
         return request.topic!
     }
     
+    var refreshBookingRequestNotification: AnyCancellable?
+    
     init(myProfile: UserProfile, request: Request) {
         self.myProfile = myProfile
         self.request = request
+        
+        refreshBookingRequestNotification = NotificationCenter.default
+            .publisher(for: Notifications.RefreshBookingRequest)
+            .sink(receiveValue: handleRefreshBookingRequest)
+    }
+    
+    deinit {
+        refreshBookingRequestNotification?.cancel()
     }
     
     func fetchData() {

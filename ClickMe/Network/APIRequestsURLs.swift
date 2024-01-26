@@ -61,7 +61,9 @@ enum APIRequestURLs: String {
     
     case setAvailability = "/api/topics/setAvailability"
     case requestAction = "/api/topics/requestAction"
+    
     case startCallingSession = "/api/calling/startCallingSession"
+    case sessionAction = "/api/calling/sessionAction"
     
     case getReviewsAboutUser = "/api/topics/getReviewsAboutUser"
     case postReview = "/api/topics/postReview"
@@ -204,6 +206,8 @@ enum APIRequestURLs: String {
             return .get
         case .getChatMessagesHash:
             return .get
+        case .sessionAction:
+            return .post
         }
     }
     

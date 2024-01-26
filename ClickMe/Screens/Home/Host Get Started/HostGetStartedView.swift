@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HostGetStartedView: View {
     @Binding var isShowingGetStarted: Bool
-    @AppStorage("hasShownGetStartedScreen") var hasShownGetStartedScreen = false
+    @AppStorage("hasShownGetStartedScreen") var hasShownGetStartedScreen: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {

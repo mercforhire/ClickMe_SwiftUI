@@ -51,6 +51,7 @@ struct ClickMeApp: App {
                                                 request: callSession.request,
                                                 topic: callSession.topic,
                                                 token: callSession.token)
+                        await agora.sendJoinSessionAction()
                         agora.isPresentingCallScreen = true
                     }
                 }
@@ -60,9 +61,6 @@ struct ClickMeApp: App {
                     agora.destroyAgoraEngine()
                 }
             }
-            .onChange(of: appRootManager.startinHostMode) { startinHostMode in
-                appRootManager.handleRefreshLoginStatus()
-            }
             .overlay(alignment: .bottom) {
                 if agora.inInACall {
                     Button(action: {
@@ -71,6 +69,8 @@ struct ClickMeApp: App {
                         CallingButtonView()
                     })
                     .padding([.bottom], 70)
+                } else if agora.joiningChannel {
+                    LoadingView()
                 }
             }
         }

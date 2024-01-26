@@ -59,12 +59,6 @@ struct HomeTabView: View {
             SetupBasicInfoView(myProfile: viewModel.myProfile,
                                shouldPresentSetupProfileFlow: $viewModel.shouldPresentSetupProfileFlow)
         }
-        .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToChat)) { notification in
-            viewModel.handleSwitchToChatNotification(notification: notification)
-        }
-        .onReceive(NotificationCenter.default.publisher(for: Notifications.SwitchToTopic)) { notification in
-            viewModel.handleSwitchToTopicNotification(notification: notification)
-        }
     }
 }
 

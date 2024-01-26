@@ -104,6 +104,7 @@ struct CallingView: View {
                 Button(action: {
                     Task {
                         await agora.leaveChannel()
+                        await viewModel.sendLeaveSessionAction()
                         agora.isPresentingCallScreen = false
                         agora.resetValues()
                     }
