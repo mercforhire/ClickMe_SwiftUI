@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ChatMessageLeftView: View {
     var message: String
+    var topic: Topic? = nil
+    var request: Request? = nil
     var createdDate: Date
     var userProfile: UserProfile
     var showTimeStamp: Bool
@@ -27,13 +29,13 @@ struct ChatMessageLeftView: View {
                         .scaledToFill()
                         .opacity(0.5)
                 }
-                .frame(width: 80, height: 80)
+                .frame(width: 50, height: 50)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             } else {
                 Image("male-l", bundle: nil)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 80, height: 80)
+                    .frame(width: 50, height: 50)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             }
             
@@ -45,6 +47,16 @@ struct ChatMessageLeftView: View {
                     .foregroundColor(.primary)
                     .background(Color(.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
+                
+                if let topic {
+                    TopicView(topic: topic, hideHost: true)
+                }
+                
+                if let request {
+                    Text(request.timeAndDuration)
+                        .font(.subheadline)
+                        .foregroundColor(.accentColor)
+                }
                 
                 if showTimeStamp {
                     Text(Utils.timeAgoSince(createdDate))
@@ -62,10 +74,14 @@ struct ChatMessageLeftView: View {
 #Preview {
     VStack {
         ChatMessageLeftView(message: MockData.mockShortMessage().message ?? "",
+                            topic: MockData.mockTopic(),
+                            request: MockData.mockRequest(),
                             createdDate: MockData.mockShortMessage().createdDate,
                             userProfile: MockData.mockProfile(),
                             showTimeStamp: true)
         ChatMessageLeftView(message: MockData.mockLongMessage().message ?? "",
+                            topic: MockData.mockTopic(),
+                            request: MockData.mockRequest(),
                             createdDate: MockData.mockLongMessage().createdDate,
                             userProfile: MockData.mockProfile(),
                             showTimeStamp: true)

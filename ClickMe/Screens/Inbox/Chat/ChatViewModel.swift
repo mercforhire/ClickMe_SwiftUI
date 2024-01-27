@@ -144,4 +144,8 @@ final class ChatViewModel: ObservableObject {
         refreshTimer?.invalidate()
         refreshTimer = nil
     }
+    
+    func handleOpenTopic(topic: Topic) {
+        NotificationCenter.default.post(name: Notifications.SwitchToTopic, object: nil, userInfo: ["topic": topic])
+    }
 }

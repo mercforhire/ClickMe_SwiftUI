@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TopicView: View {
     var topic: Topic
-    var hideHost = false
+    var hideHost: Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {

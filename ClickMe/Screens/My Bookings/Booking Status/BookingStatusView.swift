@@ -186,7 +186,6 @@ struct BookingStatusView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.all, 10)
                     } else if viewModel.request.status == .FINISHED {
-                        
                         if let review = viewModel.review {
                             VStack(alignment: .center, spacing: 10) {
                                 MyCosmosView(rating: .constant(review.rating),
@@ -210,6 +209,14 @@ struct BookingStatusView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.all, 10)
                     }
+                    
+                    Button {
+                        navigationPath.append(.reportIssues(viewModel.host, viewModel.topic, viewModel.request, viewModel.receipt))
+                    } label: {
+                        CMButton(title: "Report issue", fullWidth: true)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.all, 10)
                 }
                 .background(Color(.systemBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -219,11 +226,6 @@ struct BookingStatusView: View {
             .disabled(viewModel.isShowingCancelModal)
             
             if viewModel.isShowingCancelModal {
-                TextFieldActionView(buttonText: BookingAction.cancel.actionText(),
-                                    isShowingView: $viewModel.isShowingCancelModal) { message in
-                    viewModel.handleCancelAction(message: message)
-                }
-                
                 TextFieldActionView(buttonText: BookingAction.cancel.actionText(),
                                     isShowingView: $viewModel.isShowingCancelModal) { message in
                     viewModel.handleCancelAction(message: message)
@@ -258,7 +260,9 @@ struct BookingStatusView: View {
 
 #Preview {
     ClickAPI.shared.apiKey = MockData.mockUser().apiKey
-    return BookingStatusView(myProfile: MockData.mockProfile(),
-                             request: MockData.mockRequest3(),
-                             navigationPath: .constant([]))
+    return NavigationView {
+        BookingStatusView(myProfile: MockData.mockProfile(),
+                          request: MockData.mockRequest3(),
+                          navigationPath: .constant([]))
+    }
 }

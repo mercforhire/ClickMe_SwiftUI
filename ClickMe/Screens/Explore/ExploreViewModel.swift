@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 @MainActor
 final class ExploreViewModel: ObservableObject {
@@ -20,12 +21,18 @@ final class ExploreViewModel: ObservableObject {
     @Published var isShowingProfile = false
     @Published var selectedProfile: UserProfile?
     
+    private var cancellables: Set<AnyCancellable> = []
+    
     var showUsers: [UserProfile] {
         return searchIsActive ? searchResults : profiles
     }
     
     init(myProfile: UserProfile) {
         self.myProfile = myProfile
+        
+        $searchText.sink { [weak self] searchText in
+            self?.searchUsers()
+        }.store(in: &cancellables)
     }
     
     func fetchUsers(filter: ExploreUsersParams, forceRefresh: Bool) {

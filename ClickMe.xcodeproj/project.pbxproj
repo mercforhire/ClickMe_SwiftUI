@@ -208,6 +208,10 @@
 		728499F92B466B0400C2826B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499F82B466B0400C2826B /* Utils.swift */; };
 		728499FC2B46C06D00C2826B /* UpdateProfileParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499FB2B46C06C00C2826B /* UpdateProfileParams.swift */; };
 		728499FE2B46C2AE00C2826B /* UpdateUserProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */; };
+		729EA5782B64730200D527DA /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729EA5772B64730200D527DA /* Issue.swift */; };
+		729EA57A2B6474CE00D527DA /* IssuesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729EA5792B6474CE00D527DA /* IssuesResponse.swift */; };
+		729EA57D2B647B1100D527DA /* ReportIssueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729EA57C2B647B1100D527DA /* ReportIssueView.swift */; };
+		729EA57F2B647B3700D527DA /* ReportIssueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729EA57E2B647B3700D527DA /* ReportIssueViewModel.swift */; };
 		729FDABB2B61AB4B007A0D7B /* HashResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729FDABA2B61AB4B007A0D7B /* HashResponse.swift */; };
 		729FDABD2B61DA0F007A0D7B /* AppRootManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729FDABC2B61DA0F007A0D7B /* AppRootManager.swift */; };
 		729FDABF2B621824007A0D7B /* PublishingAppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 729FDABE2B621824007A0D7B /* PublishingAppStorage.swift */; };
@@ -448,6 +452,10 @@
 		728499F82B466B0400C2826B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		728499FB2B46C06C00C2826B /* UpdateProfileParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateProfileParams.swift; sourceTree = "<group>"; };
 		728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileResponse.swift; sourceTree = "<group>"; };
+		729EA5772B64730200D527DA /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
+		729EA5792B6474CE00D527DA /* IssuesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuesResponse.swift; sourceTree = "<group>"; };
+		729EA57C2B647B1100D527DA /* ReportIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIssueView.swift; sourceTree = "<group>"; };
+		729EA57E2B647B3700D527DA /* ReportIssueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIssueViewModel.swift; sourceTree = "<group>"; };
 		729FDABA2B61AB4B007A0D7B /* HashResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashResponse.swift; sourceTree = "<group>"; };
 		729FDABC2B61DA0F007A0D7B /* AppRootManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootManager.swift; sourceTree = "<group>"; };
 		729FDABE2B621824007A0D7B /* PublishingAppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishingAppStorage.swift; sourceTree = "<group>"; };
@@ -558,6 +566,7 @@
 			children = (
 				72064F302B46ECBF00BB9ECC /* MyBookingsView.swift */,
 				720B60602B4B033400CF716E /* MyBookingsViewModel.swift */,
+				729EA57B2B647B0000D527DA /* Report Issue */,
 				721D0D3C2B51DA8900095A97 /* Write review */,
 				720B60772B4D1C0100CF716E /* My past bookings */,
 				720B606C2B4C6C7B00CF716E /* Booking Status */,
@@ -859,6 +868,7 @@
 				72AD851C2B59ED8700EBE632 /* ConnectAccountResponse.swift */,
 				72AD85222B5A285200EBE632 /* OnboardingLinkResponse.swift */,
 				72AD85242B5A47D700EBE632 /* ReceiptsResponse.swift */,
+				729EA5792B6474CE00D527DA /* IssuesResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -947,6 +957,7 @@
 				720B605C2B4ADAE700CF716E /* MockData.swift */,
 				720B60622B4B19F100CF716E /* Notifications.swift */,
 				721905442B518232000516CA /* CallSession.swift */,
+				729EA5772B64730200D527DA /* Issue.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1207,6 +1218,15 @@
 				721D0D532B53328300095A97 /* EditTopicParams.swift */,
 			);
 			path = Params;
+			sourceTree = "<group>";
+		};
+		729EA57B2B647B0000D527DA /* Report Issue */ = {
+			isa = PBXGroup;
+			children = (
+				729EA57C2B647B1100D527DA /* ReportIssueView.swift */,
+				729EA57E2B647B3700D527DA /* ReportIssueViewModel.swift */,
+			);
+			path = "Report Issue";
 			sourceTree = "<group>";
 		};
 		72AD85172B58EFCA00EBE632 /* Wallet */ = {
@@ -1486,6 +1506,7 @@
 				720087C72B4EFC770020633F /* Timeslot.swift in Sources */,
 				7255862E2B45261D005A37B9 /* Country.swift in Sources */,
 				728499F42B463CB500C2826B /* HomeTabViewModel.swift in Sources */,
+				729EA57F2B647B3700D527DA /* ReportIssueViewModel.swift in Sources */,
 				720B60592B4AC63D00CF716E /* ChatView.swift in Sources */,
 				72774C302B47D42B00C5A248 /* SearchUsersParams.swift in Sources */,
 				7219050B2B500C79000516CA /* BookingRequestedView.swift in Sources */,
@@ -1620,6 +1641,7 @@
 				722C59D52B43EF0F00EBA081 /* NetworkService.swift in Sources */,
 				721D0D6B2B54AA6000095A97 /* CallingButtonView.swift in Sources */,
 				721D0D622B546F2700095A97 /* ReviewCell.swift in Sources */,
+				729EA57D2B647B1100D527DA /* ReportIssueView.swift in Sources */,
 				7237A59A2B438E1C00ABF10F /* GetStartedStepView.swift in Sources */,
 				724C954F2B494C4500AD2CFC /* ExploreTopicsViewModel.swift in Sources */,
 				727BD7502B45519600D4279D /* CMPhotoCellView.swift in Sources */,
@@ -1627,6 +1649,7 @@
 				725586282B44F7E8005A37B9 /* User.swift in Sources */,
 				7237A5902B437BFA00ABF10F /* GetStartedViewModel.swift in Sources */,
 				721D0D542B53328300095A97 /* EditTopicParams.swift in Sources */,
+				729EA57A2B6474CE00D527DA /* IssuesResponse.swift in Sources */,
 				728499EF2B4587EE00C2826B /* ProfilePhotosGridView.swift in Sources */,
 				72774C452B48351900C5A248 /* CMXButton.swift in Sources */,
 				7225B44B2B5DEA8B00B51CA0 /* SafariView.swift in Sources */,
@@ -1637,6 +1660,7 @@
 				72064F2B2B46EC2C00BB9ECC /* ExploreView.swift in Sources */,
 				720B604E2B4A5F6000CF716E /* Attachment.swift in Sources */,
 				7237A58A2B42E53900ABF10F /* GetStartedSteps.swift in Sources */,
+				729EA5782B64730200D527DA /* Issue.swift in Sources */,
 				721905252B50698D000516CA /* HostRequestView.swift in Sources */,
 				720B60722B4C7E2500CF716E /* Receipt.swift in Sources */,
 				721D0D5B2B54610100095A97 /* GetHostStatisticsResponse.swift in Sources */,

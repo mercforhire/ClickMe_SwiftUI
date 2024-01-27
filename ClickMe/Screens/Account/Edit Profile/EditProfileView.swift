@@ -142,7 +142,6 @@ struct EditProfileView: View {
                         viewModel.handleSaveAction()
                     }
                 }
-                
             }
             .onChange(of: viewModel.updateProfileFinished) { updateProfileFinished in
                 if updateProfileFinished {

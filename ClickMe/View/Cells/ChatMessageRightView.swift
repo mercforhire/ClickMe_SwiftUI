@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ChatMessageRightView: View {
     var message: String
+    var topic: Topic? = nil
+    var request: Request? = nil
     var createdDate: Date
     var userProfile: UserProfile
     var showTimeStamp: Bool
@@ -23,6 +25,16 @@ struct ChatMessageRightView: View {
                     .foregroundColor(.white)
                     .background(.accent)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
+                
+                if let topic {
+                    TopicView(topic: topic, hideHost: true)
+                }
+                
+                if let request {
+                    Text(request.timeAndDuration)
+                        .font(.subheadline)
+                        .foregroundColor(.accentColor)
+                }
                 
                 if showTimeStamp {
                     Text(Utils.timeAgoSince(createdDate))
@@ -44,13 +56,13 @@ struct ChatMessageRightView: View {
                         .scaledToFill()
                         .opacity(0.5)
                 }
-                .frame(width: 80, height: 80)
+                .frame(width: 50, height: 50)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             } else {
                 Image("male-l", bundle: nil)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 80, height: 80)
+                    .frame(width: 50, height: 50)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
             }
         }
@@ -61,10 +73,14 @@ struct ChatMessageRightView: View {
 #Preview {
     VStack {
         ChatMessageRightView(message: MockData.mockShortMessage().message ?? "",
+                             topic: MockData.mockTopic(),
+                             request: MockData.mockRequest(),
                              createdDate: MockData.mockShortMessage().createdDate,
                              userProfile: MockData.mockProfile(),
                              showTimeStamp: true)
         ChatMessageRightView(message: MockData.mockLongMessage().message ?? "", 
+                             topic: MockData.mockTopic(),
+                             request: MockData.mockRequest(),
                              createdDate: MockData.mockLongMessage().createdDate,
                              userProfile: MockData.mockProfile(),
                              showTimeStamp: true)

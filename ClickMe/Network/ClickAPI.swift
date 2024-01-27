@@ -912,4 +912,32 @@ class ClickAPI {
         }
         return response
     }
+    
+    func getIssueReports(requestId: String) async throws -> IssuesResponse {
+        let parameters = ["requestId": requestId]
+        let url = baseURL + APIRequestURLs.getIssueReports.rawValue
+        let response: IssuesResponse = try await service.httpRequest(url: url,
+                                                                     method: APIRequestURLs.getIssueReports.getHTTPMethod(),
+                                                                     parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
+    func createIssue(requestId: String, issueDetail: String) async throws -> DefaultResponse {
+        let parameters = ["requestId": requestId, "issueDetail": issueDetail]
+        let url = baseURL + APIRequestURLs.createIssue.rawValue
+        let response: DefaultResponse = try await service.httpRequest(url: url,
+                                                                      method: APIRequestURLs.createIssue.getHTTPMethod(),
+                                                                      parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
 }

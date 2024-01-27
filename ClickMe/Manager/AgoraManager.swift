@@ -46,7 +46,6 @@ enum MicState {
     }
 }
 
-@MainActor
 final class AgoraManager: NSObject, ObservableObject {
     @Published var isPresentingCallScreen: Bool = false
     @Published var inInACall: Bool = false
@@ -56,6 +55,8 @@ final class AgoraManager: NSObject, ObservableObject {
     @Published var myMicState: MicState?
     @Published var remoteMicState: MicState?
     @Published var agoraError: String?
+    
+    @Published var initializing: Bool = false
     @Published var joiningChannel: Bool = false
     
     private var callingUser: UserProfile?
@@ -88,30 +89,39 @@ final class AgoraManager: NSObject, ObservableObject {
         }
     }
     
-    func initializeAgora(appId: String) {
+    func initializeAgora(appId: String) async {
         guard agoraKit == nil else { return }
         
-        // initialize Agora Engine
-        agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: appId, delegate: self)
+        DispatchQueue.main.async { [weak self] in
+            self?.initializing = true
+        }
+       
+        return await withCheckedContinuation { [weak self] continuation in
+            guard let self else { return }
             
-        agoraKit.setChannelProfile(.communication)
-        agoraKit.setClientRole(.broadcaster)
-        
-        // disable video module
-        agoraKit.disableVideo()
-        
-        // set audio profile/audio scenario
-        agoraKit.setAudioProfile(.speechStandard)
-        
-        // Set audio route to speaker
-        agoraKit.setDefaultAudioRouteToSpeakerphone(true)
-        
-        // enable volume indicator
-        agoraKit.enableAudioVolumeIndication(200, smooth: 3, reportVad: false)
-        
-        agoraKit.setEnableSpeakerphone(true)
-        
-        print("AgoraManager: agoraKit initialized.")
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                guard let self else { return }
+                
+                self.agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: appId, delegate: self)
+                self.agoraKit.setChannelProfile(.communication)
+                self.agoraKit.setClientRole(.broadcaster)
+                // disable video module
+                self.agoraKit.disableVideo()
+                // set audio profile/audio scenario
+                self.agoraKit.setAudioProfile(.speechStandard)
+                // Set audio route to speaker
+                self.agoraKit.setDefaultAudioRouteToSpeakerphone(true)
+                // enable volume indicator
+                self.agoraKit.enableAudioVolumeIndication(200, smooth: 3, reportVad: false)
+                self.agoraKit.setEnableSpeakerphone(true)
+                
+                print("AgoraManager: agoraKit initialized.")
+                DispatchQueue.main.async {
+                    self.initializing = false
+                    continuation.resume()
+                }
+            }
+        }
     }
     
     func joinChannel(callingUser: UserProfile,
@@ -133,22 +143,33 @@ final class AgoraManager: NSObject, ObservableObject {
         self.topic = topic
         self.token = token
         self.channelId = request._id
-        joiningChannel = true
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.joiningChannel = true
+        }
+        
         return await withCheckedContinuation { continuation in
-            // start joining channel
-            // 1. Users can only see each other after they join the
-            // same channel successfully using the same app id.
-            // 2. If app certificate is turned on at dashboard, token is needed
-            // when joining channel. The channel name and uid used to calculate
-            // the token has to match the ones used for channel join
-            self.agoraKit.joinChannel(byToken: token, channelId: request._id, info: nil, uid: 0) { sid, uid, elapsed in
-                print("AgoraManager: joinChannel: \(sid), \(uid), \(elapsed)")
-                self.inInACall = true
-                self.myConnectionState = .ready
-                self.mySpeakerState = .speaker
-                self.myMicState = .speaking
-                self.joiningChannel = false
-                continuation.resume()
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                guard let self else { return }
+                
+                // start joining channel
+                // 1. Users can only see each other after they join the
+                // same channel successfully using the same app id.
+                // 2. If app certificate is turned on at dashboard, token is needed
+                // when joining channel. The channel name and uid used to calculate
+                // the token has to match the ones used for channel join
+                self.agoraKit.joinChannel(byToken: token, channelId: request._id, info: nil, uid: 0) { sid, uid, elapsed in
+                    DispatchQueue.main.async {
+                        print("AgoraManager: joinChannel: \(sid), \(uid), \(elapsed)")
+                        self.inInACall = true
+                        self.myConnectionState = .ready
+                        self.mySpeakerState = .speaker
+                        self.myMicState = .speaking
+                        self.joiningChannel = false
+                        continuation.resume()
+                    }
+                }
+                
             }
         }
     }

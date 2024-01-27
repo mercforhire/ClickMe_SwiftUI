@@ -11,32 +11,30 @@ struct TopicSimpleView: View {
     var topic: Topic
     
     var body: some View {
-        ZStack {
-            VStack(alignment: .leading) {
-                HStack {
-                    Text("\(topic.mood.text())")
-                        .font(.title3)
-                        .fontWeight(.medium)
-                        .foregroundColor(.white)
-                    
-                    Spacer()
-                    
-                    Image(topic.mood.imageName(), bundle: nil)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 50, height: 50)
-                }
-                Text(topic.title)
-                    .font(.title2)
-                    .fontWeight(.medium)
-                    .foregroundColor(.white)
-                    .padding(.bottom, 20)
-                
-                Text(topic.displayablePrice)
+        VStack(alignment: .leading) {
+            HStack {
+                Text("\(topic.mood.text())")
                     .font(.title3)
                     .fontWeight(.medium)
                     .foregroundColor(.white)
+                
+                Spacer()
+                
+                Image(topic.mood.imageName(), bundle: nil)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 50, height: 50)
             }
+            Text(topic.title)
+                .font(.title2)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+                .padding(.bottom, 20)
+            
+            Text(topic.displayablePrice)
+                .font(.title3)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
         }
         .padding(.all, 20)
         .background(Color.accentColor)

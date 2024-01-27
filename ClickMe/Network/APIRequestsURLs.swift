@@ -88,6 +88,9 @@ enum APIRequestURLs: String {
     case postFeedback = "/api/feedback/postFeedback"
     case deleteAccount = "/api/users/deleteAccount"
     
+    case getIssueReports = "/api/issues/getReports"
+    case createIssue = "/api/issues/create"
+    
     func getHTTPMethod() -> HTTPMethod {
         switch self {
         case .getEmailCode:
@@ -207,6 +210,10 @@ enum APIRequestURLs: String {
         case .getChatMessagesHash:
             return .get
         case .sessionAction:
+            return .post
+        case .getIssueReports:
+            return .get
+        case .createIssue:
             return .post
         }
     }

@@ -45,8 +45,8 @@ struct ClickMeApp: App {
             }
             .onChange(of: appRootManager.callSession) { callSession in
                 if let callSession = callSession, let agoraAppId = UserManager.shared.agoraAppId {
-                    agora.initializeAgora(appId: agoraAppId)
-                    Task {
+                    Task { @MainActor in
+                        await agora.initializeAgora(appId: agoraAppId)
                         await agora.joinChannel(callingUser: callSession.callingUser,
                                                 request: callSession.request,
                                                 topic: callSession.topic,
@@ -69,7 +69,7 @@ struct ClickMeApp: App {
                         CallingButtonView()
                     })
                     .padding([.bottom], 70)
-                } else if agora.joiningChannel {
+                } else if agora.joiningChannel || agora.initializing {
                     LoadingView()
                 }
             }

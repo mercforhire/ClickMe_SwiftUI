@@ -38,4 +38,5 @@ enum ScreenNames: Hashable {
     case receiptDetails(Receipt)
     case stripeCustomerSetup
     case stripeConnectSetup
+    case reportIssues(UserProfile, Topic, Request, Receipt?)
 }

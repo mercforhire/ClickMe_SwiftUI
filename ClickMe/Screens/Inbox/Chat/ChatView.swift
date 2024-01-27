@@ -19,15 +19,17 @@ struct ChatView: View {
             VStack {
                 ZStack {
                     ScrollViewReader { (proxy: ScrollViewProxy) in
-                        MessagesListView(messages: viewModel.messages,
+                        MessagesListView(messages: viewModel.messages, 
                                          myProfile: viewModel.myProfile,
                                          talkingTo: viewModel.talkingTo,
                                          scrollToBottom: $viewModel.scrollToBottom,
-                                         scrollViewProxy: proxy) {
+                                         scrollViewProxy: proxy, 
+                                         refreshHandler: {
                             viewModel.fetchMessages()
-                        }
+                        }, openTopicHandler: { topic in
+                            viewModel.handleOpenTopic(topic: topic)
+                        })
                     }
-                    
                     if viewModel.messages.isEmpty {
                         CMEmptyView(imageName: "sad", message: "No messages")
                     }
@@ -57,7 +59,6 @@ struct ChatView: View {
                     .opacity((viewModel.typingMessage.isEmpty || viewModel.isSending) ? 0.5 : 1)
                 }
                 .padding(.horizontal, 20)
-                .padding(.top, -5)
             }
             
             if viewModel.isLoading {
@@ -97,6 +98,7 @@ struct MessagesListView: View {
     @Binding var scrollToBottom: Bool
     var scrollViewProxy: ScrollViewProxy
     var refreshHandler: () -> Void
+    var openTopicHandler: (Topic) -> Void
     
     private var participants: [UserProfile] {
         return [myProfile, talkingTo]
@@ -109,16 +111,30 @@ struct MessagesListView: View {
             
             if message.fromUserId == myProfile.userId {
                 ChatMessageRightView(message: messageString,
+                                     topic: message.attachment?.topic,
+                                     request: message.attachment?.request,
                                      createdDate: message.createdDate,
                                      userProfile: myProfile,
                                      showTimeStamp: showTimeStamp)
                 .listRowSeparator(.hidden)
+                .onTapGesture {
+                    if let topic = message.attachment?.topic {
+                        openTopicHandler(topic)
+                    }
+                }
             } else {
                 ChatMessageLeftView(message: messageString,
+                                    topic: message.attachment?.topic,
+                                    request: message.attachment?.request,
                                     createdDate: message.createdDate,
                                     userProfile: talkingTo,
                                     showTimeStamp: showTimeStamp)
                 .listRowSeparator(.hidden)
+                .onTapGesture {
+                    if let topic = message.attachment?.topic {
+                        openTopicHandler(topic)
+                    }
+                }
             }
         }
         .listStyle(PlainListStyle())

@@ -26,22 +26,22 @@ struct Message: Codable, Identifiable, Hashable {
             switch attachment.action {
             case .BOOKING_ATTEMPT:
                 if let booker = UserProfile.getUser(from: participants, of: request.bookingUserId) {
-                    return "\(booker.firstName ?? "") has made an attempt to book topic: \(topic.title) on \(request.timeAndDuration)"
+                    return "\(booker.firstName ?? "") has made an attempt to book topic:"
                 }
             case .BOOKING_REQUEST:
                 if let booker = UserProfile.getUser(from: participants, of: request.bookingUserId) {
-                    return "\(booker.firstName ?? "") has made a request to book topic: \(topic.title) on \(request.timeAndDuration)"
+                    return "\(booker.firstName ?? "") has made a request to book topic:"
                 }
             case .APPROVED:
                 if let host = UserProfile.getUser(from: participants, of: request.hostUserId) {
-                    return "\(host.firstName ?? "") has approved the request to book topic: \(topic.title) on \(request.timeAndDuration)"
+                    return "\(host.firstName ?? "") has approved the request to book topic:"
                 }
             case .DECLINED:
                 if let host = UserProfile.getUser(from: participants, of: request.hostUserId) {
-                    return "\(host.firstName ?? "") has declined the request to book topic: \(topic.title) on \(request.timeAndDuration)"
+                    return "\(host.firstName ?? "") has declined the request to book topic:"
                 }
             case .CANCEL:
-                return "Booking \(request.timeAndDuration) of topic: \(topic.title) has been cancelled"
+                return "Cancelled booking of topic:"
             case .unknown:
                 break
             }

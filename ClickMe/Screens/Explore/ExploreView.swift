@@ -37,7 +37,7 @@ struct ExploreView: View {
                     CMEmptyView()
                 }
             }
-            .navigationTitle("Explore")
+            .navigationTitle(viewModel.searchIsActive ? "Search" : "Explore")
             .navigationDestination(for: ScreenNames.self) { screenName in
                 switch screenName {
                 case ScreenNames.following:
@@ -73,9 +73,6 @@ struct ExploreView: View {
                                 profile: viewModel.selectedProfile!,
                                 isShowingProfile: $viewModel.isShowingProfile,
                                 loadTopics: true)
-            }
-            .onChange(of: viewModel.searchText) { searchText in
-                viewModel.searchUsers()
             }
             .onChange(of: viewModel.isPresentingFilter) { _ in
                 if !viewModel.isPresentingFilter {
