@@ -52,30 +52,54 @@ struct ReportIssueView: View {
                         .foregroundColor(.primary)
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
-                    
-                    Text(viewModel.request.timeAndDuration)
-                        .font(.body)
-                        .fontWeight(.medium)
-                        .foregroundColor(.secondary)
-                        .padding(.all, 10)
-                    
-                    if let receipt = viewModel.receipt {
-                        Text(receipt.amountDisplayable)
-                            .font(.body)
-                            .fontWeight(.medium)
-                            .foregroundColor(.secondary)
-                            .padding(.horizontal, 10)
+                }
+                
+                if let receipt = viewModel.receipt {
+                    Section("Booking details") {
+                        VStack(alignment: .leading) {
+                            Text(viewModel.request.timeAndDuration)
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Booking date")
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                            
+                            Text(viewModel.request.createdDateDisplayable)
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Confirmation code")
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                                .textSelection(.enabled)
+                            
+                            Text(receipt._id)
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Paid")
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                            
+                            Text(receipt.amountDisplayable)
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                        }
                     }
-                    
-                    Divider()
-                        .frame(height: 5)
-                        .overlay(Color(.systemGray6))
-                    
+                }
+                
+                VStack {
                     if let actionError = viewModel.actionError {
                         CMErrorLabel(actionError)
                             .padding(.horizontal, 10)
                     }
-                    
                     Button {
                         viewModel.isShowingReportIssue = true
                     } label: {
@@ -92,7 +116,6 @@ struct ReportIssueView: View {
                                 .font(.body)
                                 .fontWeight(.regular)
                                 .foregroundColor(.primary)
-                                .lineLimit(4)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                     }
