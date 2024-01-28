@@ -225,6 +225,18 @@ class ClickAPI {
         return response
     }
     
+    func updatePhotos(params: UpdatePhotosParams) async throws -> UpdateUserProfileResponse {
+        let parameters = params.params()
+        let url = baseURL + APIRequestURLs.updatePhotos.rawValue
+        let response: UpdateUserProfileResponse = try await service.httpRequest(url: url, method: APIRequestURLs.updatePhotos.getHTTPMethod(), parameters: parameters)
+        if !response.success, response.message == "APIKEY_INVALID" {
+            throw CMError.invalidApiKey
+        } else if !response.success {
+            throw CMError.unableToComplete
+        }
+        return response
+    }
+    
     func explore(params: ExploreUsersParams) async throws -> ExploreUsersResponse {
         let parameters = params.params()
         let url = baseURL + APIRequestURLs.exploreUsers.rawValue

@@ -21,7 +21,7 @@ final class ExploreFilterViewModel: ObservableObject, Equatable {
     }
     
     var filterButtonImageName: String {
-        return hasFilters ? "gearshape.fill" : "gearshape"
+        return hasFilters ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle"
     }
     
     func resetFields() {

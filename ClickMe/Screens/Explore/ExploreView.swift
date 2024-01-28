@@ -47,12 +47,14 @@ struct ExploreView: View {
                 }
             }
             .toolbar {
-                ToolbarItemGroup(placement: .topBarTrailing) {
-                    Button("", systemImage: "person") {
+                ToolbarItemGroup(placement: .topBarLeading) {
+                    Button("Following") {
                         navigationPath.append(.following)
                     }
                     .tint(Color.accentColor)
-                    
+                }
+                
+                ToolbarItemGroup(placement: .topBarTrailing) {
                     Button("", systemImage: filterViewModel.filterButtonImageName) {
                         viewModel.isPresentingFilter = true
                     }

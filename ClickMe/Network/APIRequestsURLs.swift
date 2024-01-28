@@ -21,6 +21,7 @@ enum APIRequestURLs: String {
     
     case getUserProfile = "/api/users/getUserProfile"
     case updateUserProfile = "/api/users/update"
+    case updatePhotos = "/api/users/updatePhotos"
     
     case exploreUsers = "/api/users/exploreUsers"
     case searchUser = "/api/users/searchUser"
@@ -214,6 +215,8 @@ enum APIRequestURLs: String {
         case .getIssueReports:
             return .get
         case .createIssue:
+            return .post
+        case .updatePhotos:
             return .post
         }
     }

@@ -101,6 +101,10 @@ final class EditProfileViewModel: ObservableObject {
     
     func move(from source: IndexSet, to destination: Int) {
         userPhotos.move(fromOffsets: source, toOffset: destination )
+        
+        Task {
+            await updatePhotos()
+        }
     }
     
     func handleDeletePhoto(at offsets: IndexSet) {
@@ -116,6 +120,10 @@ final class EditProfileViewModel: ObservableObject {
             photosToDelete.append(photo)
         }
         userPhotos.remove(atOffsets: offsets)
+        
+        Task {
+            await updatePhotos()
+        }
     }
     
     func handlePhotoPicker() {
@@ -139,6 +147,10 @@ final class EditProfileViewModel: ObservableObject {
                         if let photo = try await ClickAPI.shared.uploadPhoto(userId: myProfile.userId, photo: originalImage) {
                             userPhotos.append(photo)
                             isPresentingPhotoPicker = false
+                            
+                            Task {
+                                await updatePhotos()
+                            }
                         }
                     } catch {
                         switch error {
@@ -190,6 +202,14 @@ final class EditProfileViewModel: ObservableObject {
             }
         } catch {
             updateProfileError = true
+        }
+    }
+    
+    func updatePhotos() async {
+        let updatePhotosParams = UpdatePhotosParams(userPhotos: userPhotos)
+        let response = try? await ClickAPI.shared.updatePhotos(params: updatePhotosParams)
+        if let profile = response?.data?.profile {
+            UserManager.shared.set(profile: profile)
         }
     }
     
