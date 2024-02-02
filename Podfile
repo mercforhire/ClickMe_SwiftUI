@@ -13,6 +13,7 @@ target 'ClickMe' do
   pod 'AgoraRtcEngine_iOS', '4.2.6'
   pod 'Cosmos'
   pod 'StripePaymentSheet'
+  pod 'GoogleSignInSwiftSupport'
   
   target 'ClickMeTests' do
     inherit! :search_paths

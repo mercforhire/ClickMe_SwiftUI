@@ -454,6 +454,7 @@
 		728499F82B466B0400C2826B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		728499FB2B46C06C00C2826B /* UpdateProfileParams.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateProfileParams.swift; sourceTree = "<group>"; };
 		728499FD2B46C2AE00C2826B /* UpdateUserProfileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileResponse.swift; sourceTree = "<group>"; };
+		728996AC2B683855008791FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		729EA5772B64730200D527DA /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		729EA5792B6474CE00D527DA /* IssuesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuesResponse.swift; sourceTree = "<group>"; };
 		729EA57C2B647B1100D527DA /* ReportIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportIssueView.swift; sourceTree = "<group>"; };
@@ -1096,6 +1097,7 @@
 		725B99EA2B4169220066D240 /* ClickMe */ = {
 			isa = PBXGroup;
 			children = (
+				728996AC2B683855008791FB /* Info.plist */,
 				721D0D692B54892300095A97 /* ClickMe.entitlements */,
 				725B99EB2B4169220066D240 /* ClickMeApp.swift */,
 				728499F72B466AF600C2826B /* Utils */,
@@ -1883,6 +1885,8 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClickMe/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ClickMe;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs microphone access for its user to user communication.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app need to upload photos for user profile.";
@@ -1923,6 +1927,8 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ClickMe/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ClickMe;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This app needs microphone access for its user to user communication.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app need to upload photos for user profile.";

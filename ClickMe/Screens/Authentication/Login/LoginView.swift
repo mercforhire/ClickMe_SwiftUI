@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import GoogleSignIn
+import GoogleSignInSwift
 
 struct LoginView: View {
     @Binding var navigationPath: [ScreenNames]
@@ -58,10 +60,18 @@ struct LoginView: View {
                 Button {
                     viewModel.login()
                 } label: {
-                    CMButton(title: "Login")
+                    CMButton(title: "Login", fullWidth: true)
                 }
                 .disabled(!viewModel.loginButtonEnabled)
-                .padding(.vertical, 40)
+                .padding(.top, 40)
+                .padding(.horizontal, 20)
+                
+                GoogleSignInButton(scheme: .dark, style: .wide) {
+                    
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top, 20)
+                .padding(.horizontal, 20)
                 
                 Spacer()
             }
@@ -78,6 +88,11 @@ struct LoginView: View {
             
             if viewModel.isLoading {
                 LoadingView()
+            }
+        }
+        .onAppear {
+            GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+                // Check if `user` exists; otherwise, do something with `error`
             }
         }
     }

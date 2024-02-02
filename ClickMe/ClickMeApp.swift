@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GoogleSignIn
 
 @main
 struct ClickMeApp: App {
@@ -72,6 +73,9 @@ struct ClickMeApp: App {
                 } else if agora.joiningChannel || agora.initializing {
                     LoadingView()
                 }
+            }
+            .onOpenURL { url in
+                GIDSignIn.sharedInstance.handle(url)
             }
         }
     }

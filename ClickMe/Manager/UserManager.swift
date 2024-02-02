@@ -7,6 +7,7 @@
 
 import Foundation
 import Valet
+import GoogleSignIn
 
 class UserManager {
     static let shared = UserManager()
@@ -20,6 +21,7 @@ class UserManager {
     var agoraAppId: String?
     var stripeRefreshUrl: String?
     var stripeReturnUrl: String?
+    var loggedInUsingGoogle: Bool = false
     
     private var api: ClickAPI {
         return ClickAPI.shared
@@ -63,6 +65,10 @@ class UserManager {
     }
     
     func logout() {
+        if loggedInUsingGoogle {
+            GIDSignIn.sharedInstance.signOut()
+        }
+        
         self.user = nil
         self.profile = nil
         api.apiKey = nil
